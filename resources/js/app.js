@@ -1,3 +1,5 @@
 require('./bootstrap');
 
-require('alpinejs');
+// Apparentemente già caricato da livewire
+// require('alpinejs');
+

@@ -4,7 +4,7 @@
     <a class="nav-link {{ $item['class'] }} @if(isset($item['shift'])) {{ $item['shift'] }} @endif"
        href="" {!! $item['data-compiled'] ?? '' !!}>
 
-        <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{
+        <i class="nav-icon {{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{
             isset($item['icon_color']) ? 'text-'.$item['icon_color'] : ''
         }}"></i>
 

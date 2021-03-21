@@ -1,5 +1,12 @@
 <?php
 
+require __DIR__ . '/../menus/left_sidebar.php';
+require __DIR__ . '/../menus/right_sidebar.php';
+require __DIR__ . '/../menus/top_navbar.php';
+require __DIR__ . '/../menus/top-right_navbar.php';
+
+$menuList = array_merge($leftSidebar, $rightSidebar, $topNavbar, $topRightNavbar);
+
 return [
 
     /*
@@ -66,7 +73,7 @@ return [
 
     'usermenu_enabled' => true,
     'usermenu_header' => true,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header_class' => 'bg-lightblue',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -101,12 +108,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline',
+    'classes_auth_card' => 'card-outline text-sm',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => 'text-center',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-info',
+    'classes_auth_btn' => 'btn-flat btn-lightblue',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,15 +127,15 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
+    'classes_body' => 'text-sm',
+    'classes_brand' => 'navbar-lightblue',
+    'classes_brand_text' => 'text-lg',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_sidebar' => 'sidebar-dark-lightblue elevation-4',
+    'classes_sidebar_nav' => 'nav-legacy nav-child-indent nav-collapse-hide-child',
+    'classes_topnav' => 'navbar-lightblue navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -207,7 +214,7 @@ return [
     |
     */
 
-    'enabled_laravel_mix' => false,
+    'enabled_laravel_mix' => true,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
 
@@ -223,91 +230,7 @@ return [
     |
     */
 
-    'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'topnav_right' => true,
-            // 'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'Home',
-            'url'         => 'home',
-            'icon'        => 'fas fa-fw fa-home',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
-    ],
+    'menu' => $menuList,
 
     /*
     |--------------------------------------------------------------------------
@@ -427,5 +350,5 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/9.-Other-Configuration
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

@@ -14,10 +14,20 @@
         "alpinejs": "^2.7.3",
         "autoprefixer": "^10.1.0",
         "axios": "^0.21",
+        "jquery": "^3.6.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.2.1",
-        "postcss-import": "^12.0.1",
+        "postcss-import": "^14.0.0",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^10.1.1",
         "tailwindcss": "^2.0.2"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "bootstrap": "^4.6.0",
+        "icheck-bootstrap": "^3.0.1",
+        "overlayscrollbars": "^1.13.1"
     }
 }
