@@ -13,7 +13,7 @@ class AddForeignKeysToDestinazioniTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->table('destinazioni', function (Blueprint $table) {
+        Schema::table('destinazioni', function (Blueprint $table) {
             $table->foreign('id_cli_for', 'destinazioni_ibfk_1')->references('id_cli_for')->on('cli_for')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
@@ -25,7 +25,7 @@ class AddForeignKeysToDestinazioniTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->table('destinazioni', function (Blueprint $table) {
+        Schema::table('destinazioni', function (Blueprint $table) {
             $table->dropForeign('destinazioni_ibfk_1');
         });
     }

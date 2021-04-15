@@ -13,7 +13,7 @@ class AddForeignKeysToDocTesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->table('doc_tes', function (Blueprint $table) {
+        Schema::table('doc_tes', function (Blueprint $table) {
             $table->foreign('id_cli_for', 'doc_tes_ibfk_1')->references('id_cli_for')->on('cli_for')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
@@ -25,7 +25,7 @@ class AddForeignKeysToDocTesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->table('doc_tes', function (Blueprint $table) {
+        Schema::table('doc_tes', function (Blueprint $table) {
             $table->dropForeign('doc_tes_ibfk_1');
         });
     }

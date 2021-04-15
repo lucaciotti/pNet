@@ -13,7 +13,7 @@ class AddForeignKeysToOrdRigTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->table('ord_rig', function (Blueprint $table) {
+        Schema::table('ord_rig', function (Blueprint $table) {
             $table->foreign('id_ord_tes', 'ord_rig_ibfk_1')->references('id_ord_tes')->on('ord_tes')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
@@ -25,7 +25,7 @@ class AddForeignKeysToOrdRigTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->table('ord_rig', function (Blueprint $table) {
+        Schema::table('ord_rig', function (Blueprint $table) {
             $table->dropForeign('ord_rig_ibfk_1');
         });
     }

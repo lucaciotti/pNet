@@ -13,7 +13,7 @@ class CreateTipoClientiTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('tipo_clienti', function (Blueprint $table) {
+        Schema::create('tipo_clienti', function (Blueprint $table) {
             $table->tinyInteger('id_tipo_cl')->default(0)->primary();
             $table->string('descr', 30)->default('');
         });
@@ -26,9 +26,9 @@ class CreateTipoClientiTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('tipo_clienti', function (Blueprint $table) {
-            
-            
+        Schema::drop('tipo_clienti', function (Blueprint $table) {
+
+
         });
     }
 }

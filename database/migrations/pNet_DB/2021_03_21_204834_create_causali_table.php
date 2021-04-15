@@ -13,7 +13,7 @@ class CreateCausaliTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('causali', function (Blueprint $table) {
+        Schema::create('causali', function (Blueprint $table) {
             $table->tinyInteger('id_cau')->default(0)->primary();
             $table->string('descr', 24)->default('');
         });
@@ -26,9 +26,9 @@ class CreateCausaliTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('causali', function (Blueprint $table) {
-            
-            
+        Schema::drop('causali', function (Blueprint $table) {
+
+
         });
     }
 }

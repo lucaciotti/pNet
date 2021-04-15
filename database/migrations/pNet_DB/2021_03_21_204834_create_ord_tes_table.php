@@ -13,12 +13,12 @@ class CreateOrdTesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('ord_tes', function (Blueprint $table) {
+        Schema::create('ord_tes', function (Blueprint $table) {
             $table->integer('id_ord_tes')->default(0)->primary();
             $table->string('num', 16)->default('');
             $table->string('rif_num', 16)->default('');
-            $table->date('data');
-            $table->date('data_eva');
+            $table->date('data')->nullable();
+            $table->date('data_eva')->nullable();
             $table->string('id_cli_for', 8)->default('')->index('id_cli_for');
             $table->tinyInteger('id_dest')->default(0);
             $table->string('id_cf_dest', 8)->default('');
@@ -59,42 +59,42 @@ class CreateOrdTesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('ord_tes', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('ord_tes', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

@@ -13,7 +13,7 @@ class CreateDestinazioniTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('destinazioni', function (Blueprint $table) {
+        Schema::create('destinazioni', function (Blueprint $table) {
             $table->string('id_dest', 16)->default('');
             $table->tinyInteger('id_dest_pro')->default(0);
             $table->string('id_cli_for', 8)->default('')->index('id_cli_for');
@@ -40,23 +40,23 @@ class CreateDestinazioniTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('destinazioni', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('destinazioni', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

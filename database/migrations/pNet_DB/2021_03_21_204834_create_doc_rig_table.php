@@ -13,7 +13,7 @@ class CreateDocRigTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('doc_rig', function (Blueprint $table) {
+        Schema::create('doc_rig', function (Blueprint $table) {
             $table->integer('id_doc_rig')->default(0)->primary();
             $table->integer('id_doc_tes')->default(0)->index('id_doc_tes');
             $table->integer('id_mov')->default(0);
@@ -29,7 +29,7 @@ class CreateDocRigTable extends Migration
             $table->tinyInteger('dist_base')->default(0);
             $table->tinyInteger('omaggio')->default(0);
             $table->tinyInteger('elaborato')->default(0);
-            $table->dateTime('data_reg');
+            $table->dateTime('data_reg')->nullable();
             $table->decimal('val_riga', 16)->default(0.00);
             $table->string('id_iva', 8)->default('');
             $table->text('libero')->default('');
@@ -40,7 +40,7 @@ class CreateDocRigTable extends Migration
             $table->string('rifamm', 24)->default('');
             $table->decimal('tot_ivar', 16)->default(0.00);
             $table->string('ddt_num', 16)->default('');
-            $table->date('ddt_data');
+            $table->date('ddt_data')->nullable();
         });
     }
 
@@ -51,34 +51,34 @@ class CreateDocRigTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('doc_rig', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('doc_rig', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

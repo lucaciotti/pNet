@@ -13,7 +13,7 @@ class CreateCodBarTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('cod_bar', function (Blueprint $table) {
+        Schema::create('cod_bar', function (Blueprint $table) {
             $table->integer('id_art')->default(0);
             $table->string('id_cod_bar', 16)->default('')->primary();
         });
@@ -26,9 +26,9 @@ class CreateCodBarTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('cod_bar', function (Blueprint $table) {
-            
-            
+        Schema::drop('cod_bar', function (Blueprint $table) {
+
+
         });
     }
 }

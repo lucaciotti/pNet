@@ -13,11 +13,11 @@ class CreateOrdRigTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('ord_rig', function (Blueprint $table) {
+        Schema::create('ord_rig', function (Blueprint $table) {
             $table->integer('id_ord_tes')->default(0)->index('id_ord_tes');
             $table->integer('id_ord_rig')->default(0)->primary();
             $table->integer('id_art')->default(0);
-            $table->date('data_eva');
+            $table->date('data_eva')->nullable();
             $table->string('descr', 48)->default('');
             $table->string('id_iva', 8)->default('');
             $table->decimal('qta_ord', 16, 3)->default(0.000);
@@ -49,32 +49,32 @@ class CreateOrdRigTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('ord_rig', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('ord_rig', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

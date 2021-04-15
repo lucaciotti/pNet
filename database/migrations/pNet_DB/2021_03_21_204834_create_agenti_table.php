@@ -13,7 +13,7 @@ class CreateAgentiTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('agenti', function (Blueprint $table) {
+        Schema::create('agenti', function (Blueprint $table) {
             $table->string('id_agente', 8)->default('')->primary();
             $table->string('nome', 32)->default('');
             $table->string('indirizzo', 32)->default('');
@@ -42,25 +42,25 @@ class CreateAgentiTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('agenti', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('agenti', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

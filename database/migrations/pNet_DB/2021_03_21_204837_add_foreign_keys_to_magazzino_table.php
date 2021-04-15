@@ -13,7 +13,7 @@ class AddForeignKeysToMagazzinoTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->table('magazzino', function (Blueprint $table) {
+        Schema::table('magazzino', function (Blueprint $table) {
             $table->foreign('id_art', 'magazzino_ibfk_1')->references('id_art')->on('articoli')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
@@ -25,7 +25,7 @@ class AddForeignKeysToMagazzinoTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->table('magazzino', function (Blueprint $table) {
+        Schema::table('magazzino', function (Blueprint $table) {
             $table->dropForeign('magazzino_ibfk_1');
         });
     }

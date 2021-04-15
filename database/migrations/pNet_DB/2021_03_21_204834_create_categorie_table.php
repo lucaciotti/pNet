@@ -13,7 +13,7 @@ class CreateCategorieTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('categorie', function (Blueprint $table) {
+        Schema::create('categorie', function (Blueprint $table) {
             $table->string('id_cat', 8)->default('')->primary();
             $table->string('descr', 30)->default('');
         });
@@ -26,9 +26,9 @@ class CreateCategorieTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('categorie', function (Blueprint $table) {
-            
-            
+        Schema::drop('categorie', function (Blueprint $table) {
+
+
         });
     }
 }

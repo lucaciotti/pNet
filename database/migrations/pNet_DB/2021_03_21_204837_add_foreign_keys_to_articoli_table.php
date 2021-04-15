@@ -13,7 +13,7 @@ class AddForeignKeysToArticoliTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->table('articoli', function (Blueprint $table) {
+        Schema::table('articoli', function (Blueprint $table) {
             $table->foreign('id_cli_for', 'articoli_ibfk_1')->references('id_cli_for')->on('cli_for')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
@@ -25,7 +25,7 @@ class AddForeignKeysToArticoliTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->table('articoli', function (Blueprint $table) {
+        Schema::table('articoli', function (Blueprint $table) {
             $table->dropForeign('articoli_ibfk_1');
         });
     }

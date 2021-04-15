@@ -13,11 +13,11 @@ class CreateDocTesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('doc_tes', function (Blueprint $table) {
+        Schema::create('doc_tes', function (Blueprint $table) {
             $table->integer('id_doc_tes')->default(0)->primary();
             $table->tinyInteger('tipo_doc')->default(0);
             $table->integer('id_tes ??')->default(0);
-            $table->date('data');
+            $table->date('data')->nullable();
             $table->string('num', 16)->default('');
             $table->string('id_cli_for', 8)->default('')->index('id_cli_for');
             $table->tinyInteger('id_mag_des')->default(0);
@@ -34,12 +34,12 @@ class CreateDocTesTable extends Migration
             $table->string('id_porto', 8)->default('');
             $table->tinyInteger('id_asp')->default(0);
             $table->integer('colli')->default(0);
-            $table->dateTime('data_ora_par');
+            $table->dateTime('data_ora_par')->nullable();
             $table->tinyInteger('id_cau_doc')->default(0);
             $table->tinyInteger('stampato')->default(0);
             $table->decimal('tot_imp', 16)->default(0.00);
             $table->decimal('tot_iva', 16)->default(0.00);
-            $table->dateTime('data_reg');
+            $table->dateTime('data_reg')->nullable();
             $table->tinyInteger('fatturato')->default(0);
             $table->tinyInteger('scorp_iva')->default(0);
             $table->tinyInteger('id_vet')->default(0);
@@ -51,7 +51,7 @@ class CreateDocTesTable extends Migration
             $table->tinyInteger('ritenuta')->default(0);
             $table->decimal('tot_rit', 16)->default(0.00);
             $table->decimal('spese_ban', 16)->default(0.00);
-            $table->date('data_div');
+            $table->date('data_div')->nullable();
             $table->decimal('peso', 16, 3)->default(0.000);
             $table->decimal('tot_daris', 16)->default(0.00);
             $table->tinyInteger('arrotond')->default(0);
@@ -79,62 +79,62 @@ class CreateDocTesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('doc_tes', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('doc_tes', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

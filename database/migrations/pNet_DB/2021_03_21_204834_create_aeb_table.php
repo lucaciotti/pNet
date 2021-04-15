@@ -13,7 +13,7 @@ class CreateAebTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('aeb', function (Blueprint $table) {
+        Schema::create('aeb', function (Blueprint $table) {
             $table->tinyInteger('id_aeb')->default(0)->primary();
             $table->string('descr', 30)->default('');
         });
@@ -26,9 +26,9 @@ class CreateAebTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('aeb', function (Blueprint $table) {
-            
-            
+        Schema::drop('aeb', function (Blueprint $table) {
+
+
         });
     }
 }

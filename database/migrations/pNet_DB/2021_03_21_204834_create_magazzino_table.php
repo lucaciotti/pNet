@@ -13,7 +13,7 @@ class CreateMagazzinoTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('magazzino', function (Blueprint $table) {
+        Schema::create('magazzino', function (Blueprint $table) {
             $table->integer('id_mag');
             $table->integer('id_art')->index('id_art');
             $table->double('scorta_min')->nullable();
@@ -35,18 +35,18 @@ class CreateMagazzinoTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('magazzino', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('magazzino', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

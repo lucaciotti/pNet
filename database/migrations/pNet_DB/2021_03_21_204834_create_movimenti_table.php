@@ -13,7 +13,7 @@ class CreateMovimentiTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('movimenti', function (Blueprint $table) {
+        Schema::create('movimenti', function (Blueprint $table) {
             $table->integer('id_mov')->default(0);
             $table->integer('id_tes')->default(0);
             $table->integer('id_art')->default(0);
@@ -26,7 +26,7 @@ class CreateMovimentiTable extends Migration
             $table->tinyInteger('omaggio')->default(0);
             $table->tinyInteger('etichetta')->default(0);
             $table->tinyInteger('elaborato')->default(0);
-            $table->dateTime('data_reg');
+            $table->dateTime('data_reg')->nullable();
             $table->decimal('sc1')->default(0.00);
             $table->decimal('sc2')->default(0.00);
             $table->decimal('sc3')->default(0.00);
@@ -35,7 +35,7 @@ class CreateMovimentiTable extends Migration
             $table->decimal('provv')->default(0.00);
             $table->integer('id_mov1')->default(0);
             $table->integer('id_mov2')->default(0);
-            $table->date('data_scad');
+            $table->date('data_scad')->nullable();
             $table->string('tipo_om', 8)->default('');
             $table->tinyInteger('listino')->default(0);
             $table->decimal('p_acq', 16, 5)->default(0.00000);
@@ -53,36 +53,36 @@ class CreateMovimentiTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('movimenti', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('movimenti', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }

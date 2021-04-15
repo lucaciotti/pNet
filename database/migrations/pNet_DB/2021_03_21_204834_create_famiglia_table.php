@@ -13,7 +13,7 @@ class CreateFamigliaTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('famiglia', function (Blueprint $table) {
+        Schema::create('famiglia', function (Blueprint $table) {
             $table->string('id_fam', 8)->default('')->primary();
             $table->string('descr', 64)->default('');
         });
@@ -26,9 +26,9 @@ class CreateFamigliaTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('famiglia', function (Blueprint $table) {
-            
-            
+        Schema::drop('famiglia', function (Blueprint $table) {
+
+
         });
     }
 }

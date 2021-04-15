@@ -13,7 +13,7 @@ class CreateArticoliTable extends Migration
      */
     public function up()
     {
-        Schema::connection('parideNet')->create('articoli', function (Blueprint $table) {
+        Schema::create('articoli', function (Blueprint $table) {
             $table->integer('id_art')->default(0)->primary();
             $table->string('descr', 48)->default('');
             $table->string('descr_pos', 24)->default('');
@@ -44,7 +44,7 @@ class CreateArticoliTable extends Migration
             $table->string('id_cli_for', 8)->default('')->index('id_cli_for');
             $table->tinyInteger('prz_bloc')->default(0);
             $table->tinyInteger('t_o')->default(0);
-            $table->dateTime('data_reg');
+            $table->dateTime('data_reg')->nullable();
             $table->tinyInteger('non_attivo')->default(0);
             $table->string('id_cat', 8)->default('');
             $table->string('loc_art', 24)->default('');
@@ -91,74 +91,74 @@ class CreateArticoliTable extends Migration
      */
     public function down()
     {
-        Schema::connection('parideNet')->drop('articoli', function (Blueprint $table) {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        Schema::drop('articoli', function (Blueprint $table) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
     }
 }
