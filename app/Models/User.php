@@ -13,15 +13,17 @@ class User extends Authenticatable
     use LaratrustUserTrait;
     use HasFactory, Notifiable;
 
+
+    protected $username = 'nickname';
+
+    protected $connection = 'pNet_SYS';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'nickname', 'email', 'password', 'ditta', 'codag', 'codcli', 'codfor', 'avatar', 'lang'
     ];
 
     /**
@@ -42,4 +44,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = ['role_name'];
+
+    public function getRoleNameAttribute()
+    {
+        return $this->roles()->first()->name;
+    }
 }

@@ -268,7 +268,7 @@ return [
         | Turn this value to false if you don't want to use Laratrust admin panel
         |
         */
-        'register' => false,
+        'register' => true,
 
         /*
         |--------------------------------------------------------------------------
@@ -289,7 +289,7 @@ return [
         | The route where the go back link should point
         |
         */
-        'go_back_route' => '/',
+        'go_back_route' => '/home',
 
         /*
         |--------------------------------------------------------------------------
