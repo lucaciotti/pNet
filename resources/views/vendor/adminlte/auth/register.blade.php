@@ -36,7 +36,7 @@
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" onchange=" updNickName(this) ">
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
@@ -47,6 +47,17 @@
                     <strong>{{ $errors->first('email') }}</strong>
                 </div>
             @endif
+        </div>
+
+        {{-- Nickname field --}}
+        <div class="input-group mb-3">
+            <input id="nickname" type="email" name="nickname" class="form-control"
+                value="{{ old('nickname') }}" placeholder="Nickname Autocomplete..." readonly="readonly">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
         </div>
 
         {{-- Password field --}}
@@ -90,6 +101,13 @@
         </button>
 
     </form>
+
+    <script>
+        function updNickName(obj){
+             $("#nickname").val(obj.value);
+             console.log(obj.value);
+           }
+    </script>
 @stop
 
 @section('auth_footer')

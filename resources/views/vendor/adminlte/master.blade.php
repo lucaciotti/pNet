@@ -35,6 +35,8 @@
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
@@ -103,6 +105,7 @@
 
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
+    {{-- <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script> --}}
 
 </body>
 

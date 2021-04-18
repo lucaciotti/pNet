@@ -18,14 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/db-seed', function () {
-    $output = '';
-    Artisan::call('db:seed', array('--database' => 'pNet_DATA'), $output);
-    $output .= Artisan::output();
-
-    return dd($output);
-});
-
 require __DIR__.'/auth.php';
 
 // Auth::routes();

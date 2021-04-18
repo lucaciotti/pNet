@@ -5,7 +5,7 @@
 @if($layoutHelper->isLayoutTopnavEnabled())
     @php( $def_container_class = 'container' )
 @else
-    @php( $def_container_class = 'container-fluid' )
+    @php( $def_container_class = 'container-lg' )
 @endif
 
 @section('adminlte_css')

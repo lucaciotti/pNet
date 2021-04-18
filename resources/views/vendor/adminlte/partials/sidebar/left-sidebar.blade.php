@@ -11,10 +11,12 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="http://pnet.test/vendor/adminlte/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('/assets/img/avatar_default.jpg') }}"
+                    alt="User Image" 
+                    class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{ RedisUser::get('name') }}</a>
             </div>
         </div>
         <nav class="mt-2">

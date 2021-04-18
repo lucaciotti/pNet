@@ -1,7 +1,7 @@
 <div id='productSearchBar' class="relative">
     <div class="form-outline">
         <div class="input-group">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"
+            <input class="form-control form-control-navbar" type="search" placeholder="Search Product" aria-label="Search"
             wire:model="searchStr"
             wire:keydown.escape="resetFilters"
             wire:keydown.tab="resetFilters"

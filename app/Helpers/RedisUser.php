@@ -16,6 +16,7 @@ class RedisUser
         $user = Auth::user();
         $ditta = 'pNet_DB';
         $settings = [
+            'name' => (string)$user->name,
             'ditta_DB' => $ditta,
             'location' => 'it',
             'role' => $user->roles()->first()->name,

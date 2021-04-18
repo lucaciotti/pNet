@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('adminlte::auth.passwords.email')
+
+{{-- <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -33,4 +35,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout> --}}

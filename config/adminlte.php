@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'title' => 'parideNet',
+    'title' => 'pNet',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -53,10 +53,10 @@ return [
     */
 
     'logo' => '<b>p</b>Net',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'assets/img/logo_ristretto.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_xl' => null, //'assets/img/logo_esteso.png',
+    'logo_img_xl_class' => 'brand-image',
     'logo_img_alt' => 'pNet',
 
     /*
@@ -198,8 +198,8 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'password_reset_url' => 'forgot-password',
+    'password_email_url' => 'forgot-email',
     'profile_url' => false,
 
     /*

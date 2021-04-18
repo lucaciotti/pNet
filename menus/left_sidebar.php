@@ -5,72 +5,70 @@ $leftSidebar = [
         'text'        => 'Home',
         'url'         => 'home',
         'icon'        => 'fas fa-fw fa-home',
-        'label'       => 4,
-        'label_color' => 'success',
-    ],
-    ['header' => 'account_settings'],
-    [
-        'text' => 'profile',
-        'url'  => 'admin/settings',
-        'icon' => 'far fa-fw fa-user',
+        // 'label'       => 4,
+        // 'label_color' => 'success',
     ],
     [
-        'text' => 'change_password',
-        'url'  => 'admin/settings',
-        'icon' => 'fas fa-fw fa-lock',
+        'header' => 'main_header',
+        'classes'  => 'text-bold text-center',
     ],
     [
-        'text'    => 'multilevel',
-        'icon'    => 'fas fa-fw fa-share',
+        'text' => 'listClients',
+        'url'  => '#',
+        // 'route'  => 'client::list',
+        'icon' => 'fa fa-users',
+    ],
+    [
+        'text'    => 'documents',
+        'icon'    => 'fas fa-copy',
         'submenu' => [
             [
-                'text' => 'level_one',
+                'text' => 'quotes',
                 'url'  => '#',
+                'icon' => 'fa fa-clipboard-list',
+                // 'route' => ['doc::list', ['X']],
             ],
             [
-                'text'    => 'level_one',
-                'url'     => '#',
-                'submenu' => [
-                    [
-                        'text' => 'level_two',
-                        'url'  => '#',
-                    ],
-                    [
-                        'text'    => 'level_two',
-                        'url'     => '#',
-                        'submenu' => [
-                            [
-                                'text' => 'level_three',
-                                'url'  => '#',
-                            ],
-                            [
-                                'text' => 'level_three',
-                                'url'  => '#',
-                            ],
-                        ],
-                    ],
-                ],
+                'text' => 'orders',
+                'url'  => '#',
+                'icon' => 'fa fa-file-invoice',
+                // 'route' => ['doc::list', ['X']],
             ],
             [
-                'text' => 'level_one',
+                'text' => 'ddt',
                 'url'  => '#',
+                'icon' => 'fa fa-truck-loading',
+                // 'route' => ['doc::list', ['X']],                
+            ],
+            [
+                'text' => 'invoice',
+                'url'  => '#',
+                'icon' => 'fa fa-file-invoice-dollar',
+                // 'route' => ['doc::list', ['X']],
             ],
         ],
     ],
-    ['header' => 'labels'],
     [
-        'text'       => 'important',
-        'icon_color' => 'red',
-        'url'        => '#',
+        'text' => 'products',
+        'url'  => '#',
+        // 'route' => ['doc::list', ['X']],
+        'icon' => 'fa fa-boxes',
     ],
-    [
-        'text'       => 'warning',
-        'icon_color' => 'yellow',
-        'url'        => '#',
-    ],
-    [
-        'text'       => 'information',
-        'icon_color' => 'cyan',
-        'url'        => '#',
-    ],
+    
+    // ['header' => 'labels'],
+    // [
+    //     'text'       => 'important',
+    //     'icon_color' => 'red',
+    //     'url'        => '#',
+    // ],
+    // [
+    //     'text'       => 'warning',
+    //     'icon_color' => 'yellow',
+    //     'url'        => '#',
+    // ],
+    // [
+    //     'text'       => 'information',
+    //     'icon_color' => 'cyan',
+    //     'url'        => '#',
+    // ],
 ];
