@@ -52,9 +52,9 @@
                             <i class="fas fa-users"></i> Gestione Utenti
                         </button>
                         <hr class="mb-2">
-                        <button type="button" class="btn btn-block btn-outline-warning">
-                            <i class="fas fa-users"></i> Gestione Utenti
-                        </button>
+                        <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">
+                            <i class="fas fa-users"></i> Laratrust
+                        </a>
                         <hr class="mb-2">
                         <button type="button" class="btn btn-block btn-outline-info">
                             <i class="fas fa-users"></i> Gestione Utenti

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\parideCtrl;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\parideModels\GrpProd;
 use App\Models\parideModels\Product;
+use App\Models\parideModels\SubGrpProd;
 
 class ProductController extends Controller
 {
@@ -16,130 +19,99 @@ class ProductController extends Controller
 
     public function index(Request $req)
     {
-        $products = Product::select('codice', 'descrizion', 'unmisura', 'gruppo', 'classe', 'listino1', 'listino6', 'u_perscli')
-            ->whereIn('statoart', ['1', '8'])
-            ->where('classe', 'NOT LIKE', 'DIC%')
-            ->where('gruppo', 'NOT LIKE', 'DIC%')
-            ->where('gruppo', 'NOT LIKE', '1%')
-            ->where('gruppo', 'NOT LIKE', '2%')
-            ->where('u_compl', '=', 1)
-            ->where('codice', 'NOT LIKE', 'TKK%')
-            ->where('codice', 'NOT LIKE', '#%')
-            ->where('codice', 'NOT LIKE', 'CAMP%')
-            ->where('u_perscli', 0)
-            ->where('gruppo', '!=', '')
-            ->orderBy('gruppo')->orderBy('codice');
-        $products = $products->with('grpProd')->get();
+        $masterGrps = GrpProd::orderBy('id_fam')->get();
+        $masterGrpFilter = $masterGrps->first()->id_fam;
+        // ->whereRaw('left(id_fam,2) = ?', $masterGrpFilter)
+        $gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
+        $grpSelected = $gruppi->first()->id_fam;
 
-        // $gruppi = SubGrpProd::where('codice', 'NOT LIKE', '1%')
-        //     ->where('codice', 'NOT LIKE', 'DIC%')
-        //     ->where('codice', 'NOT LIKE', '0%')
-        //     ->where('codice', 'NOT LIKE', '2%')
-        //     ->orderBy('codice')
-        //     ->get();
-        // $settori = Settore::all();
-        // $zone = Zona::all();
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for')
+            ->where('id_fam', $grpSelected)->orderBy('id_art');
+        $products = $products->with('grpProd')->with('supplier')->get();
 
-        // dd($gruppi);
-        return view('prods.index', [
+
+        return view('parideViews.prods.index', [
             'products' => $products,
-            // 'gruppi' => $gruppi,
+            'masterGrps' => $masterGrps,
+            'gruppi' => $gruppi,
+            'grpSelected' => Arr::wrap($grpSelected),
+            'masterGrpFilter' => Arr::wrap($masterGrpFilter),
         ]);
     }
 
     public function fltIndex(Request $req)
     {
 
-        return redirect()->action('HomeController@index');
-
-        // dd($req);
-        $products = Product::select('codice', 'descrizion', 'unmisura', 'gruppo', 'classe', 'listino1', 'listino6', 'u_perscli')
-        ->whereIn('statoart', ['1', '8'])
-            ->where('classe', 'NOT LIKE', 'DIC%')
-            ->where('gruppo', 'NOT LIKE', 'DIC%')
-            ->where('gruppo', 'NOT LIKE', '1%')
-            ->where('gruppo', '!=', '')
-            ->where('codice', 'NOT LIKE', 'TKK%')
-            ->where('codice', 'NOT LIKE', '#%')
-            ->where('u_compl', '=', 1);
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for');
 
         if ($req->input('codArt')) {
             if ($req->input('codArtOp') == 'eql') {
-                $products = $products->where('codice', strtoupper($req->input('codArt')));
+                $products = $products->where('id_art', strtoupper($req->input('codArt')));
             }
             if ($req->input('codArtOp') == 'stw') {
-                $products = $products->where('codice', 'LIKE', strtoupper($req->input('codArt')) . '%');
+                $products = $products->where('id_art', 'LIKE', strtoupper($req->input('codArt')) . '%');
             }
             if ($req->input('codArtOp') == 'cnt') {
-                $products = $products->where('codice', 'LIKE', '%' . strtoupper($req->input('codArt')) . '%');
+                $products = $products->where('id_art', 'LIKE', '%' . strtoupper($req->input('codArt')) . '%');
             }
         }
 
         if ($req->input('descrArt')) {
             if ($req->input('descrOp') == 'eql') {
-                $products = $products->where('descrizion', strtoupper($req->input('descrArt')));
+                $products = $products->where('descr', strtoupper($req->input('descrArt')));
             }
             if ($req->input('descrOp') == 'stw') {
-                $products = $products->where('descrizion', 'LIKE', strtoupper($req->input('descrArt')) . '%');
+                $products = $products->where('descr', 'LIKE', strtoupper($req->input('descrArt')) . '%');
             }
             if ($req->input('descrOp') == 'cnt') {
-                $products = $products->where('descrizion', 'LIKE', '%' . strtoupper($req->input('descrArt')) . '%');
+                $products = $products->where('descr', 'LIKE', '%' . strtoupper($req->input('descrArt')) . '%');
             }
         }
 
-        if ($req->input('gruppo')) {
-            $products = $products->whereIn('gruppo', $req->input('gruppo'));
+        if ($req->input('barcode')) {
+            if ($req->input('barcodeOp') == 'eql') {
+                $products = $products->where('id_cod_bar', strtoupper($req->input('barcode')));
+            }
+            if ($req->input('barcodeOp') == 'stw') {
+                $products = $products->where('id_cod_bar', 'LIKE', strtoupper($req->input('barcode')) . '%');
+            }
+            if ($req->input('barcodeOp') == 'cnt') {
+                $products = $products->where('id_cod_bar', 'LIKE', '%' . strtoupper($req->input('barcode')) . '%');
+            }
         }
 
-        // if($req->input('chkTipo') && !$req->input('chkCamp')) {
-        //   if(in_array("KR",$req->input('chkTipo'))){
-        //     $products = $products->where('gruppo', 'LIKE', 'A%');
-        //   }
-        //   if (in_array("KO",$req->input('chkTipo')) && !in_array("KU",$req->input('chkTipo'))){
-        //     $products = $products->where('gruppo', 'LIKE', 'B%')->where('gruppo', 'NOT LIKE', 'B06%');
-        //   } elseif (in_array("KO",$req->input('chkTipo')) && in_array("KU",$req->input('chkTipo'))){
-        //     $products = $products->where('gruppo', 'LIKE', 'B%');
-        //   }
-        //   if (in_array("KU",$req->input('chkTipo'))){
-        //     $products = $products->where('gruppo', 'LIKE', 'B06%');
-        //   }
-        //   if (in_array("GR",$req->input('chkTipo'))){
-        //     $products = $products->where('gruppo', 'LIKE', 'C%');
-        //   }
-        // }
-
-        if ($req->input('chkCamp')) {
-            $products = $products->where('gruppo', 'LIKE', '2%');
-        } else {
-            $products = $products->where('gruppo', 'NOT LIKE', '2%');
+        if ($req->input('grpSelected')) {
+            $products = $products->whereIn('id_fam', $req->input('grpSelected'));
         }
 
-        if ($req->input('chkPers')) {
-            $products = $products->where('u_perscli', $req->input('chkPers'));
-        } else {
-            $products = $products->where('u_perscli', 0);
-        }
+        // $listGrp = '';
+        // if ($req->input('masterGrpFilter')) {
+        //     $first = true;
+        //     foreach ($req->input('masterGrpFilter') as $value) {
+        //         if (!$first) $listGrp = $listGrp . ', ';
+        //         $listGrp .= $value ;
+        //         $first = false;
+        //     }
+        //     $products = $products->whereRaw('left(id_fam,2) IN ( ? )', $listGrp);
+        // } 
 
-        $products = $products->orderBy('gruppo')
-        ->orderBy('codice')
-        ->with('grpProd')->get();
+        $products = $products->orderBy('id_art')
+            ->with('grpProd')->with('supplier')->get();
 
-        // $gruppi = SubGrpProd::where('codice', 'NOT LIKE', '1%')
-        //     ->where('codice', 'NOT LIKE', 'DIC%')
-        //     ->where('codice', 'NOT LIKE', '0%')
-        //     ->where('codice', 'NOT LIKE', '2%')
-        //     ->orderBy('codice')
-        //     ->get();
+        $masterGrps = GrpProd::orderBy('id_fam')->get();
+        // $gruppi = SubGrpProd::whereRaw('left(id_fam,2) IN ( ? )', $listGrp)->orderBy('id_fam')->get();
+        $gruppi = SubGrpProd::orderBy('id_fam')->get();
+        
 
-        return view('prods.index', [
+        return view('parideViews.prods.index', [
             'products' => $products,
-            // 'gruppi' => $gruppi,
+            'masterGrps' => $masterGrps,
+            'gruppi' => $gruppi,
             'codArt' => $req->input('codArt'),
             'descrArt' => $req->input('descrArt'),
-            'grpSelected' => $req->input('gruppo'),
-            'chkTipo' => $req->input('chkTipo'),
-            'chkPers' => $req->input('chkPers'),
-            'chkCamp' => $req->input('chkCamp'),
+            'barcode' => $req->input('barcode'),
+            'grpSelected' => $req->input('grpSelected'),
+            'masterGrpFilter' => $req->input('masterGrpFilter'),
         ]);
     }
 

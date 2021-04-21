@@ -50,8 +50,8 @@ $leftSidebar = [
     ],
     [
         'text' => 'products',
-        'url'  => '#',
-        // 'route' => ['doc::list', ['X']],
+        // 'url'  => '#',
+        'route' => 'product::list',
         'icon' => 'fa fa-boxes',
     ],
     

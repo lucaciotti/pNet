@@ -32,7 +32,7 @@ class ClientController extends Controller
         // $clients = $clients->paginate(25);
         // dd($zone);
         // Session::forget('_old_input');
-        return view('client.index', [
+        return view('parideViews.client.index', [
             'clients' => $clients,
             'fltClients' => Client::select('id_cli_for', 'rag_soc')->orderBy('rag_soc')->get(),
             // 'nazioni' => $nazioni,
@@ -71,7 +71,7 @@ class ClientController extends Controller
                 $clients = $clients->where('id_cli_for', 'LIKE', '%' . strtoupper($req->input('codcli')) . '%');
             }
         }
-        if ($req->input('zona') && $req->input('zona')!='') {
+        if ($req->input('zona')) {
             $clients = $clients->whereIn('provincia', $req->input('zona'));
         }
         $clients = $clients->get();
@@ -80,7 +80,7 @@ class ClientController extends Controller
 
         $req->flash();
 
-        return view('client.index', [
+        return view('parideViews.client.index', [
             'clients' => $clients,
             'fltClients' => $clients, //Client::select('codice', 'descrizion')->orderBy('descrizion')->get(),
             // 'nazioni' => $nazioni,
@@ -112,7 +112,7 @@ class ClientController extends Controller
         // $visits = wVisit::where('codicecf', $codCli)->with('user')->take(3)->orderBy('data', 'desc')->orderBy('id')->get();
         // dd($visits->isEmpty());
         // dd($client);
-        return view('client.detail', [
+        return view('parideViews.client.detail', [
             'client' => $client,
             // 'scads' => $scadToPay,
             'mapsException' => $expt,

@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/../menus/left_sidebar.php';
-require __DIR__ . '/../menus/right_sidebar.php';
+require __DIR__ . '/../menus/control_sidebar.php';
 require __DIR__ . '/../menus/top_navbar.php';
 require __DIR__ . '/../menus/top-right_navbar.php';
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\parideCtrl\ClientController;
+use App\Http\Controllers\parideCtrl\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,13 @@ Route::get('/home', function() {
 // Routes Clients
 Route::name('client::')->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('list');
-    Route::get('/clients/{codice}', [ClientController::class, 'detail'])->name('detail');
+    Route::get('/client/{codCli}', [ClientController::class, 'detail'])->name('detail');
     Route::post('/clients/filter', [ClientController::class, 'fltIndex'])->name('fltList');
+});
+
+// Routes Products
+Route::name('product::')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('list');
+    Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
+    Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
 });
