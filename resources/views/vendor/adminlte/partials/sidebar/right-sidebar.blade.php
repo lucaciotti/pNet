@@ -1,76 +1,85 @@
 <aside class="control-sidebar control-sidebar-{{ config('adminlte.right_sidebar_theme') }}">
-    {{-- @yield('right-sidebar') --}}
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-        <li class="active"><a href="#control-sidebar-ditta-tab" data-toggle="tab"><i class="fa fa-globe"></i></a></li>
-        <li class=""><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <!-- Home tab content -->
-        <div class="tab-pane active" id="control-sidebar-ditta-tab">
-            <h3 class="control-sidebar-heading">{{ trans('_configMenu.dittaSelect') }}</h3>
-            <form action="#" method="post" class="control-sidebar-form">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <div class="input-group">
-                    {{-- <input type="text" name="q" class="form-control" placeholder="{{ trans('adminlte_lang::message.search') }}..."/>
-                    --}}
-                    <select class="form-control" name="ditta">
-                        <option value="it" @if (RedisUser::get('ditta_DB')=='kNet_it' ) selected="selected" @endif>kNet
-                            {{ trans('_configMenu.italia') }}</option>
-                        <option value="es" @if (RedisUser::get('ditta_DB')=='kNet_es' ) selected="selected" @endif>kNet
-                            {{ trans('_configMenu.spagna') }}</option>
-                        <option value="fr" @if (RedisUser::get('ditta_DB')=='kNet_fr' ) selected="selected" @endif>kNet
-                            {{ trans('_configMenu.francia') }}</option>
-                    </select>
-                    <span class="input-group-btn">
-                        <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i
-                                class="fa fa-angle-right"></i></button>
-                    </span>
+   
+    {{-- <div class="os-padding"> --}}
+        <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
+            <div class="os-content" style="padding: 10px; height: 100%; width: 100%;">
+
+                <ul class="nav nav-tabs nav-justified control-sidebar-tabs" id="controlTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="homeTab" data-toggle="pill" 
+                            href="#home" role="tab" aria-controls="home"
+                            aria-selected="true"><i class="fa fa-home"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="settingTab" data-toggle="pill" 
+                            href="#setting" role="tab" aria-controls="setting"
+                            aria-selected="false"><i class="fa fa-cogs"></i></a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="controlTabContent">
+                    <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h6>Seleziona Ditta:</h6>
+                        <div class="d-flex">
+                            <select class="custom-select mb-3 text-light border-0 bg-white">
+                                <option class="bg-primary">pNet DB</option>
+                                {{-- <option class="bg-primary">Primary</option>
+                                <option class="bg-secondary">Secondary</option>
+                                <option class="bg-info">Info</option>
+                                <option class="bg-success">Success</option>
+                                <option class="bg-danger">Danger</option>
+                                <option class="bg-indigo">Indigo</option>
+                                <option class="bg-purple">Purple</option>
+                                <option class="bg-pink">Pink</option>
+                                <option class="bg-navy">Navy</option>
+                                <option class="bg-lightblue">Lightblue</option>
+                                <option class="bg-teal">Teal</option>
+                                <option class="bg-cyan">Cyan</option>
+                                <option class="bg-dark">Dark</option>
+                                <option class="bg-gray-dark">Gray dark</option>
+                                <option class="bg-gray">Gray</option>
+                                <option class="bg-light">Light</option>
+                                <option class="bg-warning">Warning</option>
+                                <option class="bg-white">White</option>
+                                <option class="bg-orange">Orange</option> --}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="setting" role="tabpanel" aria-labelledby="setting-tab">
+                        <h5>Customize AdminLTE</h5>
+                        <hr class="mb-2">
+                        <button type="button" class="btn btn-block btn-outline-light">
+                            <i class="fas fa-users"></i> Gestione Utenti
+                        </button>
+                        <hr class="mb-2">
+                        <button type="button" class="btn btn-block btn-outline-warning">
+                            <i class="fas fa-users"></i> Gestione Utenti
+                        </button>
+                        <hr class="mb-2">
+                        <button type="button" class="btn btn-block btn-outline-info">
+                            <i class="fas fa-users"></i> Gestione Utenti
+                        </button>
+                        <hr class="mb-2">
+                        <button type="button" class="btn btn-block btn-default">
+                            <i class="fas fa-users"></i> Users
+                        </button>
+                        <hr class="mb-2">
+                        <button type="button" class="btn btn-block btn-sm btn-default">
+                            <i class="fas fa-users"></i> Users
+                        </button>
+                        <hr class="mb-2">
+                        <a class="btn btn-app">
+                            <span class="badge bg-purple">891</span>
+                            <i class="fa fa-users"></i> Users
+                        </a>
+                        <a class="btn btn-app">
+                            {{-- <span class="badge bg-purple">891</span> --}}
+                            <i class="fa fa-users"></i> Users
+                        </a>
+                    </div>
                 </div>
-            </form>
-        </div><!-- /.tab-pane -->
-    
-        <!-- Settings tab content -->
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-            <h3 class="control-sidebar-heading"> {{ trans('_configMenu.extraSettings') }}</h3>
-            <ul class='control-sidebar-menu'>
-                <li>
-                    <a href="#">
-                        <i class="menu-icon fa fa-users bg-info"></i>
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">{{ trans('_configMenu.usersManage') }}</h4>
-                            <p>{{ trans('_configMenu.usersManageDesc') }}</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="menu-icon fa fa-users bg-info"></i>
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">{{ trans('_configMenu.clientsManage') }}</h4>
-                            <p>{{ trans('_configMenu.clientsManageDesc') }}</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="menu-icon fa fa-user-plus bg-yellow"></i>
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">{{ trans('_configMenu.importUsers') }}</h4>
-                            <p>{{ trans('_configMenu.importUsersDesc') }}</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="menu-icon fa fa-user-plus bg-yellow"></i>
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Import Rubrica LEAD</h4>
-                            <p>{{ trans('_configMenu.importUsersDesc') }}</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+            </div>
         </div>
-    </div>
+    {{-- </div> --}}
+
 </aside>

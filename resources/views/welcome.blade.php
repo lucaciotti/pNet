@@ -102,7 +102,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <br>
                     <br>
                     <div class="col-lg-4">
-                        <img src="{{ asset('/img/PC_1.png') }}" alt="" height="380">
+                        <img src="{{ asset('assets/img/PC_1.png') }}" alt="" height="380">
                         {{-- <h3>{{ trans('_message.community') }}</h3> --}}
                         {{-- <p>{{ trans('adminlte_lang::message.see') }} <a
                             href="https://github.com/acacha/adminlte-laravel">{{ trans('adminlte_lang::message.githubproject') }}</a>,
@@ -113,12 +113,12 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                         </p> --}}
                     </div>
                     <div class="col-lg-4">
-                        <img src="{{ asset('/img/Smart_2.png') }}" alt="" height="330">
+                        <img src="{{ asset('assets/img/Smart_2.png') }}" alt="" height="330">
                         {{-- <h3>{{ trans('_message.schedule') }}</h3> --}}
                         {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> --}}
                     </div>
                     <div class="col-lg-4">
-                        <img src="{{ asset('/img/PC_3.png') }}" alt="" height="380">
+                        <img src="{{ asset('assets/img/PC_3.png') }}" alt="" height="380">
                         {{-- <h3>{{ trans('_message.monitoring') }}</h3> --}}
                         {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> --}}
                     </div>

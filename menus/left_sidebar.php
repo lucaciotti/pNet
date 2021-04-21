@@ -14,8 +14,8 @@ $leftSidebar = [
     ],
     [
         'text' => 'listClients',
-        'url'  => '#',
-        // 'route'  => 'client::list',
+        // 'url'  => '#',
+        'route'  => 'client::list',
         'icon' => 'fa fa-users',
     ],
     [

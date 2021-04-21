@@ -15021,6 +15021,23 @@
         class Str {
          
     }
+            /**
+     * 
+     *
+     */ 
+        class Collection {
+                    /**
+         * 
+         *
+         * @see \Barryvdh\Debugbar\ServiceProvider::register()
+         * @static 
+         */ 
+        public static function debug()
+        {
+                        return \Illuminate\Support\Collection::debug();
+        }
+         
+    }
      
 }
 
@@ -15030,6 +15047,1534 @@
      *
      */ 
         class RedisUser {
+         
+    }
+     
+}
+
+    namespace Cornford\Googlmapper\Facades { 
+            /**
+     * 
+     *
+     * @see Mapper
+     */ 
+        class MapperFacade {
+                    /**
+         * Renders and returns Google Map code.
+         *
+         * @param int $item
+         * @return string 
+         * @static 
+         */ 
+        public static function render($item = -1)
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->render($item);
+        }
+                    /**
+         * Renders and returns Google Map javascript code.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function renderJavascript()
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->renderJavascript();
+        }
+                    /**
+         * Locate a location and return a Location instance.
+         *
+         * @param string $location
+         * @throws MapperArgumentException
+         * @throws MapperSearchException
+         * @throws MapperSearchResponseException
+         * @throws MapperSearchResultException
+         * @throws MapperSearchKeyException
+         * @throws MapperSearchLimitException
+         * @throws MapperException
+         * @return \Cornford\Googlmapper\Models\Location 
+         * @static 
+         */ 
+        public static function location($location)
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->location($location);
+        }
+                    /**
+         * Add a new map.
+         *
+         * @param float $latitude
+         * @param float $longitude
+         * @param array $options
+         * @return self 
+         * @static 
+         */ 
+        public static function map($latitude, $longitude, $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->map($latitude, $longitude, $options);
+        }
+                    /**
+         * Add a new street view map.
+         *
+         * @param float $latitude
+         * @param float $longitude
+         * @param int $heading
+         * @param int $pitch
+         * @param array $options
+         * @return self 
+         * @static 
+         */ 
+        public static function streetview($latitude, $longitude, $heading, $pitch, $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->streetview($latitude, $longitude, $heading, $pitch, $options);
+        }
+                    /**
+         * Add a new map marker.
+         *
+         * @param float $latitude
+         * @param float $longitude
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function marker($latitude, $longitude, $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->marker($latitude, $longitude, $options);
+        }
+                    /**
+         * Add a new map information window.
+         *
+         * @param float $latitude
+         * @param float $longitude
+         * @param string $content
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function informationWindow($latitude, $longitude, $content = '', $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->informationWindow($latitude, $longitude, $content, $options);
+        }
+                    /**
+         * Add a new map polyline.
+         *
+         * @param array $coordinates
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function polyline($coordinates = [], $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->polyline($coordinates, $options);
+        }
+                    /**
+         * Add a new map polygon.
+         *
+         * @param array $coordinates
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function polygon($coordinates = [], $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->polygon($coordinates, $options);
+        }
+                    /**
+         * Add a new map rectangle.
+         *
+         * @param array $coordinates
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function rectangle($coordinates = [], $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->rectangle($coordinates, $options);
+        }
+                    /**
+         * Add a new map circle.
+         *
+         * @param array $coordinates
+         * @param array $options
+         * @throws MapperException
+         * @return self 
+         * @static 
+         */ 
+        public static function circle($coordinates = [], $options = [])
+        {
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->circle($coordinates, $options);
+        }
+                    /**
+         * Is mapping enabled?
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isEnabled()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->isEnabled();
+        }
+                    /**
+         * Enable mapping.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableMapping()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableMapping();
+        }
+                    /**
+         * Disable mapping.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableMapping()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableMapping();
+        }
+                    /**
+         * Set the Google Maps key.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setKey($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setKey($value);
+        }
+                    /**
+         * Get the Google Maps key.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getKey()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getKey();
+        }
+                    /**
+         * Set the Google Maps version.
+         *
+         * @param float|string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setVersion($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setVersion($value);
+        }
+                    /**
+         * Get the Google Maps version.
+         *
+         * @return float|string 
+         * @static 
+         */ 
+        public static function getVersion()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getVersion();
+        }
+                    /**
+         * Set the Google Maps region.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setRegion($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setRegion($value);
+        }
+                    /**
+         * Get the Google Maps region.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getRegion()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getRegion();
+        }
+                    /**
+         * Set the Google Maps language.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setLanguage($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setLanguage($value);
+        }
+                    /**
+         * Get the Google Maps language.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getLanguage()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getLanguage();
+        }
+                    /**
+         * Get the map async status.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getAsync()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getAsync();
+        }
+                    /**
+         * Enable async for maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableAsync()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableAsync();
+        }
+                    /**
+         * Disable async for maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableAsync()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableAsync();
+        }
+                    /**
+         * Get the marker status.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getMarker()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getMarker();
+        }
+                    /**
+         * Enable markers for maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableMarkers()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableMarkers();
+        }
+                    /**
+         * Disable markers for maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableMarkers()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableMarkers();
+        }
+                    /**
+         * Get the map center status.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getCenter()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getCenter();
+        }
+                    /**
+         * Enable center of maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableCenter()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableCenter();
+        }
+                    /**
+         * Disable center of maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableCenter()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableCenter();
+        }
+                    /**
+         * Get the map locate user status.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getLocate()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getLocate();
+        }
+                    /**
+         * Enable locate user position on maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableLocate()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableLocate();
+        }
+                    /**
+         * Disable locate user position on maps.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableLocate()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableLocate();
+        }
+                    /**
+         * Get the map UI status.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getUi()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getUi();
+        }
+                    /**
+         * Enable maps ui.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableUi()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableUi();
+        }
+                    /**
+         * Disable maps ui.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableUi()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableUi();
+        }
+                    /**
+         * Set map zoom level.
+         *
+         * @param int $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setZoom($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setZoom($value);
+        }
+                    /**
+         * Get map zoom level.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getZoom()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getZoom();
+        }
+                    /**
+         * Set map scroll wheel zoom.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setScrollWheelZoom($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setScrollWheelZoom($value);
+        }
+                    /**
+         * Get map scroll wheel zoom.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getScrollWheelZoom()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getScrollWheelZoom();
+        }
+                    /**
+         * Set map zoom control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setZoomControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setZoomControl($value);
+        }
+                    /**
+         * Get map zoom control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getZoomControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getZoomControl();
+        }
+                    /**
+         * Set map type control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setMapTypeControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setMapTypeControl($value);
+        }
+                    /**
+         * Get map type control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getMapTypeControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getMapTypeControl();
+        }
+                    /**
+         * Set map scale control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setScaleControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setScaleControl($value);
+        }
+                    /**
+         * Get map scale control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getScaleControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getScaleControl();
+        }
+                    /**
+         * Set map street view control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setStreetViewControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setStreetViewControl($value);
+        }
+                    /**
+         * Get map street view control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getStreetViewControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getStreetViewControl();
+        }
+                    /**
+         * Set map rotate control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setRotateControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setRotateControl($value);
+        }
+                    /**
+         * Get map rotate control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getRotateControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getRotateControl();
+        }
+                    /**
+         * Set map fullscreen control.
+         *
+         * @param boolean $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setFullscreenControl($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setFullscreenControl($value);
+        }
+                    /**
+         * Get map fullscreen control.
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function getFullscreenControl()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getFullscreenControl();
+        }
+                    /**
+         * Set map type.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setType($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setType($value);
+        }
+                    /**
+         * Get map type.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getType()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getType();
+        }
+                    /**
+         * Set map heading.
+         *
+         * @param int|double $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setHeading($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setHeading($value);
+        }
+                    /**
+         * Get map heading.
+         *
+         * @return int|double 
+         * @static 
+         */ 
+        public static function getHeading()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getHeading();
+        }
+                    /**
+         * Set map tilt.
+         *
+         * @param int|double $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setTilt($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setTilt($value);
+        }
+                    /**
+         * Get map tilt.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getTilt()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getTilt();
+        }
+                    /**
+         * Set map marker icon.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setIcon($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setIcon($value);
+        }
+                    /**
+         * Get map marker icon.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getIcon()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getIcon();
+        }
+                    /**
+         * Set map marker animation.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setAnimation($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setAnimation($value);
+        }
+                    /**
+         * Get map marker animation.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getAnimation()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getAnimation();
+        }
+                    /**
+         * Set map gesture handling.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setGestureHandling($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setGestureHandling($value);
+        }
+                    /**
+         * Get map gesture handling.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getGestureHandling()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getGestureHandling();
+        }
+                    /**
+         * Get the cluster status.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function getCluster()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getCluster();
+        }
+                    /**
+         * Enable cluster.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function enableCluster()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->enableCluster();
+        }
+                    /**
+         * Disable cluster.
+         *
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function disableCluster()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->disableCluster();
+        }
+                    /**
+         * Set map cluster icon.
+         *
+         * @param string $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setClustersIcon($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setClustersIcon($value);
+        }
+                    /**
+         * Get map clusters icon.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getClustersIcon()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getClustersIcon();
+        }
+                    /**
+         * Set map cluster grid.
+         *
+         * @param int $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setClustersGrid($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setClustersGrid($value);
+        }
+                    /**
+         * Get map cluster grid.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getClustersGrid()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getClustersGrid();
+        }
+                    /**
+         * Set map cluster zoom.
+         *
+         * @param int|null $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setClustersZoom($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setClustersZoom($value);
+        }
+                    /**
+         * Get map cluster grid.
+         *
+         * @return integer|null 
+         * @static 
+         */ 
+        public static function getClustersZoom()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getClustersZoom();
+        }
+                    /**
+         * Set map cluster center.
+         *
+         * @param bool $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setClustersCenter($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setClustersCenter($value);
+        }
+                    /**
+         * Get map cluster center.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function getClustersCenter()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getClustersCenter();
+        }
+                    /**
+         * Set map cluster size.
+         *
+         * @param int $value
+         * @throws MapperArgumentException
+         * @return void 
+         * @static 
+         */ 
+        public static function setClustersSize($value)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        $instance->setClustersSize($value);
+        }
+                    /**
+         * Get map cluster size.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getClustersSize()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getClustersSize();
+        }
+                    /**
+         * Get the mapping items.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getItems()
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getItems();
+        }
+                    /**
+         * Get a mapping item by reference.
+         *
+         * @param int $item
+         * @return array|bool 
+         * @static 
+         */ 
+        public static function getItem($item)
+        {            //Method inherited from \Cornford\Googlmapper\MapperBase         
+                        /** @var \Cornford\Googlmapper\Mapper $instance */
+                        return $instance->getItem($item);
+        }
+         
+    }
+     
+}
+
+    namespace Barryvdh\Debugbar { 
+            /**
+     * 
+     *
+     * @method static void alert(mixed $message)
+     * @method static void critical(mixed $message)
+     * @method static void debug(mixed $message)
+     * @method static void emergency(mixed $message)
+     * @method static void error(mixed $message)
+     * @method static void info(mixed $message)
+     * @method static void log(mixed $message)
+     * @method static void notice(mixed $message)
+     * @method static void warning(mixed $message)
+     * @see \Barryvdh\Debugbar\LaravelDebugbar
+     */ 
+        class Facade {
+                    /**
+         * Enable the Debugbar and boot, if not already booted.
+         *
+         * @static 
+         */ 
+        public static function enable()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->enable();
+        }
+                    /**
+         * Boot the debugbar (add collectors, renderer and listener)
+         *
+         * @static 
+         */ 
+        public static function boot()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->boot();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function shouldCollect($name, $default = false)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->shouldCollect($name, $default);
+        }
+                    /**
+         * Adds a data collector
+         *
+         * @param \DebugBar\DataCollector\DataCollectorInterface $collector
+         * @throws DebugBarException
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function addCollector($collector)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addCollector($collector);
+        }
+                    /**
+         * Handle silenced errors
+         *
+         * @param $level
+         * @param $message
+         * @param string $file
+         * @param int $line
+         * @param array $context
+         * @throws \ErrorException
+         * @static 
+         */ 
+        public static function handleError($level, $message, $file = '', $line = 0, $context = [])
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->handleError($level, $message, $file, $line, $context);
+        }
+                    /**
+         * Starts a measure
+         *
+         * @param string $name Internal name, used to stop the measure
+         * @param string $label Public name
+         * @static 
+         */ 
+        public static function startMeasure($name, $label = null)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->startMeasure($name, $label);
+        }
+                    /**
+         * Stops a measure
+         *
+         * @param string $name
+         * @static 
+         */ 
+        public static function stopMeasure($name)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->stopMeasure($name);
+        }
+                    /**
+         * Adds an exception to be profiled in the debug bar
+         *
+         * @param \Exception $e
+         * @deprecated in favor of addThrowable
+         * @static 
+         */ 
+        public static function addException($e)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addException($e);
+        }
+                    /**
+         * Adds an exception to be profiled in the debug bar
+         *
+         * @param \Exception $e
+         * @static 
+         */ 
+        public static function addThrowable($e)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addThrowable($e);
+        }
+                    /**
+         * Returns a JavascriptRenderer for this instance
+         *
+         * @param string $baseUrl
+         * @param string $basePathng
+         * @return \Barryvdh\Debugbar\JavascriptRenderer 
+         * @static 
+         */ 
+        public static function getJavascriptRenderer($baseUrl = null, $basePath = null)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getJavascriptRenderer($baseUrl, $basePath);
+        }
+                    /**
+         * Modify the response and inject the debugbar (or data in headers)
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @param \Symfony\Component\HttpFoundation\Response $response
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */ 
+        public static function modifyResponse($request, $response)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->modifyResponse($request, $response);
+        }
+                    /**
+         * Check if the Debugbar is enabled
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isEnabled()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isEnabled();
+        }
+                    /**
+         * Collects the data from the collectors
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function collect()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->collect();
+        }
+                    /**
+         * Injects the web debug toolbar into the given Response.
+         *
+         * @param \Symfony\Component\HttpFoundation\Response $response A Response instance
+         * Based on https://github.com/symfony/WebProfilerBundle/blob/master/EventListener/WebDebugToolbarListener.php
+         * @static 
+         */ 
+        public static function injectDebugbar($response)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->injectDebugbar($response);
+        }
+                    /**
+         * Disable the Debugbar
+         *
+         * @static 
+         */ 
+        public static function disable()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->disable();
+        }
+                    /**
+         * Adds a measure
+         *
+         * @param string $label
+         * @param float $start
+         * @param float $end
+         * @static 
+         */ 
+        public static function addMeasure($label, $start, $end)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addMeasure($label, $start, $end);
+        }
+                    /**
+         * Utility function to measure the execution of a Closure
+         *
+         * @param string $label
+         * @param \Closure $closure
+         * @return mixed 
+         * @static 
+         */ 
+        public static function measure($label, $closure)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->measure($label, $closure);
+        }
+                    /**
+         * Collect data in a CLI request
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function collectConsole()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->collectConsole();
+        }
+                    /**
+         * Adds a message to the MessagesCollector
+         * 
+         * A message can be anything from an object to a string
+         *
+         * @param mixed $message
+         * @param string $label
+         * @static 
+         */ 
+        public static function addMessage($message, $label = 'info')
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addMessage($message, $label);
+        }
+                    /**
+         * Checks if a data collector has been added
+         *
+         * @param string $name
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasCollector($name)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->hasCollector($name);
+        }
+                    /**
+         * Returns a data collector
+         *
+         * @param string $name
+         * @return \DebugBar\DataCollector\DataCollectorInterface 
+         * @throws DebugBarException
+         * @static 
+         */ 
+        public static function getCollector($name)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCollector($name);
+        }
+                    /**
+         * Returns an array of all data collectors
+         *
+         * @return \DebugBar\array[DataCollectorInterface] 
+         * @static 
+         */ 
+        public static function getCollectors()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCollectors();
+        }
+                    /**
+         * Sets the request id generator
+         *
+         * @param \DebugBar\RequestIdGeneratorInterface $generator
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setRequestIdGenerator($generator)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setRequestIdGenerator($generator);
+        }
+                    /**
+         * 
+         *
+         * @return \DebugBar\RequestIdGeneratorInterface 
+         * @static 
+         */ 
+        public static function getRequestIdGenerator()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getRequestIdGenerator();
+        }
+                    /**
+         * Returns the id of the current request
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getCurrentRequestId()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCurrentRequestId();
+        }
+                    /**
+         * Sets the storage backend to use to store the collected data
+         *
+         * @param \DebugBar\StorageInterface $storage
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStorage($storage = null)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStorage($storage);
+        }
+                    /**
+         * 
+         *
+         * @return \DebugBar\StorageInterface 
+         * @static 
+         */ 
+        public static function getStorage()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStorage();
+        }
+                    /**
+         * Checks if the data will be persisted
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isDataPersisted()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isDataPersisted();
+        }
+                    /**
+         * Sets the HTTP driver
+         *
+         * @param \DebugBar\HttpDriverInterface $driver
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setHttpDriver($driver)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setHttpDriver($driver);
+        }
+                    /**
+         * Returns the HTTP driver
+         * 
+         * If no http driver where defined, a PhpHttpDriver is automatically created
+         *
+         * @return \DebugBar\HttpDriverInterface 
+         * @static 
+         */ 
+        public static function getHttpDriver()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getHttpDriver();
+        }
+                    /**
+         * Returns collected data
+         * 
+         * Will collect the data if none have been collected yet
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getData()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getData();
+        }
+                    /**
+         * Returns an array of HTTP headers containing the data
+         *
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @return array 
+         * @static 
+         */ 
+        public static function getDataAsHeaders($headerName = 'phpdebugbar', $maxHeaderLength = 4096, $maxTotalHeaderLength = 250000)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getDataAsHeaders($headerName, $maxHeaderLength, $maxTotalHeaderLength);
+        }
+                    /**
+         * Sends the data through the HTTP headers
+         *
+         * @param bool $useOpenHandler
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function sendDataInHeaders($useOpenHandler = null, $headerName = 'phpdebugbar', $maxHeaderLength = 4096)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->sendDataInHeaders($useOpenHandler, $headerName, $maxHeaderLength);
+        }
+                    /**
+         * Stacks the data in the session for later rendering
+         *
+         * @static 
+         */ 
+        public static function stackData()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->stackData();
+        }
+                    /**
+         * Checks if there is stacked data in the session
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasStackedData()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->hasStackedData();
+        }
+                    /**
+         * Returns the data stacked in the session
+         *
+         * @param boolean $delete Whether to delete the data in the session
+         * @return array 
+         * @static 
+         */ 
+        public static function getStackedData($delete = true)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStackedData($delete);
+        }
+                    /**
+         * Sets the key to use in the $_SESSION array
+         *
+         * @param string $ns
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStackDataSessionNamespace($ns)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStackDataSessionNamespace($ns);
+        }
+                    /**
+         * Returns the key used in the $_SESSION array
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getStackDataSessionNamespace()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStackDataSessionNamespace();
+        }
+                    /**
+         * Sets whether to only use the session to store stacked data even
+         * if a storage is enabled
+         *
+         * @param boolean $enabled
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStackAlwaysUseSessionStorage($enabled = true)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStackAlwaysUseSessionStorage($enabled);
+        }
+                    /**
+         * Checks if the session is always used to store stacked data
+         * even if a storage is enabled
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isStackAlwaysUseSessionStorage()
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isStackAlwaysUseSessionStorage();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetSet($key, $value)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetSet($key, $value);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetGet($key)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetGet($key);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetExists($key)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetExists($key);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetUnset($key)
+        {            //Method inherited from \DebugBar\DebugBar         
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetUnset($key);
+        }
          
     }
      
@@ -19142,6 +20687,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class RedisUser extends \App\Helpers\RedisUser {}
+            class Mapper extends \Cornford\Googlmapper\Facades\MapperFacade {}
+            class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Livewire extends \Livewire\Livewire {}
             class Action extends \Lorisleiva\Actions\Facades\Actions {}

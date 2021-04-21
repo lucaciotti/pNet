@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\parideCtrl\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,11 @@ require __DIR__.'/auth.php';
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+
+// Routes Clients
+Route::name('client::')->group(function () {
+    Route::get('/clients', [ClientController::class, 'index'])->name('list');
+    Route::get('/clients/{codice}', [ClientController::class, 'detail'])->name('detail');
+    Route::post('/clients/filter', [ClientController::class, 'fltIndex'])->name('fltList');
+});

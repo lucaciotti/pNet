@@ -5,7 +5,7 @@
 @if($layoutHelper->isLayoutTopnavEnabled())
     @php( $def_container_class = 'container' )
 @else
-    @php( $def_container_class = 'container-lg' )
+    @php( $def_container_class = 'container-fluid' )
 @endif
 
 @section('adminlte_css')
@@ -44,17 +44,24 @@
 
             {{-- Main Content --}}
             <div class="content">
-                <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    @yield('content')
-                </div>
+                @hasSection('content')
+                    <div class="container-lg">
+                        @yield('content')
+                    </div>                    
+                @endif
+                @hasSection('content-fluid')
+                    <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                        @yield('content-fluid')
+                    </div>
+                @endif
             </div>
 
         </div>
 
         {{-- Footer --}}
-        @hasSection('footer')
+        {{-- @hasSection('footer') --}}
             @include('adminlte::partials.footer.footer')
-        @endif
+        {{-- @endif --}}
 
         {{-- Right Control Sidebar --}}
         @if(config('adminlte.right_sidebar'))
