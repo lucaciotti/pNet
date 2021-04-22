@@ -51,4 +51,18 @@ class User extends Authenticatable
     {
         return $this->roles()->first()->name;
     }
+
+    public function adminlte_image()
+    {   
+        return '/assets/img/'.$this->avatar;
+    }
+
+    public function adminlte_desc()
+    {
+        return "Admin User";
+    }
+
+    public function adminlte_profile_url() {
+        return route('user::users.show', $this->id);
+    }
 }

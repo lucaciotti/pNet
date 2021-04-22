@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\sysCtrl\UserController;
 use App\Http\Controllers\parideCtrl\ClientController;
 use App\Http\Controllers\parideCtrl\ProductController;
 
@@ -41,4 +42,15 @@ Route::name('product::')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('list');
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
+});
+
+
+
+//GESTIONE UTENTI
+Route::name('user::')->group(function () {
+    Route::resource('users', UserController::class);
+    Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli');
+    Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike');
+    Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB');
+    Route::post('/user_changeLang', [UserController::class, 'changeLang'])->name('changeLang');
 });

@@ -46,12 +46,15 @@
                         </div>
                     </div>
                     <div class="tab-pane fade show" id="setting" role="tabpanel" aria-labelledby="setting-tab">
-                        <h5>Customize AdminLTE</h5>
+                        <h5>Impostazioni Avanzate</h5>
                         <hr class="mb-2">
-                        <button type="button" class="btn btn-block btn-outline-light">
-                            <i class="fas fa-users"></i> Gestione Utenti
-                        </button>
-                        <hr class="mb-2">
+                        <a href='{{ url('laratrust') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-light"
+                                >
+                                <i class="fas fa-users"></i>&nbsp;&nbsp;Gestione Utenti
+                            </button>
+                        </a>
+                        {{-- <hr class="mb-2">
                         <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">
                             <i class="fas fa-users"></i> Laratrust
                         </a>
@@ -73,9 +76,8 @@
                             <i class="fa fa-users"></i> Users
                         </a>
                         <a class="btn btn-app">
-                            {{-- <span class="badge bg-purple">891</span> --}}
                             <i class="fa fa-users"></i> Users
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
