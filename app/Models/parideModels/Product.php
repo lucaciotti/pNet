@@ -110,6 +110,11 @@ class Product extends Model
         return $this->hasOne('App\Models\parideModels\Supplier', 'id_cli_for', 'id_cli_for');
     }
 
+    public function magGiac()
+    {
+        return $this->hasOne('App\Models\parideModels\MagGiac', 'id_art', 'id_art');
+    }
+
 
     // public function descrLang(String $lang)
     // {

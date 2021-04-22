@@ -33,7 +33,7 @@
                     <th>{{ trans('client.code') }}</th>
                     <th>{{ trans('client.descCli') }}</th>
                     <th>{{ trans('client.nat&loc') }}</th>
-                    {{-- <th>{{ trans('client.sector') }}</th> --}}
+                    <th>Partita Iva</th>
                     {{-- <th>{{ trans('client.agent') }}</th> --}}
                     <th>{{ trans('client.lnkDocuments') }}</th>
                   </thead>
@@ -45,7 +45,7 @@
                       </td>
                       <td>{{ $client->rag_soc }}</td>
                       <td>{{ $client->citta }}, {{ $client->provincia }} - I</td>
-                      {{-- <td>{{ $client->settore }}</td> --}}
+                      <td>{{ $client->p_i }}</td>
                       {{-- <td>@if($client->agent) {{ $client->agent->descrizion }} @endif</td> --}}
                       <td><a href="{{-- {{ route('doc::client', $client->codice) }} --}}">{{ trans('client.documents') }}</a></td>
                     </tr>

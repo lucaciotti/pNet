@@ -53,6 +53,7 @@ class ProductSearchBar extends Component
     {
         $this->products = Product::where('id_art', 'like', $this->searchStr . '%')
             ->orWhere('descr', 'like', '%' . $this->searchStr . '%')
+            ->orWhere('id_cod_bar', 'like', $this->searchStr . '%')
             ->take(10)
             ->get()
             ->toArray();

@@ -34,7 +34,7 @@
                     <th>{{ trans('prod.descArt') }}</th>
                     <th>{{ trans('prod.groupProd') }}</th>
                     <th>UM</th>
-                    <th>Pz in Conf.</th>
+                    <th>Disponibilità</th>
                     <th>Barcode</th>
                     <th>Forn.</th>
                   </thead>
@@ -42,7 +42,7 @@
                     @foreach ($products as $prod)
                     <tr>
                       <td>
-                        <a href="#"> {{ $prod->id_art }} </a>
+                        <a href="{{ route('product::detail', $prod->id_art) }}"> {{ $prod->id_art }} </a>
                       </td>
                       <td>{{ $prod->descr }}</td>
                       <td>[{{ $prod->id_fam }}]
@@ -51,7 +51,7 @@
                         @endif
                       </td>
                       <td>{{ $prod->um }}</td>
-                      <td>{{ $prod->pz_x_conf }}</td>
+                      <td>0</td>
                       <td>{{ $prod->id_cod_bar }}</td>
                       <td>[{{ $prod->id_cli_for }}]
                         @if($prod->supplier)

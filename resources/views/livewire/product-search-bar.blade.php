@@ -19,11 +19,12 @@
             <div class="list-group">
                 @if(!empty($products))
                     @foreach($products as $i => $product)
-                    <a href="#" class="list-group-item">
+                    <a href="{{ route('product::detail', $product['id_art']) }}" class="list-group-item">
                         {{-- {{ $highlightIndex === $i ? 'mySearchHighlight' : '' }} --}}
-                        <div class="search-title">{{ $product['id_art'] }} - {{ $product['descr'] }}
+                        <div class="search-title">
+                            <strong>{{ $product['id_art'] }}</strong> - {{ $product['descr'] }}
                         </div>
-                        <div class="search-path"></div>
+                        <div class="search-path"><small>Barcode: {{ $product['id_cod_bar'] }}</small></div>
                     </a>
                     @endforeach
                 @else

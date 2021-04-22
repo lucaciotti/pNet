@@ -115,6 +115,16 @@ class ProductController extends Controller
         ]);
     }
 
+    public function detail(Request $req, $codArt)
+    {
+        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac'])->findOrFail($codArt);
+        // dd($product);
+        return view('parideViews.prods.detail', [
+            'prod' => $product,
+        ]);
+    }
+
+
     public function showNewProducts(Request $req)
     {
 
@@ -155,18 +165,6 @@ class ProductController extends Controller
         return view('prods.index', [
             'products' => $products,
             // 'gruppi' => $gruppi,
-        ]);
-    }
-
-    public function showDetail(Request $req, $codArt)
-    {
-
-        return redirect()->action('HomeController@index');
-
-        $product = Product::with(['grpProd', 'clasProd'])->findOrFail($codArt);
-        // dd($product);
-        return view('prods.detail', [
-            'prod' => $product,
         ]);
     }
 }
