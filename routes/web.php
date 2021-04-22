@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Actions\Sys\DbSeed\ZipFileUpload;
 use App\Http\Controllers\sysCtrl\UserController;
 use App\Http\Controllers\parideCtrl\ClientController;
 use App\Http\Controllers\parideCtrl\ProductController;
@@ -54,3 +55,7 @@ Route::name('user::')->group(function () {
     Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB');
     Route::post('/user_changeLang', [UserController::class, 'changeLang'])->name('changeLang');
 });
+
+//Database Update
+// Route::get('/updateDB', ZipFileUpload::class);
+// Route::post('/storeDBSeedFile', ZipFileUpload::class);

@@ -54,6 +54,18 @@
                                 <i class="fas fa-users"></i>&nbsp;&nbsp;Gestione Utenti
                             </button>
                         </a>
+                        <hr class="mb-2">
+                        <a href='#'>
+                            <button type="submit" class="btn btn-block btn-outline-info">
+                                <i class="fas fa-database"></i>&nbsp;&nbsp;Update Database
+                            </button>
+                        </a>
+                        <hr class="mb-2">
+                        <a href='{{ url('telescope') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-warning">
+                                <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Control Panel
+                            </button>
+                        </a>
                         {{-- <hr class="mb-2">
                         <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">
                             <i class="fas fa-users"></i> Laratrust
