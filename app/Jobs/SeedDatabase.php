@@ -63,10 +63,9 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
                 $this->fail();
                 Log::error('failed-job: ' . $this->pathFile);
                 $filename = $this->pathFile;
-                Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
+                Mail::raw('FAIL! Log Database!', function ($message) use ($filename) {
                     $message->to('luca.ciotti@gmail.com')
-                    ->subject('FAIL! Log Database')
-                    ->attach('storage/app/' . $filename);
+                    ->subject('FAIL! Log Database');
                 });
             }
         } catch ( \Exception $e) {
@@ -76,8 +75,7 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
             $filename = $this->pathFile;
             Mail::raw($e->getMessage(), function ($message) use ($filename) {
                 $message->to('luca.ciotti@gmail.com')
-                ->subject('FAIL! Log Database')
-                ->attach('storage/app/' . $filename);
+                ->subject('FAIL! Log Database');
             });
         }
     }
