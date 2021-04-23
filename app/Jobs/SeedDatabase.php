@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use ZipArchive;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
@@ -41,25 +42,43 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
             Storage::delete($file);
         }
         $zip = new ZipArchive;
-        if ($zip->open('storage/app/'.$this->pathFile) === TRUE) {
-            $zip->extractTo('storage/app/DbSeed/JsonFiles');
-            $zip->close();
+        try {
+            if ($zip->open('storage/app/' . $this->pathFile) === TRUE) {
+                $zip->extractTo('storage/app/DbSeed/JsonFiles');
+                $zip->close();
 
-            $output = '';
-            Artisan::call('db:seed', array('--database' => 'pNet_DATA', '--force' => true), $output);
-            $output .= Artisan::output();
+                $output = '';
+                Artisan::call('db:seed', array('--database' => 'pNet_DATA', '--force' => true), $output);
+                $output .= Artisan::output();
 
-            $filename = now()->format('Y-m-d-H-i-s') . '.log';
-            Storage::put('DbSeed/Logs/'. $filename, $output);
+                $filename = now()->format('Y-m-d-H-i-s') . '.log';
+                Storage::put('DbSeed/Logs/' . $filename, $output);
 
-            Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
-                $message->to('luca.ciotti@gmail.com')
-                ->subject('Log Database')
-                ->attach('storage/app/DbSeed/Logs/' . $filename);
-            });
-        } else {
+                Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
+                    $message->to('luca.ciotti@gmail.com')
+                    ->subject('Log Database')
+                    ->attach('storage/app/DbSeed/Logs/' . $filename);
+                });
+            } else {
+                $this->fail();
+                Log::error('failed-job: ' . $this->pathFile);
+                $filename = $this->pathFile;
+                Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
+                    $message->to('luca.ciotti@gmail.com')
+                    ->subject('FAIL! Log Database')
+                    ->attach('storage/app/' . $filename);
+                });
+            }
+        } catch ( \Exception $e) {
             $this->fail();
-            echo 'failed-'.$this->pathFile;
+            Log::error('failed-job: ' . $this->pathFile);
+            Log::error($e->getMessage());
+            $filename = $this->pathFile;
+            Mail::raw($e->getMessage(), function ($message) use ($filename) {
+                $message->to('luca.ciotti@gmail.com')
+                ->subject('FAIL! Log Database')
+                ->attach('storage/app/' . $filename);
+            });
         }
     }
 }
