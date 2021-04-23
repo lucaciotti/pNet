@@ -96,6 +96,8 @@
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        {{-- @include('sweetalert::alert') --}}
         @if(app()->version() >= 7)
             @livewireScripts
         @else

@@ -19,7 +19,8 @@ use App\Http\Controllers\parideCtrl\ProductController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/login');
 });
 
 require __DIR__.'/auth.php';

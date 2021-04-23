@@ -66,6 +66,8 @@
                                 <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Control Panel
                             </button>
                         </a>
+                        <hr class="mb-2">
+                        {{-- @livewire('test.mail-send-test') --}}
                         {{-- <hr class="mb-2">
                         <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">
                             <i class="fas fa-users"></i> Laratrust

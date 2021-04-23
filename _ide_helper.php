@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.37.0.
+ * Generated for Laravel 8.38.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -6510,7 +6510,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest dump()
      * @method static \Illuminate\Http\Client\PendingRequest dd()
      * @method static \Illuminate\Http\Client\PendingRequest async()
-     * @method static \Illuminate\Http\Client\Pool pool()
+     * @method static \Illuminate\Http\Client\Pool pool(callable $callback)
      * @method static \Illuminate\Http\Client\Response delete(string $url, array $data = [])
      * @method static \Illuminate\Http\Client\Response get(string $url, array $query = [])
      * @method static \Illuminate\Http\Client\Response head(string $url, array $query = [])
@@ -10305,7 +10305,7 @@
          *
          * @param string|null $key
          * @param string|array|null $default
-         * @return string|array 
+         * @return string|array|null 
          * @static 
          */ 
         public static function old($key = null, $default = null)
@@ -16852,6 +16852,18 @@
      
 }
 
+    namespace Jantinnerezo\LivewireAlert { 
+            /**
+     * 
+     *
+     * @see \Jantinnerezo\LivewireAlert\Skeleton\SkeletonClass
+     */ 
+        class LivewireAlertFacade {
+         
+    }
+     
+}
+
     namespace Livewire { 
             /**
      * 
@@ -17118,6 +17130,51 @@
         {
                         /** @var \Livewire\LivewireManager $instance */
                         return $instance->withQueryParams($queryParams);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Component {
+                    /**
+         * 
+         *
+         * @see \Jantinnerezo\LivewireAlert\LivewireAlertServiceProvider::registerAlertMacro()
+         * @param mixed $type
+         * @param mixed $message
+         * @param mixed $options
+         * @static 
+         */ 
+        public static function alert($type = 'success', $message = '', $options = [])
+        {
+                        return \Livewire\Component::alert($type, $message, $options);
+        }
+                    /**
+         * 
+         *
+         * @see \Jantinnerezo\LivewireAlert\LivewireAlertServiceProvider::registerFlashMacro()
+         * @param mixed $type
+         * @param mixed $message
+         * @param mixed $options
+         * @static 
+         */ 
+        public static function flash($type = 'success', $message = '', $options = [])
+        {
+                        return \Livewire\Component::flash($type, $message, $options);
+        }
+                    /**
+         * 
+         *
+         * @see \Jantinnerezo\LivewireAlert\LivewireAlertServiceProvider::registerConfirmMacro()
+         * @param mixed $title
+         * @param mixed $options
+         * @static 
+         */ 
+        public static function confirm($title, $options = [])
+        {
+                        return \Livewire\Component::confirm($title, $options);
         }
          
     }
@@ -20690,6 +20747,7 @@ namespace  {
             class Mapper extends \Cornford\Googlmapper\Facades\MapperFacade {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class LivewireAlert extends \Jantinnerezo\LivewireAlert\LivewireAlertFacade {}
             class Livewire extends \Livewire\Livewire {}
             class Action extends \Lorisleiva\Actions\Facades\Actions {}
             class Laratrust extends \Laratrust\LaratrustFacade {}

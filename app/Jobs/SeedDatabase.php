@@ -4,13 +4,14 @@ namespace App\Jobs;
 
 use ZipArchive;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Support\Facades\Artisan;
 
 class SeedDatabase implements ShouldQueue, ShouldBeUnique
 {
@@ -48,7 +49,14 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
             Artisan::call('db:seed', array('--database' => 'pNet_DATA'), $output);
             $output .= Artisan::output();
 
-            Storage::put('DbSeed/Logs/'. now()->format('Y-m-d-H-i-s').'.log', $output);
+            $filename = now()->format('Y-m-d-H-i-s') . '.log';
+            Storage::put('DbSeed/Logs/'. $filename, $output);
+
+            Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
+                $message->to('luca.ciotti@gmail.com')
+                ->subject('Log Database')
+                ->attach('storage/app/DbSeed/Logs/' . $filename);
+            });
         } else {
             $this->fail();
             echo 'failed-'.$this->pathFile;
