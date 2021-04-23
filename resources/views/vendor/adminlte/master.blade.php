@@ -40,6 +40,7 @@
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.css"> --}}
         @if(app()->version() >= 7)
             @livewireStyles
         @else

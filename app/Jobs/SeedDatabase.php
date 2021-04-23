@@ -46,7 +46,7 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
             $zip->close();
 
             $output = '';
-            Artisan::call('db:seed', array('--database' => 'pNet_DATA'), $output);
+            Artisan::call('db:seed', array('--database' => 'pNet_DATA', '--force' => true), $output);
             $output .= Artisan::output();
 
             $filename = now()->format('Y-m-d-H-i-s') . '.log';

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Test;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MailSendTest extends Component
@@ -21,7 +22,7 @@ class MailSendTest extends Component
     public function confirmed()
     {
         Mail::raw('Hi, welcome user!', function ($message) {
-            $message->to(Auth()->user->email)->subject('Test Invio');
+            $message->to(Auth::user()->email)->subject('Test Invio');
         });
         
         $this->alert('success', 'Ok! Mail Sended', [
@@ -43,12 +44,7 @@ class MailSendTest extends Component
 
     public function triggerConfirm()
     {
-        // 
-        Mail::raw('Hi, welcome user!', function ($message) {
-            $message->to(Auth()->user->email)->subject('Test Invio');
-        });
-
-        $this->confirm('Invio una email si test al tuo indirizzo?', [
+        $this->confirm('Would you send a test email?', [
             'toast' => false,
             'position' => 'center',
             'showConfirmButton' => true,
@@ -56,6 +52,6 @@ class MailSendTest extends Component
             'onConfirmed' => 'confirmed',
             'onCancelled' => 'cancelled'
         ]);
-        // Log::info('terminato');
+        Log::info('ok end');
     }
 }

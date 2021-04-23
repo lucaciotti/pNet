@@ -6,6 +6,7 @@ use App\Jobs\SeedDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use Lorisleiva\Actions\ActionRequest;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +19,7 @@ class ZipFileUpload
 
     public function handle(UploadedFile $file) :string
     {
+        Log::info('importo file');
         $filename = now()->format('Y-m-d-H-i-s').'.'.$file->getClientOriginalExtension();
         return Storage::putFileAs('DbSeed/ZipFiles', $file, $filename);
     }
@@ -27,7 +29,10 @@ class ZipFileUpload
         $path = '';
         $message = '';
         $success = false;
-        
+
+        //IMPOSTAZIONI SERVERSIDE
+        set_time_limit(300);
+        Log::info('iniziato validate file');
         $validator = Validator::make(
             $request->all(),
             [
