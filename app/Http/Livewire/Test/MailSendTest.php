@@ -43,7 +43,11 @@ class MailSendTest extends Component
 
     public function triggerConfirm()
     {
-        Log::info('entrato');
+        // 
+        Mail::raw('Hi, welcome user!', function ($message) {
+            $message->to(Auth()->user->email)->subject('Test Invio');
+        });
+
         $this->confirm('Invio una email si test al tuo indirizzo?', [
             'toast' => false,
             'position' => 'center',
@@ -52,6 +56,6 @@ class MailSendTest extends Component
             'onConfirmed' => 'confirmed',
             'onCancelled' => 'cancelled'
         ]);
-        Log::info('terminato');
+        // Log::info('terminato');
     }
 }
