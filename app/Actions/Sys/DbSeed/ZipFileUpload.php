@@ -48,7 +48,7 @@ class ZipFileUpload
             $path = $this->handle($file);
             $message = "File successfully uploaded";
             $success = true;
-            SeedDatabase::dispatch($path)->onQueue('dbSeed')->delay(now()->addMinutes(1));
+            SeedDatabase::dispatch($path)->onQueue('dbSeed');
         }
         return [
             "success" => $success,

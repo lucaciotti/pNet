@@ -29,9 +29,14 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
      */
     public function __construct(string $pathFile)
     {
+        Log::info("iniziato");
         $this->pathFile = Storage::path($pathFile);
+        Log::info($this->pathFile);
         $this->jsonFilesPath = Storage::path('DbSeed/JsonFiles');
+        Log::info($this->jsonFilesPath);
         $this->logFilesPath = Storage::path('DbSeed/Logs');
+        Log::info($this->logFilesPath);
+        Log::info("ended");
     }
 
     /**
@@ -42,13 +47,19 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
     public function handle()
     {
         //prima i tutto cancello tutti i file nella directory database/json
-        foreach (Storage::files('DbSeed/JsonFiles') as $file) {
-            Storage::delete($file);
+        $oldFiles = Storage::files('DbSeed/JsonFiles');
+        if(!empty($oldFiles)) {
+            Log::info("Elimino vecchi file");
+            foreach ($oldFiles as $file) {
+                Storage::delete($file);
+            }
         }
+        Log::info("iniziounzip");
         $zip = new ZipArchive;
         try {
             if ($zip->open($this->pathFile) === TRUE) {
-                $zip->extractTo($this->jsonFilesPath);
+                Log::info("Estraggo");
+                $zip->extractTo($this->jsonFilesPath.'/');
                 $zip->close();
 
                 $output = '';
@@ -61,7 +72,7 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
                 Mail::raw('Attached the Database Log!', function ($message) use ($filename) {
                     $message->to('luca.ciotti@gmail.com')
                     ->subject('Log Database')
-                    ->attach($this->logFilesPath . $filename);
+                    ->attach($this->logFilesPath. '/' . $filename);
                 });
             } else {
                 $this->fail();
