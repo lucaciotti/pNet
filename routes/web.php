@@ -54,7 +54,7 @@ Route::name('user::')->group(function () {
     Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli');
     Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike');
     Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB');
-    Route::post('/user_changeLang', [UserController::class, 'changeLang'])->name('changeLang');
+    Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang');
 });
 
 //Database Update

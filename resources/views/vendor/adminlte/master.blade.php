@@ -97,13 +97,39 @@
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         {{-- @include('sweetalert::alert') --}}
         @if(app()->version() >= 7)
             @livewireScripts
         @else
             <livewire:scripts />
         @endif
+
+        <script>
+            window.addEventListener('swal:modal', event => { 
+            swal({
+              title: event.detail.message,
+              text: event.detail.text,
+              icon: event.detail.type,
+            });
+        });
+          
+        window.addEventListener('swal:confirm', event => { 
+            swal({
+              title: event.detail.message,
+              text: event.detail.text,
+              icon: event.detail.type,
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                window.livewire.emit('remove');
+              }
+            });
+        });
+        </script>
     @endif
 
     {{-- Custom Scripts --}}
