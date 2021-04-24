@@ -173,6 +173,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RedisUserServiceProvider::class,
+        Jantinnerezo\LivewireAlert\LivewireAlertServiceProvider::class,
 
     ],
 
@@ -227,7 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'RedisUser' => App\Helpers\RedisUser::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
-
+        'LivewireAlert' => Jantinnerezo\LivewireAlert\LivewireAlertFacade::class,
     ],
 
 ];

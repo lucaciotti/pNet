@@ -16043,6 +16043,18 @@
      
 }
 
+    namespace Jantinnerezo\LivewireAlert { 
+            /**
+     * 
+     *
+     * @see \Jantinnerezo\LivewireAlert\Skeleton\SkeletonClass
+     */ 
+        class LivewireAlertFacade {
+         
+    }
+     
+}
+
     namespace Barryvdh\Debugbar { 
             /**
      * 
@@ -16847,18 +16859,6 @@
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
         }
-         
-    }
-     
-}
-
-    namespace Jantinnerezo\LivewireAlert { 
-            /**
-     * 
-     *
-     * @see \Jantinnerezo\LivewireAlert\Skeleton\SkeletonClass
-     */ 
-        class LivewireAlertFacade {
          
     }
      
@@ -20745,9 +20745,9 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class RedisUser extends \App\Helpers\RedisUser {}
             class Mapper extends \Cornford\Googlmapper\Facades\MapperFacade {}
+            class LivewireAlert extends \Jantinnerezo\LivewireAlert\LivewireAlertFacade {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
-            class LivewireAlert extends \Jantinnerezo\LivewireAlert\LivewireAlertFacade {}
             class Livewire extends \Livewire\Livewire {}
             class Action extends \Lorisleiva\Actions\Facades\Actions {}
             class Laratrust extends \Laratrust\LaratrustFacade {}

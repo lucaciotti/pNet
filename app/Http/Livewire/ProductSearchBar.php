@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\parideModels\Product;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
+use App\Models\parideModels\Product;
 
 class ProductSearchBar extends Component
 {
