@@ -18,6 +18,7 @@ class DDTCli extends Model
 
     protected $guarded = ['id_doc_tes'];
     protected $dates = ['data', 'data_div'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -30,6 +31,20 @@ class DDTCli extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_doc_tes'];
+    }
+
+    public function getDescrTipodocAttribute()
+    {
+        return 'DDT';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'BO';
+    }
 
 
     // JOINS

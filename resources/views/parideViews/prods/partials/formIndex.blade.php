@@ -5,7 +5,7 @@
     <label>Codice Articolo</label>
     <div class="input-group input-group mb-3">
       <div class="input-group-prepend">
-        <select type="button" class="btn btn-warning dropdown-toggle" name="codArtOp">
+        <select type="button" class="btn btn-primary dropdown-toggle" name="codArtOp">
           <option value="eql">=</option>
           <option value="stw">[]...</option>
           <option value="cnt" selected>...[]...</option>
@@ -18,7 +18,7 @@
     <label>Descr. Art.</label>
     <div class="input-group input-group mb-3">
       <span class="input-group-prepend">
-            <select type="button" class="btn btn-warning dropdown-toggle" name="descrArtOp">
+            <select type="button" class="btn btn-primary dropdown-toggle" name="descrArtOp">
               <option value="eql">=</option>
               <option value="stw">[]...</option>
               <option value="cnt" selected>...[]...</option>
@@ -32,7 +32,7 @@
     <label>Barcode</label>
     <div class="input-group input-group mb-3">
       <span class="input-group-prepend">
-        <select type="button" class="btn btn-warning dropdown-toggle" name="barcodeOp">
+        <select type="button" class="btn btn-primary dropdown-toggle" name="barcodeOp">
           <option value="eql">=</option>
           <option value="stw">[]...</option>
           <option value="cnt" selected>...[]...</option>
@@ -74,6 +74,23 @@
         @endif
         >
         [{{ $grp->id_fam }}] {{ $grp->descr }}
+      </option>
+      @endforeach
+    </select>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label>Fornitore</label>
+    <select name="supplierSelected[]" class="form-control select2" multiple="multiple" style="width: 100%;">
+      @foreach ($suppliersList as $sup)
+      <option value="{{ $sup->id_cli_for }}" @if (in_array($sup->id_cli_for, (old('supplierSelected') ? old('supplierSelected') :
+        Arr::wrap($supplierSelected))))
+        selected
+        @endif
+        >
+        [{{ $sup->id_cli_for }}] {{ $sup->rag_soc }}
       </option>
       @endforeach
     </select>

@@ -44,22 +44,16 @@ class MailSendTest extends Component
 
     public function triggerConfirm()
     {
-        // $this->confirm('Would you send a test email?', [
-        //     'toast' => false,
-        //     'position' => 'center',
-        //     'showConfirmButton' => true,
-        //     'cancelButtonText' => 'Nope',
-        //     'onConfirmed' => 'confirmed',
-        //     'onCancelled' => 'cancelled'
-        // ]);
+        $this->confirm('Would you send a test email?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Nope',
+            'onConfirmed' => 'confirmed',
+            'onCancelled' => 'cancelled'
+        ]);
         Mail::raw('Hi, welcome user!', function ($message) {
             $message->to(Auth::user()->email)->subject('Test Invio');
         });
-        $this->dispatchBrowserEvent('swal:confirm', [
-            'type' => 'info',
-            'message' => 'Check out your email',
-            'text' => 'Email sended!'
-        ]);
-        Log::info('ok end');
     }
 }

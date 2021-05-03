@@ -15,8 +15,7 @@ class Product extends Model
 
     protected $guarded = ['id_art'];
     protected $dates = ['data_reg'];
-    // protected $appends = ['master_clas', 'master_grup', 'listino', 'tipo_prod'];
-    protected $appends = ['master_grup'];
+    // protected $appends = ['master_grup'];
 
     // Scope that garante to find only Supplier from anagrafe
     // protected static function boot()

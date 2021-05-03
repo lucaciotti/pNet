@@ -18,6 +18,7 @@ class FTCli extends Model
 
     protected $guarded = ['id_doc_tes'];
     protected $dates = ['data', 'data_div'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -30,7 +31,20 @@ class FTCli extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_doc_tes'];
+    }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Fattura';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'FT';
+    }
 
     // JOINS
     public function rows()

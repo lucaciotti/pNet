@@ -1,3 +1,4 @@
+{{-- myCurrency --}}
 <script>
     jQuery.extend( jQuery.fn.dataTableExt.oSort, {
     "my-currency-pre": function(a) {
@@ -12,6 +13,56 @@
             });
 </script>
 
+{{-- myDatePicker --}}
+<script>
+    moment.locale('it');
+    $('#datePicker').daterangepicker();
+    $('input[name="docDataPicker"]').daterangepicker(
+        {},
+        function (start, end) {
+            // $('.daterange-btn span').html(start.format('D/MM/YYYY') + ' - ' + end.format('D/MM/YYYY'));
+            $('input[name="startDate"]').val(start.format('D/MM/YYYY'));
+            $('input[name="endDate"]').val(end.format('D/MM/YYYY'));
+        }
+    );
+    $('input[name="noDate"]').click(function() {
+        $('input[name="docDataPicker"]').toggle(!this.checked);
+        if(this.checked){
+            $('input[name="startDate"]').val('');
+            $('input[name="endDate"]').val('');
+        } else {
+            setDataRange(start, end);
+        }
+    });
+    function setDataRange(start, end) {
+        $('input[name="docDataPicker"]').data('daterangepicker').setStartDate(start);
+        $('input[name="docDataPicker"]').data('daterangepicker').setEndDate(end);
+        $('input[name="startDate"]').val(start.format('D/MM/YYYY'));
+        $('input[name="endDate"]').val(end.format('D/MM/YYYY'));
+    };
+    
+    function setVoidRange() {
+        $('input[name="noDate"]').click();
+        // $('input[name="noDate"]').iCheck('check', function(event){
+        //     // alert(event.type + ' callback');
+        //     $('input[name="docDataPicker"]').val('');
+        //     $('input[name="docDataPicker"]').prop('disabled', true);
+        //     $('input[name="startDate"]').val('');
+        //     $('input[name="endDate"]').val('');
+        // });
+    };
+    @if(isset($startDate) || isset($endDate))
+        var start = moment('{{$startDate}}');
+        var end = moment('{{$endDate}}');
+        setDataRange(start, end);
+    @else
+        // $('.daterange-btn span').html('Seleziona Data');
+        console.log("empty StartDate");
+        setVoidRange();
+    @endif
+</script>
+
+{{-- myDatatables --}}
 <script>
     $(function () {
     $(".dtTbls_full").DataTable({
@@ -172,7 +223,25 @@
     });
   });
 </script>
+<style>
+    .dtTbls_light span {
+        display: none;
+    }
 
+    .dtTbls_full span {
+        display: none;
+    }
+
+    .dtTbls_full_Tot span {
+        display: none;
+    }
+
+    .dtTbls_total span {
+        display: none;
+    }
+</style>
+
+{{-- mySelect2 --}}
 <script>
     // function selectAll(class){
   // $(class+"> option").prop("selected","selected");
@@ -206,21 +275,3 @@
         // });
       });
 </script>
-
-<style>
-    .dtTbls_light span {
-        display: none;
-    }
-
-    .dtTbls_full span {
-        display: none;
-    }
-
-    .dtTbls_full_Tot span {
-        display: none;
-    }
-
-    .dtTbls_total span {
-        display: none;
-    }
-</style>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Actions\Sys\DbSeed\ZipFileUpload;
 use App\Http\Controllers\sysCtrl\UserController;
 use App\Http\Controllers\parideCtrl\ClientController;
+use App\Http\Controllers\parideCtrl\DocCliController;
 use App\Http\Controllers\parideCtrl\ProductController;
 
 /*
@@ -44,6 +45,12 @@ Route::name('product::')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('list');
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
+});
+
+// Routes Docs
+Route::name('doc::')->group(function () {
+    Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
+    Route::get('/docs/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
 });
 
 

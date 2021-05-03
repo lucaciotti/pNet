@@ -18,6 +18,7 @@ class OrdCli extends Model
 
     protected $guarded = ['id_ord_tes'];
     protected $dates = ['data', 'data_eva'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -30,7 +31,20 @@ class OrdCli extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_ord_tes'];
+    }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Ordine';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'OC';
+    }
 
     // JOINS
     public function rows()

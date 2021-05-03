@@ -32,11 +32,12 @@
                   <thead>
                     <th>{{ trans('prod.codeArt') }}</th>
                     <th>{{ trans('prod.descArt') }}</th>
-                    <th>{{ trans('prod.groupProd') }}</th>
+                    <th>Famiglia Prodotto</th>
+                    <th>Prezzo</th>
                     <th>UM</th>
                     <th>Disponibilità</th>
-                    <th>Barcode</th>
-                    <th>Forn.</th>
+                    {{-- <th>Barcode</th>
+                    <th>Forn.</th> --}}
                   </thead>
                   <tbody>
                     @foreach ($products as $prod)
@@ -50,14 +51,15 @@
                         - {{ $prod->grpProd->descr }}
                         @endif
                       </td>
+                      <td>{{ $prod->prezzo_1 }}</td>
                       <td>{{ $prod->um }}</td>
                       <td>0</td>
-                      <td>{{ $prod->id_cod_bar }}</td>
+                      {{-- <td>{{ $prod->id_cod_bar }}</td>
                       <td>[{{ $prod->id_cli_for }}]
                         @if($prod->supplier)
                         - {{ $prod->supplier->rag_soc }}
                         @endif
-                      </td>
+                      </td> --}}
                     </tr>
                     @endforeach
                   </tbody>

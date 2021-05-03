@@ -24,8 +24,11 @@
 
     {{-- Base Stylesheets --}}
     @if(!config('adminlte.enabled_laravel_mix'))
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}"> --}}
+        <script src="https://kit.fontawesome.com/1b1768a50a.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+        {{-- Date Picker --}}
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
@@ -75,18 +78,17 @@
     @endif
 
 </head>
-
 <body class="@yield('classes_body')" @yield('body_data')>
-
     {{-- Body Content --}}
     @yield('body')
-
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
+        {{-- Moment For DatePicker --}}
+        <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+        <script type="text/javascript" src="https://adminlte.io/themes/v3/plugins/daterangepicker/daterangepicker.js"></script>
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])
 
@@ -97,39 +99,14 @@
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
-        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         {{-- @include('sweetalert::alert') --}}
         @if(app()->version() >= 7)
             @livewireScripts
         @else
             <livewire:scripts />
         @endif
-
-        <script>
-            window.addEventListener('swal:modal', event => { 
-            swal({
-              title: event.detail.message,
-              text: event.detail.text,
-              icon: event.detail.type,
-            });
-        });
-          
-        window.addEventListener('swal:confirm', event => { 
-            swal({
-              title: event.detail.message,
-              text: event.detail.text,
-              icon: event.detail.type,
-              buttons: true,
-              dangerMode: true,
-            })
-            .then((willDelete) => {
-              if (willDelete) {
-                window.livewire.emit('remove');
-              }
-            });
-        });
-        </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <x-livewire-alert::scripts />
     @endif
 
     {{-- Custom Scripts --}}

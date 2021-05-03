@@ -92,8 +92,10 @@
             
               <dt>{{ trans('client.phone') }}</dt>
               <dd>{{$client->telefono1}}
-                @if (!empty($client->telefono))
-                &nbsp;<a href="tel:{{$client->telefono}}"><i class="btn btn-xs fa fa-phone bg-green"></i></a>
+                @if (!empty($client->telefono1))
+                &nbsp;<span class="badge bg-green">
+                  <a href="tel:{{$client->telefono1}}"><i class="fa fa-phone"></i></a>
+                </span>
                 @endif
               </dd>
               <dt>{{ trans('client.fax') }}</dt>
@@ -105,7 +107,7 @@
               <dt>{{ trans('client.mobilePhone') }}</dt>
               <dd>{{$client->telcell}}
                 @if (!empty($client->telcell))
-                &nbsp;<a href="tel:{{$client->telcell}}"><i class="btn btn-xs fa fa-phone bg-green"></i></a>
+                &nbsp;<a class="badge bg-green" href="tel:{{$client->telcell}}"><i class="fa fa-phone"></i></a>
                 @endif
               </dd>
             
@@ -114,7 +116,7 @@
               <dt>{{ trans('client.email') }}</dt>
               <dd>{{$client->e_mail}}
                 @if (!empty($client->e_mail))
-                &nbsp;<a href="mailto:{{$client->e_mail}}"><i class="btn btn-xs fa fa-envelope-o bg-red"></i></a>
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->e_mail}}"><i class="fa fa-envelope-o"></i></a>
                 @endif
               </dd>
             
@@ -123,28 +125,28 @@
               <dt>{{ trans('client.emailAdm') }}</dt>
               <dd>{{$client->emailam}}
                 @if (!empty($client->emailam))
-                &nbsp;<a href="mailto:{{$client->emailam}}"><i class="btn btn-xs fa fa-envelope-o bg-red"></i></a>
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailam}}"><i class="fa fa-envelope-o"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailOrder') }}</dt>
               <dd>{{$client->emailut}}
                 @if (!empty($client->emailut))
-                &nbsp;<a href="mailto:{{$client->emailut}}"><i class="btn btn-xs fa fa-envelope-o bg-red"></i></a>
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailut}}"><i class="fa fa-envelope-o"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailDdt') }}</dt>
               <dd>{{$client->emailav}}
                 @if (!empty($client->emailav))
-                &nbsp;<a href="mailto:{{$client->emailav}}"><i class="btn btn-xs fa fa-envelope-o bg-red"></i></a>
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailav}}"><i class="fa fa-envelope-o bg-red"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailInvoice') }}</dt>
               <dd>{{$client->emailpec}}
                 @if (!empty($client->emailpec))
-                &nbsp;<a href="mailto:{{$client->emailpec}}"><i class="btn btn-xs fa fa-envelope-o bg-red"></i></a>
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailpec}}"><i class="fa fa-envelope-o bg-red"></i></a>
                 @endif
               </dd>
             

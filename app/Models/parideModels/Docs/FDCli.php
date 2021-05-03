@@ -6,18 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class FTProfCli extends Model
+class FDCli extends Model
 {
     use HasFactory;
 
-    protected $table = 'ord_tes';
+
+    protected $table = 'doc_tes';
     public $timestamps = false;
-    protected $primaryKey = 'id_ord_tes';
+    protected $primaryKey = 'id_doc_tes';
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
 
-    protected $guarded = ['id_ord_tes'];
-    protected $dates = ['data', 'data_eva'];
+    protected $guarded = ['id_doc_tes'];
+    protected $dates = ['data', 'data_div'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -25,17 +27,30 @@ class FTProfCli extends Model
         parent::boot();
 
         static::addGlobalScope('docCli', function (Builder $builder) {
-            $builder->where('id_cli_for', 'like', 'C%')->where('tipo', '5');
+            $builder->where('id_cli_for', 'like', 'C%')->where('tipo_doc', '3');
         });
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_doc_tes'];
+    }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Fattura Differita';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'FD';
+    }
 
     // JOINS
     public function rows()
     {
-        return $this->hasMany('App\Models\parideModels\Docs\RowOrd', 'id_ord_tes', 'id_ord_tes');
+        return $this->hasMany('App\Models\parideModels\Docs\RowDoc', 'id_doc_tes', 'id_doc_tes');
     }
 
     public function client()

@@ -19,6 +19,7 @@ class NCCli extends Model
 
     protected $guarded = ['id_doc_tes'];
     protected $dates = ['data', 'data_div'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -31,7 +32,20 @@ class NCCli extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_doc_tes'];
+    }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Nota di Accredito';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'NC';
+    }
 
     // JOINS
     public function rows()

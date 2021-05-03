@@ -22,7 +22,7 @@
     <label>Codice Cliente</label>
     <div class="input-group input-group mb-3">
       <div class="input-group-prepend">
-        <select type="button" class="btn btn-warning dropdown-toggle" name="codcliOp">
+        <select type="button" class="btn btn-primary dropdown-toggle" name="codcliOp">
           <option value="eql">=</option>
           <option value="stw">[]...</option>
           <option value="cnt" selected>...[]...</option>
@@ -43,7 +43,7 @@
     <label>Partita Iva</label>
     <div class="input-group input-group mb-3">
       <span class="input-group-prepend">
-            <select type="button" class="btn btn-warning dropdown-toggle" name="partivaOp">
+            <select type="button" class="btn btn-primary dropdown-toggle" name="partivaOp">
               <option value="eql">=</option>
               <option value="stw">[]...</option>
               <option value="cnt" selected>...[]...</option>

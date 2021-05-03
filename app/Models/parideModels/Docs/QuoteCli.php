@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PrevCli extends Model
+class QuoteCli extends Model
 {
     use HasFactory;
 
@@ -18,6 +18,7 @@ class PrevCli extends Model
 
     protected $guarded = ['id_ord_tes'];
     protected $dates = ['data','data_eva'];
+    protected $appends = ['id_doc'];
 
     // Scope that garante to find only the right Model
     protected static function boot()
@@ -30,7 +31,20 @@ class PrevCli extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getIdDocAttribute()
+    {
+        return $this->attributes['id_ord_tes'];
+    }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Preventivo';
+    }
+
+    public function getTipoDocAttribute()
+    {
+        return 'XC';
+    }
 
     // JOINS
     public function rows(){

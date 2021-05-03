@@ -20,15 +20,17 @@ class ProductController extends Controller
     public function index(Request $req)
     {
         $masterGrps = GrpProd::orderBy('id_fam')->get();
-        $masterGrpFilter = $masterGrps->first()->id_fam;
+        $masterGrpFilter = ''; //$masterGrps->first()->id_fam;
         // ->whereRaw('left(id_fam,2) = ?', $masterGrpFilter)
         $gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
-        $grpSelected = $gruppi->first()->id_fam;
+        $grpSelected = '';//$gruppi->first()->id_fam;
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for')
-            ->where('id_fam', $grpSelected)->orderBy('id_art');
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1')
+            ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
         $products = $products->with('grpProd')->with('supplier')->get();
 
+        $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
+            ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
 
         return view('parideViews.prods.index', [
             'products' => $products,
@@ -36,13 +38,15 @@ class ProductController extends Controller
             'gruppi' => $gruppi,
             'grpSelected' => Arr::wrap($grpSelected),
             'masterGrpFilter' => Arr::wrap($masterGrpFilter),
+            'suppliersList' => $supplierList,
+            'supplierSelected' => Arr::wrap(''),
         ]);
     }
 
     public function fltIndex(Request $req)
     {
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for');
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1');
 
         if ($req->input('codArt')) {
             if ($req->input('codArtOp') == 'eql') {
@@ -84,6 +88,10 @@ class ProductController extends Controller
             $products = $products->whereIn('id_fam', $req->input('grpSelected'));
         }
 
+        if ($req->input('supplierSelected')) {
+            $products = $products->whereIn('id_cli_for', $req->input('supplierSelected'));
+        }
+
         // $listGrp = '';
         // if ($req->input('masterGrpFilter')) {
         //     $first = true;
@@ -101,7 +109,8 @@ class ProductController extends Controller
         $masterGrps = GrpProd::orderBy('id_fam')->get();
         // $gruppi = SubGrpProd::whereRaw('left(id_fam,2) IN ( ? )', $listGrp)->orderBy('id_fam')->get();
         $gruppi = SubGrpProd::orderBy('id_fam')->get();
-        
+        $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
+            ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();        
 
         return view('parideViews.prods.index', [
             'products' => $products,
@@ -112,6 +121,8 @@ class ProductController extends Controller
             'barcode' => $req->input('barcode'),
             'grpSelected' => $req->input('grpSelected'),
             'masterGrpFilter' => $req->input('masterGrpFilter'),
+            'suppliersList' => $supplierList,
+            'supplierSelected' => $req->input('supplierSelected'),
         ]);
     }
 
