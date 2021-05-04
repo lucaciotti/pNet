@@ -79,6 +79,15 @@
                 </dd>
             </dl>
 
+            <hr>
+
+            <form action="{{ url('/gdpr/download') }}" method="post">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <button type="submit" class="btn btn-block btn-sm btn-outline-danger" >
+                Scarica i tuoi dati (GDPR)
+              </button>
+            </form>
+
           </div>
       </div>
      

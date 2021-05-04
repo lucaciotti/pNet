@@ -2,21 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
+use Soved\Laravel\Gdpr\Portable;
+use Soved\Laravel\Gdpr\Contracts\Portable as PortableContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements PortableContract
 {
     use LaratrustUserTrait;
-    use HasFactory, Notifiable;
+    use HasFactory, Portable, Notifiable;
 
 
     protected $username = 'nickname';
 
     protected $connection = 'pNet_SYS';
+    
+    // GPDR Properties
+    // protected $gdprWith = ['posts'];
+    protected $gdprHidden = ['password', 'remember_token'];
+    // protected $gdprVisible = ['name', 'email'];
+    // protected $encrypted = ['ssnumber'];
     /**
      * The attributes that are mass assignable.
      *

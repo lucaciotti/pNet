@@ -46,6 +46,11 @@ class OrdCli extends Model
         return 'OC';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'O';
+    }
+
     // JOINS
     public function rows()
     {

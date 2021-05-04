@@ -158,10 +158,10 @@ class DocCliController extends Controller
                 break;
         }
 
-        dd($doc);
+        // dd($doc);
 
         return view('parideViews.docs.detail', [
-            'doc' => $doc,
+            'head' => $doc,
             'tipodoc' => $tipodoc,
         ]);
 

@@ -24,6 +24,7 @@
         "lucaciotti/laravel-json-seeder": "^1.1",
         "predis/predis": "^1.1",
         "santigarcor/laratrust": "^6.3",
+        "soved/laravel-gdpr": "^1.5",
         "spatie/laravel-cookie-consent": "^3.0",
         "torann/currency": "^1.1"
     },

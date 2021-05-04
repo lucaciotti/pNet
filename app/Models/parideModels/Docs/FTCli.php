@@ -46,6 +46,11 @@ class FTCli extends Model
         return 'FT';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'F';
+    }
+
     // JOINS
     public function rows()
     {

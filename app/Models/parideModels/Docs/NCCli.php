@@ -47,6 +47,11 @@ class NCCli extends Model
         return 'NC';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'N';
+    }
+
     // JOINS
     public function rows()
     {

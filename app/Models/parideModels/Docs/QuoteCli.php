@@ -46,6 +46,11 @@ class QuoteCli extends Model
         return 'XC';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'P';
+    }
+
     // JOINS
     public function rows(){
         return $this->hasMany('App\Models\parideModels\Docs\RowOrd', 'id_ord_tes', 'id_ord_tes');

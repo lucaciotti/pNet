@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a5e028b925c9451571bdf2b105a2fa0",
+    "content-hash": "2fbde4f072d13e98f851170b215302c1",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4031,6 +4031,62 @@
                 }
             ],
             "time": "2021-03-03T13:34:32+00:00"
+        },
+        {
+            "name": "soved/laravel-gdpr",
+            "version": "v1.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sander3/laravel-gdpr.git",
+                "reference": "f652d1d69e883102b0c1f29ddd318ab3713adbcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sander3/laravel-gdpr/zipball/f652d1d69e883102b0c1f29ddd318ab3713adbcd",
+                "reference": "f652d1d69e883102b0c1f29ddd318ab3713adbcd",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.5|~6.0|~7.0|~8.0",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Soved\\Laravel\\Gdpr\\GdprServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Soved\\Laravel\\Gdpr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sander de Vos",
+                    "email": "sander@tutanota.de"
+                }
+            ],
+            "description": "GDPR compliance with ease",
+            "keywords": [
+                "data-portability",
+                "data-retention",
+                "encryption",
+                "gdpr",
+                "laravel",
+                "soved"
+            ],
+            "support": {
+                "issues": "https://github.com/sander3/laravel-gdpr/issues",
+                "source": "https://github.com/sander3/laravel-gdpr/tree/v1.5.5"
+            },
+            "time": "2020-09-11T06:46:32+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",

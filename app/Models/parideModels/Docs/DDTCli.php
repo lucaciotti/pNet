@@ -46,6 +46,10 @@ class DDTCli extends Model
         return 'BO';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'B';
+    }
 
     // JOINS
     public function rows()

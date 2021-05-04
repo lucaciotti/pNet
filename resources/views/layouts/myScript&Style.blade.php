@@ -136,14 +136,14 @@
           // Remove the formatting to get integer data for summation
           var intVal = function ( i ) {
               return typeof i === 'string' ?
-                  i.replace(/[\$,]/g, '')*1 :
+                  (i.includes("€") ? i.replace(",", ".").replace(" €", "").replace(/[\$,]/g, '')*1 : i.replace(/[\$,]/g, '')*1) :
                   typeof i === 'number' ?
                       i : 0;
           };
 
           // Total over all pages
           total = api
-              .column( 7 )
+              .column( 6 )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
@@ -151,7 +151,7 @@
 
           // Total over this page
           pageTotal = api
-              .column( 7, { page: 'current'} )
+              .column( 6, { page: 'current'} )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
@@ -160,11 +160,11 @@
           // Update footer
           console.log(pageTotal);
           if(api.page.info().page == api.page.info().pages-1){
-            $( api.column( 7 ).footer() ).html(
+            $( api.column( 6 ).footer() ).html(
                 total.toFixed(2) +' €'//+' ['+ total +' € Tot.Doc.]'
             );
           } else {
-            $( api.column( 7 ).footer() ).html(
+            $( api.column( 6 ).footer() ).html(
                 "<i class='fa fa-arrow-right'> Last Page</i> "
             );
           }

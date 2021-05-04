@@ -47,6 +47,11 @@ class FDCli extends Model
         return 'FD';
     }
 
+    public function getTipomoduloAttribute()
+    {
+        return 'F';
+    }
+
     // JOINS
     public function rows()
     {
