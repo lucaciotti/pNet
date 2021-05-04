@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // \Torann\Currency\Middleware\CurrencyMiddleware::class,
-        \Spatie\CookieConsent\CookieConsentMiddleware::class,
+        // \Spatie\CookieConsent\CookieConsentMiddleware::class,
     ];
 
     /**

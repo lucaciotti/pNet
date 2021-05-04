@@ -3,7 +3,6 @@
     @include('cookie-consent::dialogContents')
 
     <script>
-
         window.laravelCookieConsent = (function () {
 
             const COOKIE_VALUE = 1;
@@ -38,6 +37,8 @@
 
             if (cookieExists('{{ $cookieConsentConfig['cookie_name'] }}')) {
                 hideCookieDialog();
+            } else {
+                $('#modal').modal('show');
             }
 
             const buttons = document.getElementsByClassName('js-cookie-consent-agree');

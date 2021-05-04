@@ -113,6 +113,8 @@
     @yield('adminlte_js')
     {{-- <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script> --}}
 
+    {{-- Cookie Consent GDPR --}}
+    @include('cookie-consent::index')
 </body>
 
 </html>

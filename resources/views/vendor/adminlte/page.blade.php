@@ -67,6 +67,7 @@
         @if(config('adminlte.right_sidebar'))
             @include('adminlte::partials.sidebar.right-sidebar')
         @endif
+        
     </div>
 @stop
 
