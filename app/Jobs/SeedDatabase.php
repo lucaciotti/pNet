@@ -21,7 +21,8 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
     protected string $pathFile;
     protected string $jsonFilesPath;
     protected string $logFilesPath;
-    public $timeout = 300;
+    public $timeout = 3600;
+    public $tries = 5;
     /**
      * Create a new job instance.
      *
@@ -92,5 +93,20 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
                 ->subject('FAIL! Log Database');
             });
         }
+    }
+
+    public function failed(\Throwable $e)
+    {
+        Log::error('failed-job: ' . $this->pathFile);
+        Log::error($e->getMessage());
+        Mail::raw($e->getMessage(), function ($message) {
+            $message->to('luca.ciotti@gmail.com')
+            ->subject('FAIL! Log Database');
+        });
+    }
+
+    public function retryUntil()
+    {
+        return now()->addSeconds(3600);
     }
 }
