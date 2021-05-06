@@ -13,7 +13,7 @@
 @section('content-fluid')
   <div class="row">
 
-    <div class="col-7">
+    <div class="col-lg-7">
       <div class="card">
         <div class="card-header border-transparent">
           <h3 class="card-title">{{ trans('client.listCli') }}</h3>
@@ -26,34 +26,29 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <div class="row">
-              <div class="col-sm-12">
-                <table class="table table-hover table-condensed dtTbls_light">
-                  <thead>
-                    <th>{{ trans('client.code') }}</th>
-                    <th>{{ trans('client.descCli') }}</th>
-                    <th>{{ trans('client.nat&loc') }}</th>
-                    <th>Partita Iva</th>
-                    {{-- <th>{{ trans('client.agent') }}</th> --}}
-                    <th>{{ trans('client.lnkDocuments') }}</th>
-                  </thead>
-                  <tbody>
-                    @foreach ($clients as $client)
-                    <tr>
-                      <td>
-                        <a href="{{ route('client::detail', $client->id_cli_for ) }}"> {{ $client->id_cli_for }}</a>
-                      </td>
-                      <td>{{ $client->rag_soc }}</td>
-                      <td>{{ $client->citta }}, {{ $client->provincia }} - I</td>
-                      <td>{{ $client->p_i }}</td>
-                      {{-- <td>@if($client->agent) {{ $client->agent->descrizion }} @endif</td> --}}
-                      <td><a href="{{-- {{ route('doc::client', $client->codice) }} --}}">{{ trans('client.documents') }}</a></td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <table class="table table-hover table-condensed dtTbls_light nowrap" style="width:100%">
+              <thead>
+                <th>{{ trans('client.code') }}</th>
+                <th>{{ trans('client.descCli') }}</th>
+                <th>{{ trans('client.nat&loc') }}</th>
+                <th>Partita Iva</th>
+                <th>{{ trans('client.lnkDocuments') }}</th>
+              </thead>
+              <tbody>
+                @foreach ($clients as $client)
+                <tr>
+                  <td>
+                    <a href="{{ route('client::detail', $client->id_cli_for ) }}"> {{ $client->id_cli_for }}</a>
+                  </td>
+                  <td>{{ $client->rag_soc }}</td>
+                  <td>{{ $client->citta }}, {{ $client->provincia }} - I</td>
+                  <td>{{ $client->p_i }}</td>
+                  <td><a href="">{{ trans('client.documents') }}</a></td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+                
           </div>
         <!-- /.card-body -->
       </div>

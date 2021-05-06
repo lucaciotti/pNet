@@ -1,26 +1,24 @@
 {{-- @if($tipomodulo)
-  <table class="table table-hover table-condensed dtTbls_full_Tot" id="listDocs">
-@else --}}
-  <table class="table table-hover table-condensed dtTbls_full" id="listDocs">
-{{-- @endif --}}
+  @else --}}
+  {{-- <table class="table table-hover table-condensed dtTbls_light nowrap" id="listDocs"> --}}
+    {{-- @endif --}}
+<table class="table table-hover table-condensed dtTbls_full_Tot nowrap" id="listDocs">
   <thead>
     <th>{{ trans('doc.typeDoc') }}</th>
     <th>{{ trans('doc.#Doc') }}</th>
     <th>{{ trans('doc.dateDoc_condensed') }}</th>
     <th>{{ trans('doc.client') }}</th>
-    <th>{{ trans('doc.referenceDoc_condensed') }}</th>
+    {{-- <th>{{ trans('doc.referenceDoc_condensed') }}</th> --}}
     <th>{{ trans('doc.totDoc_condensed') }}</th>
     <th>PDF</th>
   </thead>
-  @if($tipomodulo)
-    <tfoot>
+    {{-- <tfoot>
       <tr>
-        {{-- <th colspan="5" style="text-align:right">{{ trans('doc.totDoc_condensed') }}:</th> --}}
+        <th colspan="5" style="text-align:right">{{ trans('doc.totDoc_condensed') }}:</th>
         <th colspan="5" style="text-align:right"></th>
         <th></th>
       </tr>
-    </tfoot>
-  @endif
+    </tfoot> --}}
   <tbody>
     @foreach ($docs as $doc)
       <tr>
@@ -28,9 +26,9 @@
         <td>
           <a href="{{ route('doc::detail', [$doc->tipodoc, $doc->id_doc]) }}"> {{ $doc->num }} </a>
         </td>
-        <td><span>{{$doc->data->format('Ymd')}}</span>{{ $doc->data->format('d-m-Y') }}</td>
+        <td><span class='date'>{{$doc->data->format('Ymd')}}</span>{{ $doc->data->format('d-m-Y') }}</td>
         <td>{{-- {{ $doc->client->rag_soc }} --}} [{{ $doc->id_cli_for }}]</td>
-        <td>{{ $doc->rif_num or '' }}</td>
+        {{-- <td>{{ $doc->rif_num or '-' }}</td> --}}
         <td>{{ currency($doc->tot_imp) }}</td>
         <td>
           <a class="btn-sm btn-default" href="{{-- {{ route('doc::downloadPDF', $doc->id_doc ) }} --}}" target="_blank">

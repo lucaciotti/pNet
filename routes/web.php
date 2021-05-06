@@ -6,6 +6,7 @@ use App\Actions\Sys\DbSeed\ZipFileUpload;
 use App\Http\Controllers\sysCtrl\UserController;
 use App\Http\Controllers\parideCtrl\ClientController;
 use App\Http\Controllers\parideCtrl\DocCliController;
+use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ProductController;
 
 /*
@@ -28,9 +29,7 @@ require __DIR__.'/auth.php';
 
 // Auth::routes();
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 
 // Routes Clients

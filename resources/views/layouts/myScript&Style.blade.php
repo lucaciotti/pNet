@@ -68,16 +68,28 @@
     $(".dtTbls_full").DataTable({
       "iDisplayLength": 25,
       "aaSorting": [],
-    });
+      "responsive": true,
+        "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 }
+        ]
+        });
     $('.dtTbls_light').DataTable({
       "iDisplayLength": 25,
       "paging": true,
       "lengthChange": false,
       "searching": false,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false,
-      "aaSorting": []
+      "aaSorting": [],
+      "responsive": true,
+      "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 }
+        ]
     });
     $(".dtTbls_full_Tot").DataTable({
       "iDisplayLength": 25,
@@ -119,7 +131,13 @@
           $( api.column( 5 ).footer() ).html(
               pageTotal.toFixed(2) +' €'              
           );
-      }
+      },
+      "responsive": true,
+        "columnDefs": [
+            { "responsivePriority": 1, "targets": 0 },
+            { "responsivePriority": 2, "targets": 1 },
+            { "responsivePriority": 3, "targets": -1 }
+        ]
     });
     $('.dtTbls_total').DataTable({
       "iDisplayLength": 15,
@@ -168,7 +186,13 @@
                 "<i class='fa fa-arrow-right'> Last Page</i> "
             );
           }
-      }
+      },
+      "responsive": true,
+        "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 }
+        ]
     });
     $('.dtTbls_stat3').DataTable({
         "iDisplayLength": 25,
@@ -187,58 +211,59 @@
         // "bStateSave": false
     });
     $('.dtTbls_stat4').DataTable({
-    "iDisplayLength": 25,
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "aoColumnDefs": [
-    {"sType": "my-currency", "aTargets": [2]},
-    {"sType": "my-currency", "aTargets": [3]},
-    {"sType": "my-currency", "aTargets": [4]},
-    {"sType": "my-currency", "aTargets": [5]}
-    ]
-    // "aaSorting": [[0, "desc"]],
-    // "bStateSave": false
-    });
-    $('.dtTbls_stat5').DataTable({
-    "iDisplayLength": 25,
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "aoColumnDefs": [
-    {"sType": "my-currency", "aTargets": [2]},
-    {"sType": "my-currency", "aTargets": [3]},
-    {"sType": "my-currency", "aTargets": [4]},
-    {"sType": "my-currency", "aTargets": [5]},
-    {"sType": "my-currency", "aTargets": [6]}
-    ]
-    // "aaSorting": [[0, "desc"]],
-    // "bStateSave": false
+        "iDisplayLength": 25,
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "aoColumnDefs": [
+        {"sType": "my-currency", "aTargets": [2]},
+        {"sType": "my-currency", "aTargets": [3]},
+        {"sType": "my-currency", "aTargets": [4]},
+        {"sType": "my-currency", "aTargets": [5]}
+        ]
+        // "aaSorting": [[0, "desc"]],
+        // "bStateSave": false
+        });
+        $('.dtTbls_stat5').DataTable({
+        "iDisplayLength": 25,
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "aoColumnDefs": [
+        {"sType": "my-currency", "aTargets": [2]},
+        {"sType": "my-currency", "aTargets": [3]},
+        {"sType": "my-currency", "aTargets": [4]},
+        {"sType": "my-currency", "aTargets": [5]},
+        {"sType": "my-currency", "aTargets": [6]}
+        ]
+        // "aaSorting": [[0, "desc"]],
+        // "bStateSave": false
     });
   });
 </script>
 <style>
-    .dtTbls_light span {
+    .dtTbls_light span.date {
         display: none;
     }
 
-    .dtTbls_full span {
+    .dtTbls_full span.date {
         display: none;
     }
 
-    .dtTbls_full_Tot span {
+    .dtTbls_full_Tot span.date {
         display: none;
     }
 
-    .dtTbls_total span {
+    .dtTbls_total span.date {
         display: none;
     }
+    
 </style>
 
 {{-- mySelect2 --}}

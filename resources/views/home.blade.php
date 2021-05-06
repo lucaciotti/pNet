@@ -20,28 +20,28 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{ $nQuotes }}</h3>
         
                         <p>Preventivi</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-clipboard-list"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('doc::list', 'P') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-6 col-6 ml-auto">
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3>{{ $nDDTs }}</h3>
             
                         <p>Ddt</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-truck-loading"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('doc::list', 'B') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>&nbsp;</h3>
+                        <h3>{{ $nDDTs }}<small><small><small><i>  nuovi prodotti</i></small></small></small></h3>
             
                         <p>Catalogo</p>
                     </div>
@@ -64,14 +64,14 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>{{ $nFattDir+$nFattDif }}</h3>
         
                         <p>Fatture</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-file-invoice-dollar"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('doc::list', 'F') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

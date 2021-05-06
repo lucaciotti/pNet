@@ -13,7 +13,7 @@
 @section('content-fluid')
   <div class="row">
 
-    <div class="col-7">
+    <div class="col-lg-7">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ trans('doc.contentTitle_idx', ['tipoDoc' => $descModulo]) }}</h3>
@@ -26,12 +26,8 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <div class="row">
-              <div class="col-sm-12">
-                @include('parideViews.docs.partials.tblIndex', [$docs, $tipomodulo])
-              </div>
-            </div>
-          </div>
+            @include('parideViews.docs.partials.tblIndex', [$docs])
+        </div>
         <!-- /.card-body -->
       </div>
     </div>
@@ -78,8 +74,3 @@
   </div>
 @stop
 
-@section('extra_script')
-  {{-- @include('layouts.partials.scripts.iCheck')
-  @include('layouts.partials.scripts.select2')
-  @include('layouts.partials.scripts.datePicker') --}}
-@endsection
