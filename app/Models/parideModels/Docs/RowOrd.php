@@ -19,6 +19,8 @@ class RowOrd extends Model
     protected $guarded = ['id_ord_rig'];
     protected $dates = ['data_eva'];
 
+    protected $appends = ['qtarow', 'qtares'];
+
     // Scope that garante to find only the right Model
     protected static function boot()
     {
@@ -26,7 +28,14 @@ class RowOrd extends Model
     }
 
     // APPENDS Calculated Columns
-
+    public function getQtarowAttribute()
+    {
+        return round($this->qta_ord, 2);
+    }
+    public function getQtaresAttribute()
+    {
+        return round($this->qta_ord - $this->qta_eva, 2);
+    }
 
     // JOINS
     public function product()

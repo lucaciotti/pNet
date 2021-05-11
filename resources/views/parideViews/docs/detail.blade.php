@@ -50,6 +50,32 @@
       </div>
       <!-- /.card -->
     </div>
+
+    <div class="card card-outline">
+      <div class="card-header">
+        <h3 class="card-title">Downloads</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        {{-- <a type="button" class="btn btn-default btn-block" target="_blank" href="{{ route('doc::downloadXML', $head->id) }}">
+          <strong> XML File</strong>
+        </a>
+        <hr>
+        <a type="button" class="btn btn-default btn-block" target="_blank" href="{{ route('doc::downloadXLS', $head->id) }}">
+          <strong> Excel File</strong>
+        </a>
+        <hr> --}}
+        <a type="button" class="btn bg-lightblue btn-block" target="_blank" href="{{ route('doc::downloadPDF', [$head->tipodoc, $head->id_doc]) }}">
+          <strong> PDF File</strong>
+        </a>
+      </div>
+      <!-- /.card -->
+    </div>
+
   </div>
 
   <div class="col-lg-7">

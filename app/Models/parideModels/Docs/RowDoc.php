@@ -18,6 +18,8 @@ class RowDoc extends Model
     protected $guarded = ['id_doc_rig'];
     protected $dates = ['ddt_data'];
 
+    protected $appends = ['qtarow', 'qtares'];
+
     // Scope that garante to find only the right Model
     protected static function boot()
     {
@@ -25,6 +27,14 @@ class RowDoc extends Model
     }
 
     // APPENDS Calculated Columns
+    public function getQtarowAttribute()
+    {
+        return round($this->qta, 2);
+    }
+    public function getQtaresAttribute()
+    {
+        return round($this->qta,2);
+    }
 
 
     // JOINS

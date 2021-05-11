@@ -122,41 +122,6 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        
-        <label>Prezzo di Acquisto:</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}" style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€</span>
-          </div>
-        </div>
-
-        <label>Fornitore:</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
-          </div>
-          @if ($prod->supplier)
-          <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
-          @else
-          <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}" >
-          @endif
-        </div>
-
-      </div>
-    </div>
-  </div>
 
   <div class="col-lg-6">
     <div class="card">
@@ -210,6 +175,45 @@
       </div>
     </div>
   </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+  
+        <label>Prezzo di Acquisto:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}"
+            style="text-align:right;">
+          <div class="input-group-append">
+            <span class="input-group-text">€</span>
+          </div>
+        </div>
+  
+        <label>Fornitore:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
+          </div>
+          @if ($prod->supplier)
+          <input type="text" class="form-control" readonly name="supplier"
+            value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
+          @else
+          <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}">
+          @endif
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
 </div>
 
 {{-- </div> --}}

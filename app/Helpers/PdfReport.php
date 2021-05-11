@@ -8,8 +8,8 @@ class PdfReport
     public static function A4Portrait($view, $data, $title, $subTitle){
 
         $pdf = PDF::loadView($view, $data)
-            ->setOption('header-html', view('_exports.pdf.masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
-            ->setOption('footer-html', view('_exports.pdf.masterPage.footerPdf'))
+            ->setOption('header-html', view('parideViews._exports.pdf._masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
+            ->setOption('footer-html', view('parideViews._exports.pdf._masterPage.footerPdf'))
             ->setPaper('a4');
 
         return $pdf;
@@ -18,8 +18,8 @@ class PdfReport
     public static function A4Landscape($view, $data, $title, $subTitle){
 
         $pdf = PDF::loadView($view, $data)
-            ->setOption('header-html', view('_exports.pdf.masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
-            ->setOption('footer-html', view('_exports.pdf.masterPage.footerPdf'))
+            ->setOption('header-html', view('parideViews._exports.pdf._masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
+            ->setOption('footer-html', view('parideViews._exports.pdf._masterPage.footerPdf'))
             ->setOption('orientation', 'Landscape')
             ->setPaper('a4');
 

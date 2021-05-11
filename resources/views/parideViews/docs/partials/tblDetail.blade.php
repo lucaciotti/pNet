@@ -38,10 +38,10 @@
             <td> - </td>
           @endif
           <td>{{ htmlspecialchars($row->descr) }}</td>
-          <td>{{ $row->qta }}</td>
-          <td>{{ $row->prezzo }} €</td>
-          <td>{{ $row->sc1+$row->sc2 }}</td>
-          <td>{{ currency($row->val_riga) }}</td>
+          <td>@if ($row->prezzo!=0){{ $row->qtarow }} {{ $row->um }}@endif</td>
+          <td>@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
+          <td>@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
+          <td>@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
         </tr>
       @elseif($head->tipomodulo=='O')
         <tr>
@@ -59,10 +59,10 @@
             @endif --}}
           </td>
           <td>{{ htmlspecialchars($row->descr) }}</td>
-          <td>{{ $row->qta_ord }}</td>
+          <td>{{ $row->qtarow }}</td>
           <td>
-            @if($row->qta_eva!=$row->qta_ord)
-              {{ $row->qta_ord-$row->qta_eva }}
+            @if($row->qtares>0)
+              {{ $row->qtares }}
             @else
               -
             @endif

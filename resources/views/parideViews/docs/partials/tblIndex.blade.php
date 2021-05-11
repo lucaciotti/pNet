@@ -31,7 +31,7 @@
         {{-- <td>{{ $doc->rif_num or '-' }}</td> --}}
         <td>{{ currency($doc->tot_imp) }}</td>
         <td>
-          <a class="btn-sm btn-default" href="{{-- {{ route('doc::downloadPDF', $doc->id_doc ) }} --}}" target="_blank">
+          <a class="btn-sm btn-default" href="{{ route('doc::downloadPDF', [$doc->tipodoc, $doc->id_doc] ) }}" target="_blank">
             <i class="fa fa-file-pdf-o fa-lg text-danger"></i>
           </a>
         </td>
