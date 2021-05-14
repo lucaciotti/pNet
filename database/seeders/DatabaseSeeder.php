@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         // Get default limit
-        // $normalMemLimit = ini_get('memory_limit');
+        $normalMemLimit = ini_get('memory_limit');
         // var_dump($normalMemLimit);
         // Set new limit
-        // ini_set('memory_limit', '-1');
+        ini_set('memory_limit', '-1');
 
         //other code
         // Model::unguard();
@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         // Model::reguard();
 
         // Restore default limit
-        // ini_set('memory_limit', $normalMemLimit);
+        ini_set('memory_limit', $normalMemLimit);
     }
 }
