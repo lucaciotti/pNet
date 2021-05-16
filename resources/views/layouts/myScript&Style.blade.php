@@ -300,3 +300,11 @@
         // });
       });
 </script>
+
+{{-- Ekko-LightBox --}}
+<script>
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+</script>

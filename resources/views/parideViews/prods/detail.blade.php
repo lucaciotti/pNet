@@ -100,21 +100,33 @@
     </div>
   </div>
 
+  @php
+      $imageExist = ($prod->nome_foto && @fopen($prod->nome_foto, 'r'));
+  @endphp
   <div class="col-lg-4">
-    <div class="card collapsed-card">
+    <div class="card @if (!$imageExist) collapsed-card @endif"> 
       <div class="card-header">
         <h3 class="card-title" data-card-widget="collapse">Immagine</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-plus"></i>
+            @if (!$imageExist)
+              <i class="fas fa-plus"></i>
+            @else
+              <i class="fas fa-minus"></i>
+            @endif
           </button>
         </div>
       </div>
       <div class="card-body">
-        <div style="height: 270px; width: 100%;">
-          <img src="{{ asset('assets/img/noPhoto.png') }}" alt="noImage" height="270px"
-            style="display: block; margin-left: auto; margin-right: auto;">
-        </div>
+        {{-- <div style="height: 270px; width: 100%;"> --}}
+          @if ($imageExist)
+            <a href="{{ $prod->nome_foto }}" data-toggle="lightbox" data-max-width="600">
+              <img src="{{ $prod->nome_foto }}" height="270px" class="img-fluid">
+            </a>  
+          @else     
+            <img src="{{ asset('assets/img/noPhoto.png') }}" alt="noImage" height="270px" class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;">
+          @endif
+        {{-- </div> --}}
       </div>
     </div>
   </div>

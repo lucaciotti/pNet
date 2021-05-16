@@ -5,8 +5,9 @@
     <div class="row">
         @include('parideViews._exports.pdf.docDetail.docHead', [$head, $tipodoc] )        
     </div>
-                
-    <div>
+
+    <div class="row">
+        <br><br><br><br><br><br><br><br><br><br><br>
         <hr class="dividerPage">
     </div>
     <div class="row">

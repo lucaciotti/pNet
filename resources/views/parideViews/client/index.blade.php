@@ -26,7 +26,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table class="table table-hover table-condensed dtTbls_light nowrap" style="width:100%">
+            <table class="table table-hover table-condensed dtTbls_light" style="width:100%">
               <thead>
                 <th>{{ trans('client.code') }}</th>
                 <th>{{ trans('client.descCli') }}</th>

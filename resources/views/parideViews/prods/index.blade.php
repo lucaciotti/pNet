@@ -13,7 +13,7 @@
 @section('content-fluid')
   <div class="row">
 
-    <div class="col-7">
+    <div class="col-lg-7">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ trans('prod.contentTitle_idx') }}</h3>

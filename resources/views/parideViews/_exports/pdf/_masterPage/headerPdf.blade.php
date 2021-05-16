@@ -11,9 +11,9 @@
  
     <body id="pdf-footer" onload="pagination()">
         <div>
-            {{ $pageTitle or 'Page Title'}}&nbsp;  &nbsp;
+            {{-- {{ $pageTitle or 'Page Title'}}&nbsp;  &nbsp; --}}
             @if(!empty($pageSubTitle))
-                <small> - {{ $pageSubTitle }} </small>
+                <small> {{ $pageSubTitle }} </small>
             @endif
             <span class="knet"><i>pNet Reports</i></span>
         </div>

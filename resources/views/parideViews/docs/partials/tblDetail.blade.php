@@ -1,4 +1,4 @@
-<table class="table table-hover table-condensed dtTbls_total nowrap">
+<table class="table table-hover table-condensed dtTbls_total">
   <thead>
     <th>{{ trans('doc.#Row') }}</th>
     <th>{{ trans('doc.codeArt') }}</th>

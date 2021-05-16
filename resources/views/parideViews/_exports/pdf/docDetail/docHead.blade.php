@@ -1,5 +1,10 @@
 <span class="floatleft">
-    <span class="contentSubTitle">{{ trans('doc.dataDoc') }}</span>
+    <img src="{{ asset('/assets/img/logo_esteso.png') }}" alt="" height="130" align="left">
+</span>
+
+<span class="floatright">
+    <br><br><br>
+    {{-- <div class="contentSubTitle">{{ trans('doc.dataDoc') }}</div> --}}
     <dl class="dl-horizontal">
         <dt>{{ trans('doc.document') }}</dt>
         <dd>
@@ -30,8 +35,4 @@
         {{-- <dt>{{ trans('client.agent') }}</dt>
         <dd>{{$head->agente}} - {{$head->agent->descrizion}}</dd> --}}
     </dl>
-</span>
-
-<span class="floatright">
-    <img src="{{ asset('/assets/img/logo_esteso.png') }}" alt="" {{-- height="120" --}} width="200" align="right">
 </span>
