@@ -188,6 +188,7 @@
     </div>
   </div>
 
+  @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">
@@ -225,6 +226,7 @@
       </div>
     </div>
   </div>
+  @endif
 
 </div>
 

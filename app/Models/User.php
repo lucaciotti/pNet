@@ -21,7 +21,7 @@ class User extends Authenticatable implements PortableContract
     protected $connection = 'pNet_SYS';
     
     // GPDR Properties
-    // protected $gdprWith = ['posts'];
+    protected $gdprWith = ['client'];
     protected $gdprHidden = ['password', 'remember_token'];
     // protected $gdprVisible = ['name', 'email'];
     // protected $encrypted = ['ssnumber'];
@@ -72,5 +72,12 @@ class User extends Authenticatable implements PortableContract
 
     public function adminlte_profile_url() {
         return route('user::users.show', $this->id);
+    }
+
+
+    //JOIN pNet
+    public function client()
+    {
+        return $this->hasOne('App\Models\parideModels\Client', 'id_cli_for', 'codcli');
     }
 }

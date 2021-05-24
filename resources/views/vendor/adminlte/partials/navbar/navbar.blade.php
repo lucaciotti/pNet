@@ -32,8 +32,10 @@
         @endif
 
         {{-- Right sidebar toggler link --}}
-        @if(config('adminlte.right_sidebar'))
-            @include('adminlte::partials.navbar.menu-item-right-sidebar-toggler')
+        @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
+            @if(config('adminlte.right_sidebar'))
+                @include('adminlte::partials.navbar.menu-item-right-sidebar-toggler')
+            @endif
         @endif
     </ul>
 

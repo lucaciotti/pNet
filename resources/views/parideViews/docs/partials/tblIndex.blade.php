@@ -27,7 +27,7 @@
           <a href="{{ route('doc::detail', [$doc->tipodoc, $doc->id_doc]) }}"> {{ $doc->num }} </a>
         </td>
         <td><span class='date'>{{$doc->data->format('Ymd')}}</span>{{ $doc->data->format('d-m-Y') }}</td>
-        <td>{{ $doc->client->rag_soc }} [{{ $doc->id_cli_for }}]</td>
+        <td>{{ $doc->client->rag_soc ?? '' }} [{{ $doc->id_cli_for }}]</td>
         {{-- <td>{{ $doc->rif_num or '-' }}</td> --}}
         <td>{{ currency($doc->tot_imp) }}</td>
         <td>

@@ -44,7 +44,7 @@
 
               @if (!empty($user->codcli))
                 <dt>{{ trans('user.codCli') }}</dt>
-                <dd>{{$user->codcli}} - {{$user->client->descrizion or 'NONE'}}</dd>
+                <dd>{{$user->codcli}} - {{$user->client->rag_soc ?? 'NONE'}}</dd>
               @endif
 
               <dt>{{ trans('user.refDitta') }}</dt>

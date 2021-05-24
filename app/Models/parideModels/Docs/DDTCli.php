@@ -2,6 +2,7 @@
 
 namespace App\Models\parideModels\Docs;
 
+use App\Helpers\RedisUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,22 @@ class DDTCli extends Model
         static::addGlobalScope('docCli', function (Builder $builder) {
             $builder->where('id_cli_for', 'like', 'C%')->where('tipo_doc', '1');
         });
+
+        switch (RedisUser::get('role')) {
+            case 'agent':
+                static::addGlobalScope('agent', function (Builder $builder) {
+                    $builder->where('agente', RedisUser::get('codag'));
+                });
+                break;
+            case 'client':
+                static::addGlobalScope('client', function (Builder $builder) {
+                    $builder->where('id_cli_for', RedisUser::get('codcli'));
+                });
+                break;
+
+            default:
+                break;
+        }
     }
 
     // APPENDS Calculated Columns

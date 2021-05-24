@@ -28,7 +28,7 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
     {
         // Log::info("Path:");
         $this->pathFile = Storage::path($pathFile);
-        Log::info('Seding Job Created: '.$this->pathFile);
+        Log::info('Seeding Job Created: '.$this->pathFile);
         $this->jsonFilesPath = Storage::path('DbSeed/JsonFiles');
         // Log::info($this->jsonFilesPath);
         $this->logFilesPath = Storage::path('DbSeed/Logs');
@@ -72,6 +72,8 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
         });
 
         Log::info('Seeding-job ENDED');
+
+        CreateClientUser::dispatch()->onQueue('dbSeed');
         return;
         // $this->release();
     }

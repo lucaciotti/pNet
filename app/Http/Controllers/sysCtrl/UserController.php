@@ -26,7 +26,7 @@ class UserController extends Controller
             })
             ->orderBy('id')->get();
 
-        $agents = User::with(['roles', 'agent'])
+        $agents = User::with(['roles', 'agent', 'client'])
             ->whereHas('roles', function ($q) {
                 $q->whereIn('name', ['agent', 'superAgent']);
             })

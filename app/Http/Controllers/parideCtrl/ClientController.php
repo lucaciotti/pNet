@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\parideCtrl;
 
+use Mapper;
+use App\Helpers\RedisUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use App\Models\parideModels\Client;
 use App\Http\Controllers\Controller;
-
-use Mapper;
 
 class ClientController extends Controller
 {
@@ -19,9 +20,9 @@ class ClientController extends Controller
     public function index(Request $req)
     {
 
-        // if (RedisUser::get('role') == 'client') {
-        //     return redirect()->action('ClientController@detail', RedisUser::get('codcli'));
-        // }
+        if (RedisUser::get('role') == 'client') {
+            return redirect()->action([ClientController::class, 'detail'], RedisUser::get('codcli'));
+        }
         // on($this->connection)->
         $clients = Client::get();
 

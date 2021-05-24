@@ -2,6 +2,7 @@
 
 namespace App\Models\parideModels;
 
+use App\Helpers\RedisUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,28 +26,21 @@ class Client extends Model
             $builder->where('id_cli_for', 'like', 'C%');
         });
 
-        // switch (RedisUser::get('role')) {
-        //     case 'agent':
-        //         static::addGlobalScope('agent', function (Builder $builder) {
-        //             $builder->where('agente', RedisUser::get('codag'));
-        //         });
-        //         break;
-        //     case 'superAgent':
-        //         static::addGlobalScope('superAgent', function (Builder $builder) {
-        //             $builder->whereHas('agent', function ($query) {
-        //                 $query->where('u_capoa', RedisUser::get('codag'));
-        //             });
-        //         });
-        //         break;
-        //     case 'client':
-        //         static::addGlobalScope('client', function (Builder $builder) {
-        //             $builder->where('codice', RedisUser::get('codcli'));
-        //         });
-        //         break;
+        switch (RedisUser::get('role')) {
+            case 'agent':
+                static::addGlobalScope('agent', function (Builder $builder) {
+                    $builder->where('agente', RedisUser::get('codag'));
+                });
+                break;
+            case 'client':
+                static::addGlobalScope('client', function (Builder $builder) {
+                    $builder->where('id_cli_for', RedisUser::get('codcli'));
+                });
+                break;
 
-        //     default:
-        //         break;
-        // }
+            default:
+                break;
+        }
     }
 
     public function __construct($attributes = array())
@@ -55,5 +49,10 @@ class Client extends Model
         parent::__construct($attributes);
         //Imposto la Connessione al Database
         // $this->setConnection(RedisUser::get('ditta_DB'));
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'codcli', 'id_cli_for');
     }
 }
