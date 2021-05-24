@@ -49,6 +49,7 @@ Route::name('product::')->group(function () {
 // Routes Docs
 Route::name('doc::')->group(function () {
     Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
+    Route::post('/docs/filtered', [DocCliController::class, 'fltIndex'])->name('fltList');
     Route::get('/doc/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
     Route::get('/docPDF/{tipodoc}/{id_doc}', [DocCliController::class, 'downloadPDF'])->name('downloadPDF');
 });

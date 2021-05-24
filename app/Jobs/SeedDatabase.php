@@ -72,6 +72,7 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
         });
 
         Log::info('Seeding-job ENDED');
+        return;
         // $this->release();
     }
 

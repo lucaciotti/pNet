@@ -1,4 +1,4 @@
-<form action="{{-- {{ route('doc::fltList') }} --}}" method="post">
+<form action="{{ route('doc::fltList') }}" method="post">
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
   <div class="form-group">
@@ -11,7 +11,7 @@
           <option value="cnt" selected>...[]...</option>
         </select>
       </div>
-      <input type="text" class="form-control" name="ragsoc" value="{{-- {{$ragSoc or ''}} --}}">
+      <input type="text" class="form-control" name="ragsoc" value="{{ $ragSoc ?? '' }}">
     </div>
   </div>
   
@@ -30,30 +30,25 @@
     </div>
   </div>
   <div class="form-group">
-    <label>&nbsp;
-      <input type="checkbox" name="noDate" id="noDate" value="C" @if($startDate=="" ) checked @endif>
+    <input type="checkbox" name="noDate" id="noDate" value="C" @if($noDate) checked @endif>
+    <label>&nbsp;&nbsp;
       {{ trans('doc.anyDate') }}
     </label>  
   </div>
 
   <div class="form-group">
     <label>{{ trans('doc.typeDoc') }}</label>
-    <div class="radio">
-      <label>
-        <input type="radio" name="optTipoDoc" id="opt1" value="" checked> {{ trans('doc.allDocs') }}
-      </label>
-      <label>
-        <input type="radio" name="optTipoDoc" id="opt2" value="P"> {{ trans('doc.quotes') }}
-      </label>
-      <label>
-        <input type="radio" name="optTipoDoc" id="opt3" value="O"> {{ trans('doc.orders') }}
-      </label>
-      <label>
-        <input type="radio" name="optTipoDoc" id="opt4" value="B"> {{ trans('doc.ddt') }}
-      </label>
-      <label>
-        <input type="radio" name="optTipoDoc" id="opt5" value="F"> {{ trans('doc.invoice') }}
-      </label>
+    <div class="radio">      
+      <input type="radio" name="optTipoDoc" id="opt1" value="" @if(empty($tipomodulo)) checked @endif>
+      <label> {{ trans('doc.allDocs') }} &nbsp;&nbsp; </label>    
+      <input type="radio" name="optTipoDoc" id="opt2" value="P" @if($tipomodulo=='P') checked @endif>
+      <label> {{ trans('doc.quotes') }} &nbsp;&nbsp; </label>
+      <input type="radio" name="optTipoDoc" id="opt3" value="O" @if($tipomodulo=='O') checked @endif>
+      <label> {{ trans('doc.orders') }} &nbsp;&nbsp; </label>    
+      <input type="radio" name="optTipoDoc" id="opt4" value="B" @if($tipomodulo=='B') checked @endif>
+      <label> {{ trans('doc.ddt') }} &nbsp;&nbsp; </label>    
+      <input type="radio" name="optTipoDoc" id="opt5" value="F" @if($tipomodulo=='F') checked @endif>
+      <label> {{ trans('doc.invoice') }} &nbsp;&nbsp; </label>
     </div>
   </div>
   <div>

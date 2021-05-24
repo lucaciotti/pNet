@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\parideCtrl;
 
+use Carbon\Carbon;
 use App\Helpers\PdfReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -66,6 +67,77 @@ class DocCliController extends Controller
             'descModulo' => $descModulo,
             'startDate' => now()->subMonths(12),
             'endDate' => now(),
+            'noDate' => false,
+        ]);
+    }
+
+    public function fltIndex(Request $req, $tipomodulo = null)
+    {
+        //FILTRI
+        $tipomodulo = $req->input('optTipoDoc');
+        if ($req->input('startDate')) {
+            $startDate = Carbon::createFromFormat('d/m/Y', $req->input('startDate'));
+            $endDate = Carbon::createFromFormat('d/m/Y', $req->input('endDate'));
+        } else {
+            $startDate = Carbon::now()->subMonth();
+            $endDate = Carbon::now();
+        }
+        $noDate = $req->input('noDate');
+        $ragSoc = $req->input('ragsoc');
+        $ragsocOp = $req->input('ragsocOp');
+
+        switch ($tipomodulo) {
+            case 'P':
+                $docs = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);                
+                $descModulo = trans('doc.quotes_title');
+                break;
+            case 'O':
+                $docs = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $descModulo = trans('doc.orders_title');
+                break;
+            case 'B':
+                $docs = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $descModulo = trans('doc.ddt_title');
+                break;
+            case 'F':
+                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $invoices->merge($invoicesFree)->merge($invoicesDiff);
+                $descModulo = trans('doc.invoice_title');
+                break;
+            case 'N':
+                $docs = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $descModulo = trans('doc.notecredito_title');
+                break;
+
+            default:
+                $quotes = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $orders = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $ddts = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $creditnotes = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $quotes->merge($orders)->merge($ddts)->merge($invoices)->merge($invoicesFree)->merge($invoicesDiff)->merge($creditnotes);
+                $descModulo = trans('doc.documents');
+                break;
+        }
+
+        $docs->sortBy([
+            ['data', 'desc'],
+            ['id_doc', 'desc'],
+        ]);
+
+        return view('parideViews.docs.index', [
+            'docs' => $docs,
+            'tipomodulo' => $tipomodulo,
+            'descModulo' => $descModulo,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'noDate' => $noDate,
+            'ragSoc' => $ragSoc,
+            'ragsocOp' => $ragsocOp,
         ]);
     }
 
@@ -275,6 +347,74 @@ class DocCliController extends Controller
         $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
 
         return $pdf->stream($title . '-' . $subTitle . '.pdf');
+    }
+
+    //PROTECTED FUNCTIONS
+    protected function getFilteredTipoDocs($tipodoc, $startDate, $endDate, $noDate, $ragSoc, $ragsocOp){
+        switch ($tipodoc) {
+            case 'XC':
+                $docs = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'OC':
+                $docs = OrdCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'BO':
+                $docs = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'FT':
+                $docs = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'FP':
+                $docs = FPCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'FD':
+                $docs = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            case 'NC':
+                $docs = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp');
+                break;
+            default:
+                break;
+        }
+
+        if (!$noDate) {
+            $docs = $docs->whereBetween('data', [$startDate, $endDate]);
+        }
+        if ($ragSoc) {
+            $ragsoc = strtoupper($ragSoc);
+            if ($ragsocOp == 'eql') {
+                $docs = $docs->whereHas('client', function ($query) use ($ragsoc) {
+                    $query->where('rag_soc', $ragsoc)
+                        ->withoutGlobalScope('agent')
+                        ->withoutGlobalScope('superAgent')
+                        ->withoutGlobalScope('client');
+                });
+            }
+            if ($ragsocOp == 'stw') {
+                $docs = $docs->whereHas('client', function ($query) use ($ragsoc) {
+                    $query->where('rag_soc', 'like', $ragsoc . '%')
+                        ->withoutGlobalScope('agent')
+                        ->withoutGlobalScope('superAgent')
+                        ->withoutGlobalScope('client');
+                });
+            }
+            if ($ragsocOp == 'cnt') {
+                $docs = $docs->whereHas('client', function ($query) use ($ragsoc) {
+                    $query->where('rag_soc', 'like', '%' . $ragsoc . '%')
+                        ->withoutGlobalScope('agent')
+                        ->withoutGlobalScope('superAgent')
+                        ->withoutGlobalScope('client');
+                });
+            }
+        }
+        $docs = $docs->with(['client' => function ($query) {
+            $query
+                ->withoutGlobalScope('agent')
+                ->withoutGlobalScope('superAgent')
+                ->withoutGlobalScope('client');
+        }]);
+        $docs = $docs->get();
+        return $docs;
     }
 
 }
