@@ -54,7 +54,9 @@
             <h4>Note:</h4>
         </u>
         <h5>
-            Non si accetano resi o sostituzioni di materiale oltre 30gg dalla data della presente.
+            Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
+            <br>
+            I resi devono essere approvati. 
         </h5>
     </span>
     @endif
