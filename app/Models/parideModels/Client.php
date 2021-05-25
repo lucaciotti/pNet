@@ -3,6 +3,7 @@
 namespace App\Models\parideModels;
 
 use App\Helpers\RedisUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,20 +27,22 @@ class Client extends Model
             $builder->where('id_cli_for', 'like', 'C%');
         });
 
-        switch (RedisUser::get('role')) {
-            case 'agent':
-                static::addGlobalScope('agent', function (Builder $builder) {
-                    $builder->where('agente', RedisUser::get('codag'));
-                });
-                break;
-            case 'client':
-                static::addGlobalScope('client', function (Builder $builder) {
-                    $builder->where('id_cli_for', RedisUser::get('codcli'));
-                });
-                break;
+        if (Auth::check()) {
+            switch (RedisUser::get('role')) {
+                case 'agent':
+                    static::addGlobalScope('agent', function (Builder $builder) {
+                        $builder->where('agente', RedisUser::get('codag'));
+                    });
+                    break;
+                case 'client':
+                    static::addGlobalScope('client', function (Builder $builder) {
+                        $builder->where('id_cli_for', RedisUser::get('codcli'));
+                    });
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
