@@ -34,7 +34,7 @@ class AlterUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['codag', 'codcli', 'codfor', 'ditta', 'avatar', 'lang', 'isActive']);
-            $table->dropUnique('users_email_unique');
+            $table->dropUnique('nickname_email_unique');
         });
     }
 }
