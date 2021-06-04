@@ -46,7 +46,7 @@ class CreateClientUser implements ShouldQueue
                         'name' => $client->rag_soc,
                         'nickname' => $client->id_cli_for.'@pNet.it',
                         'email' => $client->e_mail,
-                        'password' => Hash::make($client->id_cli_for),
+                        'password' => Hash::make($client->id_cli_for), /* Hash::make(str_random(32)) */
                         'codcli' => $client->id_cli_for,
                     ]);
                     $user->roles()->detach();

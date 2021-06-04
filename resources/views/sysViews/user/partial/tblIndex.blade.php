@@ -9,6 +9,7 @@
     <th>isActive?</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
+    <th>&nbsp;</th>
   </thead>
   <tbody>
       @foreach ($users as $user)
@@ -45,6 +46,14 @@
               <button type="submit" id="edit-user-{{ $user->id }}" class="btn">
                   <i class="fa fa-btn fa-pencil">
                   </i>
+              </button>
+            </a>
+          </td>
+          <td>
+            <a href="{{ route('user::resetPassword', $user->id ) }}">
+              <button type="submit" id="reset-user-{{ $user->id }}" class="btn btn-success">
+                <i class="fa fa-btn fa-key">
+                </i>
               </button>
             </a>
           </td>

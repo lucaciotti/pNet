@@ -16,7 +16,7 @@ class CreateDocTesTable extends Migration
         Schema::create('doc_tes', function (Blueprint $table) {
             $table->integer('id_doc_tes')->default(0)->primary();
             $table->tinyInteger('tipo_doc')->default(0);
-            $table->integer('id_tes ??')->default(0);
+            $table->integer('id_tes')->default(0);
             $table->date('data')->nullable();
             $table->string('num', 16)->default('');
             $table->string('id_cli_for', 8)->default('')->index('id_cli_for');

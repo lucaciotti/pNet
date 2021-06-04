@@ -1,53 +1,52 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('htmlheader_title')
-    - {{ trans('user.headTitle_idx') }}
-@endsection
+@section('title_postfix', '- '.trans('user.headTitle_idx'))
 
-@section('contentheader_title')
-    {{ trans('user.contentTitle_idx') }}
-@endsection
+@section('content_header')
+<br>
+<h1 class="m-0 text-dark">
+  {{ trans('user.contentTitle_idx') }}
+</h1>
+<br>
+@stop
 
-@section('contentheader_breadcrumb')
-  {!! Breadcrumbs::render('clients') !!}
-@endsection
 
-@section('main-content')
+@section('content')
   <div class="row">
-    <div class="container">
     <div class="col-lg-12">
 
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title" data-widget="collapse">{{ trans('user.listUsers') }}</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title">{{ trans('user.listUsers') }}</h3>
+      
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
           </div>
         </div>
-        <div class="box-body">
-          @include('user.partial.tblIndex', ['users' => $users])
+        <!-- /.card-header -->
+        <div class="card-body">
+          @include('sysViews.user.partial.tblIndex', ['users' => $users])
         </div>
       </div>
 
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title" data-widget="collapse">{{ trans('user.listAgents') }}</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title">{{ trans('user.listAgents') }}</h3>
+      
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
           </div>
         </div>
-        <div class="box-body">
-          @include('user.partial.tblIndex', ['users' => $agents])
+        <!-- /.card-header -->
+        <div class="card-body">
+          @include('sysViews.user.partial.tblIndex', ['users' => $agents])
         </div>
       </div>
 
     </div>
   </div>
-  </div>
-@endsection
-
-@section('extra_script')
-  @include('layouts.partials.scripts.iCheck')
-  @include('layouts.partials.scripts.select2')
-  @include('layouts.partials.scripts.datePicker')
 @endsection

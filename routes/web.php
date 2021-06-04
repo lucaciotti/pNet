@@ -20,34 +20,33 @@ use App\Http\Controllers\parideCtrl\ProductController;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return redirect('/login');
+Route::get('/welcome', function () {
+    return view('welcome');
 });
 
+Route::get('/', function () {
+    return redirect('/login');
+});
 require __DIR__.'/auth.php';
-
-// Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-
 // Routes Clients
-Route::name('client::')->group(function () {
+Route::name('client::')->middleware('auth')->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('list');
     Route::get('/client/{codCli}', [ClientController::class, 'detail'])->name('detail');
     Route::post('/clients/filter', [ClientController::class, 'fltIndex'])->name('fltList');
 });
 
 // Routes Products
-Route::name('product::')->group(function () {
+Route::name('product::')->middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('list');
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
 });
 
 // Routes Docs
-Route::name('doc::')->group(function () {
+Route::name('doc::')->middleware('auth')->group(function () {
     Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
     Route::post('/docs/filtered', [DocCliController::class, 'fltIndex'])->name('fltList');
     Route::get('/doc/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
@@ -55,16 +54,22 @@ Route::name('doc::')->group(function () {
 });
 
 
-
+// -------------------------------------------------
 //GESTIONE UTENTI
-Route::name('user::')->group(function () {
+Route::name('user::')->middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli');
     Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike');
     Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB');
     Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang');
+    Route::get('/resetPassword/{id}', [UserController::class, 'sendResetPassword'])->name('resetPassword');
 });
 
 //Database Update
 // Route::get('/updateDB', ZipFileUpload::class);
 // Route::post('/storeDBSeedFile', ZipFileUpload::class);
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');

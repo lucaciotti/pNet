@@ -20,26 +20,30 @@
                 <div class="tab-content" id="controlTabContent">
                     
                     <div class="tab-pane fade active show" id="setting" role="tabpanel" aria-labelledby="setting-tab">
-                        <hr class="mb-2">
-                        <a href='{{ url('laratrust') }}'>
-                            <button type="submit" class="btn btn-block btn-outline-light"
-                                >
-                                <i class="fas fa-users"></i>&nbsp;&nbsp;Gestione Utenti
+                        <a href='{{ url('users') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-light">
+                                <i class="fas fa-user-friends"></i>&nbsp;&nbsp;Gestione Utenti
                             </button>
                         </a>
-                        <hr class="mb-2">
+                        <br>
+                        <a href='{{ url('cli_users') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-light">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;Gestione Clienti
+                            </button>
+                        </a>
+                        {{-- <hr class="mb-2 bg-white">
                         <a href='#'>
                             <button type="submit" class="btn btn-block btn-outline-info">
                                 <i class="fas fa-database"></i>&nbsp;&nbsp;Update Database
                             </button>
-                        </a>
-                        <hr class="mb-2">
+                        </a> --}}
+                        <hr class="mb-2 bg-white">
                         <a href='{{ url('telescope') }}'>
                             <button type="submit" class="btn btn-block btn-outline-warning">
                                 <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Control Panel
                             </button>
                         </a>
-                        <hr class="mb-2">
+                        <hr class="mb-2 bg-white">
                         @livewire('test.mail-send-test')
                         {{-- <hr class="mb-2">
                         <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">

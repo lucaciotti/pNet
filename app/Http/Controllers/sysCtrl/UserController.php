@@ -4,12 +4,17 @@ namespace App\Http\Controllers\sysCtrl;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Mail\InviteUser;
 use App\Helpers\RedisUser;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use App\Models\parideModels\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\parideCtrl\HomeController;
 
 class UserController extends Controller
 {
@@ -109,7 +114,7 @@ class UserController extends Controller
     {
         Auth::loginUsingId($id);
         RedisUser::store();
-        return redirect()->action('HomeController@index');
+        return redirect()->action([HomeController::class, 'index']);
     }
 
     public function changeSelfDitta(Request $req)
@@ -118,7 +123,7 @@ class UserController extends Controller
         $user->ditta = $req->input('ditta');
         $user->save();
         RedisUser::store();
-        return redirect()->action('HomeController@index');
+        return redirect()->action([HomeController::class, 'index']);
     }
 
     public function changeSelfLang(Request $req)
@@ -127,6 +132,21 @@ class UserController extends Controller
         $user->lang = $req->input('lang');
         $user->save();
         RedisUser::store();
-        return redirect()->action('UserController@show', $user->id);
+        return redirect()->action([UserController::class, 'show'], $user->id);
     }
+
+    // -----------------------------------
+    public function sendResetPassword(Request $req, $id) {
+        $user = User::findOrFail($id);
+        // $user = User::where('id', 1)->first();
+
+        try{
+            $token = Password::getRepository()->create($user);
+            // $user->sendPasswordResetNotification($token);
+            Mail::to($user)->send(new InviteUser($token, $user->id));
+        } catch (\Exception $e) {}
+        return redirect()->back();
+        
+    }
+
 }
