@@ -83,7 +83,7 @@
             <dl class="dl-horizontal">
             
               <dt>{{ trans('client.referencePerson') }}</dt>
-              <dd>{{$client->pers_rif1}}</dd>
+              <dd>{{$client->codcliest}}</dd>
              
               {{--<dt>{{ trans('client.referenceAgent') }}</dt>
               <dd>@if($client->agent) {{$client->agent->descrizion}} @endif</dd> --}}
@@ -91,10 +91,10 @@
               <hr>
             
               <dt>{{ trans('client.phone') }}</dt>
-              <dd>{{$client->telefono1}}
-                @if (!empty($client->telefono1))
+              <dd>{{$client->telefono}}
+                @if (!empty($client->telefono))
                 &nbsp;<span class="badge bg-green">
-                  <a href="tel:{{$client->telefono1}}"><i class="fa fa-phone"></i></a>
+                  <a href="tel:{{$client->telefono}}"><i class="fa fa-phone"></i></a>
                 </span>
                 @endif
               </dd>
@@ -102,7 +102,13 @@
               <dd>{{$client->fax}}</dd>
             
               <dt>{{ trans('client.phone2') }}</dt>
-              <dd>{{$client->telefono1}}</dd>
+              <dd>{{$client->telefono1}}
+                @if (!empty($client->telefono1))
+                &nbsp;<span class="badge bg-green">
+                  <a href="tel:{{$client->telefono1}}"><i class="fa fa-phone"></i></a>
+                </span>
+                @endif
+              </dd>
             
               <dt>{{ trans('client.mobilePhone') }}</dt>
               <dd>{{$client->telcell}}
@@ -191,12 +197,12 @@
         </div>
       </div>
       <div class="card-body">
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, '']) }} --}}">{{ strtoupper(trans('client.allDocs')) }}</a>
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, 'P']) }} --}}">{{ trans('client.quotes') }}</a>
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, 'O']) }} --}}">{{ trans('client.orders') }}</a>
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, 'B']) }} --}}">{{ trans('client.ddt') }}</a>
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, 'F']) }} --}}">{{ trans('client.invoice') }}</a>
-        <a type="button" class="btn btn-default btn-block" href="{{-- {{ route('doc::client', [$client->codice, 'N']) }} --}}">{{ trans('client.notecredito') }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, '']) }}">{{ strtoupper(trans('client.allDocs')) }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, 'P']) }}">{{ trans('client.quotes') }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, 'O']) }}">{{ trans('client.orders') }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, 'B']) }}">{{ trans('client.ddt') }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, 'F']) }}">{{ trans('client.invoice') }}</a>
+        <a type="button" class="btn btn-default btn-block" href="{{ route('doc::clientList', [$client->id_cli_for, 'N']) }}">{{ trans('client.notecredito') }}</a>
       </div>
     </div>
   </div>

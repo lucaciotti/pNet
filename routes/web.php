@@ -6,6 +6,7 @@ use App\Actions\Sys\DbSeed\ZipFileUpload;
 use App\Http\Controllers\sysCtrl\UserController;
 use App\Http\Controllers\parideCtrl\ClientController;
 use App\Http\Controllers\parideCtrl\DocCliController;
+use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ProductController;
 
@@ -48,9 +49,12 @@ Route::name('product::')->middleware('auth')->group(function () {
 // Routes Docs
 Route::name('doc::')->middleware('auth')->group(function () {
     Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
+    Route::get('/docs/{id_cli_for}/{tipomodulo?}', [DocCliController::class, 'clientList'])->name('clientList');
     Route::post('/docs/filtered', [DocCliController::class, 'fltIndex'])->name('fltList');
     Route::get('/doc/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
     Route::get('/docPDF/{tipodoc}/{id_doc}', [DocCliController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::get('/ddtToSend', [DocToSendController::class, 'index'])->name('indexDdtToSend');
+    Route::get('/ddtToSend/{id}', [DocToSendController::class, 'sendDdt'])->name('sendDdt');
 });
 
 

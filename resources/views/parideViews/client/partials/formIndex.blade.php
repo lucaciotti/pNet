@@ -3,12 +3,11 @@
   {{-- Ragione Sociale --}}
   <div class="form-group">
     <label>Ragione Sociale</label>
-    <select name="ragsoc" class="form-control select2" style="width: 100%;">
-      <option selected="selected"> </option>
+    <select name="ragsoc[]" class="form-control select2" multiple="multiple" style="width: 100%;">
       @foreach ($fltClients as $client)
         <option 
           value="{{ $client->id_cli_for }}"
-          @if ($client->id_cli_for==old('ragsoc') || $client->id_cli_for==old('codcli'))
+          @if (in_array($client->id_cli_for, (old('ragsoc') ? old('ragsoc') : [])))
           selected
           @endif
         >
@@ -29,8 +28,8 @@
         </select>
       </div>
       <!-- /btn-group -->@php
-      if (old('ragsoc')!='' || old('codcli')!=''){
-      $codcliflt = (old('ragsoc') ? old('ragsoc') : old('codcli'));
+      if (old('codcli')!=''){
+      $codcliflt = (old('codcli'));
       } else {
       $codcliflt = '';
       }

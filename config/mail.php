@@ -88,6 +88,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'reply_to' => [
+        'address' => 'pnet@lucaciotti.space',
+        'name' => 'pNet Staff',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

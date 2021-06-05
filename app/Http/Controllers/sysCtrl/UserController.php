@@ -138,12 +138,12 @@ class UserController extends Controller
     // -----------------------------------
     public function sendResetPassword(Request $req, $id) {
         $user = User::findOrFail($id);
-        // $user = User::where('id', 1)->first();
-
         try{
             $token = Password::getRepository()->create($user);
+            $user->isActive = 1;
+            $user->save();
             // $user->sendPasswordResetNotification($token);
-            Mail::to($user)->send(new InviteUser($token, $user->id));
+            Mail::to('pnet@lucaciotti.space')->bcc('luca.ciotti@gmail.com')->send(new InviteUser($token, $user->id));
         } catch (\Exception $e) {}
         return redirect()->back();
         

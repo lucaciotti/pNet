@@ -59,10 +59,18 @@
               @endif
             </dd>
 
-            <dt>Barcode</dt>
+            <dt>Barcodes</dt>
             <dd>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <big><strong>{{$prod->id_cod_bar}}</strong></big>
+              @if($prod->barcodes)
+                @foreach ($prod->barcodes as $barcode)
+                  @if ($barcode->id_cod_bar != $prod->id_cod_bar)
+                      <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <big><strong>{{$barcode->id_cod_bar}}</strong></big>
+                  @endif                
+                @endforeach
+              @endif
             </dd>
           </dl>
         </div>

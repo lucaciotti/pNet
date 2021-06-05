@@ -1,12 +1,15 @@
 @component('mail::message')
-# Introduction
+# Ciao, {{ $user->name }}
 
-The body of your message.
+Con questa email automatica Vi inviamo in allegato il documento DDT emesso da pNet, il portale di [Ferramenta Paride](https://www.ferramentaparide.it/).
 
-@component('mail::button', ['url' => ''])
-Button Text
+Vi ricordiamo che tutti i vostri documenti sono consultabili attraverso il link qui sotto:
+
+@component('mail::button', ['url' => $url])
+Clicca Qui
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
+Rimaniamo a vostra disposizione.  
+Vi ringraziamo per l'attenzione,<br>
+{{ config('app.name') }} staff
 @endcomponent

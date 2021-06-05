@@ -22,7 +22,7 @@
                     <div class="inner">
                         <h3>{{ $nQuotes }}</h3>
         
-                        <p>Preventivi</p>
+                        <p>Preventivi da evadere</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-clipboard-list"></i>
@@ -36,7 +36,7 @@
                     <div class="inner">
                         <h3>{{ $nDDTs }}</h3>
             
-                        <p>Ddt</p>
+                        <p>DDT questo mese</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-truck-loading"></i>
@@ -50,7 +50,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $nDDTs }}<small><small><small><i>  nuovi prodotti</i></small></small></small></h3>
+                        <h3>{{ $nNewProds }}<small><small><small><i>  prodotti</i></small></small></small></h3>
             
                         <p>Catalogo</p>
                     </div>

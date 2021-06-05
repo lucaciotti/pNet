@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\parideModels\GrpProd;
+use App\Models\parideModels\Marche;
 use App\Models\parideModels\Product;
 use App\Models\parideModels\SubGrpProd;
 
@@ -32,6 +33,8 @@ class ProductController extends Controller
         $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
             ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
 
+        $marcheList = Marche::all();
+
         return view('parideViews.prods.index', [
             'products' => $products,
             'masterGrps' => $masterGrps,
@@ -40,6 +43,8 @@ class ProductController extends Controller
             'masterGrpFilter' => Arr::wrap($masterGrpFilter),
             'suppliersList' => $supplierList,
             'supplierSelected' => Arr::wrap(''),
+            'marcheList' => $marcheList,
+            'marcheSelected' => Arr::wrap(''),
         ]);
     }
 
@@ -92,6 +97,10 @@ class ProductController extends Controller
             $products = $products->whereIn('id_cli_for', $req->input('supplierSelected'));
         }
 
+        /* if ($req->input('marcheSelected')) {
+            $products = $products->whereIn('id_mar', $req->input('marcheSelected'));
+        } */
+
         // $listGrp = '';
         // if ($req->input('masterGrpFilter')) {
         //     $first = true;
@@ -113,7 +122,9 @@ class ProductController extends Controller
         // $gruppi = SubGrpProd::whereRaw('left(id_fam,2) IN ( ? )', $listGrp)->orderBy('id_fam')->get();
         $gruppi = SubGrpProd::orderBy('id_fam')->get();
         $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
-            ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();        
+            ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
+
+        $marcheList = Marche::all();     
 
         return view('parideViews.prods.index', [
             'products' => $products,
@@ -126,12 +137,14 @@ class ProductController extends Controller
             'masterGrpFilter' => $req->input('masterGrpFilter'),
             'suppliersList' => $supplierList,
             'supplierSelected' => $req->input('supplierSelected'),
+            'marcheList' => $marcheList,
+            'marcheSelected' => Arr::wrap(''),
         ]);
     }
 
     public function detail(Request $req, $codArt)
     {
-        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac'])->findOrFail($codArt);
+        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac', 'marche', 'barcodes'])->findOrFail($codArt);
         // dd($product);
         return view('parideViews.prods.detail', [
             'prod' => $product,

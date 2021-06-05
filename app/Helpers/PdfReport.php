@@ -10,6 +10,7 @@ class PdfReport
         $pdf = PDF::loadView($view, $data)
             ->setOption('header-html', view('parideViews._exports.pdf._masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
             ->setOption('footer-html', view('parideViews._exports.pdf._masterPage.footerPdf'))
+            ->setOption('enable-local-file-access', true)
             ->setPaper('a4');
 
         return $pdf;
@@ -20,6 +21,7 @@ class PdfReport
         $pdf = PDF::loadView($view, $data)
             ->setOption('header-html', view('parideViews._exports.pdf._masterPage.headerPdf', ['pageTitle' => $title, 'pageSubTitle' => $subTitle]))
             ->setOption('footer-html', view('parideViews._exports.pdf._masterPage.footerPdf'))
+            ->setOption('enable-local-file-access', true)
             ->setOption('orientation', 'Landscape')
             ->setPaper('a4');
 

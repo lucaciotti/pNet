@@ -3,6 +3,7 @@
 namespace App\Models\parideModels\Docs;
 
 use App\Helpers\RedisUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,20 +31,22 @@ class DDTCli extends Model
             $builder->where('id_cli_for', 'like', 'C%')->where('tipo_doc', '1');
         });
 
-        switch (RedisUser::get('role')) {
-            case 'agent':
-                static::addGlobalScope('agent', function (Builder $builder) {
-                    $builder->where('agente', RedisUser::get('codag'));
-                });
-                break;
-            case 'client':
-                static::addGlobalScope('client', function (Builder $builder) {
-                    $builder->where('id_cli_for', RedisUser::get('codcli'));
-                });
-                break;
+        if (Auth::check()) {
+            switch (RedisUser::get('role')) {
+                case 'agent':
+                    static::addGlobalScope('agent', function (Builder $builder) {
+                        $builder->where('agente', RedisUser::get('codag'));
+                    });
+                    break;
+                case 'client':
+                    static::addGlobalScope('client', function (Builder $builder) {
+                        $builder->where('id_cli_for', RedisUser::get('codcli'));
+                    });
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -77,5 +80,10 @@ class DDTCli extends Model
     public function client()
     {
         return $this->hasOne('App\Models\parideModels\Client', 'id_cli_for', 'id_cli_for');
+    }
+
+    public function docSent()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\wDocSent', 'id_doc', 'id_doc_tes');
     }
 }

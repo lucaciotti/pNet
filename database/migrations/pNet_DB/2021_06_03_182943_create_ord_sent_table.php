@@ -15,9 +15,10 @@ class CreateOrdSentTable extends Migration
     {
         Schema::create('w_ord_sent', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_doc')->default(0);
+            $table->integer('id_doc')->unique();
+            $table->string('tipo_doc', 2)->default('');
+            $table->string('id_cli', 8)->default('');
             $table->boolean('inviato')->default(false);
-            $table->date('data_invio')->nullable();
             $table->timestamps();
         });
     }

@@ -48,7 +48,7 @@ class ClientController extends Controller
         // dd($req);
         $clients = Client::select('*');
         if ($req->input('ragsoc')) {
-            $clients = $clients->where('id_cli_for', $req->input('ragsoc'));
+            $clients = $clients->whereIn('id_cli_for', $req->input('ragsoc'));
         }
         if ($req->input('partiva')) {
             if ($req->input('partivaOp') == 'eql') {

@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="{{ asset(config('adminlte.logo_img')) }}" height="20">
             </a>
         </x-slot>
 
@@ -17,9 +17,9 @@
 
             <!-- Email Address -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="nickname" :value="__('Nickname')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+                <x-input id="nickname" class="block mt-1 w-full" type="email" name="nickname" :value="old('nickname', $request->nickname)" required autofocus />
             </div>
 
             <!-- Password -->

@@ -34,12 +34,12 @@ class HomeController extends Controller
         //                 return $query->where('qta_eva', '<', 'qta_ord');
         //             })->count();
 
-        $nDDTs = DDTCli::where('data', '>=', $thisMonth)->count();
+        $nDDTs = DDTCli::where('data', '>=', $thisMonth->subDays(1))->count();
                     
-        $nFattDir = FTCli::where('data', '>=', $lastMonth)->count();
-        $nFattDif = FDCli::where('data', '>=', $lastMonth)->count();
+        $nFattDir = FTCli::where('data', '>=', $lastMonth->subDays(1))->count();
+        $nFattDif = FDCli::where('data', '>=', $lastMonth->subDays(1))->count();
 
-        $nNewProds = Product::where('data_reg', '>', Carbon::create($dt->year, 1, 1, 0))->count();
+        $nNewProds = Product::where('non_attivo', 0)->count();
 
         return view('home', [
             'nQuotes' => $nQuotes,

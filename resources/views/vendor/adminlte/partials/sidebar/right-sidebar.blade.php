@@ -43,8 +43,15 @@
                                 <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Control Panel
                             </button>
                         </a>
+
                         <hr class="mb-2 bg-white">
-                        @livewire('test.mail-send-test')
+                        <a href='{{ url('ddtToSend') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-warning">
+                                <i class="fas fa-at"></i>&nbsp;&nbsp;Ddt da Inviare
+                            </button>
+                        </a>
+                        {{-- <hr class="mb-2 bg-white">
+                        @livewire('test.mail-send-test') --}}
                         {{-- <hr class="mb-2">
                         <a href='{{ url('laratrust') }}' type="button" class="btn btn-block btn-outline-warning">
                             <i class="fas fa-users"></i> Laratrust

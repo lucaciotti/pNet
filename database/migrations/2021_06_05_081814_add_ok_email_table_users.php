@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveEmailUniqueInUsers extends Migration
+class AddOkEmailTableUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class RemoveEmailUniqueInUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique('users_email_unique');
+            $table->boolean('auto_email')->default(false)->comment('Utente può disabilitare ricezione email automatiche');
         });
     }
 
@@ -26,7 +26,7 @@ class RemoveEmailUniqueInUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unique('email', 'users_email_unique');
+            $table->dropColumn('auto_email');
         });
     }
 }

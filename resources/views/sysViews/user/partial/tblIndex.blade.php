@@ -15,12 +15,14 @@
       @foreach ($users as $user)
         <tr>
           <td>
+            @if ($user->isActive)
             <a href="{{ route('user::actLike', $user->id ) }}">
               <button type="submit" id="act-user-{{ $user->id }}" class="btn btn-warning">
                   <i class="fa fa-btn fa-user-secret">
                   </i>
               </button>
             </a>
+            @endif
           </td>
           <td>{{ $user->name }}</td>
           <td>{{ $user->email }}</td>

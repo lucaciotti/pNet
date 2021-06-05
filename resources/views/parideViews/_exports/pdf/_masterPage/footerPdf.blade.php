@@ -41,7 +41,12 @@ Page [page] / [topage] {PAGENO} --}}
         <hr>
         <div>
             <small>
-                <span> {{ Auth::user()->name }} - {{ \Carbon\Carbon::now()->format('d-m-Y') }} </span>
+                <span>
+                    @auth
+                        {{ Auth::user()->name }} -
+                    @endauth 
+                    {{ \Carbon\Carbon::now()->format('d-m-Y') }} 
+                </span>
                 <span class="page"></span>
             </small>
         </div>

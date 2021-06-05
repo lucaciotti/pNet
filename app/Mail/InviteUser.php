@@ -24,7 +24,7 @@ class InviteUser extends Mailable
     {
         $this->user = User::findOrFail($id);
         $this->token = $token;
-        $this->url = route("password.reset", ['token' => $token, 'email' => $this->user->email]);
+        $this->url = route("password.reset", ['token' => $token, 'nickname' => $this->user->nickname]);
     }
 
     /**

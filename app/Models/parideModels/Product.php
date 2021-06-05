@@ -114,6 +114,16 @@ class Product extends Model
         return $this->hasOne('App\Models\parideModels\MagGiac', 'id_art', 'id_art');
     }
 
+    public function marche()
+    {
+        return $this->hasOne('App\Models\parideModels\Marche', 'id_mar', 'id_mar');
+    }
+
+    public function barcodes()
+    {
+        return $this->hasMany('App\Models\parideModels\Barcodes', 'id_art', 'id_art');
+    }
+
 
     // public function descrLang(String $lang)
     // {

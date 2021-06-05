@@ -80,7 +80,26 @@
   </div>
 
   <hr>
+  
+  <div class="form-group">
+    <label>Marca Prodotto</label>
+    <select name="marcheSelected[]" class="form-control select2" multiple="multiple" style="width: 100%;">
+      @foreach ($marcheList as $marca)
+      <option value="{{ $marca->id_mar }}" @if (in_array($marca->id_mar, (old('marcheSelected') ?
+        old('marcheSelected') :
+        Arr::wrap($marcheSelected))))
+        selected
+        @endif
+        >
+        [{{ $marca->id_mar }}] {{ $marca->descr ?? '' }}
+      </option>
+      @endforeach
+    </select>
+  </div>
 
+  <hr>
+  
+  @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'user']))
   <div class="form-group">
     <label>Fornitore</label>
     <select name="supplierSelected[]" class="form-control select2" multiple="multiple" style="width: 100%;">
@@ -90,11 +109,12 @@
         selected
         @endif
         >
-        [{{ $sup->id_cli_for }}] {{ $sup->rag_soc }}
+        [{{ $sup->id_cli_for }}] {{ $sup->supplier->rag_soc ?? '' }}
       </option>
       @endforeach
     </select>
   </div>
+  @endif
 
   <div>
     <button type="submit" class="btn btn-primary">{{ trans('_message.submit') }}</button>
