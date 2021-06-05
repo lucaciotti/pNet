@@ -2,10 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Jobs\emails\SendDocListByEmail;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\emails\SendDocListByEmail;
 use App\Models\parideModels\Docs\FTCli;
 use App\Models\parideModels\Docs\DDTCli;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,8 +37,9 @@ class FetchDocToSendByEmail implements ShouldQueue
     public function handle()
     {
         Log::info('FetchDocToSendByEmail Job Started');
+        $thisMonth = new Carbon('first day of this month');
         
-        $ddtList = DDTCli::where('data', '>=', now()->subDays(4))->doesntHave('docSent')->get();
+        $ddtList = DDTCli::where('data', '>=', $thisMonth->subDays(1))->doesntHave('docSent')->get();
         foreach ($ddtList as $ddt) {
             wDocSent::create([
                 'id_doc' => $ddt->id_doc_tes,
@@ -46,7 +48,7 @@ class FetchDocToSendByEmail implements ShouldQueue
             ]);
         }
 
-        $ftList = FTCli::where('data', '>=', now()->subDays(4))->doesntHave('docSent')->get();
+        $ftList = FTCli::where('data', '>=', $thisMonth->subDays(1))->doesntHave('docSent')->get();
         foreach ($ftList as $ft) {
             wDocSent::create([
                 'id_doc' => $ft->id_doc_tes,
