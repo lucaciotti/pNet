@@ -46,7 +46,7 @@
         <dt>{{ trans('doc.totImp') }}</dt>
         <dd>{{$head->tot_imp}} €</dd>
 
-        <dt>{{ trans('doc.totVat') }} ({{ $head->id_iva_c }} %)</dt>
+        <dt>{{ trans('doc.totVat') }} @if($head->id_iva_c!='')({{ $head->id_iva_c ?? '22' }} %)@endif</dt>
         <dd>{{$head->tot_iva}} €</dd>
 
     </dl>
@@ -55,7 +55,17 @@
             <hr class="smalldivider">
 
             <dt>{{ trans('doc.totDoc_condensed') }}</dt>
-            <dd><strong>{{$head->tot_rit}} €</strong></dd>
+            <dd><strong>{{$head->tot_rit}} €</strong> <br> @if ($head->pagato) [PAGATO]@endif</dd>
+        </dl>
+    @else
+        @php
+            $totDoc = $head->tot_imp+$head->tot_iva;
+        @endphp
+        <dl class="dl-horizontal">
+            <hr class="smalldivider">
+        
+            <dt>{{ trans('doc.totDoc_condensed') }}</dt>
+            <dd><strong>{{$totDoc}} €</strong></dd>
         </dl>
     @endif
 </span>

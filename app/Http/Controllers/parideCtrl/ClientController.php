@@ -24,7 +24,7 @@ class ClientController extends Controller
             return redirect()->action([ClientController::class, 'detail'], RedisUser::get('codcli'));
         }
         // on($this->connection)->
-        $clients = Client::get();
+        $clients = Client::select('id_cli_for', 'rag_soc', 'citta', 'provincia', 'p_i')->where('bloccato', 0)->get();
 
         // $nazioni = DB::table('cli_for')->distinct()->get();
         // $settori = Settore::all();
@@ -35,7 +35,7 @@ class ClientController extends Controller
         // Session::forget('_old_input');
         return view('parideViews.client.index', [
             'clients' => $clients,
-            'fltClients' => Client::select('id_cli_for', 'rag_soc')->orderBy('rag_soc')->get(),
+            'fltClients' => $clients->sortBy('rag_soc'),
             // 'nazioni' => $nazioni,
             // 'settori' => $settori,
             'zone' => $zone,

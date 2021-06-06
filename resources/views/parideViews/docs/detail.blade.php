@@ -26,13 +26,13 @@
         </div>
       </div>
       <div class="card-body">
-        <div style="height: 270px; width: 100%;">          
+        <div style="">          
           <dl class="dl-horizontal">
             <dt>{{ trans('doc.document') }}</dt>
             <dd>{{$head->descr_tipodoc}} n°{{$head->num}}</dd>
             
             <dt>{{ trans('doc.client') }}</dt>
-            <dd><strong>{{$head->nome1}} [{{$head->id_cli_for}}]</strong></dd>
+            <dd><strong>{{$head->client->rag_soc}} [{{$head->id_cli_for}}]</strong></dd>
             
             <dt>{{ trans('doc.dateDoc') }}</dt>
             <dd>{{$head->data->format('d/m/Y')}}</dd>
@@ -42,8 +42,25 @@
             
             <hr>
             
-            <dt>{{ trans('doc.totDoc') }}</dt>
-            <dd><strong>{{$head->tot_imp}} €</strong></dd>
+            <dt>{{ trans('doc.totImp') }}</dt>
+            <dd>{{$head->tot_imp}} €</dd>
+            
+            <dt>{{ trans('doc.totVat') }} @if($head->id_iva_c!='')({{ $head->id_iva_c ?? '22' }} %)@endif</dt>
+            <dd>{{$head->tot_iva}} €</dd>
+
+            <hr>
+
+            @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+            
+              <dt>{{ trans('doc.totDoc_condensed') }}</dt>
+              <dd><strong>{{$head->tot_rit}} €</strong> <br> @if ($head->pagato) [PAGATO]@endif</dd>
+            @else
+            @php
+            $totDoc = $head->tot_imp+$head->tot_iva;
+            @endphp
+              <dt>{{ trans('doc.totDoc_condensed') }}</dt>
+              <dd><strong>{{$totDoc}} €</strong></dd>
+            @endif
             
           </dl>
         </div>

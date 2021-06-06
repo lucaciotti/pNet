@@ -15,7 +15,7 @@
         </dd>
 
         <dt>{{ trans('doc.client') }}</dt>
-        <dd><strong>{{$head->nome1}} [{{$head->id_cli_for}}]</strong></dd>
+        <dd><strong>{{$head->client->rag_soc}} [{{$head->id_cli_for}}]</strong></dd>
 
         <dt>{{ trans('doc.dateDoc') }}</dt>
         <dd>{{$head->data->format('d/m/Y')}}</dd>
