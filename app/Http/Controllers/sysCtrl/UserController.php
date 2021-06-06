@@ -142,7 +142,7 @@ class UserController extends Controller
             $user->isActive = 0;
             $user->save();
             // $user->sendPasswordResetNotification($token);
-            Mail::to('pnet@lucaciotti.space')->bcc('luca.ciotti@gmail.com')->send(new InviteUser($token, $user->id));
+            Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
         } catch (\Exception $e) {}
         if(Auth::user()->id == $id){
             return redirect()->url('/logout');
