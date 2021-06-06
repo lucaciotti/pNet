@@ -52,7 +52,7 @@ class SendDocListByEmail implements ShouldQueue
                 $user = User::where('codcli', $docToSend->id_cli)->where('isActive', 1)->first();
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
                 $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
-                Mail::to('pnet@lucaciotti.space')->bcc('luca.ciotti@gmail.com')->queue($mail);
+                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
             }
         }
     }
