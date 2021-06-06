@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="card-body">
-        <div style="height: 270px; width: 100%;">          
+        <div {{-- style="height: 270px; width: 100%;" --}}>          
           <dl class="dl-horizontal">
             <dt>Codice</dt>
             <dd>
@@ -50,13 +50,20 @@
               @endif
             </dd>
 
-            <dt>Sotto Famiglia</dt>
+            @if ($prod->id_fam != $prod->master_grup)
+              <dt>Sotto Famiglia</dt>
+              <dd>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                [{{$prod->id_fam}}]
+                @if ($prod->grpProd)
+                <strong>{{ $prod->grpProd->descr }}</strong>              
+                @endif
+              </dd>
+            @endif
+
+            <dt>Codice Prodotto Fornitore</dt>
             <dd>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              [{{$prod->id_fam}}]
-              @if ($prod->grpProd)
-              <strong>{{ $prod->grpProd->descr }}</strong>              
-              @endif
+              &nbsp;&nbsp;&nbsp;&nbsp;<big><strong>{{$prod->id_cod_for}}</strong></big>
             </dd>
 
             <dt>Barcodes</dt>
@@ -71,6 +78,11 @@
                   @endif                
                 @endforeach
               @endif
+            </dd>
+
+            <dt>Link to Ferramenta Paride eShop</dt>
+            <dd>
+              &nbsp;&nbsp;&nbsp;&nbsp;<big><strong> - </strong></big>
             </dd>
           </dl>
         </div>
@@ -163,25 +175,25 @@
             <span class="input-group-text">€</span>
           </div>
         </div>
-
-        <label>Listino 2 (IVA escl.):</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_2,3) }}"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€</span>
+        @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+          <label>Listino 2 (IVA escl.):</label>
+          <div class="input-group">
+            <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_2,3) }}"
+              style="text-align:right;">
+            <div class="input-group-append">
+              <span class="input-group-text">€</span>
+            </div>
           </div>
-        </div>
 
-        <label>Listino 3 (IVA escl.):</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_3,3) }}"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€</span>
-          </div>
-        </div>     
-        
+          <label>Listino 3 (IVA escl.):</label>
+          <div class="input-group">
+            <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_3,3) }}"
+              style="text-align:right;">
+            <div class="input-group-append">
+              <span class="input-group-text">€</span>
+            </div>
+          </div>     
+        @endif
         <hr>
         <label>IVA:</label>
         <div class="input-group">
