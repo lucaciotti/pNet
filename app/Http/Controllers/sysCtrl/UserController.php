@@ -35,7 +35,6 @@ class UserController extends Controller
             ->whereHas('roles', function ($q) {
                 $q->whereIn('name', ['agent', 'superAgent']);
             })
-            ->where('ditta', RedisUser::get('location'))
             ->orderBy('id')->get();
 
         return view('sysViews.user.index', [
@@ -50,7 +49,6 @@ class UserController extends Controller
             ->whereHas('roles', function ($q) {
                 $q->whereIn('name', ['agent', 'client']);
             })
-            ->where('ditta', RedisUser::get('location'))
             ->orderBy('id')->get();
 
         return view('sysViews.user.indexCli', [

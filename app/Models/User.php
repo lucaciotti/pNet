@@ -80,4 +80,9 @@ class User extends Authenticatable implements PortableContract
     {
         return $this->hasOne('App\Models\parideModels\Client', 'id_cli_for', 'codcli');
     }
+
+    public function agent()
+    {
+        return $this->hasOne('App\Models\parideModels\Agent', 'id_agente', 'codag');
+    }
 }
