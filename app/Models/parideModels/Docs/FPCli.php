@@ -31,11 +31,11 @@ class FPCli extends Model
         });
 
         switch (RedisUser::get('role')) {
-            case 'agent':
-                static::addGlobalScope('agent', function (Builder $builder) {
-                    $builder->where('agente', RedisUser::get('codag'));
-                });
-                break;
+            // case 'agent':
+            //     static::addGlobalScope('agent', function (Builder $builder) {
+            //         $builder->where('agente', RedisUser::get('codag'));
+            //     });
+            //     break;
             case 'client':
                 static::addGlobalScope('client', function (Builder $builder) {
                     $builder->where('id_cli_for', RedisUser::get('codcli'));
