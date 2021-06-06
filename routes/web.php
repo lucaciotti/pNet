@@ -54,6 +54,7 @@ Route::name('doc::')->middleware('auth')->group(function () {
     Route::get('/doc/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
     Route::get('/docPDF/{tipodoc}/{id_doc}', [DocCliController::class, 'downloadPDF'])->name('downloadPDF');
     Route::get('/ddtToSend', [DocToSendController::class, 'index'])->name('indexDdtToSend');
+    Route::post('/ddtToSend', [DocToSendController::class, 'fltIndex'])->name('fltDdtToSend');
     Route::get('/ddtToSend/{id}', [DocToSendController::class, 'sendDdt'])->name('sendDdt');
 });
 

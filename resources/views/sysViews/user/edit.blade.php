@@ -33,6 +33,24 @@
               <label>{{ trans('user.eMail') }}</label>
               <input type="text" class="form-control" name="email" value="{{$user->email}}" required>
             </div>
+
+            <hr>
+
+            <div class="form-group">
+              <label>Ricezione Email Automatiche</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="auto_email" id="optauto_email1" value="0" @if(!$user->auto_email) checked @endif>&nbsp;&nbsp;No
+                </label>
+                <label>
+                  <input type="radio" name="auto_email" id="optauto_email2" value="1" @if($user->auto_email) checked @endif>&nbsp;&nbsp;Si
+                </label>
+              </div>
+            </div>
+
+            @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
+            <hr>
+
             <div class="form-group">
               <label>{{ trans('user.role') }}</label>
               <select name="role" class="form-control select2" style="width: 100%;">
@@ -85,17 +103,20 @@
 
             </div>
 
+            <hr>
+
             <div class="form-group">
               <label>isActive?</label>
               <div class="radio">
                 <label>
-                  <input type="radio" name="isActive" id="opt1" value="0" @if(!$user->isActive) checked @endif> No
+                  <input type="radio" name="isActive" id="opt1" value="0" @if(!$user->isActive) checked @endif>&nbsp;&nbsp;No
                 </label>
                 <label>
-                  <input type="radio" name="isActive" id="opt2" value="1" @if($user->isActive) checked @endif>Si
+                  <input type="radio" name="isActive" id="opt2" value="1" @if($user->isActive) checked @endif>&nbsp;&nbsp;Si
                 </label>
               </div>
             </div>
+            @endif
 
             <div>
               <button type="submit" class="btn btn-primary">{{ trans('_message.submit') }}</button>

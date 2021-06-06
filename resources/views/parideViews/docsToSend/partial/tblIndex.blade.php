@@ -13,7 +13,7 @@
         <tr>
             <td>{{ $doc->tipo_doc }}</td>
             <td>{{ $doc->ddt->num }}</td>
-            <td>{{ $doc->ddt->data }}</td>
+            <td><span class='date'>{{$doc->ddt->data->format('Ymd')}}</span>{{ $doc->ddt->data->format('d-m-Y') }}</td>
             <td>
                 @if (!empty($doc->client))
                 {{ $doc->id_cli }} - {{ $doc->client->rag_soc ?? 'NONE' }}

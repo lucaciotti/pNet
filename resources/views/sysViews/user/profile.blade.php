@@ -7,13 +7,13 @@
       <img src="{{asset('/assets/img/avatar_default.jpg')}}" style="width:120px; height:120px; float:left; border-radius:50%; margin-right:25px;"/>
       <br>
       <h2>{{ trans('user.userProfile', ['user' => $user->name]) }}</h2>
-      @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
+      {{-- @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user'])) --}}
         <a href="{{ route('user::users.edit', $user->id ) }}">
           <button type="submit" id="edit-user-{{ $user->id }}" class="btn btn-block btn-sm btn-outline-warning" style="width:120px;">
               <i class="fa fa-pencil-alt"></i>&nbsp;&nbsp; {{ trans('user.modify') }}
           </button>
         </a>
-      @endif
+      {{-- @endif --}}
     </div>
   </div>
   <hr>
@@ -72,13 +72,10 @@
                 </form>
               </dd>
               <hr>
-
-              <dt>Reset Password</dt>
-                <dd>
-                  <a href="{{ url('/forgot-password') }}">Reset My Password!</a><br>
-                </dd>
             </dl>
 
+            <hr>
+            @livewire('paride-lw.btn.reset-user-password', ['idUser' => $user->id])
             <hr>
 
             <form action="{{ url('/gdpr/download') }}" method="post">

@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
-use App\Models\parideModels\Client;
+use App\Models\parideModels\Agent;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Queue\SerializesModels;
@@ -15,18 +15,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class CreateClientUser implements ShouldQueue
+class CreateAgentUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        Log::info('ClientUser creation Job Created');
+        Log::info('AgentUser creation Job Created');
     }
 
     /**
@@ -36,29 +31,29 @@ class CreateClientUser implements ShouldQueue
      */
     public function handle()
     {
-        Log::info('ClientUser creation Job Started');
+        Log::info('AgentUser creation Job Started');
 
-        $clients = Client::all();
+        $agents = Agent::all();
 
-        foreach ($clients as $client) {
-            if(filter_var($client->e_mail, FILTER_VALIDATE_EMAIL)){
-                if(!User::where('codcli', $client->id_cli_for)->exists()){
+        foreach ($agents as $agent) {
+            if (filter_var($agent->emaila, FILTER_VALIDATE_EMAIL)) {
+                if (!User::where('codag', $agent->id_agente)->exists()) {
                     $user = User::create([
-                        'name' => $client->rag_soc,
-                        'nickname' => $client->id_cli_for.'@pNet.it',
-                        'email' => $client->e_mail,
+                        'name' => $agent->nome,
+                        'nickname' => $agent->emaila,
+                        'email' => $agent->emaila,
                         'password' => Hash::make(Str::random(32)),
-                        'codcli' => $client->id_cli_for,
+                        'codag' => $agent->id_agente,
                     ]);
                     $user->roles()->detach();
-                    $user->attachRole(Role::where('name', 'client')->first()->id);
+                    $user->attachRole(Role::where('name', 'agent')->first()->id);
                     $user->ditta = 'it';
                     $user->isActive = false;
-                    $user->save();                    
+                    $user->save();
                 }
             }
         }
-        Log::info('ClientUser creation Job Ended');
+        Log::info('AgentUser creation Job Ended');
         return;
     }
 }

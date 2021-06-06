@@ -104,6 +104,7 @@ class UserController extends Controller
         $user->codag = $req->input('codag');
         $user->codcli = $req->input('codcli');
         $user->isActive = $req->input('isActive');
+        $user->auto_email = $req->input('auto_email');
         $user->save();
         RedisUser::store();
 
@@ -140,12 +141,16 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         try{
             $token = Password::getRepository()->create($user);
-            $user->isActive = 1;
+            $user->isActive = 0;
             $user->save();
             // $user->sendPasswordResetNotification($token);
             Mail::to('pnet@lucaciotti.space')->bcc('luca.ciotti@gmail.com')->send(new InviteUser($token, $user->id));
         } catch (\Exception $e) {}
-        return redirect()->back();
+        if(Auth::user()->id == $id){
+            return redirect()->url('/logout');
+        } else {
+            return redirect()->back();
+        }
         
     }
 

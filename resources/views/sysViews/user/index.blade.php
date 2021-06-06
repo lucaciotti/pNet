@@ -5,7 +5,7 @@
 @section('content_header')
 <br>
 <h1 class="m-0 text-dark">
-  {{ trans('user.contentTitle_idx') }}
+  AdminUtility - {{ trans('user.contentTitle_idx') }}
 </h1>
 <br>
 @stop
