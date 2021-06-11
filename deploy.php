@@ -25,15 +25,31 @@ task('deploy', [
     'artisan:view:cache',
     'artisan:config:cache',
     'artisan:migrate',
+    'migrate:pNet',
     'npm:install',
     'npm:run:prod',
     'deploy:publish',
     'php-fpm:reload',
+    'supervisor:reload:dbSeed',
+    'supervisor:reload:email',
 ]);
 
 task('npm:run:prod', function () {
     cd('{{release_path}}');
     run('npm run prod');
+});
+
+task('artisan:migrate:pNet', function () {
+    cd('{{release_path}}');
+    run('php artisan migrate --database=pNet_DATA --path=./database/migrations/pNet_DB --force');
+});
+
+task('supervisor:reload:dbSeed', function () {
+    run('supervisorctl restart pnet.lucaciotti.space-worker-dbSeed:*');
+});
+
+task('supervisor:reload:email', function () {
+    run('supervisorctl restart pnet.lucaciotti.space-worker-email:*');
 });
 
 after('deploy:failed', 'deploy:unlock');

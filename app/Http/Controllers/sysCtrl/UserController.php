@@ -9,6 +9,7 @@ use App\Helpers\RedisUser;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use App\Models\parideModels\Client;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -142,7 +143,11 @@ class UserController extends Controller
             $user->isActive = 0;
             $user->save();
             // $user->sendPasswordResetNotification($token);
-            Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
+            if (App::environment(['local', 'staging'])) {
+                Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
+            } else {
+                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
+            }
         } catch (\Exception $e) {}
         if(Auth::user()->id == $id){
             return redirect()->url('/logout');
