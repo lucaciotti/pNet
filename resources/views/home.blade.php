@@ -50,7 +50,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $nNewProds }}<small><small><small><i>  prodotti</i></small></small></small></h3>
+                        <h3>{{ $nNewProds }}<small><small><small><i> Nuovi prodotti</i></small></small></small></h3>
             
                         <p>Catalogo</p>
                     </div>
