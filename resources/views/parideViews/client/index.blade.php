@@ -43,7 +43,7 @@
                   <td>{{ $client->rag_soc }}</td>
                   <td>{{ $client->citta }}, {{ $client->provincia }} - I</td>
                   <td>{{ $client->p_i }}</td>
-                  <td><a href="">{{ trans('client.documents') }}</a></td>
+                  <td><a href="{{ route('doc::clientList', [$client->id_cli_for, '']) }}">{{ trans('client.documents') }}</a></td>
                 </tr>
                 @endforeach
               </tbody>

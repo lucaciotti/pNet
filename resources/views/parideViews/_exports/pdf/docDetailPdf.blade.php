@@ -6,13 +6,17 @@
         @include('parideViews._exports.pdf.docDetail.docHead', [$head, $tipodoc] )        
     </div>
 
+    @php
+    $stampaPrezzi = ($head->client->nopvddt && !$head->fatturato) ? false : true;
+    @endphp
+
     <div class="row">
         <br><br><br><br><br><br><br><br><br><br><br>
         <hr class="dividerPage">
     </div>
     <div class="row">
         <div class="contentTitle">{{ trans('doc.listRows') }}</div>
-        @include('parideViews._exports.pdf.docDetail.tblRowDetail', [$head] )
+        @include('parideViews._exports.pdf.docDetail.tblRowDetail', [$head, $stampaPrezzi] )
     </div>
     <div>
         <hr class="dividerPage">
@@ -22,26 +26,8 @@
     <div class="row">
         <br>
         {{-- <br> --}}
-        @include('parideViews._exports.pdf.docDetail.docFooter2', [$head] )
+        @include('parideViews._exports.pdf.docDetail.docFooter2', [$head, $stampaPrezzi] )
     </div>
-
-    @if($tipodoc=='XC')
-    <div class="row">
-        <br><br><br><br><br><br><br><br><br><br><br>
-        <hr class="dividerPage">
-    </div>
-
-    <span>
-        <u><h4>Note:</h4></u>
-        <h5>
-            La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento. 
-            <br>
-            I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
-            <br><br>
-            Validità del preventivo: 5gg.
-        </h5>
-    </span>
-    @endif
 
     {{-- @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
     <div>
@@ -52,6 +38,26 @@
         @include('parideViews._exports.pdf.docDetail.tblPayment', ['$head'=> $head] )
     </div>
     @endif --}}
+    
+    @if($tipodoc=='XC')
+    <div class="row">
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <hr class="dividerPage">
+    </div>
+
+    <span>
+        <u>
+            <h4>Note:</h4>
+        </u>
+        <h5>
+            La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
+            <br>
+            I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
+            <br><br>
+            Validità del preventivo: 5gg.
+        </h5>
+    </span>
+    @endif
 
     @if($tipodoc=='BO'|| $tipodoc=='FT'|| $tipodoc=='FD'|| $tipodoc=='FP')
     <div class="row">

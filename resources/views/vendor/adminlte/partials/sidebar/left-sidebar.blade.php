@@ -16,7 +16,7 @@
                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ RedisUser::get('name') }}</a>
+                <a href="{{ route('user::users.show', Auth::user()->id) }}" class="d-block">{{ RedisUser::get('name') }}</a>
             </div>
         </div>
         <nav class="mt-2">

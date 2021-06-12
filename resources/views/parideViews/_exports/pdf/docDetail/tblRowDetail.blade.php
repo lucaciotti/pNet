@@ -6,12 +6,16 @@
     @if($head->tipomodulo=='O')
     <col width="80">
     @endif
-    <col width="80">
-    <col width="80">
+    @if ($stampaPrezzi)
+        <col width="80">
+        <col width="80">
+    @endif
     @if($head->tipomodulo=='O')
     <col width="100">
     @endif
-    <col width="80">
+    @if ($stampaPrezzi)
+        <col width="80">
+    @endif
     {{-- @if (!in_array(RedisUser::get('role'), ['client']))
     <col width="80">
     <col width="80">
@@ -24,12 +28,16 @@
         @if($head->tipomodulo=='O')
         <th>{{ trans('doc.quantity_residual') }}</th>
         @endif
+        @if ($stampaPrezzi)
         <th>{{ trans('doc.unitPrice') }}</th>
         <th>{{ trans('doc.discount') }}</th>
+        @endif
         @if($head->tipomodulo=='O')
         <th>{{ trans('doc.dateDispach_condensed') }}</th>
         @endif
+        @if ($stampaPrezzi)
         <th>{{ trans('doc.totPrice') }}</th>
+        @endif
         {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
         <th>Provv %</th>
         <th>Provv €</th>
@@ -66,11 +74,13 @@
                 @if($head->tipomodulo=='O')
                 <td style="text-align: center;">{{ $row->qtares }}</td>
                 @endif
-                @if($row->ommerce)
-                    <td colspan="2" style="text-align: center;"><strong> FREE OF CHARGE</strong></td>
-                @else
-                    <td style="text-align: right;">@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
-                    <td style="text-align: center;">@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
+                @if ($stampaPrezzi)
+                    @if($row->ommerce)
+                        <td colspan="2" style="text-align: center;"><strong> FREE OF CHARGE</strong></td>
+                    @else
+                        <td style="text-align: right;">@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
+                        <td style="text-align: center;">@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
+                    @endif
                 @endif
                 @if($head->tipomodulo=='O')
                 <td style="text-align: center;">
@@ -87,7 +97,9 @@
                     @endif
                 </td>
                 @endif
-                <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
+                @if ($stampaPrezzi)
+                    <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
+                @endif
                 @php
                     $totMerce=$totMerce+$row->val_riga;
                     $totOmaggio=$totOmaggio+(($row->ommerce) ? $row->val_riga : 0);
@@ -107,42 +119,44 @@
             </tr>
         @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <th @if($head->tipomodulo=='O') colspan="8" @else colspan="6" @endif style="text-align:right">Total:</th>
-            <th style="text-align: right;">{{ currency($totMerce) }}</th>
-            {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
-            <th></th>
-            <th style="text-align: right;">{{ currency($totProvv) }}</th>
-            @endif --}}
-        </tr>
-    </tfoot>
-    
-    @if ($head->sconti)
+    @if ($stampaPrezzi)
         <tfoot>
             <tr>
-                <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">{{ trans('doc.scontoMerce') }}: {{$head->sconti}} %</th>
-                <th style="text-align: right;">{{ currency($head->totmerce) }}</th>
+                <th @if($head->tipomodulo=='O') colspan="8" @else colspan="6" @endif style="text-align:right">Total:</th>
+                <th style="text-align: right;">{{ currency($totMerce) }}</th>
+                {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
+                <th></th>
+                <th style="text-align: right;">{{ currency($totProvv) }}</th>
+                @endif --}}
+            </tr>
+        </tfoot>
+        
+        @if ($head->sconti)
+            <tfoot>
+                <tr>
+                    <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">{{ trans('doc.scontoMerce') }}: {{$head->sconti}} %</th>
+                    <th style="text-align: right;">{{ currency($head->totmerce) }}</th>
+                    @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' ||
+                    $head->tipodoc == 'PP'))
+                    <th></th>
+                    <th style="text-align: right;">{{ currency($totProvv-floatval($head->sconti)/100*$totProvv) }}</th>
+                    @endif
+                </tr>
+            </tfoot>
+        @endif
+    
+        @if ($totOmaggio>0)
+        <tfoot>
+            <tr>
+                <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">Total Value of Goods Free of Charge: </th>
+                <th style="text-align: right;">{{ currency(-$totOmaggio) }}</th>
                 @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' ||
                 $head->tipodoc == 'PP'))
                 <th></th>
-                <th style="text-align: right;">{{ currency($totProvv-floatval($head->sconti)/100*$totProvv) }}</th>
+                <th></th>
                 @endif
             </tr>
         </tfoot>
-    @endif
-   
-    @if ($totOmaggio>0)
-    <tfoot>
-        <tr>
-            <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">Total Value of Goods Free of Charge: </th>
-            <th style="text-align: right;">{{ currency(-$totOmaggio) }}</th>
-            @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' ||
-            $head->tipodoc == 'PP'))
-            <th></th>
-            <th></th>
-            @endif
-        </tr>
-    </tfoot>
+        @endif
     @endif
 </table>

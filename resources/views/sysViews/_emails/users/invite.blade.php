@@ -1,20 +1,20 @@
 @component('mail::message')
-# Ciao, {{ $user->name }}
+# Buongiorno, {{ $user->name }}
 
-Questa è una email automatica di invito al portale "pNet" di [Ferramenta Paride](https://www.ferramentaparide.it/).  
-Sul nostro portale potrà visualizzare lo stato dei suoi Ordini, Bolle e Fatture.  
-Tutto ciò unitamente al catalogo dei nostri prodotti.
+con questa email automatica la inviatiamo ad accedere a "pNet", il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
+In questo modo potrà visualizzare lo stato dei suo Preventivi, Ordini, DDT e Fatture, unitamente al catalogo completo dei nostri prodotti.  
 
-Il *nickname* a lei associato per effettuare l'accesso è:  
+Il *nickname* a lei associato è:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **{{ $user->nickname }}**
 
-Come primo accesso Vi preghiamo di cliccare sul link qui sotto e di impostare la Vostra prima password.
-
+Come primo accesso la preghiamo di cliccare sul link qui sotto per impostare la prima password di siurezza e cominciare a navigare da subito nel portale:  
 @component('mail::button', ['url' => $url])
 Accedi Qui
 @endcomponent
 
-Rimaniamo a vostra disposizione.  
-Vi ringraziamo per l'attenzione,<br>
-{{ config('app.name') }} staff
+Come sempre, rimaniamo a sua disposizione.  
+
+Ringraziando per l'attenzione, auguriamo un buon lavoro.  
+
+Staff pNet Ferramenta Paride  
 @endcomponent

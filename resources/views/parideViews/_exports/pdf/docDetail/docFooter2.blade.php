@@ -46,41 +46,42 @@
 
 
 <span class="floatright20">
-    <span class="contentSubTitle">{{ trans('doc.totsDoc') }}</span>
-    <dl class="dl-horizontal">
-        @if($head->sconto>0)
-        <dt>{{ trans('doc.scontoMerce') }}</dt>
-        <dd>{{$head->sconto}} %</dd>
+    @if ($stampaPrezzi)
+        <span class="contentSubTitle">{{ trans('doc.totsDoc') }}</span>
+        <dl class="dl-horizontal">
+            @if($head->sconto>0)
+            <dt>{{ trans('doc.scontoMerce') }}</dt>
+            <dd>{{$head->sconto}} %</dd>
         
-        <hr class="smalldivider">
-        @endif
+            <hr class="smalldivider">
+            @endif
         
-        {{-- <dt>{{ trans('doc.totMerce') }}</dt>
-        <dd>{{$head->totmerce}} €</dd> --}}
-
+            {{-- <dt>{{ trans('doc.totMerce') }}</dt>
+            <dd>{{$head->totmerce}} €</dd> --}}
+        
+            @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+            <dt>Spese Bancarie</dt>
+            <dd>{{$head->spese_ban}} €</dd>
+            <hr class="smalldivider">
+            @endif
+        
+            <dt>{{ trans('doc.totImp') }}</dt>
+            <dd>{{$head->tot_imp}} €</dd>
+        
+            <dt>{{ trans('doc.totVat') }} @if($head->id_iva_c!='')({{ $head->id_iva_c ?? '22' }} %)@endif</dt>
+            <dd>{{$head->tot_iva}} €</dd>
+        
+        </dl>
         @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
-        <dt>Spese Bancarie</dt>
-        <dd>{{$head->spese_ban}} €</dd>
-        <hr class="smalldivider">
-        @endif
-
-        <dt>{{ trans('doc.totImp') }}</dt>
-        <dd>{{$head->tot_imp}} €</dd>
-
-        <dt>{{ trans('doc.totVat') }} @if($head->id_iva_c!='')({{ $head->id_iva_c ?? '22' }} %)@endif</dt>
-        <dd>{{$head->tot_iva}} €</dd>
-
-    </dl>
-    @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
         <dl class="dl-horizontal">
             <hr class="smalldivider">
-
+        
             <dt>{{ trans('doc.totDoc_condensed') }}</dt>
             <dd><strong>{{$head->tot_rit}} €</strong></dd>
         </dl>
-    @else
+        @else
         @php
-            $totDoc = $head->tot_imp+$head->tot_iva;
+        $totDoc = $head->tot_imp+$head->tot_iva;
         @endphp
         <dl class="dl-horizontal">
             <hr class="smalldivider">
@@ -88,6 +89,7 @@
             <dt>{{ trans('doc.totDoc_condensed') }}</dt>
             <dd><strong>{{$totDoc}} €</strong></dd>
         </dl>
+        @endif
     @endif
 
     @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
