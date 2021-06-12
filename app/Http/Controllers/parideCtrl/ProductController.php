@@ -26,9 +26,9 @@ class ProductController extends Controller
         $gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
         $grpSelected = '';//$gruppi->first()->id_fam;
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo')
-            ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
-        $products = $products->with('grpProd')->with('supplier')->with('magGiac')->get();
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
+            // ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
+        $products = $products->with('grpProd')->with('supplier')->with('magGiac')->orderBy('id_art', 'desc')->take(50)->get();
 
         $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
             ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();

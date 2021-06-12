@@ -39,7 +39,7 @@ class HomeController extends Controller
         $nFattDir = FTCli::where('data', '>=', $lastMonth->subDays(1))->count();
         $nFattDif = FDCli::where('data', '>=', $lastMonth->subDays(1))->count();
 
-        $nNewProds = Product::where('non_attivo', 0)->count();
+        $nNewProds = 50; //Product::where('non_attivo', 0)->count();
 
         return view('home', [
             'nQuotes' => $nQuotes,

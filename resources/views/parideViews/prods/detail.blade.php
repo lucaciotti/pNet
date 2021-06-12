@@ -101,8 +101,9 @@
             Specifiche Tecniche &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i>
           </button>
           @endif
+          @if (!empty($prod->url))
           <a type="button" class="btn btn-primary btn-block" href="{{ $prod->url }}" target="_blank"><strong class="text-white">Link to Ferramenta Paride eShop</strong></a>
-
+          @endif
         </div>
       </div>
       <!-- /.card -->
