@@ -83,6 +83,7 @@ class DocCliController extends Controller
             $startDate = Carbon::now()->subMonth();
             $endDate = Carbon::now();
         }
+        // $diff = $startDate->diffInDays($endDate);
         $noDate = $req->input('noDate');
         $ragSoc = $req->input('ragsoc');
         $ragsocOp = $req->input('ragsocOp');
@@ -105,6 +106,11 @@ class DocCliController extends Controller
                 $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
                 $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
                 $docs = $invoices->merge($invoicesFree)->merge($invoicesDiff);
+                $descModulo = trans('doc.invoice_title');
+                break;
+            case 'FD':
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $invoicesDiff;
                 $descModulo = trans('doc.invoice_title');
                 break;
             case 'N':

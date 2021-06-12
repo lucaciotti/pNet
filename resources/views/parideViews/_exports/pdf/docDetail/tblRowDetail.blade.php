@@ -61,7 +61,7 @@
                     {{ Illuminate\Support\Str::ucfirst(Illuminate\Support\Str::lower($row->descr)) }}
                 </td>
                 <td style="text-align: center;">
-                    @if ($row->prezzo!=0) {{ $row->qtarow }} {{ $row->um }} @endif
+                    {{ $row->qtarow }} {{ $row->um }}
                 </td>
                 @if($head->tipomodulo=='O')
                 <td style="text-align: center;">{{ $row->qtares }}</td>

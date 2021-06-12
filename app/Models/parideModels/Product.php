@@ -2,11 +2,17 @@
 
 namespace App\Models\parideModels;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\RedisUser;
+use Awobaz\Compoships\Compoships;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
+    use \Awobaz\Compoships\Compoships;
+    
     protected $table = 'articoli';
     public $timestamps = false;
     protected $primaryKey = 'id_art';
@@ -18,14 +24,18 @@ class Product extends Model
     // protected $appends = ['master_grup'];
 
     // Scope that garante to find only Supplier from anagrafe
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    protected static function boot()
+    {
+        parent::boot();
 
-    //     static::addGlobalScope('Listino', function (Builder $builder) {
-    //         $builder->where('u_artlis', '=', true);
-    //     });
-    // }
+        if (Auth::check()) {
+            if (in_array(RedisUser::get('role'), ['client', 'agent'])) {
+                static::addGlobalScope('Attivo', function (Builder $builder) {
+                    $builder->where('non_attivo', '0');
+                });
+            }
+        }
+    }
 
     public function __construct($attributes = array())
     {
@@ -122,6 +132,12 @@ class Product extends Model
     public function barcodes()
     {
         return $this->hasMany('App\Models\parideModels\Barcodes', 'id_art', 'id_art');
+    }
+
+    public function supplierCodes()
+    {
+        // return $this->hasMany('App\Models\parideModels\ProdSupCod', 'id_art', 'id_art')->where('id_cli_for', $this->id_cli_for);
+        return $this->hasMany('App\Models\parideModels\ProdSupCod', ['id_art', 'id_cli_for'], ['id_art', 'id_cli_for']);
     }
 
 

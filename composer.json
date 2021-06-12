@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "awobaz/compoships": "^2.1",
         "barryvdh/laravel-snappy": "^0.4.8",
         "cornford/googlmapper": "^3.3",
         "deployer/deployer": "^7.0",

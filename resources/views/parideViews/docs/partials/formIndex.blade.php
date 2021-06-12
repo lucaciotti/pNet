@@ -49,6 +49,10 @@
       <label> {{ trans('doc.ddt') }} &nbsp;&nbsp; </label>    
       <input type="radio" name="optTipoDoc" id="opt5" value="F" @if($tipomodulo=='F') checked @endif>
       <label> {{ trans('doc.invoice') }} &nbsp;&nbsp; </label>
+      <input type="radio" name="optTipoDoc" id="opt5" value="FD" @if($tipomodulo=='FD') checked @endif>
+      <label>Fatture Differite &nbsp;&nbsp; </label>
+      <input type="radio" name="optTipoDoc" id="opt5" value="N" @if($tipomodulo=='N') checked @endif>
+      <label>Note di Credito &nbsp;&nbsp; </label>
     </div>
   </div>
   <div>

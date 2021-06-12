@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Helpers\RedisUser;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Models\parideModels\Product;
 
@@ -46,16 +48,25 @@ class ProductSearchBar extends Component
     {
         $product = $this->products[$this->highlightIndex] ?? null;
         if ($product) {
-            $this->redirect(route('show-contact', $product['id_art']));
+            $this->redirect(route('product::detail', $product['id_art']));
         }
     }
 
     public function updatedSearchStr()
     {
-        $this->products = Product::where('id_art', 'like', $this->searchStr . '%')
-            ->orWhere('descr', 'like', '%' . $this->searchStr . '%')
+        $searchStr = Str::upper($this->searchStr);
+        $this->products = Product::select('id_art', 'descr', 'id_cli_for')
+            ->where('id_art', 'like', $searchStr . '%')
+            ->where('id_art', 'like', $searchStr . '%')
+            ->orWhere('descr', 'like', '%' . $searchStr . '%')
             ->orWhere('id_cod_bar', 'like', $this->searchStr . '%')
-            ->take(10)
+            ->orWhereHas('barcodes', function ($query) use ($searchStr) {
+                $query->where('id_cod_bar', 'like', $searchStr . '%');
+            })
+            ->orWhereHas('supplierCodes', function ($query) use ($searchStr) {
+                $query->where('id_cod_for', 'like', $searchStr . '%');
+            })
+            ->take(25)
             ->get()
             ->toArray();
     }

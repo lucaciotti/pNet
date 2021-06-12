@@ -10,7 +10,7 @@
           <option value="stw">[]...</option>
           <option value="cnt" selected>...[]...</option>
         </select>
-      </div><input type="text" class="form-control" name="descrArt" value="{{ old('codArt') }}">
+      </div><input type="text" class="form-control" name="codArt" value="{{ $codArt ?? '' }}">
     </div>
   </div>
   {{-- Partita Iva --}}
@@ -24,7 +24,7 @@
               <option value="cnt" selected>...[]...</option>
             </select>
           </span>
-      <input type="text" class="form-control" name="descrArt" value="{{ old('descrArt') }}">
+      <input type="text" class="form-control" name="descrArt" value="{{ $descrArt ?? '' }}">
     </div>
   </div>  
   {{-- Barcode --}}
@@ -38,7 +38,7 @@
           <option value="cnt" selected>...[]...</option>
         </select>
       </span>
-      <input type="text" class="form-control" name="barcode" value="{{ old('barcode') }}">
+      <input type="text" class="form-control" name="barcode" value="{{ $barcode ?? '' }}">
     </div>
   </div>
 {{-- 

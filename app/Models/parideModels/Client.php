@@ -58,4 +58,9 @@ class Client extends Model
     {
         return $this->hasOne('App\Models\User', 'codcli', 'id_cli_for');
     }
+
+    public function payType()
+    {
+        return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
+    }
 }

@@ -18,6 +18,13 @@
   <div class="col-lg-4">
     <div class="card card-outline">
       <div class="card-header">
+        @if ($prod->non_attivo=='1')
+            <div class="ribbon-wrapper ribbon-lg">
+              <div class="ribbon bg-danger">
+                NON Attivo
+              </div>
+            </div>
+        @endif
         <h3 class="card-title">Dettagli</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -60,31 +67,42 @@
                 @endif
               </dd>
             @endif
-
-            <dt>Codice Prodotto Fornitore</dt>
-            <dd>
-              &nbsp;&nbsp;&nbsp;&nbsp;<big><strong>{{$prod->id_cod_for}}</strong></big>
-            </dd>
+            
+            @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+              <dt>Codice Prodotto Fornitore</dt>
+              @if ($prod->supplierCodes)
+                <dd>
+                @foreach ($prod->supplierCodes as $supCod)
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{$supCod->id_cod_for}} <br>
+                @endforeach
+                </dd>
+              @else
+                <dd>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<big>{{$prod->id_cod_for}}</big>
+                </dd>
+              @endif
+            @endif
 
             <dt>Barcodes</dt>
             <dd>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <big><strong>{{$prod->id_cod_bar}}</strong></big>
+              &nbsp;&nbsp;&nbsp;&nbsp;{{$prod->id_cod_bar}}
               @if($prod->barcodes)
                 @foreach ($prod->barcodes as $barcode)
                   @if ($barcode->id_cod_bar != $prod->id_cod_bar)
-                      <br>&nbsp;&nbsp;&nbsp;&nbsp;
-                      <big><strong>{{$barcode->id_cod_bar}}</strong></big>
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;{{$barcode->id_cod_bar}}
                   @endif                
                 @endforeach
               @endif
             </dd>
-
-            <dt>Link to Ferramenta Paride eShop</dt>
-            <dd>
-              &nbsp;&nbsp;&nbsp;&nbsp;<big><strong> - </strong></big>
-            </dd>
           </dl>
+
+          @if (!empty($prod->desc_ecom))
+          <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modal-lg">
+            Specifiche Tecniche &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i>
+          </button>
+          @endif
+          <a type="button" class="btn btn-primary btn-block" href="{{ $prod->url }}" target="_blank"><strong class="text-white">Link to Ferramenta Paride eShop</strong></a>
+
         </div>
       </div>
       <!-- /.card -->
@@ -118,6 +136,36 @@
         </div>        
       </div>
     </div>
+
+    @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" data-card-widget="collapse">Vendute</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <label>Quantità:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{ $prod->um }}</span>
+          </div>
+          @if ($prod->magGiac)
+          <input type="text" class="form-control" readonly name="giacArt" value="{{ $prod->magGiac->qta_ven }}"
+            style="text-align:right;">
+          @else
+          <input type="text" class="form-control" readonly name="giacArt" value="0" style="text-align:right;">
+          @endif
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
   </div>
 
   @php
@@ -248,6 +296,24 @@
   </div>
   @endif
 
+</div>
+
+<div class="modal fade show" id="modal-lg" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title"><strong>{{ $prod->id_art }}</strong> - Specifiche</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {!! $prod->desc_ecom !!}
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
 
 {{-- </div> --}}

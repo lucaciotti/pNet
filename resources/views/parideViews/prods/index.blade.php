@@ -26,7 +26,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table class="table table-hover table-condensed dtTbls_light" id="listDocs">
+            <table class="table table-hover table-condensed dtTbls_full" id="listDocs">
               <thead>
                 <th>{{ trans('prod.codeArt') }}</th>
                 <th>{{ trans('prod.descArt') }}</th>
@@ -42,6 +42,9 @@
                 <tr>
                   <td>
                     <a href="{{ route('product::detail', $prod->id_art) }}"> {{ $prod->id_art }} </a>
+                    @if ($prod->non_attivo=='1')
+                      <span class="right badge badge-danger">NON ATTIVO</span>                        
+                    @endif
                   </td>
                   <td>{{ $prod->descr }}</td>
                   <td>[{{ $prod->id_fam }}]

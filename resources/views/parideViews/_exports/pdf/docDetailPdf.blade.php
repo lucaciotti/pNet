@@ -43,6 +43,16 @@
     </span>
     @endif
 
+    {{-- @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
+    <div>
+        <hr class="dividerPage">
+    </div>
+    <div class="row">
+        <div class="contentTitle">{{ trans('doc.lnkPayment') }}</div>
+        @include('parideViews._exports.pdf.docDetail.tblPayment', ['$head'=> $head] )
+    </div>
+    @endif --}}
+
     @if($tipodoc=='BO'|| $tipodoc=='FT'|| $tipodoc=='FD'|| $tipodoc=='FP')
     <div class="row">
         <br><br><br><br><br><br><br><br><br><br><br>
@@ -56,26 +66,10 @@
         <h5>
             Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
             <br>
-            I resi devono essere approvati. 
+            I resi devono essere approvati.
         </h5>
     </span>
     @endif
-
-
-
-
-    {{-- @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
-    <div>
-        <hr class="dividerPage">
-    </div>
-    <div class="row">
-        <div class="contentTitle">{{ trans('doc.lnkPayment') }}</div>
-        @include('parideViews._exports.pdf.docDetail.tblPayment', ['scads'=> $head->scadenza] )
-    </div>
-    @endif --}}
-
-
-
 
 </p>
 @endsection

@@ -24,7 +24,7 @@
                         <div class="search-title">
                             <strong>{{ $product['id_art'] }}</strong> - {{ $product['descr'] }}
                         </div>
-                        <div class="search-path"><small>Barcode: {{ $product['id_cod_bar'] }}</small></div>
+                        {{-- <div class="search-path"><small>Barcode: {{ $product['id_cod_bar'] }}</small></div> --}}
                     </a>
                     @endforeach
                 @else

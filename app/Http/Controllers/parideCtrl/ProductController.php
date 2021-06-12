@@ -26,7 +26,7 @@ class ProductController extends Controller
         $gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
         $grpSelected = '';//$gruppi->first()->id_fam;
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1')
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo')
             ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
         $products = $products->with('grpProd')->with('supplier')->with('magGiac')->get();
 
@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function fltIndex(Request $req)
     {
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1');
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
 
         if ($req->input('codArt')) {
             if ($req->input('codArtOp') == 'eql') {
@@ -66,13 +66,13 @@ class ProductController extends Controller
         }
 
         if ($req->input('descrArt')) {
-            if ($req->input('descrOp') == 'eql') {
+            if ($req->input('descrArtOp') == 'eql') {
                 $products = $products->where('descr', strtoupper($req->input('descrArt')));
             }
-            if ($req->input('descrOp') == 'stw') {
+            if ($req->input('descrArtOp') == 'stw') {
                 $products = $products->where('descr', 'LIKE', strtoupper($req->input('descrArt')) . '%');
             }
-            if ($req->input('descrOp') == 'cnt') {
+            if ($req->input('descrArtOp') == 'cnt') {
                 $products = $products->where('descr', 'LIKE', '%' . strtoupper($req->input('descrArt')) . '%');
             }
         }
@@ -97,9 +97,9 @@ class ProductController extends Controller
             $products = $products->whereIn('id_cli_for', $req->input('supplierSelected'));
         }
 
-        /* if ($req->input('marcheSelected')) {
+        if ($req->input('marcheSelected')) {
             $products = $products->whereIn('id_mar', $req->input('marcheSelected'));
-        } */
+        }
 
         // $listGrp = '';
         // if ($req->input('masterGrpFilter')) {
@@ -111,7 +111,7 @@ class ProductController extends Controller
         //     }
         //     $products = $products->whereRaw('left(id_fam,2) IN ( ? )', $listGrp);
         // } 
-
+        // dd($products->toSql());
         $products = $products->orderBy('id_art')
                         ->with('grpProd')
                         ->with('supplier')
@@ -138,13 +138,13 @@ class ProductController extends Controller
             'suppliersList' => $supplierList,
             'supplierSelected' => $req->input('supplierSelected'),
             'marcheList' => $marcheList,
-            'marcheSelected' => Arr::wrap(''),
+            'marcheSelected' => $req->input('marcheSelected'),
         ]);
     }
 
     public function detail(Request $req, $codArt)
     {
-        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac', 'marche', 'barcodes'])->findOrFail($codArt);
+        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac', 'marche', 'barcodes', 'supplierCodes'])->findOrFail($codArt);
         // dd($product);
         return view('parideViews.prods.detail', [
             'prod' => $product,
@@ -175,7 +175,7 @@ class ProductController extends Controller
             ->where('gruppo', '!=', '')
             ->where('u_datacrea', '>', Carbon::create($dt->year, 1, 1, 0))
             ->orderBy('gruppo');
-        $products = $products->with('grpProd')->get();
+        $products = $products->with('grpProd')->with('grpProd')->get();
 
         // $gruppi = SubGrpProd::where('codice', 'NOT LIKE', '1%')
         //     ->where('codice', 'NOT LIKE', 'DIC%')

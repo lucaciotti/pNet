@@ -8,17 +8,38 @@
         <dt>{{ trans('doc.goodsAspect') }}</dt>
         <dd>{{ $head->descr_aeb }}</dd>
 
-        {{-- <dt>{{ trans('doc.volume') }}</dt>
-        <dd>{{$head->volume}} mc</dd>
-
-        <dt>{{ trans('doc.weightNet') }}</dt>
-        <dd>{{$head->pesonetto}} Kg</dd> --}}
         @if($head->peso>0)
             <dt>{{ trans('doc.weightGross') }}</dt>
             <dd>{{$head->peso}} Kg</dd>
         @endif
 
     </dl>
+    @endif
+
+    @if(!empty($head->des_dive1) || !empty($head->des_dive2))
+    <span class="contentSubTitle">Destinazione Merce</span>
+        @if(empty($head->des_dive3) && empty($head->des_dive4))
+            <dl class="dl-horizontal">
+                <dt>Indirizzo</dt>
+                <dd>{{$head->des_dive1}}</dd>            
+            </dl>
+        @else
+            <dl class="dl-horizontal">
+                <dt>Ragione Sociale</dt>
+                @if(!empty($head->des_dive1))
+                    <dd>{{$head->des_dive1}}</dd>
+                @else
+                    <dd>{{$head->des_dive2}}</dd>
+                @endif
+                <dt>Indirizzo</dt>
+                <dd>
+                    @if(!empty($head->des_dive4))
+                    {{$head->des_dive4}} <br>
+                    @endif
+                    {{$head->des_dive3}}
+                </dd>
+            </dl>
+        @endif
     @endif
 </span>
 
@@ -55,7 +76,7 @@
             <hr class="smalldivider">
 
             <dt>{{ trans('doc.totDoc_condensed') }}</dt>
-            <dd><strong>{{$head->tot_rit}} €</strong> <br> @if ($head->pagato) [PAGATO]@endif</dd>
+            <dd><strong>{{$head->tot_rit}} €</strong></dd>
         </dl>
     @else
         @php
@@ -68,6 +89,17 @@
             <dd><strong>{{$totDoc}} €</strong></dd>
         </dl>
     @endif
+
+    @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
+    <span class="contentSubTitle">Tipologia Pagamento</span>
+    <dl class="dl-horizontal">
+        <dd>{{$head->payType->descr}}</dd>
+        @if ($head->pagato) 
+        <dd><strong>[PAGATO]</strong></dd>
+        @endif
+    </dl>
+    @endif
+
 </span>
 {{-- 
 <span class="floatright20">

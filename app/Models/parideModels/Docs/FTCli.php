@@ -82,6 +82,11 @@ class FTCli extends Model
         return $this->hasOne('App\Models\parideModels\Client', 'id_cli_for', 'id_cli_for');
     }
 
+    public function payType()
+    {
+        return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
+    }
+
     public function docSent()
     {
         return $this->hasOne('App\Models\parideModels\Docs\wDocSent', 'id_doc', 'id_doc_tes');
