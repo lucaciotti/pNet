@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUsers extends Migration
+class AddInviatoemailUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddColumnUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('invitato_email');
+            $table->boolean('invitato_email')->default(false);
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('invitato_email')->default(false);
+            $table->dropColumn('invitato_email');
         });
     }
 }
