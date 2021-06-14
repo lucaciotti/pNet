@@ -34,6 +34,8 @@ class InviteUser extends Mailable
      */
     public function build()
     {
+        $this->user->invitato_email = true;
+        $this->user->save();
         return $this->subject('Invito alla registrazione Ferramenta Paride')
                     ->markdown('sysViews._emails.users.invite');
     }

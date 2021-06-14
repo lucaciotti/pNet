@@ -39,7 +39,7 @@ task('npm:run:prod', function () {
     run('npm run prod');
 });
 
-task('artisan:migrate:pNet', function () {
+task('migrate:pNet', function () {
     cd('{{release_path}}');
     run('php artisan migrate --database=pNet_DATA --path=./database/migrations/pNet_DB --force');
 });
