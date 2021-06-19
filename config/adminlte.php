@@ -199,7 +199,7 @@ return [
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'forgot-password',
-    'password_email_url' => 'forgot-email',
+    'password_email_url' => 'forgot-password',
     'profile_url' => false,
 
     /*
