@@ -50,7 +50,7 @@ class ProductController extends Controller
 
     public function fltIndex(Request $req)
     {
-
+        $isFilter = false;
         $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
 
         if ($req->input('codArt')) {
@@ -63,6 +63,7 @@ class ProductController extends Controller
             if ($req->input('codArtOp') == 'cnt') {
                 $products = $products->where('id_art', 'LIKE', '%' . strtoupper($req->input('codArt')) . '%');
             }
+            $isFilter = true;
         }
 
         if ($req->input('descrArt')) {
@@ -75,6 +76,7 @@ class ProductController extends Controller
             if ($req->input('descrArtOp') == 'cnt') {
                 $products = $products->where('descr', 'LIKE', '%' . strtoupper($req->input('descrArt')) . '%');
             }
+            $isFilter = true;
         }
 
         if ($req->input('barcode')) {
@@ -87,18 +89,22 @@ class ProductController extends Controller
             if ($req->input('barcodeOp') == 'cnt') {
                 $products = $products->where('id_cod_bar', 'LIKE', '%' . strtoupper($req->input('barcode')) . '%');
             }
+            $isFilter = true;
         }
 
         if ($req->input('grpSelected')) {
             $products = $products->whereIn('id_fam', $req->input('grpSelected'));
+            $isFilter = true;
         }
 
         if ($req->input('supplierSelected')) {
             $products = $products->whereIn('id_cli_for', $req->input('supplierSelected'));
+            $isFilter = true;
         }
 
         if ($req->input('marcheSelected')) {
             $products = $products->whereIn('id_mar', $req->input('marcheSelected'));
+            $isFilter = true;
         }
 
         // $listGrp = '';
@@ -115,8 +121,11 @@ class ProductController extends Controller
         $products = $products->orderBy('id_art')
                         ->with('grpProd')
                         ->with('supplier')
-                        ->with('magGiac')
-                        ->get();
+                        ->with('magGiac');
+        if(!$isFilter){
+            $products = $products->take(50);    
+        }
+        $products = $products->get();
 
         $masterGrps = GrpProd::orderBy('id_fam')->get();
         // $gruppi = SubGrpProd::whereRaw('left(id_fam,2) IN ( ? )', $listGrp)->orderBy('id_fam')->get();

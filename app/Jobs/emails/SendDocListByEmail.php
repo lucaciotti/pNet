@@ -5,6 +5,7 @@ namespace App\Jobs\emails;
 use App\Models\User;
 use App\Mail\DdtShipped;
 use App\Helpers\PdfReport;
+use App\Models\parideModels\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -49,8 +50,11 @@ class SendDocListByEmail implements ShouldQueue
         $listOfDocs = wDocSent::where('inviato', false)->get();
 
         foreach ($listOfDocs as $docToSend) {
-            if(User::where('codcli', $docToSend->id_cli)->where('isActive', 1)->where('auto_email', 1)->exists()) {
-                $user = User::where('codcli', $docToSend->id_cli)->where('isActive', 1)->first();
+            $user = User::where('codcli', $docToSend->id_cli)->first();
+            $client = Client::find($docToSend->id_cli);
+            $isInvio = ($client->fatt_email || $user->auto_email); 
+            if($isInvio) {                
+                $toEmail = [$client->e_mail, $client->e_mail_ddt];
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
                 $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {

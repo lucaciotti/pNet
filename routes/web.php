@@ -49,7 +49,7 @@ Route::name('product::')->middleware('auth')->group(function () {
 // Routes Docs
 Route::name('doc::')->middleware('auth')->group(function () {
     Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
-    Route::get('/docs/{id_cli_for}/{tipomodulo?}', [DocCliController::class, 'clientList'])->name('clientList');
+    Route::get('/clidocs/{id_cli_for}/{tipomodulo?}', [DocCliController::class, 'clientList'])->name('clientList');
     Route::post('/docs/filtered', [DocCliController::class, 'fltIndex'])->name('fltList');
     Route::get('/doc/{tipodoc}/{id_doc}', [DocCliController::class, 'showDetail'])->name('detail');
     Route::get('/docPDF/{tipodoc}/{id_doc}', [DocCliController::class, 'downloadPDF'])->name('downloadPDF');
@@ -61,12 +61,12 @@ Route::name('doc::')->middleware('auth')->group(function () {
 
 // -------------------------------------------------
 //GESTIONE UTENTI
-Route::name('user::')->middleware('auth')->group(function () {
-    Route::resource('users', UserController::class);
-    Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli');
-    Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike');
-    Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB');
-    Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang');
+Route::name('user::')->group(function () {
+    Route::resource('users', UserController::class)->middleware('auth');
+    Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli')->middleware('auth');
+    Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike')->middleware('auth');
+    Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB')->middleware('auth');
+    Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang')->middleware('auth');
     Route::get('/resetPassword/{id}', [UserController::class, 'sendResetPassword'])->name('resetPassword');
 });
 

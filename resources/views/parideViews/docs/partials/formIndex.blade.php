@@ -5,7 +5,7 @@
     <label>{{ trans('doc.descClient') }}</label>
     <div class="input-group input-group mb-3">
       <div class="input-group-prepend">
-        <select type="button" class="btn btn-primary dropdown-toggle" name="codcliOp">
+        <select type="button" class="btn btn-primary dropdown-toggle" name="ragsocOp">
           <option value="eql">=</option>
           <option value="stw">[]...</option>
           <option value="cnt" selected>...[]...</option>

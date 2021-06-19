@@ -138,7 +138,7 @@
       </div>
     </div>
 
-    @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+    @if (!in_array(RedisUser::get('role'), ['client', 'user', 'agent']))
     <div class="card">
       <div class="card-header">
         <h3 class="card-title" data-card-widget="collapse">Vendute</h3>
@@ -193,7 +193,7 @@
               <img src="{{ $prod->nome_foto }}" height="270px" class="img-fluid">
             </a>  
           @else     
-            <img src="{{ asset('assets/img/noPhoto.png') }}" alt="noImage" height="270px" class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;">
+            <img src="{{ asset('assets/img/noPhoto.jpg') }}" alt="noImage" height="270px" class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;">
           @endif
         {{-- </div> --}}
       </div>
@@ -257,7 +257,7 @@
     </div>
   </div>
 
-  @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
+  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">
@@ -269,7 +269,7 @@
         </div>
       </div>
       <div class="card-body">
-  
+        @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
         <label>Prezzo di Acquisto:</label>
         <div class="input-group">
           <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}"
@@ -278,7 +278,8 @@
             <span class="input-group-text">€</span>
           </div>
         </div>
-  
+        @endif
+
         <label>Fornitore:</label>
         <div class="input-group">
           <div class="input-group-prepend">

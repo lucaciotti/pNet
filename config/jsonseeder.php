@@ -16,9 +16,9 @@ return [
      * Json Seeding option
      */
     'json-seed' => [
-      'use-upsert' => true,                         // otherwise it uses the "insert method"
+      'use-upsert' => false,                         // otherwise it uses the "insert method"
       'disable-foreignKey-constraints' => true,     // disable the foreignKeyConstraints before update or insert
-      'ignore-empty-values' => true,                // ignore array's empty values
+      'ignore-empty-values' => false,                // ignore array's empty values
     ],
 
     /*

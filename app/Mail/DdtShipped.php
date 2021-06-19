@@ -25,6 +25,7 @@ class DdtShipped extends Mailable
     public $idDocListed;
     public $fileToAttach;
     public $url;
+    public $urlInvito;
     /**
      * Create a new message instance.
      *
@@ -37,6 +38,7 @@ class DdtShipped extends Mailable
         Log::info('Email file Attached: ' . $fileToAttach);
         $this->fileToAttach = $fileToAttach;
         $this->url = route("doc::list");
+        $this->urlInvito = route("user::resetPassword", $this->user->id);
     }
 
     /**
@@ -50,9 +52,15 @@ class DdtShipped extends Mailable
         $docListed->inviato = true;
         $docListed->save();
         $nameDoc = $this->getNameDoc($docListed->tipo_doc, $docListed->id_doc);
-        return $this->subject('Invio '.$nameDoc.' - Ferramenta Paride')
-                ->markdown('parideViews._emails.docs.ddtShippede')
+        if($this->user->isActive){
+            return $this->subject('Invio '.$nameDoc.' - Ferramenta Paride')
+                ->markdown('parideViews._emails.docs.ddtShipped')
                 ->attach($this->fileToAttach);
+        } else {
+            return $this->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
+                ->markdown('parideViews._emails.docs.ddtShippedwithInvite')
+                ->attach($this->fileToAttach);
+        }
     }
 
     protected function getNameDoc($tipodoc, $id_doc)

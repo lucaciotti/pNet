@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use App\Models\parideModels\Client;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -48,7 +49,7 @@ class UserController extends Controller
     {
         $clients = User::with(['roles', 'client'])
             ->whereHas('roles', function ($q) {
-                $q->whereIn('name', ['agent', 'client']);
+                $q->whereIn('name', ['client']);
             })
             ->orderBy('id')->get();
 
@@ -148,7 +149,10 @@ class UserController extends Controller
             } else {
                 Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             }
-        } catch (\Exception $e) {}
+            Log::info("Invite User: " . $user->name);
+        } catch (\Exception $e) {
+            Log::error("Invite User error: ". $e->getMessage());
+        }
         if(Auth::user()->id == $id){
             return redirect()->url('/logout');
         } else {

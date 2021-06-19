@@ -38,43 +38,40 @@
         @include('parideViews._exports.pdf.docDetail.tblPayment', ['$head'=> $head] )
     </div>
     @endif --}}
-    
-    @if($tipodoc=='XC')
-    <div class="row">
-        <br><br><br><br><br><br><br><br><br><br><br>
-        <hr class="dividerPage">
-    </div>
 
-    <span>
-        <u>
-            <h4>Note:</h4>
-        </u>
-        <h5>
-            La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
-            <br>
-            I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
-            <br><br>
-            Validità del preventivo: 5gg.
-        </h5>
-    </span>
-    @endif
+    @if($tipodoc=='XC' || $tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC')
+        
+        <div class="row">
+            <br><br><br><br><br><br><br><br><br><br><br>
+            <hr class="dividerPage">
+        </div>
 
-    @if($tipodoc=='BO'|| $tipodoc=='FT'|| $tipodoc=='FD'|| $tipodoc=='FP')
-    <div class="row">
-        <br><br><br><br><br><br><br><br><br><br><br>
-        <hr class="dividerPage">
-    </div>
-    
-    <span>
-        <u>
-            <h4>Note:</h4>
-        </u>
-        <h5>
-            Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
-            <br>
-            I resi devono essere approvati.
-        </h5>
-    </span>
+        <span>
+            <u>
+                <h4>Note:</h4>
+            </u>
+            @if($tipodoc=='XC')
+            <h5>
+                La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
+                <br>
+                I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
+                <br><br>
+                Validità del preventivo: 5gg.
+            </h5>
+            @endif
+            @if($tipodoc=='BO'|| $tipodoc=='FT')
+            <h5>
+                Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
+                <br>
+                I resi devono essere approvati.
+            </h5>
+            @endif
+            @if($tipodoc=='FT'|| $tipodoc=='FD' || $tipodoc=='NC')
+            <h5>
+                Copia digitale della fattura inviata a SDI.
+            </h5>
+            @endif
+        </span>
     @endif
 
 </p>

@@ -49,7 +49,9 @@
               <dt>{{ trans('client.taxCode') }}</dt>
               <dd>{{$client->c_f}}</dd>
               @endif
-            
+              
+              <dt>Tipologia Pagamento Predefinita</dt>
+              <dd>{{$client->payType->descr}}</dd>
               {{-- <dt>{{ trans('client.sector_full') }}</dt>
               <dd>{{$client->settore}} - @if($client->detSect) {{$client->detSect->descrizion}} @endif</dd> --}}
             </dl>
@@ -129,30 +131,30 @@
               <hr>
             
               <dt>{{ trans('client.emailAdm') }}</dt>
-              <dd>{{$client->emailam}}
-                @if (!empty($client->emailam))
-                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailam}}"><i class="fa fa-envelope-o"></i></a>
+              <dd>{{$client->e_mail_amministrazione}}
+                @if (!empty($client->e_mail_amministrazione))
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->e_mail_amministrazione}}"><i class="fa fa-envelope-o"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailOrder') }}</dt>
-              <dd>{{$client->emailut}}
-                @if (!empty($client->emailut))
-                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailut}}"><i class="fa fa-envelope-o"></i></a>
+              <dd>{{$client->e_mail_ordini}}
+                @if (!empty($client->e_mail_ordini))
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->e_mail_ordini}}"><i class="fa fa-envelope-o"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailDdt') }}</dt>
-              <dd>{{$client->emailav}}
-                @if (!empty($client->emailav))
-                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailav}}"><i class="fa fa-envelope-o bg-red"></i></a>
+              <dd>{{$client->e_mail_ddt}}
+                @if (!empty($client->e_mail_ddt))
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->e_mail_ddt}}"><i class="fa fa-envelope-o bg-red"></i></a>
                 @endif
               </dd>
             
               <dt>{{ trans('client.emailInvoice') }}</dt>
-              <dd>{{$client->emailpec}}
-                @if (!empty($client->emailpec))
-                &nbsp;<a class="badge bg-red" href="mailto:{{$client->emailpec}}"><i class="fa fa-envelope-o bg-red"></i></a>
+              <dd>{{$client->e_mail_fatture}}
+                @if (!empty($client->e_mail_fatture))
+                &nbsp;<a class="badge bg-red" href="mailto:{{$client->e_mail_fatture}}"><i class="fa fa-envelope-o bg-red"></i></a>
                 @endif
               </dd>
             

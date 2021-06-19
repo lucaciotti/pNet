@@ -39,7 +39,11 @@ class FetchDocToSendByEmail implements ShouldQueue
         Log::info('FetchDocToSendByEmail Job Started');
         $thisMonth = new Carbon('first day of this month');
         
-        $ddtList = DDTCli::where('data', '>=', $thisMonth->subDays(1))->doesntHave('docSent')->get();
+        $ddtList = DDTCli::where('data', '>=', $thisMonth->subDays(1))
+            ->doesntHave('docSent')
+            ->whereHas('client', function($q){
+                $q->where('fat_email');
+            })->get();
         foreach ($ddtList as $ddt) {
             wDocSent::create([
                 'id_doc' => $ddt->id_doc_tes,
@@ -48,7 +52,11 @@ class FetchDocToSendByEmail implements ShouldQueue
             ]);
         }
 
-        $ftList = FTCli::where('data', '>=', $thisMonth->subDays(1))->doesntHave('docSent')->get();
+        $ftList = FTCli::where('data', '>=', $thisMonth->subDays(1))
+            ->doesntHave('docSent')
+            ->whereHas('client', function ($q) {
+                $q->where('fat_email');
+            })->get();
         foreach ($ftList as $ft) {
             wDocSent::create([
                 'id_doc' => $ft->id_doc_tes,
