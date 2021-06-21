@@ -50,9 +50,10 @@ class SendDocListByEmail implements ShouldQueue
         $listOfDocs = wDocSent::where('inviato', false)->get();
 
         foreach ($listOfDocs as $docToSend) {
+            Log::info('Invio DocId:' . $docToSend->id_doc);
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
-            $isInvio = ($client->fatt_email || $user->auto_email); 
+            $isInvio = ($client->fat_email || $user->auto_email);
             if($isInvio) {                
                 $toEmail = [$client->e_mail, $client->e_mail_ddt];
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);

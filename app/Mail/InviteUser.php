@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -36,6 +37,7 @@ class InviteUser extends Mailable
     {
         $this->user->invitato_email = true;
         $this->user->save();
+        Log::info('Invio Invito a ' . $this->user->name);
         return $this->subject('Invito alla registrazione Ferramenta Paride')
                     ->markdown('sysViews._emails.users.invite');
     }

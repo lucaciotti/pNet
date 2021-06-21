@@ -95,7 +95,7 @@
     @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
     <span class="contentSubTitle">Tipologia Pagamento</span>
     <dl class="dl-horizontal">
-        <dd>{{$head->payType->descr}}</dd>
+        <dd>{{$head->payType->descr ?? '-----'}}</dd>
         @if ($head->pagato) 
         <dd><strong>[PAGATO]</strong></dd>
         @endif

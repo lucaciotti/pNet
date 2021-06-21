@@ -52,6 +52,7 @@ class DdtShipped extends Mailable
         $docListed->inviato = true;
         $docListed->save();
         $nameDoc = $this->getNameDoc($docListed->tipo_doc, $docListed->id_doc);
+        Log::info('Invio DDT '.$nameDoc. ' - '.$this->user->name);
         if($this->user->isActive){
             return $this->subject('Invio '.$nameDoc.' - Ferramenta Paride')
                 ->markdown('parideViews._emails.docs.ddtShipped')

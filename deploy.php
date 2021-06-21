@@ -32,6 +32,7 @@ task('deploy', [
     'php-fpm:reload',
     'supervisor:reload:dbSeed',
     'supervisor:reload:email',
+    'supervisor:reload:dataMining',
 ]);
 
 task('npm:run:prod', function () {
@@ -50,6 +51,10 @@ task('supervisor:reload:dbSeed', function () {
 
 task('supervisor:reload:email', function () {
     run('supervisorctl restart pnet.lucaciotti.space-worker-email:*');
+});
+
+task('supervisor:reload:dataMining', function () {
+    run('supervisorctl restart pnet.lucaciotti.space-worker-dataMining:*');
 });
 
 after('deploy:failed', 'deploy:unlock');

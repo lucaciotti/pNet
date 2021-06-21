@@ -51,7 +51,7 @@
                     <hr>
                     <dl class="dl-horizontal">
                         <dt>Tipologia Pagamento</dt>
-                        <dd>{{$head->payType->descr}}</dd>
+                        <dd>{{$head->payType->descr ?? '-----'}}</dd>
                         @if ($head->pagato)
                         <dd><strong>[PAGATO]</strong></dd>
                         @endif
@@ -152,7 +152,7 @@
                 @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
                 <dl class="dl-horizontal">
                     <dt class="contentSubTitle">Tipologia Pagamento</dt>
-                    <dd>{{$head->payType->descr}}</dd>
+                    <dd>{{$head->payType->descr ?? '-----'}}</dd>
                     @if ($head->pagato)
                     <dd><strong>[PAGATO]</strong></dd>
                     @endif

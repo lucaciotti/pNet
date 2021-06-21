@@ -42,7 +42,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         $ddtList = DDTCli::where('data', '>', now()->subDays(2))
             ->doesntHave('docSent')
             ->whereHas('client', function($q){
-                $q->where('fat_email');
+                $q->where('fat_email', '1');
             })->get();
         foreach ($ddtList as $ddt) {
             wDocSent::create([
@@ -55,7 +55,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         $ftList = FTCli::where('data', '>', now()->subDays(2))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
-                $q->where('fat_email');
+                $q->where('fat_email', '1');
             })->get();
         foreach ($ftList as $ft) {
             wDocSent::create([
