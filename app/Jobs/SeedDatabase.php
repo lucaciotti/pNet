@@ -99,9 +99,9 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
 
         Log::info('Seeding-job ENDED');
 
-        CreateClientUser::dispatch()->onQueue('dbSeed');
-        CreateAgentUser::dispatch()->onQueue('dbSeed');
-        FetchDocToSendByEmail::dispatch()->onQueue('dbSeed');
+        CreateClientUser::dispatch()->onQueue('dataMining');
+        CreateAgentUser::dispatch()->onQueue('dataMining');
+        FetchDocToSendByEmail::dispatch()->onQueue('dataMining');
         return;
         // $this->release();
     }

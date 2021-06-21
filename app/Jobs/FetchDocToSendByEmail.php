@@ -39,7 +39,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         Log::info('FetchDocToSendByEmail Job Started');
         $thisMonth = new Carbon('first day of this month');
         
-        $ddtList = DDTCli::where('data', '>=', $thisMonth->subDays(1))
+        $ddtList = DDTCli::where('data', '>', now()->subDays(2))
             ->doesntHave('docSent')
             ->whereHas('client', function($q){
                 $q->where('fat_email');
@@ -52,7 +52,7 @@ class FetchDocToSendByEmail implements ShouldQueue
             ]);
         }
 
-        $ftList = FTCli::where('data', '>=', $thisMonth->subDays(1))
+        $ftList = FTCli::where('data', '>', now()->subDays(2))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
                 $q->where('fat_email');
