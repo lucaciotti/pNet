@@ -69,32 +69,35 @@ class SeedDatabase implements ShouldQueue, ShouldBeUnique
         // //Fase 7 - Sposto Altri Files se esiste
         $filename7 = now()->format('Y-m-d-H-i-s') . '_Anag_.log';
         $this->jsonSeeding($filename7, []);
-
-        if (App::environment(['local', 'staging'])) {
-            Mail::raw('Attached the Database Log!', function ($message) use ($filename1, $filename2, $filename3, $filename4, $filename5, $filename6, $filename7) {
-                $message->to('luca.ciotti@gmail.com')
-                ->subject('Log Database Dev')
-                ->attach($this->logFilesPath . '/' . $filename1)
-                ->attach($this->logFilesPath . '/' . $filename2)
-                ->attach($this->logFilesPath . '/' . $filename3)
-                ->attach($this->logFilesPath . '/' . $filename4)
-                ->attach($this->logFilesPath . '/' . $filename5)
-                ->attach($this->logFilesPath . '/' . $filename6)
-                ->attach($this->logFilesPath . '/' . $filename7);
-            });
-        } else {
-            Mail::raw('Attached the Database Log!', function ($message) use ($filename1, $filename2, $filename3, $filename4, $filename5, $filename6, $filename7) {
-                $message->to('luca.ciotti@gmail.com')
-                ->cc(['alexschiavon90@gmail.com', 'pastrello.vito@gmail.com'])
-                ->subject('Log Database')
-                ->attach($this->logFilesPath . '/' . $filename1)
-                ->attach($this->logFilesPath . '/' . $filename2)
-                ->attach($this->logFilesPath . '/' . $filename3)
-                ->attach($this->logFilesPath . '/' . $filename4)
-                ->attach($this->logFilesPath . '/' . $filename5)
-                ->attach($this->logFilesPath . '/' . $filename6)
-                ->attach($this->logFilesPath . '/' . $filename7);
-            });
+        try{
+            if (App::environment(['local', 'staging'])) {
+                Mail::raw('Attached the Database Log!', function ($message) use ($filename1, $filename2, $filename3, $filename4, $filename5, $filename6, $filename7) {
+                    $message->to('luca.ciotti@gmail.com')
+                    ->subject('Log Database Dev')
+                    ->attach($this->logFilesPath . '/' . $filename1)
+                    ->attach($this->logFilesPath . '/' . $filename2)
+                    ->attach($this->logFilesPath . '/' . $filename3)
+                    ->attach($this->logFilesPath . '/' . $filename4)
+                    ->attach($this->logFilesPath . '/' . $filename5)
+                    ->attach($this->logFilesPath . '/' . $filename6)
+                    ->attach($this->logFilesPath . '/' . $filename7);
+                });
+            } else {
+                Mail::raw('Attached the Database Log!', function ($message) use ($filename1, $filename2, $filename3, $filename4, $filename5, $filename6, $filename7) {
+                    $message->to('luca.ciotti@gmail.com')
+                    ->cc(['alexschiavon90@gmail.com', 'pastrello.vito@gmail.com'])
+                    ->subject('Log Database')
+                    ->attach($this->logFilesPath . '/' . $filename1)
+                    ->attach($this->logFilesPath . '/' . $filename2)
+                    ->attach($this->logFilesPath . '/' . $filename3)
+                    ->attach($this->logFilesPath . '/' . $filename4)
+                    ->attach($this->logFilesPath . '/' . $filename5)
+                    ->attach($this->logFilesPath . '/' . $filename6)
+                    ->attach($this->logFilesPath . '/' . $filename7);
+                });
+            }
+        } catch (\Exception $e) {
+            $this->fail($e);
         }
 
         Log::info('Seeding-job ENDED');
