@@ -67,7 +67,7 @@ class User extends Authenticatable implements PortableContract
 
     public function adminlte_desc()
     {
-        return "Admin User";
+        return $this->roles()->first()->display_name;
     }
 
     public function adminlte_profile_url() {

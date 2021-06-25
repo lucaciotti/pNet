@@ -7,7 +7,11 @@
     </div>
 
     @php
-    $stampaPrezzi = ($head->client->nopvddt && !$head->fatturato) ? false : true;
+    if($tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC') {
+        $stampaPrezzi = ($head->client->nopvddt && !$head->fatturato) ? false : true;
+    }else {
+        $stampaPrezzi = true;
+    }
     @endphp
 
     <div class="row">

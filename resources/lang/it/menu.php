@@ -43,4 +43,9 @@ return [
     'AbcArt'                  => 'Abc Articoli',
     'AbcCli'                  => 'Abc Cliente',
 
+
+    'tutorial_header'         => 'Tutorial utilizzo pNet',
+    'videoLink'               => 'Video',
+
+
 ];

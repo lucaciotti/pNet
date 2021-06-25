@@ -54,6 +54,16 @@ $leftSidebar = [
         'route' => 'product::list',
         'icon' => 'fa fa-boxes',
     ],
+
+    [
+        'header' => 'tutorial_header',
+        'classes'  => 'text-bold text-center',
+    ],
+    [
+        'text' => 'videoLink',
+        'url'  => 'https://www.youtube.com/playlist?list=PLpD2hglxlx_elO_RsO9Vk2dnzir5dkPss',
+        'icon' => 'fa fa-youtube',
+    ],
     
     // ['header' => 'labels'],
     // [

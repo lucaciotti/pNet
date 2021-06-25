@@ -61,7 +61,7 @@
             <dl class="dl-horizontal">
             
               <dt>{{ trans('client.location') }}</dt>
-              <dd>{{$client->citta}} ({{$client->provincia}}) - I</dd>
+              <dd>{{$client->citta}} @if(!empty($client->provincia)) ({{$client->provincia}}) - I @endif</dd>
             
               <dt>{{ trans('client.address') }}</dt>
               <dd>{{$client->indirizzo}}</dd>
@@ -85,7 +85,7 @@
             <dl class="dl-horizontal">
             
               <dt>{{ trans('client.referencePerson') }}</dt>
-              <dd>{{$client->codcliest}}</dd>
+              <dd>@if(!empty($client->pers_rif1)) {{$client->pers_rif1}} @else {{$client->codcliest}} @endif</dd>
              
               {{--<dt>{{ trans('client.referenceAgent') }}</dt>
               <dd>@if($client->agent) {{$client->agent->descrizion}} @endif</dd> --}}

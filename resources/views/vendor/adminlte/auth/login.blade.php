@@ -85,6 +85,11 @@
         </p>
     @endif
 
+    <p class="my-0">
+        <a href="https://www.youtube.com/playlist?list=PLpD2hglxlx_elO_RsO9Vk2dnzir5dkPss" target="_blank">
+            Vedi i tutorial per utilizzare pNet <i class="fa fa-youtube"></i>
+        </a>
+    </p>
     {{-- Register link --}}
     {{-- @if($register_url)
         <p class="my-0">

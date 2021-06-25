@@ -136,7 +136,7 @@
                     </p>
 
                     <p>
-                        <strong>5. CANCELLAZIONE DELL'ACCOUNT CLIENTE</strong>                        
+                        <strong>5. CANCELLAZIONE DELL'ACCOUNT CLIENTE</strong><br>                       
                         Il Cliente che voglia cancellare il proprio account può farlo inviando la richiesta attraverso posta certificata.
                         Ferramenta Schiavon Paride si riserva 3 giorni lavorativi per il completamento dell'operazione.
                         Ad avvenuta cancellazione, una mail di conferma viene inviata a Cliente.
