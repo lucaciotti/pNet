@@ -14,7 +14,7 @@
 @section('content-fluid')
 {{-- <div class="container"> --}}
 @php
-if($tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC') {
+if($tipodoc=='BO') {
   $stampaPrezzi = ($head->client->nopvddt && !$head->fatturato) ? false : true;
 }else {
   $stampaPrezzi = true;

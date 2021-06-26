@@ -18,10 +18,10 @@
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
         {{-- Email field --}}
-        <label>Username</label>
+        <label>Nickname</label>
         <div class="input-group mb-3">
             <input type="email" name="nickname" class="form-control {{ $errors->has('nickname') ? 'is-invalid' : '' }}"
-                   value="{{ old('nickname', $request->nickname) }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+                   value="{{ old('nickname', $request->nickname) }}" placeholder="Nickname" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>

@@ -1,5 +1,5 @@
 @component('mail::message')
-# Buongiorno, {{ $user->name }}
+# Buongiorno, {{ $user->name }} [{{ $user->codcli }}@pnet.it]  
 
 con questa email automatica le inviamo in allegato il documento DDT emesso da pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
 
@@ -15,7 +15,7 @@ Ringraziando per l'attenzione, auguriamo un buon lavoro.
 
 Staff pNet Ferramenta Paride
 
-@slot('subcopy')
+{{-- @slot('subcopy')
 <small>
     <br>
     La presente comunicazione viene inviata automaticamente mediante mezzo elettronico.<br>
@@ -35,6 +35,6 @@ Staff pNet Ferramenta Paride
     P.I. 01932040262 Reg. Imprese Treviso n. 177409<br>
     E-mail info@ferramentaparide.it
 </small>
-@endslot
+@endslot --}}
 
 @endcomponent

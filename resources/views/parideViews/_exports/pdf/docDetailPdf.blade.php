@@ -7,7 +7,7 @@
     </div>
 
     @php
-    if($tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC') {
+    if($tipodoc=='BO') {
         $stampaPrezzi = ($head->client->nopvddt && !$head->fatturato) ? false : true;
     }else {
         $stampaPrezzi = true;
@@ -77,6 +77,18 @@
             @endif
         </span>
     @endif
+
+    
+    <div class="row">
+        <hr class="dividerPage">
+    </div>
+    
+    <span>
+        <h6>
+            Il nickname per l'accesso riservato associato alla sua azienda è: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $head->client->id_cli_for }}@pnet.it
+        </h6>
+    </span>
 
 </p>
 @endsection

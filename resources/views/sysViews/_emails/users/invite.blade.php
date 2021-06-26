@@ -18,7 +18,7 @@ Ringraziando per l'attenzione, auguriamo un buon lavoro.
 
 Staff pNet Ferramenta Paride  
 
-@slot('subcopy')
+{{-- @slot('subcopy')
 <small>
     <br>
     La presente comunicazione viene inviata automaticamente mediante mezzo elettronico.<br>
@@ -38,5 +38,5 @@ Staff pNet Ferramenta Paride
     P.I. 01932040262 Reg. Imprese Treviso n. 177409<br>
     E-mail info@ferramentaparide.it
 </small>
-@endslot
+@endslot --}}
 @endcomponent

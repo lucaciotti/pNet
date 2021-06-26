@@ -150,8 +150,10 @@ class UserController extends Controller
                 Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             }
             Log::info("Invite User: " . $user->name);
+            $req->session()->flash('status', 'Inviata email a '.$user->email.'!');
         } catch (\Exception $e) {
             Log::error("Invite User error: ". $e->getMessage());
+            $req->session()->flash('status', 'Errore imprevisto per favore riprovare!');
         }
         if(Auth::user()->id == $id){
             return redirect()->url('/logout');

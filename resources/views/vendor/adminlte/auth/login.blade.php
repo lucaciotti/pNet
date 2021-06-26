@@ -21,6 +21,13 @@
 @section('auth_header', __('adminlte::adminlte.login_message'))
 
 @section('auth_body')
+
+    @if(session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
+
     <form action="{{ $login_url }}" method="post">
         {{ csrf_field() }}
 
@@ -38,6 +45,7 @@
                     <strong>{{ $errors->first('nickname') }}</strong>
                 </div>
             @endif
+            <label for="nickname"><small>Il nickname è [CODICE_CLIENTE]@pnet.it (es C123456@pnet.it)</small></label>    
         </div>
 
         {{-- Password field --}}
