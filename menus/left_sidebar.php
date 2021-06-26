@@ -63,6 +63,7 @@ $leftSidebar = [
         'text' => 'videoLink',
         'url'  => 'https://www.youtube.com/playlist?list=PLpD2hglxlx_elO_RsO9Vk2dnzir5dkPss',
         'icon' => 'fa fa-youtube',
+        'target' => '_blank'
     ],
     
     // ['header' => 'labels'],

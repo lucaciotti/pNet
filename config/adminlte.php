@@ -53,7 +53,8 @@ return [
     */
 
     'logo' => '<b>p</b>Net',
-    'logo_img' => 'assets/img/logo_ristretto.png',
+    'logo_img_login' => 'assets/img/logo_ristretto.png',
+    'logo_img' => 'assets/img/logo_ristretto_new.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null, //'assets/img/logo_esteso.png',
     'logo_img_xl_class' => 'brand-image',

@@ -2,7 +2,7 @@
 {{-- Header --}}
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
-<img src="{{ asset(config('adminlte.logo_img')) }}" style="height: 30px;width: 30px;" data-auto-embed="attachment">
+<img src="{{ asset(config('adminlte.logo_img_login')) }}" style="height: 30px;width: 30px;" data-auto-embed="attachment">
     Ferramenta Paride - {{ config('app.name') }}
 @endcomponent
 @endslot
