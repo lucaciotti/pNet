@@ -14,6 +14,7 @@ use App\Models\parideModels\Docs\FDCli;
 use App\Models\parideModels\Docs\FPCli;
 use App\Models\parideModels\Docs\FTCli;
 use App\Models\parideModels\Docs\NCCli;
+use Illuminate\Support\Facades\Storage;
 use App\Models\parideModels\Docs\DDTCli;
 use App\Models\parideModels\Docs\OrdCli;
 use Illuminate\Queue\InteractsWithQueue;
@@ -160,6 +161,9 @@ class SendOneDocListedByEmail implements ShouldQueue
             'tipodoc' => $tipodoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $filename);
+        if (Storage::exists('DocPDFToSend/' . $filename . '.pdf')) {
+            Storage::delete('DocPDFToSend/' . $filename . '.pdf');
+        }
         $pdf->save(storage_path('app') . '/' . 'DocPDFToSend/' . $filename . '.pdf');
         return storage_path('app') . '/' . 'DocPDFToSend/' . $filename . '.pdf';
     }
