@@ -35,7 +35,7 @@
                     @if ($stampaPrezzi)
                         <hr>
                         
-                        @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+                        @if(($head->tipomodulo == 'F' && $head->tipodoc != 'FP') || $head->tipomodulo == 'N')
                         
                         <dt>{{ trans('doc.totDoc_condensed') }}</dt>
                         <dd><strong>{{$head->tot_rit}} €</strong></dd>
@@ -129,8 +129,7 @@
                     <dd>{{$head->tot_iva}} €</dd>
                 
                 </dl>
-                @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
-                <dl class="dl-horizontal">
+                @if(($head->tipomodulo == 'F' && $head->tipodoc != 'FP') || $head->tipomodulo == 'N')
                     <hr class="smalldivider">
                 
                     <dt>{{ trans('doc.totDoc_condensed') }}</dt>

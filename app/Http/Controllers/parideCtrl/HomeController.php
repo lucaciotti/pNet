@@ -49,4 +49,74 @@ class HomeController extends Controller
             'nNewProds' => $nNewProds,
         ]);
     }
+
+    public function showQuotes(Request $req)
+    {        
+        $docs = QuoteCli::whereHas('rows', function ($query) {
+            return $query->where('qta_eva', '<', 'qta_ord');
+        })->with(['client'])->get();
+        $descModulo = trans('doc.quotes_title');
+                
+        $docs = $docs->sortBy([
+            ['data', 'desc'],
+            ['id_doc', 'desc'],
+        ]);
+
+        return view('parideViews.docs.index', [
+            'docs' => $docs,
+            'tipomodulo' => "P",
+            'descModulo' => $descModulo,
+            'startDate' => now()->subMonths(2),
+            'endDate' => now(),
+            'noDate' => true,
+        ]);
+    }
+
+    public function showDDTs(Request $req)
+    {
+        $thisMonth = new Carbon('first day of this month');
+        
+        $docs = DDTCli::where('data', '>=', $thisMonth->subDays(1))->with(['client'])->get();
+        $descModulo = trans('doc.ddt_title');
+                
+        $docs = $docs->sortBy([
+            ['data', 'desc'],
+            ['id_doc', 'desc'],
+        ]);
+
+        return view('parideViews.docs.index', [
+            'docs' => $docs,
+            'tipomodulo' => "B",
+            'descModulo' => $descModulo,
+            'startDate' => $thisMonth->subDays(1),
+            'endDate' => now(),
+            'noDate' => false,
+        ]);
+    }
+
+    public function showInvoices(Request $req, $tipomodulo = null)
+    {
+        $lastMonth = new Carbon('first day of last month');
+        $thisMonth = new Carbon('first day of this month');
+        
+        $invoices = FTCli::where('data', '>=', $lastMonth->subDays(1))->with(['client'])->get();
+        $invoicesDiff = FDCli::where('data', '>=', $lastMonth->subDays(1))->with(['client'])->get();
+        $docs = $invoices->merge($invoicesDiff);
+        $descModulo = trans('doc.invoice_title');
+                
+        $docs = $docs->sortBy([
+            ['data', 'desc'],
+            ['id_doc', 'desc'],
+        ]);
+
+        return view('parideViews.docs.index', [
+            'docs' => $docs,
+            'tipomodulo' => 'F',
+            'descModulo' => $descModulo,
+            'startDate' => $lastMonth->subDays(1),
+            'endDate' => now(),
+            'noDate' => false,
+        ]);
+    }
+
 }

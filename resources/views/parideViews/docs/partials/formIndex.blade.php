@@ -1,19 +1,21 @@
 <form action="{{ route('doc::fltList') }}" method="post">
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-  <div class="form-group">
-    <label>{{ trans('doc.descClient') }}</label>
-    <div class="input-group input-group mb-3">
-      <div class="input-group-prepend">
-        <select type="button" class="btn btn-primary dropdown-toggle" name="ragsocOp">
-          <option value="eql">=</option>
-          <option value="stw">[]...</option>
-          <option value="cnt" selected>...[]...</option>
-        </select>
+  
+  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+      <div class="form-group">
+        <label>{{ trans('doc.descClient') }}</label>
+        <div class="input-group input-group mb-3">
+          <div class="input-group-prepend">
+            <select type="button" class="btn btn-primary dropdown-toggle" name="ragsocOp">
+              <option value="eql">=</option>
+              <option value="stw">[]...</option>
+              <option value="cnt" selected>...[]...</option>
+            </select>
+          </div>
+          <input type="text" class="form-control" name="ragsoc" value="{{ $ragSoc ?? '' }}">
+        </div>
       </div>
-      <input type="text" class="form-control" name="ragsoc" value="{{ $ragSoc ?? '' }}">
-    </div>
-  </div>
+  @endif
   
   <div class="form-group">
     <label>{{ trans('doc.dateDoc') }}:</label>

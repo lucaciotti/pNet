@@ -28,6 +28,7 @@
         "lorisleiva/laravel-actions": "^2.1",
         "lucaciotti/laravel-json-seeder": "^1.1",
         "predis/predis": "^1.1",
+        "rap2hpoutre/laravel-log-viewer": "^1.7",
         "santigarcor/laratrust": "^6.3",
         "soved/laravel-gdpr": "^1.5",
         "spatie/laravel-cookie-consent": "^3.0",

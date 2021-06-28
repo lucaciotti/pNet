@@ -72,7 +72,7 @@
             <dd>{{$head->tot_iva}} €</dd>
         
         </dl>
-        @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+        @if(($head->tipomodulo == 'F' && $head->tipodoc != 'FP') || $head->tipomodulo == 'N')
         <dl class="dl-horizontal">
             <hr class="smalldivider">
         

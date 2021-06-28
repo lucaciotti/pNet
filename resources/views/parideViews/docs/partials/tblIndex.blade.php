@@ -9,7 +9,7 @@
     <th>{{ trans('doc.dateDoc_condensed') }}</th>
     <th>{{ trans('doc.client') }}</th>
     {{-- <th>{{ trans('doc.referenceDoc_condensed') }}</th> --}}
-    <th>{{ trans('doc.totDoc_condensed') }}</th>
+    <th>Tot. Doc. (inclusa IVA)</th>
     <th>PDF</th>
   </thead>
     {{-- <tfoot>

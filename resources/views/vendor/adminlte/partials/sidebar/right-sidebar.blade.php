@@ -38,9 +38,9 @@
                             </button>
                         </a> --}}
                         <hr class="mb-2 bg-white">
-                        <a href='{{ url('telescope') }}'>
+                        <a href='{{ url('pnetLogs') }}'>
                             <button type="submit" class="btn btn-block btn-outline-warning">
-                                <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Control Panel
+                                <i class="fas fa-solar-panel"></i>&nbsp;&nbsp;Admin Log Panel
                             </button>
                         </a>
 

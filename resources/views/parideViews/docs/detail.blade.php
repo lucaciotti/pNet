@@ -43,7 +43,7 @@ if($tipodoc=='BO') {
         </a>
         <hr> --}}
         <a type="button" class="btn bg-lightblue btn-block" target="_blank" href="{{ route('doc::downloadPDF', [$head->tipodoc, $head->id_doc]) }}">
-          <strong> PDF File</strong>
+          <i class="fa fa-download"></i><strong> PDF File</strong>
         </a>
       </div>
       <!-- /.card -->

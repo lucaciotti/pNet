@@ -32,6 +32,13 @@ require __DIR__.'/auth.php';
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
+//Home Canvas
+Route::name('home::')->middleware('auth')->group(function () {
+    Route::get('/quotesLeft', [HomeController::class, 'showQuotes'])->name('quotesLeft');
+    Route::get('/newDDTs', [HomeController::class, 'showDDTs'])->name('newDDTs');
+    Route::post('/lastInvoices', [HomeController::class, 'showInvoices'])->name('lastInvoices');
+});
+
 // Routes Clients
 Route::name('client::')->middleware('auth')->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('list');
@@ -69,6 +76,8 @@ Route::name('user::')->group(function () {
     Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang')->middleware('auth');
     Route::get('/resetPassword/{id}', [UserController::class, 'sendResetPassword'])->name('resetPassword');
 });
+
+Route::get('pnetLogs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('auth');
 
 //Database Update
 // Route::get('/updateDB', ZipFileUpload::class);

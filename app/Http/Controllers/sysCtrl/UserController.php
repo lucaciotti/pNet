@@ -22,7 +22,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $req)
@@ -155,10 +155,15 @@ class UserController extends Controller
             Log::error("Invite User error: ". $e->getMessage());
             $req->session()->flash('status', 'Errore imprevisto per favore riprovare!');
         }
-        if(Auth::user()->id == $id){
-            return redirect()->url('/logout');
+        if(Auth::check()){
+            if(Auth::user()->id == $id){
+                return redirect()->url('/logout');
+            } else {
+                return redirect()->back();
+            }
         } else {
-            return redirect()->back();
+            return
+            view('vendor.adminlte.auth.sendedInvite');
         }
         
     }

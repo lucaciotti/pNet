@@ -12,13 +12,14 @@ $leftSidebar = [
         'header' => 'main_header',
         'classes'  => 'text-bold text-center',
     ],
+    // [ ==> Spostato in AppServiceProvider
+    //     'text' => 'listClients',
+    //     // 'url'  => '#',
+    //     'route'  => 'client::list',
+    //     'icon' => 'fa fa-users',
+    // ],
     [
-        'text' => 'listClients',
-        // 'url'  => '#',
-        'route'  => 'client::list',
-        'icon' => 'fa fa-users',
-    ],
-    [
+        'key'     => 'documents',
         'text'    => 'documents',
         'icon'    => 'fas fa-copy',
         'submenu' => [

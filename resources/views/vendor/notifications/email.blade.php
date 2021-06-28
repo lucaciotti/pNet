@@ -1,6 +1,6 @@
 @component('mail::message')
 {{-- Greeting --}}
-@if (! empty($greeting))
+{{-- @if (! empty($greeting))
 # {{ $greeting }}
 @else
 @if ($level === 'error')
@@ -8,13 +8,19 @@
 @else
 # @lang('Ciao!')
 @endif
-@endif
+@endif --}}
 
 {{-- Intro Lines --}}
-@foreach ($introLines as $line)
+{{-- @foreach ($introLines as $line)
 {{ $line }}
 
-@endforeach
+@endforeach --}}
+
+Buongiorno,
+
+ha ricevuto questa mail perchè abbiamo ricevuto la richiesta di un password reset per il suo account.
+
+Il link rimarrà valido per 48 ore.
 
 {{-- Action Button --}}
 @isset($actionText)
@@ -34,25 +40,29 @@
 @endisset
 
 {{-- Outro Lines --}}
-@foreach ($outroLines as $line)
+{{-- @foreach ($outroLines as $line)
 {{ $line }}
 
-@endforeach
+@endforeach --}}
+Se non ha richiesto un password reset, non è richiesta alcuna azione.
+
+Auguriamo un buon lavoro.
+
+Staff pNet Ferramenta Paride
 
 {{-- Salutation --}}
-@if (! empty($salutation))
+{{-- @if (! empty($salutation))
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
 {{ config('app.name') }}
-@endif
+@endif --}}
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
 @lang(
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    "Se ha problemi nel cliccare il pulsante 'Reset Password' , copi e incolli il seguente link nel suo browser:",
     [
         'actionText' => $actionText,
     ]
