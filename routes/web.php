@@ -36,7 +36,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::name('home::')->middleware('auth')->group(function () {
     Route::get('/quotesLeft', [HomeController::class, 'showQuotes'])->name('quotesLeft');
     Route::get('/newDDTs', [HomeController::class, 'showDDTs'])->name('newDDTs');
-    Route::post('/lastInvoices', [HomeController::class, 'showInvoices'])->name('lastInvoices');
+    Route::get('/lastInvoices', [HomeController::class, 'showInvoices'])->name('lastInvoices');
 });
 
 // Routes Clients

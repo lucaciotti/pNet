@@ -29,7 +29,14 @@
         <td><span class='date'>{{$doc->data->format('Ymd')}}</span>{{ $doc->data->format('d-m-Y') }}</td>
         <td>{{ $doc->client->rag_soc ?? '' }} [<a href="{{ route('client::detail', [$doc->id_cli_for]) }}" target="_blank"> {{ $doc->id_cli_for }} </a>]</td>
         {{-- <td>{{ $doc->rif_num or '-' }}</td> --}}
-        <td>{{ currency($doc->tot_imp) }}</td>
+        @if(($doc->tipomodulo == 'F' && $doc->tipodoc != 'FP') || $doc->tipomodulo == 'N')
+          <td>{{ currency($doc->tot_rit) }}</td>
+        @else
+          @php
+          $totDoc = $doc->tot_imp+$doc->tot_iva;
+          @endphp
+          <td>{{ currency($totDoc) }}</td>
+        @endif
         <td>
           <a class="btn-sm btn-default" href="{{ route('doc::downloadPDF', [$doc->tipodoc, $doc->id_doc] ) }}" target="_blank">
             <i class="fa fa-file-pdf-o fa-lg text-danger"></i>

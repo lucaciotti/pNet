@@ -42,19 +42,19 @@
     <label>{{ trans('doc.typeDoc') }}</label>
     <div class="radio">      
       <input type="radio" name="optTipoDoc" id="opt1" value="" @if(empty($tipomodulo)) checked @endif>
-      <label> {{ trans('doc.allDocs') }} &nbsp;&nbsp; </label>    
+      <label for="opt1"> {{ trans('doc.allDocs') }} &nbsp;&nbsp; </label>    
       <input type="radio" name="optTipoDoc" id="opt2" value="P" @if($tipomodulo=='P') checked @endif>
-      <label> {{ trans('doc.quotes') }} &nbsp;&nbsp; </label>
+      <label for="opt2"> {{ trans('doc.quotes') }} &nbsp;&nbsp; </label>
       <input type="radio" name="optTipoDoc" id="opt3" value="O" @if($tipomodulo=='O') checked @endif>
-      <label> {{ trans('doc.orders') }} &nbsp;&nbsp; </label>    
+      <label for="opt3"> {{ trans('doc.orders') }} &nbsp;&nbsp; </label>    
       <input type="radio" name="optTipoDoc" id="opt4" value="B" @if($tipomodulo=='B') checked @endif>
-      <label> {{ trans('doc.ddt') }} &nbsp;&nbsp; </label>    
+      <label for="opt4"> {{ trans('doc.ddt') }} &nbsp;&nbsp; </label>    
       <input type="radio" name="optTipoDoc" id="opt5" value="F" @if($tipomodulo=='F') checked @endif>
-      <label> {{ trans('doc.invoice') }} &nbsp;&nbsp; </label>
-      <input type="radio" name="optTipoDoc" id="opt5" value="FD" @if($tipomodulo=='FD') checked @endif>
-      <label>Fatture Differite &nbsp;&nbsp; </label>
-      <input type="radio" name="optTipoDoc" id="opt5" value="N" @if($tipomodulo=='N') checked @endif>
-      <label>Note di Credito &nbsp;&nbsp; </label>
+      <label for="opt5"> {{ trans('doc.invoice') }} &nbsp;&nbsp; </label>
+      <input type="radio" name="optTipoDoc" id="opt6" value="FD" @if($tipomodulo=='FD') checked @endif>
+      <label for="opt6">Fatture Differite &nbsp;&nbsp; </label>
+      <input type="radio" name="optTipoDoc" id="opt7" value="N" @if($tipomodulo=='N') checked @endif>
+      <label for="opt7">Note di Credito &nbsp;&nbsp; </label>
     </div>
   </div>
   <div>
