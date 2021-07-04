@@ -24,7 +24,7 @@ class ClientController extends Controller
             return redirect()->action([ClientController::class, 'detail'], RedisUser::get('codcli'));
         }
         // on($this->connection)->
-        $clients = Client::select('id_cli_for', 'rag_soc', 'citta', 'provincia', 'p_i')->where('bloccato', 0)->get();
+        $clients = Client::select('id_cli_for', 'rag_soc', 'citta', 'provincia', 'p_i', 'paese')->where('bloccato', 0)->get();
 
         // $nazioni = DB::table('cli_for')->distinct()->get();
         // $settori = Settore::all();

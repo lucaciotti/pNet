@@ -87,45 +87,47 @@ class DocCliController extends Controller
         $noDate = $req->input('noDate');
         $ragSoc = $req->input('ragsoc');
         $ragsocOp = $req->input('ragsocOp');
+        $numdoc = $req->input('numdoc');
+        $numdocOp = $req->input('numdocOp');
 
         switch ($tipomodulo) {
             case 'P':
-                $docs = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);                
+                $docs = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);                
                 $descModulo = trans('doc.quotes_title');
                 break;
             case 'O':
-                $docs = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc,$ragsocOp, $numdoc, $numdocOp);
                 $descModulo = trans('doc.orders_title');
                 break;
             case 'B':
-                $docs = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc,$ragsocOp, $numdoc, $numdocOp);
                 $descModulo = trans('doc.ddt_title');
                 break;
             case 'F':
-                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc,$ragsocOp, $numdoc, $numdocOp);
                 $docs = $invoices->merge($invoicesFree)->merge($invoicesDiff);
                 $descModulo = trans('doc.invoice_title');
                 break;
             case 'FD':
-                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc,$ragsocOp, $numdoc, $numdocOp);
                 $docs = $invoicesDiff;
                 $descModulo = trans('doc.invoice_title');
                 break;
             case 'N':
-                $docs = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $docs = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
                 $descModulo = trans('doc.notecredito_title');
                 break;
 
             default:
-                $quotes = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $orders = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $ddts = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
-                $creditnotes = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp);
+                $quotes = $this->getFilteredTipoDocs('XC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $orders = $this->getFilteredTipoDocs('OC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $ddts = $this->getFilteredTipoDocs('BO', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $invoices = $this->getFilteredTipoDocs('FT', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $invoicesFree = $this->getFilteredTipoDocs('FP', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
+                $invoicesDiff = $this->getFilteredTipoDocs('FD', $startDate, $endDate, $noDate, $ragSoc,$ragsocOp, $numdoc, $numdocOp);
+                $creditnotes = $this->getFilteredTipoDocs('NC', $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp);
                 $docs = $quotes->merge($orders)->merge($ddts)->merge($invoices)->merge($invoicesFree)->merge($invoicesDiff)->merge($creditnotes);
                 $descModulo = trans('doc.documents');
                 break;
@@ -145,6 +147,8 @@ class DocCliController extends Controller
             'noDate' => $noDate,
             'ragSoc' => $ragSoc,
             'ragsocOp' => $ragsocOp,
+            'numdoc' => $numdoc,
+            'numdocOp' => $numdocOp,
         ]);
     }
 
@@ -414,7 +418,7 @@ class DocCliController extends Controller
     }
 
     //PROTECTED FUNCTIONS
-    protected function getFilteredTipoDocs($tipodoc, $startDate, $endDate, $noDate, $ragSoc, $ragsocOp){
+    protected function getFilteredTipoDocs($tipodoc, $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp){
         switch ($tipodoc) {
             case 'XC':
                 $docs = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for','tot_imp', 'tot_iva');
@@ -469,6 +473,17 @@ class DocCliController extends Controller
                         ->withoutGlobalScope('superAgent')
                         ->withoutGlobalScope('client');
                 });
+            }
+        }
+        if ($numdoc) {
+            if ($numdocOp == 'eql') {
+                $docs = $docs->where('num', $numdoc);
+            }
+            if ($numdocOp == 'stw') {
+                $docs = $docs->where('num', 'like', $numdoc . '%');
+            }
+            if ($numdocOp == 'cnt') {
+                $docs = $docs->where('num', 'like', '%' . $numdoc . '%');
             }
         }
         $docs = $docs->with(['client' => function ($query) {

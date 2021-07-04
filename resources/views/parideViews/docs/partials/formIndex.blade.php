@@ -39,6 +39,20 @@
   </div>
 
   <div class="form-group">
+    <label>Num. Doc.</label>
+    <div class="input-group input-group mb-3">
+      <div class="input-group-prepend">
+        <select type="button" class="btn btn-primary dropdown-toggle" name="numdocOp">
+          <option value="eql">=</option>
+          <option value="stw">[]...</option>
+          <option value="cnt" selected>...[]...</option>
+        </select>
+      </div>
+      <input type="text" class="form-control" name="numdoc" value="{{ $numdoc ?? '' }}">
+    </div>
+  </div>
+
+  <div class="form-group">
     <label>{{ trans('doc.typeDoc') }}</label>
     <div class="radio">      
       <input type="radio" name="optTipoDoc" id="opt1" value="" @if(empty($tipomodulo)) checked @endif>

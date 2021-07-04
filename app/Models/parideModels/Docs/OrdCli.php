@@ -83,4 +83,9 @@ class OrdCli extends Model
     {
         return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
     }
+
+    public function docSent()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\wOrdSent', 'id_doc', 'id_ord_tes');
+    }
 }

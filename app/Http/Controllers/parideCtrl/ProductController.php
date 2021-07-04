@@ -28,7 +28,7 @@ class ProductController extends Controller
 
         $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
             // ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
-        $products = $products->with('grpProd')->with('supplier')->with('magGiac')->orderBy('id_art', 'desc')->take(50)->get();
+        $products = $products->with(['grpProd', 'supplier', 'magGiac', 'marche'])->orderBy('id_art', 'desc')->take(50)->get();
 
         $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
             ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
@@ -154,9 +154,19 @@ class ProductController extends Controller
     public function detail(Request $req, $codArt)
     {
         $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac', 'marche', 'barcodes', 'supplierCodes'])->findOrFail($codArt);
+
+        // $productsFam = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1', 'non_attivo');
+        // $productsFam = $productsFam->where('id_fam', $product->id_fam);
+        // $productsFam = $productsFam->with(['grpProd', 'supplier', 'magGiac', 'marche'])->orderBy('id_art', 'desc')->get();
+
+        // $productsMarca = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam','id_mar', 'id_cod_bar', 'id_cli_for', 'prezzo_1', 'non_attivo');
+        // $productsMarca = $productsMarca->where('id_mar', $product->id_mar);
+        // $productsMarca = $productsMarca->with(['grpProd', 'supplier', 'magGiac', 'marche'])->orderBy('id_art', 'desc')->get();
         // dd($product);
         return view('parideViews.prods.detail', [
             'prod' => $product,
+            // 'productsFam' => $productsFam,
+            // 'productsMarca' => $productsMarca,
         ]);
     }
 

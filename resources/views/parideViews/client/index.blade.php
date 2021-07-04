@@ -41,7 +41,11 @@
                     <a href="{{ route('client::detail', $client->id_cli_for ) }}"> {{ $client->id_cli_for }}</a>
                   </td>
                   <td>{{ $client->rag_soc }}</td>
-                  <td>{{ $client->citta }}, {{ $client->provincia }} - I</td>
+                  <td>{{ $client->citta }}, {{ $client->provincia }} - @if (empty($client->paese))
+                      I
+                  @else
+                      {{ $client->paese }}
+                  @endif</td>
                   <td>{{ $client->p_i }}</td>
                   <td><a href="{{ route('doc::clientList', [$client->id_cli_for, '']) }}">{{ trans('client.documents') }}</a></td>
                 </tr>

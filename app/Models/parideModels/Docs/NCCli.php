@@ -84,4 +84,9 @@ class NCCli extends Model
     {
         return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
     }
+
+    public function docSent()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\wDocSent', 'id_doc', 'id_doc_tes');
+    }
 }

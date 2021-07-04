@@ -21,6 +21,7 @@ use App\Models\parideModels\Docs\OrdCli;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\parideModels\Docs\QuoteCli;
 use App\Models\parideModels\Docs\wDocSent;
+use App\Models\parideModels\Docs\wOrdSent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -48,6 +49,25 @@ class SendDocListByEmail implements ShouldQueue
     {
         Log::info('SendDocListByEmail Job Started');
 
+        $listOfOrds = wOrdSent::where('inviato', false)->get();
+
+        foreach ($listOfOrds as $docToSend) {
+            Log::info('Invio DocId:' . $docToSend->id_doc);
+            $user = User::where('codcli', $docToSend->id_cli)->first();
+            $client = Client::find($docToSend->id_cli);
+            $isInvio = ($client->fat_email || $user->auto_email);
+            if ($isInvio) {
+                $toEmail = [$client->e_mail, $client->e_mail_ddt];
+                $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
+                $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                if (App::environment(['local', 'staging'])) {
+                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                } else {
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                }
+            }
+        }
+
         $listOfDocs = wDocSent::where('inviato', false)->get();
 
         foreach ($listOfDocs as $docToSend) {
@@ -66,6 +86,8 @@ class SendDocListByEmail implements ShouldQueue
                 }
             }
         }
+
+        Log::info('SendDocListByEmail Job Ended');
     }
 
     protected function createPdfDoc($tipodoc, $id_doc){

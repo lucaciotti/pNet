@@ -59,7 +59,7 @@
                 <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa fa-level-up-alt fa-rotate-90"></i>
-                [{{$prod->id_fam}}]
+                &nbsp;&nbsp;&nbsp;[{{$prod->id_fam}}]
                 @if ($prod->grpProd)
                 <strong>{{ $prod->grpProd->descr }}</strong>
                 @endif
@@ -210,7 +210,46 @@
 
 <div class="row">
 
-  <div class="col-lg-6">
+  <div class="col-lg-4">
+    @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
+          <label>Prezzo di Acquisto:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}"
+              style="text-align:right;">
+            <div class="input-group-append">
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+          @endif
+      
+          <label>Fornitore:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
+            </div>
+            @if ($prod->supplier)
+            <input type="text" class="form-control" readonly name="supplier"
+              value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
+            @else
+            <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}">
+            @endif
+          </div>
+      
+        </div>
+      </div>
+    @endif
+
     <div class="card">
       <div class="card-header">
         <h3 class="card-title" data-card-widget="collapse">Vendita</h3>
@@ -263,46 +302,37 @@
     </div>
   </div>
 
-  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
-  <div class="col-lg-6">
-    <div class="card">
+  <div class="col-lg-8">
+    {{-- <div class="card collapsed-card">
       <div class="card-header">
-        <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
+        <h3 class="card-title" data-card-widget="collapse">Prodotti Simili</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
+            <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
       <div class="card-body">
-        @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
-        <label>Prezzo di Acquisto:</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€</span>
-          </div>
-        </div>
-        @endif
+        @include('parideViews.prods.partials.tblIndex', ['products' => $productsFam])  
+      </div>
+    </div> --}}
 
-        <label>Fornitore:</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
-          </div>
-          @if ($prod->supplier)
-          <input type="text" class="form-control" readonly name="supplier"
-            value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
-          @else
-          <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}">
-          @endif
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" data-card-widget="collapse">Prodotti @if ($prod->marche)
+        di <strong>{{ $prod->marche->descr }}</strong>
+        @endif</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-plus"></i>
+          </button>
         </div>
-  
+      </div>
+      <div class="card-body">
+        @include('parideViews.prods.partials.tblIndex', ['products' => $productsMarca])
       </div>
     </div>
   </div>
-  @endif
 
 </div>
 

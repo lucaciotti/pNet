@@ -61,7 +61,11 @@
             <dl class="dl-horizontal">
             
               <dt>{{ trans('client.location') }}</dt>
-              <dd>{{$client->citta}} @if(!empty($client->provincia)) ({{$client->provincia}}) - I @endif</dd>
+              <dd>{{$client->citta}} ({{$client->provincia}}) - @if (empty($client->paese))
+              I
+              @else
+              {{ $client->paese }}
+              @endif</dd>
             
               <dt>{{ trans('client.address') }}</dt>
               <dd>{{$client->indirizzo}}</dd>
