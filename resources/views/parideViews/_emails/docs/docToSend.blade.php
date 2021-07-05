@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }} [{{ $user->codcli }}@pnet.it]  
 
-con questa email automatica le inviamo in allegato il documento DDT emesso da pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
+con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
 
 Le ricordiamo che tutti i documenti della sua azienda sono consultabili attraverso il link qui sotto:  
 

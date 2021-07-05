@@ -68,8 +68,10 @@
             <dt>{{ trans('doc.totImp') }}</dt>
             <dd>{{$head->tot_imp}} €</dd>
         
-            <dt>{{ trans('doc.totVat') }} @if($head->id_iva_c!='')({{ $head->id_iva_c ?? '22' }} %)@endif</dt>
+            @if($head->tot_iva > 0)
+            <dt>{{ trans('doc.totVat') }}</dt>
             <dd>{{$head->tot_iva}} €</dd>
+            @endif
         
         </dl>
         @if(($head->tipomodulo == 'F' && $head->tipodoc != 'FP') || $head->tipomodulo == 'N')

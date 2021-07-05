@@ -5,6 +5,8 @@ namespace App\Jobs\emails;
 use App\Models\User;
 use App\Mail\DdtShipped;
 use App\Helpers\PdfReport;
+use App\Mail\Docs\DocToSend;
+use App\Mail\Docs\OrdToSend;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +22,7 @@ use App\Models\parideModels\Docs\OrdCli;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\parideModels\Docs\QuoteCli;
 use App\Models\parideModels\Docs\wDocSent;
+use App\Models\parideModels\Docs\wOrdSent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -47,20 +50,31 @@ class SendOneDocListedByEmail implements ShouldQueue
      */
     public function handle()
     {
-        $docToSend = wDocSent::where('id', $this->id)->first();
-
-        //if (User::where('codcli', $docToSend->id_cli)->where('isActive', 1)->where('auto_email', 1)->exists()) {
-            $user = User::where('codcli', $docToSend->id_cli)->first();
-            if($user){
-                $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
-                $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+        if(wOrdSent::where('id', $this->id)->exists()) {
+            $ordToSend = wOrdSent::where('id', $this->id)->first();
+            $user = User::where('codcli', $ordToSend->id_cli)->first();
+            if ($user) {
+                $fileToAttach = $this->createPdfDoc($ordToSend->tipo_doc, $ordToSend->id_doc);
+                $mail = (new OrdToSend($user->id, $fileToAttach, $ordToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }
             }
-        //}
+        } else {            
+            $docToSend = wDocSent::where('id', $this->id)->first();
+            $user = User::where('codcli', $docToSend->id_cli)->first();
+            if ($user) {
+                $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
+                $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                if (App::environment(['local', 'staging'])) {
+                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                } else {
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                }
+            }
+        }
     }
 
     protected function createPdfDoc($tipodoc, $id_doc)

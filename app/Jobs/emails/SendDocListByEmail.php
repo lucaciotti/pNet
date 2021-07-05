@@ -3,8 +3,9 @@
 namespace App\Jobs\emails;
 
 use App\Models\User;
-use App\Mail\DdtShipped;
 use App\Helpers\PdfReport;
+use App\Mail\Docs\DocToSend;
+use App\Mail\Docs\OrdToSend;
 use Illuminate\Bus\Queueable;
 use App\Models\parideModels\Client;
 use Illuminate\Support\Facades\App;
@@ -52,14 +53,14 @@ class SendDocListByEmail implements ShouldQueue
         $listOfOrds = wOrdSent::where('inviato', false)->get();
 
         foreach ($listOfOrds as $docToSend) {
-            Log::info('Invio DocId:' . $docToSend->id_doc);
+            Log::info('Invio OrdId:' . $docToSend->id_doc);
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
             $isInvio = ($client->fat_email || $user->auto_email);
             if ($isInvio) {
                 $toEmail = [$client->e_mail, $client->e_mail_ddt];
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
-                $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                $mail = (new OrdToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
@@ -78,7 +79,7 @@ class SendDocListByEmail implements ShouldQueue
             if($isInvio) {                
                 $toEmail = [$client->e_mail, $client->e_mail_ddt];
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
-                $mail = (new DdtShipped($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Docs;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -14,27 +14,28 @@ use App\Models\parideModels\Docs\NCCli;
 use App\Models\parideModels\Docs\DDTCli;
 use App\Models\parideModels\Docs\OrdCli;
 use App\Models\parideModels\Docs\QuoteCli;
-use App\Models\parideModels\Docs\wDocSent;
+use App\Models\parideModels\Docs\wOrdSent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DdtShipped extends Mailable
+class OrdToSend extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
-    public $idDocListed;
+    public $idOrdListed;
     public $fileToAttach;
     public $url;
     public $urlInvito;
+    public $descrTipoDoc;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($idUser, $fileToAttach, $idDocListed)
+    public function __construct($idUser, $fileToAttach, $idOrdListed)
     {
         $this->user = User::findOrFail($idUser);
-        $this->idDocListed = $idDocListed;
+        $this->idOrdListed = $idOrdListed;
         Log::info('Email file Attached: ' . $fileToAttach);
         $this->fileToAttach = $fileToAttach;
         $this->url = route("doc::list");
@@ -48,18 +49,18 @@ class DdtShipped extends Mailable
      */
     public function build()
     {
-        $docListed = wDocSent::findOrFail($this->idDocListed);
-        $docListed->inviato = true;
-        $docListed->save();
-        $nameDoc = $this->getNameDoc($docListed->tipo_doc, $docListed->id_doc);
-        Log::info('Invio DDT '.$nameDoc. ' - '.$this->user->name);
+        $ordListed = wOrdSent::findOrFail($this->idOrdListed);
+        $ordListed->inviato = true;
+        $ordListed->save();
+        $nameDoc = $this->getNameDoc($ordListed->tipo_doc, $ordListed->id_doc);
+        Log::info('Invio '.$nameDoc. ' - '.$this->user->name);
         if($this->user->isActive){
             return $this->subject('Invio '.$nameDoc.' - Ferramenta Paride')
-                ->markdown('parideViews._emails.docs.ddtShipped')
+                ->markdown('parideViews._emails.docs.docToSend')
                 ->attach($this->fileToAttach);
         } else {
             return $this->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
-                ->markdown('parideViews._emails.docs.ddtShippedwithInvite')
+                ->markdown('parideViews._emails.docs.docToSendWithInvite')
                 ->attach($this->fileToAttach);
         }
     }
@@ -91,6 +92,7 @@ class DdtShipped extends Mailable
             default:
                 break;
         }
+        $this->descrTipoDoc = $doc->descr_tipodoc;
         $nameDoc = $doc->descr_tipodoc . " n." . $doc->num . "/" . $doc->data->year;
         return $nameDoc;
     }
