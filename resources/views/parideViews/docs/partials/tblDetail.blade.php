@@ -134,16 +134,8 @@
         @endif
         @if($head->tipomodulo=='O')
         <td style="text-align: center;">
-          @if (in_array(RedisUser::get('role'), ['client']))
-          @if($row->u_dtpronto)
-          {{ $row->u_dtpronto->format('d-m-Y') }}
-          @else
-          @if($row->dataconseg)
-          {{ $row->dataconseg->format('d-m-Y') }}
-          @endif
-          @endif
-          @else
-          @if($row->dataconseg) {{ $row->dataconseg->format('d-m-Y') }} @endif
+          @if($row->data_eva)
+          {{ $row->data_eva->format('d-m-Y') }}
           @endif
         </td>
         @endif

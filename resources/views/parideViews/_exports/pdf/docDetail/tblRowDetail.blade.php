@@ -84,17 +84,9 @@
                 @endif
                 @if($head->tipomodulo=='O')
                 <td style="text-align: center;">
-                    @if (in_array(RedisUser::get('role'), ['client']))
-                        @if($row->u_dtpronto)
-                            {{ $row->u_dtpronto->format('d-m-Y') }}
-                        @else
-                            @if($row->dataconseg)
-                                {{ $row->dataconseg->format('d-m-Y') }}
-                            @endif
-                        @endif
-                    @else
-                        @if($row->dataconseg) {{ $row->dataconseg->format('d-m-Y') }} @endif
-                    @endif
+                    @if($row->data_eva)
+                        {{ $row->data_eva->format('d-m-Y') }}
+                    @endif                   
                 </td>
                 @endif
                 @if ($stampaPrezzi)
@@ -130,33 +122,5 @@
                 @endif --}}
             </tr>
         </tfoot>
-        
-        @if ($head->sconti)
-            <tfoot>
-                <tr>
-                    <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">{{ trans('doc.scontoMerce') }}: {{$head->sconti}} %</th>
-                    <th style="text-align: right;">{{ currency($head->totmerce) }}</th>
-                    @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' ||
-                    $head->tipodoc == 'PP'))
-                    <th></th>
-                    <th style="text-align: right;">{{ currency($totProvv-floatval($head->sconti)/100*$totProvv) }}</th>
-                    @endif
-                </tr>
-            </tfoot>
-        @endif
-    
-        @if ($totOmaggio>0)
-        <tfoot>
-            <tr>
-                <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">Total Value of Goods Free of Charge: </th>
-                <th style="text-align: right;">{{ currency(-$totOmaggio) }}</th>
-                @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' ||
-                $head->tipodoc == 'PP'))
-                <th></th>
-                <th></th>
-                @endif
-            </tr>
-        </tfoot>
-        @endif
     @endif
 </table>
