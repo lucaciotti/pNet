@@ -27,7 +27,7 @@
                     <div class="icon">
                         <i class="fa fa-clipboard-list"></i>
                     </div>
-                    <a href="{{ route('home::quotesLeft') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('home::newQuotes') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-6 col-6 ml-auto">

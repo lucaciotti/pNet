@@ -15,6 +15,7 @@
     @endif
     @if ($stampaPrezzi)
         <col width="80">
+        <col width="50">
     @endif
     {{-- @if (!in_array(RedisUser::get('role'), ['client']))
     <col width="80">
@@ -37,6 +38,7 @@
         @endif
         @if ($stampaPrezzi)
         <th>{{ trans('doc.totPrice') }}</th>
+        <th>Iva</th>
         @endif
         {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
         <th>Provv %</th>
@@ -91,6 +93,7 @@
                 @endif
                 @if ($stampaPrezzi)
                     <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
+                    <td style="text-align: right;">@if ($row->tva) {{ $row->tva->perc }} % @endif</td>
                 @endif
                 @php
                     $totMerce=$totMerce+$row->val_riga;
@@ -116,6 +119,7 @@
             <tr>
                 <th @if($head->tipomodulo=='O') colspan="8" @else colspan="6" @endif style="text-align:right">Total:</th>
                 <th style="text-align: right;">{{ currency($totMerce) }}</th>
+                <th></th>
                 {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
                 <th></th>
                 <th style="text-align: right;">{{ currency($totProvv) }}</th>

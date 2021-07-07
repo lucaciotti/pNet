@@ -14,6 +14,12 @@ set('use_relative_symlink', false);
 set('ssh_multiplexing', false);
 
 host('prod')
+    ->set('remote_user', 'PNet-User')
+    ->set('hostname', 'pnet.ferramentaparide.it')
+    ->set('port', 2289)
+    ->set('deploy_path', '/var/www/html/{{hostname}}');
+
+host('dev')
     ->set('remote_user', 'root')
     ->set('hostname', 'pnet.lucaciotti.space')
     ->set('deploy_path', '/var/www/{{hostname}}');

@@ -26,9 +26,10 @@ class HomeController extends Controller
         $lastMonth = new Carbon('first day of last month');
         $thisMonth = new Carbon('first day of this month');
 
-        $nQuotes = QuoteCli::whereHas('rows', function ($query) {
-                        return $query->where('qta_eva', '<', 'qta_ord');
-                    })->count();
+        // $nQuotes = QuoteCli::whereHas('rows', function ($query) {
+        //                 return $query->where('qta_eva', '<', 'qta_ord');
+        //             })->count();
+        $nQuotes = QuoteCli::where('data', '>=', $thisMonth->subDays(1))->count();
 
         // $nOrds = OrdCli::whereHas('rows', function ($query) {
         //                 return $query->where('qta_eva', '<', 'qta_ord');
@@ -50,7 +51,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function showQuotes(Request $req)
+    public function leftQuotes(Request $req)
     {        
         $docs = QuoteCli::whereHas('rows', function ($query) {
             return $query->where('qta_eva', '<', 'qta_ord');
@@ -69,6 +70,28 @@ class HomeController extends Controller
             'startDate' => now()->subMonths(2),
             'endDate' => now(),
             'noDate' => true,
+        ]);
+    }
+
+    public function newQuotes(Request $req)
+    {
+        $thisMonth = new Carbon('first day of this month');
+
+        $docs = QuoteCli::where('data', '>=', $thisMonth->subDays(1))->with(['client'])->get();
+        $descModulo = trans('doc.quotes_title');
+
+        $docs = $docs->sortBy([
+            ['data', 'desc'],
+            ['id_doc', 'desc'],
+        ]);
+
+        return view('parideViews.docs.index', [
+            'docs' => $docs,
+            'tipomodulo' => "P",
+            'descModulo' => $descModulo,
+            'startDate' => $thisMonth->subDays(1),
+            'endDate' => now(),
+            'noDate' => false,
         ]);
     }
 

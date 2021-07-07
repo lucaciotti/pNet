@@ -43,4 +43,9 @@ class RowOrd extends Model
         return $this->hasOne('App\Models\parideModels\Product', 'id_art', 'id_art');
     }
 
+    public function tva()
+    {
+        return $this->hasOne('App\Models\parideModels\Iva', 'id_iva', 'id_iva');
+    }
+
 }

@@ -88,7 +88,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc');
+                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -100,7 +100,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc');
+                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -112,7 +112,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc');
+                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -124,7 +124,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc');
+                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -136,7 +136,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc');
+                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -148,7 +148,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc');
+                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -160,7 +160,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc');
+                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
                 ])->findOrFail($id_doc);
                 break;

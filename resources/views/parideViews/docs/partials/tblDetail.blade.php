@@ -14,10 +14,12 @@
         <th>{{ trans('doc.dateDispach_condensed') }}</th>
       @endif
       <th>{{ trans('doc.totPrice') }}</th>
+      <th>Iva</th>
     </thead>
     <tfoot>
       <tr>
         <th colspan="5" style="text-align:right">{{ trans('doc.totMerce') }}:</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -43,6 +45,7 @@
             <td>@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
             <td>@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
             <td>@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
+            <td>@if ($row->tva) {{ $row->tva->perc }} % @endif</td>
           </tr>
         @elseif($head->tipomodulo=='O')
           <tr>
@@ -72,6 +75,7 @@
                 @if($row->data_eva) {{ $row->data_eva->format('d-m-Y') }} @endif
             </td>
             <td>{{ currency($row->val_riga) }}</td>
+            <td>@if ($row->tva) {{ $row->tva->perc }} % @endif</td>
           </tr>
         @endif
       @endforeach

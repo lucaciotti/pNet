@@ -34,7 +34,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 //Home Canvas
 Route::name('home::')->middleware('auth')->group(function () {
-    Route::get('/quotesLeft', [HomeController::class, 'showQuotes'])->name('quotesLeft');
+    Route::get('/quotesLeft', [HomeController::class, 'leftQuotes'])->name('quotesLeft');
+    Route::get('/newQuotes', [HomeController::class, 'newQuotes'])->name('newQuotes');
     Route::get('/newDDTs', [HomeController::class, 'showDDTs'])->name('newDDTs');
     Route::get('/lastInvoices', [HomeController::class, 'showInvoices'])->name('lastInvoices');
 });
