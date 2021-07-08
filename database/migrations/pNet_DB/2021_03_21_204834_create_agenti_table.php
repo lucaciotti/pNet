@@ -23,7 +23,7 @@ class CreateAgentiTable extends Migration
             $table->string('p_i', 24)->default('');
             $table->string('telefono', 24)->default('');
             $table->string('fax', 24)->default('');
-            $table->text('note')->default('');
+            $table->text('note')->nullable();
             $table->string('tipo', 8)->default('');
             $table->integer('id_zona')->default(0);
             $table->integer('tipo_matur')->default(0);

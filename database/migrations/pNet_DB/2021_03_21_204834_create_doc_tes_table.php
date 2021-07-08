@@ -68,7 +68,7 @@ class CreateDocTesTable extends Migration
             $table->integer('numd')->default(0);
             $table->tinyInteger('split')->default(0);
             $table->tinyInteger('leggisco')->default(0);
-            $table->text('ddt_rif')->default('');
+            $table->text('ddt_rif')->nullable();
         });
     }
 

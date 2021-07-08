@@ -32,7 +32,7 @@ class CreateDocRigTable extends Migration
             $table->dateTime('data_reg')->nullable();
             $table->decimal('val_riga', 16)->default(0.00);
             $table->string('id_iva', 8)->default('');
-            $table->text('libero')->default('');
+            $table->text('libero')->nullable();
             $table->tinyInteger('listino')->default(0);
             $table->tinyInteger('omaggiot')->default(0);
             $table->string('descr2', 48)->default('');

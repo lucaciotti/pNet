@@ -37,7 +37,7 @@ class CreateCliForTable extends Migration
             $table->decimal('insoluti', 16)->default(0.00);
             $table->string('pers_rif1', 16)->default('');
             $table->string('pers_rif2', 16)->default('');
-            $table->text('note')->default('');
+            $table->text('note')->nullable();
             $table->tinyInteger('id_tipo_cli')->default(0);
             $table->string('sesso', 8)->default('');
             $table->integer('bollini')->default(0);
@@ -69,7 +69,7 @@ class CreateCliForTable extends Migration
             $table->tinyInteger('lingua')->default(0);
             $table->string('c_f', 16)->default('');
             $table->tinyInteger('bloccato')->default(0);
-            $table->text('note2')->default('');
+            $table->text('note2')->nullable();
             $table->date('data_fid')->nullable();
             $table->tinyInteger('tstudio')->default(0);
             $table->tinyInteger('profes')->default(0);
@@ -115,7 +115,7 @@ class CreateCliForTable extends Migration
             $table->tinyInteger('consenso2')->default(0);
             $table->tinyInteger('split')->default(0);
             $table->tinyInteger('nopvddt')->default(0);
-            $table->text('note3')->default('');
+            $table->text('note3')->nullable();
             $table->tinyInteger('fat_email')->default(0);
             $table->string('esigib', 8)->default('');
         });

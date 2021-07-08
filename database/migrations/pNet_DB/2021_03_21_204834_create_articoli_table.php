@@ -55,7 +55,7 @@ class CreateArticoliTable extends Migration
             $table->decimal('provv_art')->default(0.00);
             $table->string('descr2', 48)->default('');
             $table->string('nome_foto', 56)->default('');
-            $table->text('desc_ecom')->default('');
+            $table->text('desc_ecom')->nullable();
             $table->decimal('prz_ecom', 16, 5)->default(0.00000);
             $table->string('nome_foto2', 8)->default('');
             $table->string('nome_foto3', 8)->default('');
@@ -63,11 +63,11 @@ class CreateArticoliTable extends Migration
             $table->string('nome_foto5', 8)->default('');
             $table->string('file_tecn', 8)->default('');
             $table->string('file_sicu', 8)->default('');
-            $table->text('qr_code')->default('');
-            $table->text('note3')->default('');
+            $table->text('qr_code')->nullable();
+            $table->text('note3')->nullable();
             $table->integer('uid')->default(0);
             $table->tinyInteger('aggiorna')->default(0);
-            $table->text('titolo')->default('');
+            $table->text('titolo')->nullable();
             $table->integer('collegato')->default(0);
             $table->integer('min_acq')->default(0);
             $table->decimal('peso', 8, 3)->default(0.000);
@@ -75,7 +75,7 @@ class CreateArticoliTable extends Migration
             $table->integer('larghezza')->default(0);
             $table->integer('altezza')->default(0);
             $table->tinyInteger('spe_gratis')->default(0);
-            $table->text('tag')->default('');
+            $table->text('tag')->nullable();
             $table->decimal('glassa')->default(0.00);
             $table->decimal('prezzo_5', 16, 6)->default(0.000000);
             $table->decimal('ric_5')->default(0.00);

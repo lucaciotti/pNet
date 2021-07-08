@@ -25,10 +25,10 @@ class CreateOrdTesTable extends Migration
             $table->tinyInteger('esente_iva')->default(0);
             $table->string('id_pag', 8)->default('');
             $table->string('id_ban', 8)->default('');
-            $table->text('note')->default('');
+            $table->text('note')->nullable();
             $table->string('stato', 8)->default('');
             $table->tinyInteger('stampato')->default(0);
-            $table->text('note2')->default('');
+            $table->text('note2')->nullable();
             $table->string('id_tra', 8)->default('');
             $table->tinyInteger('id_por')->default(0);
             $table->tinyInteger('id_cor')->default(0);

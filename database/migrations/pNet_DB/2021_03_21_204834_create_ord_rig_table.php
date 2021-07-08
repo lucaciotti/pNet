@@ -35,7 +35,7 @@ class CreateOrdRigTable extends Migration
             $table->decimal('prezzo_lis', 16, 5)->default(0.00000);
             $table->string('id_cod_b', 16)->default('');
             $table->integer('cartoni')->default(0);
-            $table->text('libero')->default('');
+            $table->text('libero')->nullable();
             $table->decimal('prz_a2v', 16, 5)->default(0.00000);
             $table->tinyInteger('omaggiot')->default(0);
             $table->string('descr2', 48)->default('');
