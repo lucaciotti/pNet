@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\RedisUser;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
+        Schema::defaultStringLength(191);
+
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             // Add some items to the menu...
             if (!in_array(RedisUser::get('role'), ['client', 'user'])){
