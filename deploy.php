@@ -52,15 +52,15 @@ task('migrate:pNet', function () {
 });
 
 task('supervisor:reload:dbSeed', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet.lucaciotti.space-worker-dbSeed:*');
+    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-dbSeed:*');
 });
 
 task('supervisor:reload:email', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet.lucaciotti.space-worker-email:*');
+    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-email:*');
 });
 
 task('supervisor:reload:dataMining', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet.lucaciotti.space-worker-dataMining:*');
+    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-dataMining:*');
 });
 
 after('deploy:failed', 'deploy:unlock');
