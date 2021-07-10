@@ -88,10 +88,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
-    'reply_to' => [
-        'address' => 'pnet@lucaciotti.space',
-        'name' => 'pNet Staff',
-    ],
+    // 'reply_to' => [
+    //     'address' => 'pnet@lucaciotti.space',
+    //     'name' => 'pNet Staff',
+    // ],
 
     /*
     |--------------------------------------------------------------------------

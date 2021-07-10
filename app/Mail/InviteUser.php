@@ -38,7 +38,9 @@ class InviteUser extends Mailable
         $this->user->invitato_email = true;
         $this->user->save();
         Log::info('Invio Invito a ' . $this->user->name);
-        return $this->subject('Invito alla registrazione Ferramenta Paride')
+        $from = 'amministrazione@ferramentaparide.it';
+        return $this->from($from)
+                    ->subject('Invito alla registrazione Ferramenta Paride')
                     ->markdown('sysViews._emails.users.invite');
     }
 }

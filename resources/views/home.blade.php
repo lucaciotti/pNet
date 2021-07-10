@@ -27,7 +27,7 @@
                     <div class="icon">
                         <i class="fa fa-clipboard-list"></i>
                     </div>
-                    <a href="{{ route('home::newQuotes') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('home::newQuotes') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-6 col-6 ml-auto">
@@ -41,7 +41,7 @@
                     <div class="icon">
                         <i class="fa fa-truck-loading"></i>
                     </div>
-                    <a href="{{ route('home::newDDTs') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('home::newDDTs') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     <div class="icon">
                         <i class="fa fa-barcode"></i>
                     </div>
-                    <a href="{{ route('product::list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('product::list') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-6 col-6 ml-auto">
@@ -71,7 +71,7 @@
                     <div class="icon">
                         <i class="fa fa-file-invoice-dollar"></i>
                     </div>
-                    <a href="{{ route('home::lastInvoices') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('home::lastInvoices') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

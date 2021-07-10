@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\Sys\DeleteOlderZip;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
         // if(env("APP_URL", "https://pnet.ferramentaparide.it")){
         //     $schedule->exec('/home/forge/script.js')->everyMinute();
         // }
+        $schedule->job(new DeleteOlderZip)->daily();
     }
 
     /**

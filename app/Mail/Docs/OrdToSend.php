@@ -53,13 +53,17 @@ class OrdToSend extends Mailable
         $ordListed->inviato = true;
         $ordListed->save();
         $nameDoc = $this->getNameDoc($ordListed->tipo_doc, $ordListed->id_doc);
+        $from = 'ordini@ferramentaparide.it';
+        if($ordListed->tipo_doc == 'FP') $from = 'amministrazione@ferramentaparide.it';
         Log::info('Invio '.$nameDoc. ' - '.$this->user->name);
         if($this->user->isActive){
-            return $this->subject('Invio '.$nameDoc.' - Ferramenta Paride')
+            return $this->from($from)
+                ->subject('Invio '.$nameDoc.' - Ferramenta Paride')
                 ->markdown('parideViews._emails.docs.docToSend')
                 ->attach($this->fileToAttach);
         } else {
-            return $this->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
+            return $this->from($from)
+                ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
                 ->markdown('parideViews._emails.docs.docToSendWithInvite')
                 ->attach($this->fileToAttach);
         }

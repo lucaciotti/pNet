@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\RedisUser;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         Schema::defaultStringLength(191);
+        // Log::useDailyFiles(storage_path() . '/logs/laravel-' . get_current_user() . '.log');
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             // Add some items to the menu...

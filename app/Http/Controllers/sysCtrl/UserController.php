@@ -157,7 +157,8 @@ class UserController extends Controller
         }
         if(Auth::check()){
             if(Auth::user()->id == $id){
-                return redirect()->url('/logout');
+                Auth::logout();
+                return redirect('/login');
             } else {
                 return redirect()->back();
             }
