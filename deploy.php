@@ -33,8 +33,8 @@ task('deploy', [
     'artisan:config:cache',
     'artisan:migrate',
     'migrate:pNet',
-    'npm:install',
-    'npm:run:prod',
+    // 'npm:install',
+    // 'npm:run:prod',
     'deploy:publish',
     'php-fpm:reload',
     'supervisor:reload:dbSeed',
@@ -68,14 +68,14 @@ task('supervisor:reload:dataMining', function () {
 
 task('setPermission:storage', function () {
     cd('{{release_path}}');
-    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chown -R $USER:www-data storage');
-    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chmod -R 775 storage');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chown -R $USER:www-data storage');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chmod -R 777 storage');
 });
 
 task('setPermission:bootstrap', function () {
     cd('{{release_path}}');
-    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chown -R $USER:www-data bootstrap/cache');
-    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chmod -R 775 bootstrap/cache');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chown -R $USER:www-data bootstrap/cache');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chmod -R 777 bootstrap/cache');
 });
 
 after('deploy:failed', 'deploy:unlock');
