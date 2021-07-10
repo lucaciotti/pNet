@@ -9,6 +9,7 @@ set('application', 'pNet');;
 set('repository', 'git@github.com:lucaciotti/pNet.git');
 set('git_tty', true);
 set('php_fpm_version', '8.0');
+set('php_fpm_command', 'echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service {{php_fpm_service}} reload');
 
 set('use_relative_symlink', false);
 set('ssh_multiplexing', false);
@@ -39,6 +40,8 @@ task('deploy', [
     'supervisor:reload:dbSeed',
     'supervisor:reload:email',
     'supervisor:reload:dataMining',
+    'setPermission:bootstrap',
+    'setPermission:storage'
 ]);
 
 task('npm:run:prod', function () {
@@ -52,15 +55,27 @@ task('migrate:pNet', function () {
 });
 
 task('supervisor:reload:dbSeed', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-dbSeed:*');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dbSeed:*');
 });
 
 task('supervisor:reload:email', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-email:*');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-email:*');
 });
 
 task('supervisor:reload:dataMining', function () {
-    run('echo RJ6SMfkPZa9qBcoN | sudo -S supervisorctl restart pnet-worker-dataMining:*');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dataMining:*');
+});
+
+task('setPermission:storage', function () {
+    cd('{{release_path}}');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chown -R $USER:www-data storage');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chmod -R 775 storage');
+});
+
+task('setPermission:bootstrap', function () {
+    cd('{{release_path}}');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chown -R $USER:www-data bootstrap/cache');
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S sudo chmod -R 775 bootstrap/cache');
 });
 
 after('deploy:failed', 'deploy:unlock');

@@ -1,5 +1,6 @@
 <span class="floatleft">
-    <img src="{{ asset('/assets/img/logo_esteso.png') }}" alt="" height="130" align="left">
+    {{-- <img src="{{ asset('/assets/img/logo_esteso.png') }}" alt="" height="130" align="left"> --}}
+    <img src="data:image/jpeg;base64, {{ base64_encode(@file_get_contents(url('assets/img/logo_esteso.png'))) }}" alt="" height="130" align="left">
 </span>
 
 <span class="floatright">
