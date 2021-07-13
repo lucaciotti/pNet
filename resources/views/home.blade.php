@@ -22,7 +22,7 @@
                     <div class="inner">
                         <h3>{{ $nQuotes }}</h3>
         
-                        <p>Preventivi da evadere</p>
+                        <p>Preventivi recenti</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-clipboard-list"></i>

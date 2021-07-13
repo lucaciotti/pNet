@@ -35,6 +35,7 @@
                     <strong>{{ $errors->first('nickname') }}</strong>
                 </div>
             @endif
+            <label for="nickname"><small>Il nickname è [CODICE_CLIENTE]@pnet.it (es C123456@pnet.it)</small></label>
         </div>
 
         {{-- Send reset link button --}}

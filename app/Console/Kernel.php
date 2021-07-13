@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         // if(env("APP_URL", "https://pnet.ferramentaparide.it")){
         //     $schedule->exec('/home/forge/script.js')->everyMinute();
         // }
-        $schedule->job(new DeleteOlderZip)->daily();
+        $schedule->job(new DeleteOlderZip, 'dbSeed')->daily();
     }
 
     /**
