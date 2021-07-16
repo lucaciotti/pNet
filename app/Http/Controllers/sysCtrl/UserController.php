@@ -147,7 +147,7 @@ class UserController extends Controller
             if (App::environment(['local', 'staging'])) {
                 Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             } else {
-                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
+                Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             }
             Log::info("Invite User: " . $user->name);
             $req->session()->flash('status', 'Inviata email a '.$user->email.'!');

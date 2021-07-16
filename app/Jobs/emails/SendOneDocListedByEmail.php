@@ -8,6 +8,7 @@ use App\Helpers\PdfReport;
 use App\Mail\Docs\DocToSend;
 use App\Mail\Docs\OrdToSend;
 use Illuminate\Bus\Queueable;
+use App\Models\parideModels\Client;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -53,25 +54,31 @@ class SendOneDocListedByEmail implements ShouldQueue
         if(wOrdSent::where('id', $this->id)->exists()) {
             $ordToSend = wOrdSent::where('id', $this->id)->first();
             $user = User::where('codcli', $ordToSend->id_cli)->first();
+            $client = Client::find($ordToSend->id_cli);
+            $toEmail = 'pnet@lucaciotti.space';
             if ($user) {
+                $toEmail = $this->setEmailTo($ordToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($ordToSend->tipo_doc, $ordToSend->id_doc);
                 $mail = (new OrdToSend($user->id, $fileToAttach, $ordToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
-                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                    Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }
             }
         } else {            
             $docToSend = wDocSent::where('id', $this->id)->first();
             $user = User::where('codcli', $docToSend->id_cli)->first();
+            $client = Client::find($docToSend->id_cli);
+            $toEmail = 'pnet@lucaciotti.space';
             if ($user) {
+                $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
                 $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
-                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                    Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }
             }
         }
@@ -180,5 +187,65 @@ class SendOneDocListedByEmail implements ShouldQueue
         }
         $pdf->save(storage_path('app') . '/' . 'DocPDFToSend/' . $filename . '.pdf');
         return storage_path('app') . '/' . 'DocPDFToSend/' . $filename . '.pdf';
+    }
+
+
+    protected function setEmailTo($tipodoc, $client)
+    {
+        $toEmail = '';
+        switch ($tipodoc) {
+            case 'XC':
+                if (!empty($client->e_mail_ordini) && filter_var($client->e_mail_ordini, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_ordini;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'OC':
+                if (!empty($client->e_mail_ordini) && filter_var($client->e_mail_ordini, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_ordini;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'BO':
+                if (!empty($client->e_mail_ddt) && filter_var($client->e_mail_ddt, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_ddt;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'FT':
+                if (!empty($client->e_mail_fatture) && filter_var($client->e_mail_fatture, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_fatture;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'FP':
+                if (!empty($client->e_mail_fatture) && filter_var($client->e_mail_fatture, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_fatture;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'FD':
+                if (!empty($client->e_mail_fatture) && filter_var($client->e_mail_fatture, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_fatture;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            case 'NC':
+                if (!empty($client->e_mail_fatture) && filter_var($client->e_mail_fatture, FILTER_VALIDATE_EMAIL)) {
+                    $toEmail = $client->e_mail_fatture;
+                } else {
+                    $toEmail = $client->e_mail;
+                }
+                break;
+            default:
+                break;
+        }
+        return $toEmail;
     }
 }

@@ -68,11 +68,11 @@ class CreateClientUser implements ShouldQueue
                             $token = Password::getRepository()->create($user);
                             $mail = (new InviteUser($token, $user->id))->onQueue('emails');
                             if (App::environment(['local', 'staging'])) {
-                                Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                                Mail::to('pnet@lucaciotti.space')->bcc(['luca.ciotti@gmail.com'])->queue($mail);
                             } else {
-                                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                                Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                             }
-                            Log::info('ClientUser sended auto invitation to:'. $client->id_cli_for.'-'. $client->rag_soc);
+                            Log::info('ClientUser sended auto invitation to:'. $client->id_cli_for.'-'. $client->rag_soc . '-' . $client->email);
                         }
                     }
                 }

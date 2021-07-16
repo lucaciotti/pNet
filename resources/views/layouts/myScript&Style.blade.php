@@ -70,12 +70,13 @@
       "aaSorting": [],
       "lengthChange": true,
       "responsive": true,
+      "autoWidth": false,
       "columnDefs": [
         { "responsivePriority": 1, "targets": 0 },
         { "responsivePriority": 2, "targets": 1 },
         { "responsivePriority": 3, "targets": -1 }
         ]
-        });
+    });
     $('.dtTbls_light').DataTable({
       "iDisplayLength": 25,
       "paging": true,
@@ -184,7 +185,7 @@
             );
           } else {
             $( api.column( 6 ).footer() ).html(
-                "<i class='fa fa-arrow-right'> Last Page</i> "
+                "<i class='fa fa-arrow-right'> Ultima Pagina</i> "
             );
           }
       },
