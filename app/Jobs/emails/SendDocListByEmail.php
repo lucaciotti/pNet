@@ -50,46 +50,54 @@ class SendDocListByEmail implements ShouldQueue
     {
         Log::info('SendDocListByEmail Job Started');
 
-        $listOfOrds = wOrdSent::where('inviato', false)->get();
+        try {
+            $listOfOrds = wOrdSent::where('inviato', false)->get();
 
-        foreach ($listOfOrds as $docToSend) {
-            Log::info('Invio OrdId:' . $docToSend->id_doc);
-            $user = User::where('codcli', $docToSend->id_cli)->first();
-            $client = Client::find($docToSend->id_cli);
-            $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ($client->fat_email || $user->auto_email);
-            if ($isInvio) {
-                $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
-                $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
-                $mail = (new OrdToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
-                if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
-                } else {
-                    Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
-                    Log::info('Invio OrdId:' . $docToSend->id_doc . 'MailedJob to ' .$toEmail);
+            foreach ($listOfOrds as $docToSend) {
+                Log::info('Invio OrdId:' . $docToSend->id_doc);
+                $user = User::where('codcli', $docToSend->id_cli)->first();
+                $client = Client::find($docToSend->id_cli);
+                $toEmail = 'pnet@lucaciotti.space';
+                $isInvio = ($client->fat_email || $user->auto_email);
+                if ($isInvio) {
+                    $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
+                    $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
+                    $mail = (new OrdToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                    if (App::environment(['local', 'staging'])) {
+                        Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                    } else {
+                        Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                        Log::info('Invio OrdId:' . $docToSend->id_doc . 'MailedJob to ' .$toEmail);
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
 
-        $listOfDocs = wDocSent::where('inviato', false)->get();
+        try {
+            $listOfDocs = wDocSent::where('inviato', false)->get();
 
-        foreach ($listOfDocs as $docToSend) {
-            Log::info('Invio DocId:' . $docToSend->id_doc);
-            $user = User::where('codcli', $docToSend->id_cli)->first();
-            $client = Client::find($docToSend->id_cli);
-            $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ($client->fat_email || $user->auto_email);
-            if($isInvio) {
-                $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
-                $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
-                $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
-                if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
-                } else {
-                    Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
-                    Log::info('Invio DocId:' . $docToSend->id_doc . 'MailedJob to ' . $toEmail);
+            foreach ($listOfDocs as $docToSend) {
+                Log::info('Invio DocId:' . $docToSend->id_doc);
+                $user = User::where('codcli', $docToSend->id_cli)->first();
+                $client = Client::find($docToSend->id_cli);
+                $toEmail = 'pnet@lucaciotti.space';
+                $isInvio = ($client->fat_email || $user->auto_email);
+                if($isInvio) {
+                    $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
+                    $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
+                    $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
+                    if (App::environment(['local', 'staging'])) {
+                        Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                    } else {
+                        Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                        Log::info('Invio DocId:' . $docToSend->id_doc . 'MailedJob to ' . $toEmail);
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
 
         Log::info('SendDocListByEmail Job Ended');
