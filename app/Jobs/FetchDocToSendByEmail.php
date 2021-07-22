@@ -122,7 +122,7 @@ class FetchDocToSendByEmail implements ShouldQueue
                 $q->where('fat_email', '1');
             })->get();
         foreach ($FPList as $doc) {
-            wDocSent::create([
+            wOrdSent::create([
                 'id_doc' => $doc->id_ord_tes,
                 'tipo_doc' => $doc->tipodoc,
                 'id_cli' => $doc->id_cli_for,

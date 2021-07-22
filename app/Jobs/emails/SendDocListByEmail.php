@@ -57,7 +57,7 @@ class SendDocListByEmail implements ShouldQueue
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
             $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ($client->fat_email || $user->auto_email);
+            $isInvio = ((!$user->isActive && $client->fat_email) || ($user->isActive && $user->auto_email));
             if ($isInvio) {
                 $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
@@ -77,7 +77,7 @@ class SendDocListByEmail implements ShouldQueue
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
             $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ($client->fat_email || $user->auto_email);
+            $isInvio = ((!$user->isActive && $client->fat_email) || ($user->isActive && $user->auto_email));
             if($isInvio) {
                 $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
