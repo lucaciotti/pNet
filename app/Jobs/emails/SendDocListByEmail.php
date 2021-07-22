@@ -57,7 +57,7 @@ class SendDocListByEmail implements ShouldQueue
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
             $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ((!$user->isActive && $client->fat_email) || ($user->isActive && $user->auto_email));
+            $isInvio = ($client->fat_email || $user->auto_email);
             if ($isInvio) {
                 $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
@@ -66,6 +66,7 @@ class SendDocListByEmail implements ShouldQueue
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                    Log::info('Invio OrdId:' . $docToSend->id_doc . 'MailedJob to ' .$toEmail);
                 }
             }
         }
@@ -77,7 +78,7 @@ class SendDocListByEmail implements ShouldQueue
             $user = User::where('codcli', $docToSend->id_cli)->first();
             $client = Client::find($docToSend->id_cli);
             $toEmail = 'pnet@lucaciotti.space';
-            $isInvio = ((!$user->isActive && $client->fat_email) || ($user->isActive && $user->auto_email));
+            $isInvio = ($client->fat_email || $user->auto_email);
             if($isInvio) {
                 $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
@@ -86,6 +87,7 @@ class SendDocListByEmail implements ShouldQueue
                     Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                    Log::info('Invio DocId:' . $docToSend->id_doc . 'MailedJob to ' . $toEmail);
                 }
             }
         }
