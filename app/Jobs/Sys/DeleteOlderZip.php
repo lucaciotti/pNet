@@ -22,7 +22,7 @@ class DeleteOlderZip implements ShouldQueue
      */
     public function __construct()
     {
-        Log::info('Delete OlderZipSeed Job Created');
+        // Log::info('Delete OlderZipSeed Job Created');
     }
 
     /**
@@ -32,11 +32,12 @@ class DeleteOlderZip implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('Delete OlderZipSeed Job Started');
         $oldFiles = Storage::listContents('DbSeed/ZipFiles', true);
         if (!empty($oldFiles)) {
             foreach ($oldFiles as $file) {
                 if ($file['timestamp'] < now()->subDays(2)->getTimestamp()) {
-                    Log::info('Delete OlderZipSeed Job Created: '+$file['filename']);                
+                    Log::info('Delete OlderZipSeed Job Created: '.$file['filename']);                
                     Storage::delete($file['path']);
                 }
             }

@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('telescope:prune --hours=96')->daily();
+        // $schedule->command('telescope:prune --hours=96')->daily();
         // if(env("APP_URL", "https://pnet.ferramentaparide.it")){
         //     $schedule->exec('/home/forge/script.js')->everyMinute();
         // }

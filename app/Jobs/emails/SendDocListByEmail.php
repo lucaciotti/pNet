@@ -50,14 +50,16 @@ class SendDocListByEmail implements ShouldQueue
     {
         Log::info('SendDocListByEmail Job Started');
 
-        try {
-            $listOfOrds = wOrdSent::where('inviato', false)->get();
+        $listOfOrds = wOrdSent::where('inviato', false)->get();
 
-            foreach ($listOfOrds as $docToSend) {
+        foreach ($listOfOrds as $docToSend) {
+            try {
                 Log::info('Invio OrdId:' . $docToSend->id_doc);
                 $user = User::where('codcli', $docToSend->id_cli)->first();
                 $client = Client::find($docToSend->id_cli);
                 $toEmail = 'pnet@lucaciotti.space';
+                // TODO
+                // $isInvio = ((!$user->auto_email && $client->fat_email) || ($user->auto_email && $user->auto_email));
                 $isInvio = ($client->fat_email || $user->auto_email);
                 if ($isInvio) {
                     $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
@@ -70,19 +72,23 @@ class SendDocListByEmail implements ShouldQueue
                         Log::info('Invio OrdId:' . $docToSend->id_doc . 'MailedJob to ' .$toEmail);
                     }
                 }
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
             }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
         }
+        
 
-        try {
-            $listOfDocs = wDocSent::where('inviato', false)->get();
+        
+        $listOfDocs = wDocSent::where('inviato', false)->get();
 
-            foreach ($listOfDocs as $docToSend) {
+        foreach ($listOfDocs as $docToSend) {
+            try {
                 Log::info('Invio DocId:' . $docToSend->id_doc);
                 $user = User::where('codcli', $docToSend->id_cli)->first();
                 $client = Client::find($docToSend->id_cli);
                 $toEmail = 'pnet@lucaciotti.space';
+                // TODO
+                // $isInvio = ((!$user->auto_email && $client->fat_email) || ($user->auto_email && $user->auto_email));
                 $isInvio = ($client->fat_email || $user->auto_email);
                 if($isInvio) {
                     $toEmail = $this->setEmailTo($docToSend->tipo_doc, $client);
@@ -95,9 +101,9 @@ class SendDocListByEmail implements ShouldQueue
                         Log::info('Invio DocId:' . $docToSend->id_doc . 'MailedJob to ' . $toEmail);
                     }
                 }
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
             }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
         }
 
         Log::info('SendDocListByEmail Job Ended');
