@@ -252,7 +252,7 @@
         <hr>
         <label>IVA:</label>
         <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="{{ $prod->id_iva }}"
+          <input type="text" class="form-control" readonly name="prezzVend" value="@if ($prod->tva) {{ $prod->tva->perc }} @endif"
             style="text-align:right;">
           <div class="input-group-append">
             <span class="input-group-text">%</span>

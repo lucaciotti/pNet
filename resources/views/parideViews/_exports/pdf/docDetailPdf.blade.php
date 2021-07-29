@@ -33,20 +33,28 @@
         @include('parideViews._exports.pdf.docDetail.docFooter2', [$head, $stampaPrezzi] )
     </div>
 
-    {{-- @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipomodulo == 'B')
-    <div>
-        <hr class="dividerPage">
-    </div>
-    <div class="row">
-        <div class="contentTitle">{{ trans('doc.lnkPayment') }}</div>
-        @include('parideViews._exports.pdf.docDetail.tblPayment', ['$head'=> $head] )
-    </div>
-    @endif --}}
+    @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+        <div>
+            <hr class="dividerPage">
+        </div>
+        <div class="row">
+            {{-- <div class="contentTitle">{{ trans('doc.lnkPayment') }}</div>
+            @include('parideViews._exports.pdf.docDetail.tblPayment', ['$head'=> $head] ) --}}
+            @if (!$head->pagato && $head->id_pag!=16)
+            <span class="contentSubTitle">Estremi Pagamento</span>
+            <dl class="dl-horizontal">
+                <dd>INTESA SAN PAOLO AG. MASERADA SUL PIAVE (TV)</dd>
+                <dd>IBAN: IT61 R030 6961 7881 0000 0001 249</dd>
+                <dd>SWIFT: BCITITMM</dd>
+            </dl>
+            @endif
+        </div>
+    @endif
 
     @if($tipodoc=='XC' || $tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC')
         
         <div class="row">
-            <br><br><br><br><br><br><br><br><br><br><br>
+            {{-- <br><br><br><br><br><br><br><br><br><br><br> --}}
             <hr class="dividerPage">
         </div>
 
@@ -75,6 +83,14 @@
                 Copia digitale della fattura inviata a SDI.
             </h5>
             @endif
+            
+            {{-- @if($tipodoc=='FP' && $head->id_pag!=16)
+            <h5>
+                INTESA SAN PAOLO AG. MASERADA SUL PIAVE (TV) <br>
+                IBAN: IT61 R030 6961 7881 0000 0001 249 <br>
+                SWIFT: BCITITMM
+            </h5>
+            @endif --}}
         </span>
     @endif
 

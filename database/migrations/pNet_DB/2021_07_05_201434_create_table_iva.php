@@ -14,7 +14,7 @@ class CreateTableIva extends Migration
     public function up()
     {
         Schema::create('iva', function (Blueprint $table) {
-            $table->integer('id_iva')->primary();
+            $table->string('id_iva',2)->primary();
             $table->string('descr', 60)->default('');
             $table->decimal('perc', 4, 2)->default(0);
             $table->string('natura', 5)->default('');

@@ -75,7 +75,31 @@
         { "responsivePriority": 1, "targets": 0 },
         { "responsivePriority": 2, "targets": 1 },
         { "responsivePriority": 3, "targets": -1 }
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
     });
     $('.dtTbls_light').DataTable({
       "iDisplayLength": 25,
@@ -91,7 +115,31 @@
         { "responsivePriority": 1, "targets": 0 },
         { "responsivePriority": 2, "targets": 1 },
         { "responsivePriority": 3, "targets": -1 }
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
     });
     $(".dtTbls_full_Tot").DataTable({
       "iDisplayLength": 25,
@@ -139,7 +187,31 @@
             { "responsivePriority": 1, "targets": 0 },
             { "responsivePriority": 2, "targets": 1 },
             { "responsivePriority": 3, "targets": -1 }
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
     });
     $('.dtTbls_total').DataTable({
       "iDisplayLength": 15,
@@ -194,7 +266,31 @@
         { "responsivePriority": 1, "targets": 0 },
         { "responsivePriority": 2, "targets": 1 },
         { "responsivePriority": 3, "targets": -1 }
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
     });
     $('.dtTbls_stat3').DataTable({
         "iDisplayLength": 25,
@@ -208,7 +304,31 @@
             {"sType": "my-currency", "aTargets": [2]},
             {"sType": "my-currency", "aTargets": [3]},
             {"sType": "my-currency", "aTargets": [4]}
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
         // "aaSorting": [[0, "desc"]],
         // "bStateSave": false
     });
@@ -243,7 +363,31 @@
         {"sType": "my-currency", "aTargets": [4]},
         {"sType": "my-currency", "aTargets": [5]},
         {"sType": "my-currency", "aTargets": [6]}
-        ]
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
         // "aaSorting": [[0, "desc"]],
         // "bStateSave": false
     });

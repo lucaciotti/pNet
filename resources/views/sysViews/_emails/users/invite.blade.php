@@ -11,6 +11,14 @@ Come primo accesso la preghiamo di cliccare sul link qui sotto per impostare la 
 @component('mail::button', ['url' => $url])
 Accedi Qui
 @endcomponent
+<center>
+    <small>
+        <i>
+            Il link di accesso rimane valido per 48 ore, poi dovrà richiedere un nuovo invito
+        </i>
+    </small>
+</center>
+<br>
 
 Come sempre, rimaniamo a sua disposizione.  
 

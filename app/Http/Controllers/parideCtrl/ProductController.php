@@ -153,7 +153,18 @@ class ProductController extends Controller
 
     public function detail(Request $req, $codArt)
     {
-        $product = Product::with(['masterGrpProd','grpProd','supplier', 'magGiac', 'marche', 'barcodes', 'supplierCodes'])->findOrFail($codArt);
+        $product = Product::with(
+            [
+                'masterGrpProd',
+                'grpProd',
+                'supplier', 
+                'magGiac', 
+                'marche', 
+                'barcodes', 
+                'supplierCodes',
+                'tva'
+            ]
+        )->findOrFail($codArt);
 
         // $productsFam = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1', 'non_attivo');
         // $productsFam = $productsFam->where('id_fam', $product->id_fam);

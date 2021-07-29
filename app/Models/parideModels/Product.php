@@ -140,6 +140,11 @@ class Product extends Model
         return $this->hasMany('App\Models\parideModels\ProdSupCod', ['id_art', 'id_cli_for'], ['id_art', 'id_cli_for']);
     }
 
+    public function tva()
+    {
+        return $this->hasOne('App\Models\parideModels\Iva', 'id_iva', 'id_iva');
+    }
+
 
     // public function descrLang(String $lang)
     // {
