@@ -129,16 +129,21 @@
       <div class="card-body">
         <label>Quantità:</label>
         <div class="input-group">
-          <div class="input-group-prepend">
+          {{-- <div class="input-group-prepend">
             <span class="input-group-text">{{ $prod->um }}</span>
-          </div>
+          </div> --}}
           @if ($prod->magGiac)
-          <input type="text" class="form-control" readonly name="giacArt" value="{{ $prod->magGiac->esistenza }}" style="text-align:right;">
+          {{-- @php
+              $num = $prod->magGiac->esistenza;
+              $intpart = floor( $num );
+              $decimal = $num - $intpart;
+          @endphp --}}
+          <input type="text" class="form-control" readonly name="giacArt" value="{{ number_format((float)$prod->magGiac->esistenza, 2, ',', '') }}" style="text-align:right;">
           @else
           <input type="text" class="form-control" readonly name="giacArt" value="0" style="text-align:right;">
           @endif
           <div class="input-group-append">
-            <span class="input-group-text">.00</span>
+            <span class="input-group-text">{{ $prod->um }}</span>
           </div>
         </div>        
       </div>
@@ -157,17 +162,22 @@
       <div class="card-body">
         <label>Quantità:</label>
         <div class="input-group">
-          <div class="input-group-prepend">
+          {{-- <div class="input-group-prepend">
             <span class="input-group-text">{{ $prod->um }}</span>
-          </div>
+          </div> --}}
           @if ($prod->magGiac)
-          <input type="text" class="form-control" readonly name="giacArt" value="{{ $prod->magGiac->qta_ven }}"
+          {{-- @php
+              $num = $prod->magGiac->qta_ven;
+              $intpart = floor( $num );
+              $decimal = $num - $intpart;
+          @endphp --}}
+          <input type="text" class="form-control" readonly name="giacArt" value="{{ number_format((float)$prod->magGiac->qta_ven, 2, ',', '') }}"
             style="text-align:right;">
           @else
           <input type="text" class="form-control" readonly name="giacArt" value="0" style="text-align:right;">
           @endif
           <div class="input-group-append">
-            <span class="input-group-text">.00</span>
+            <span class="input-group-text">{{ $prod->um }}</span>
           </div>
         </div>
       </div>
@@ -224,7 +234,7 @@
   
         <label>Listino 1 (IVA escl.):</label>
         <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_1,3) }}"
+          <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }}"
             style="text-align:right;">
           <div class="input-group-append">
             <span class="input-group-text">€</span>
@@ -233,7 +243,7 @@
         @if (!in_array(RedisUser::get('role'), ['client', 'user']))
           <label>Listino 2 (IVA escl.):</label>
           <div class="input-group">
-            <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_2,3) }}"
+            <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_2,3), 2, ',', '') }}"
               style="text-align:right;">
             <div class="input-group-append">
               <span class="input-group-text">€</span>
@@ -242,7 +252,7 @@
 
           <label>Listino 3 (IVA escl.):</label>
           <div class="input-group">
-            <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_3,3) }}"
+            <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_3,3), 2, ',', '') }}"
               style="text-align:right;">
             <div class="input-group-append">
               <span class="input-group-text">€</span>
@@ -278,7 +288,7 @@
         @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
         <label>Prezzo di Acquisto:</label>
         <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ round($prod->prezzo_a,3) }}"
+          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ number_format((float)round($prod->prezzo_a,3), 2, ',', '') }}"
             style="text-align:right;">
           <div class="input-group-append">
             <span class="input-group-text">€</span>

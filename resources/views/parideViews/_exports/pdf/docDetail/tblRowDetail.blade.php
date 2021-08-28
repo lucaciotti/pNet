@@ -80,7 +80,7 @@
                     @if($row->ommerce)
                         <td colspan="2" style="text-align: center;"><strong> FREE OF CHARGE</strong></td>
                     @else
-                        <td style="text-align: right;">@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
+                        <td style="text-align: right;">@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
                         <td style="text-align: center;">@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
                     @endif
                 @endif

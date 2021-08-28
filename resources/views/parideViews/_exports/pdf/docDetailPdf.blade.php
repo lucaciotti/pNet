@@ -33,7 +33,8 @@
         @include('parideViews._exports.pdf.docDetail.docFooter2', [$head, $stampaPrezzi] )
     </div>
 
-    @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N')
+    {{-- @if($head->tipomodulo == 'F' || $head->tipomodulo == 'N') --}}
+    @if($tipodoc=='FP')
         <div>
             <hr class="dividerPage">
         </div>

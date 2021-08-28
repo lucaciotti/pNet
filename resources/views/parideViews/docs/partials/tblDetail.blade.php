@@ -42,7 +42,7 @@
             @endif
             <td>{{ htmlspecialchars($row->descr) }}</td>
             <td>@if ($row->prezzo!=0){{ $row->qtarow }} {{ $row->um }}@endif</td>
-            <td>@if ($row->prezzo!=0){{ $row->prezzo }} €@endif</td>
+            <td>@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
             <td>@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
             <td>@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
             <td>@if ($row->tva) {{ $row->tva->perc }} % @endif</td>

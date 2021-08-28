@@ -4,8 +4,8 @@
         <th>{{ trans('prod.descArt') }}</th>
         <th>Famiglia Prodotto</th>
         <th>Prezzo</th>
-        <th>UM</th>
         <th>Disponibilità</th>
+        <th>UM</th>
         {{-- <th>Barcode</th>
                 <th>Forn.</th> --}}
     </thead>
@@ -24,9 +24,9 @@
                 - {{ $prod->grpProd->descr }}
                 @endif
             </td>
-            <td>{{ $prod->prezzo_1 }}</td>
+            <td style="text-align: right">{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }} €</td>
+            <td style="text-align:right;">{{ number_format((float)$prod->magGiac->esistenza, 2, ',', '') }} </td>
             <td>{{ $prod->um }}</td>
-            <td>{{ $prod->magGiac->esistenza }}</td>
             {{-- <td>{{ $prod->id_cod_bar }}</td>
             <td>[{{ $prod->id_cli_for }}]
                 @if($prod->supplier)
