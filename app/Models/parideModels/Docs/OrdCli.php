@@ -58,7 +58,7 @@ class OrdCli extends Model
 
     public function getDescrTipodocAttribute()
     {
-        return 'Ordine';
+        return 'Ordine Cliente';
     }
 
     public function getTipoDocAttribute()
