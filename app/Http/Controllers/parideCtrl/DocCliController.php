@@ -20,39 +20,40 @@ class DocCliController extends Controller
 {
     public function index(Request $req, $tipomodulo = null)
     {
+        $startDate = (now()->subMonths(2))->toDateString();
         switch ($tipomodulo) {
             case 'P':
-                $docs = QuoteCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $docs = QuoteCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $descModulo = trans('doc.quotes_title');
                 break;
             case 'O':
-                $docs = OrdCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $docs = OrdCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $descModulo = trans('doc.orders_title');
                 break;
             case 'B':
-                $docs = DDTCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $docs = DDTCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $descModulo = trans('doc.ddt_title');
                 break;
             case 'F':
-                $invoices = FTCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $invoicesFree = FPCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $invoicesDiff = FDCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $invoices = FTCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $invoicesFree = FPCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $invoicesDiff = FDCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $docs = $invoices->merge($invoicesFree)->merge($invoicesDiff);
                 $descModulo = trans('doc.invoice_title');
                 break;
             case 'N':
-                $docs = NCCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $docs = NCCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $descModulo = trans('doc.notecredito_title');
                 break;
 
             default:
-                $quotes = QuoteCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $orders = OrdCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $ddts = DDTCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $invoices = FTCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $invoicesFree = FPCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $invoicesDiff = FDCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
-                $creditnotes = NCCli::where('data', '>=', now()->subMonths(2))->with(['client'])->get();
+                $quotes = QuoteCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $orders = OrdCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $ddts = DDTCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $invoices = FTCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $invoicesFree = FPCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $invoicesDiff = FDCli::where('data', '>=', $startDate)->with(['client'])->get();
+                $creditnotes = NCCli::where('data', '>=', $startDate)->with(['client'])->get();
                 $docs = $quotes->merge($orders)->merge($ddts)->merge($invoices)->merge($invoicesFree)->merge($invoicesDiff)->merge($creditnotes);
                 $descModulo = trans('doc.documents');
                 break;
@@ -66,7 +67,7 @@ class DocCliController extends Controller
             'docs' => $docs,
             'tipomodulo' => $tipomodulo,
             'descModulo' => $descModulo,
-            'startDate' => now()->subMonths(2),
+            'startDate' => $startDate,
             'endDate' => now(),
             'noDate' => false,
         ]);
@@ -77,11 +78,11 @@ class DocCliController extends Controller
         //FILTRI
         $tipomodulo = $req->input('optTipoDoc');
         if ($req->input('startDate')) {
-            $startDate = Carbon::createFromFormat('d/m/Y', $req->input('startDate'));
-            $endDate = Carbon::createFromFormat('d/m/Y', $req->input('endDate'));
+            $startDate = (Carbon::createFromFormat('d/m/Y', $req->input('startDate')))->toDateString();
+            $endDate = (Carbon::createFromFormat('d/m/Y', $req->input('endDate')))->toDateString();
         } else {
-            $startDate = Carbon::now()->subMonth();
-            $endDate = Carbon::now();
+            $startDate = (Carbon::now()->subMonth())->toDateString();
+            $endDate = (Carbon::now())->toDateString();
         }
         // $diff = $startDate->diffInDays($endDate);
         $noDate = $req->input('noDate');
@@ -154,39 +155,40 @@ class DocCliController extends Controller
 
     public function clientList(Request $req, $id_cli_for, $tipomodulo = null)
     {
+        $startDate = (now()->subMonths(2))->toDateString();
         switch ($tipomodulo) {
             case 'P':
-                $docs = QuoteCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $docs = QuoteCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $descModulo = trans('doc.quotes_title');
                 break;
             case 'O':
-                $docs = OrdCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $docs = OrdCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $descModulo = trans('doc.orders_title');
                 break;
             case 'B':
-                $docs = DDTCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $docs = DDTCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $descModulo = trans('doc.ddt_title');
                 break;
             case 'F':
-                $invoices = FTCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $invoicesFree = FPCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $invoicesDiff = FDCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoices = FTCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoicesFree = FPCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoicesDiff = FDCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $docs = $invoices->merge($invoicesFree)->merge($invoicesDiff);
                 $descModulo = trans('doc.invoice_title');
                 break;
             case 'N':
-                $docs = NCCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $docs = NCCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $descModulo = trans('doc.notecredito_title');
                 break;
 
             default:
-                $quotes = QuoteCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $orders = OrdCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $ddts = DDTCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $invoices = FTCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $invoicesFree = FPCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $invoicesDiff = FDCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
-                $creditnotes = NCCli::where('data', '>=', now()->subMonths(2))->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $quotes = QuoteCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $orders = OrdCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $ddts = DDTCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoices = FTCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoicesFree = FPCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $invoicesDiff = FDCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
+                $creditnotes = NCCli::where('data', '>=', $startDate)->where('id_cli_for', $id_cli_for)->with(['client'])->get();
                 $docs = $quotes->merge($orders)->merge($ddts)->merge($invoices)->merge($invoicesFree)->merge($invoicesDiff)->merge($creditnotes);
                 $descModulo = trans('doc.documents');
                 break;
@@ -202,7 +204,7 @@ class DocCliController extends Controller
             'docs' => $docs,
             'tipomodulo' => $tipomodulo,
             'descModulo' => $descModulo,
-            'startDate' => now()->subMonths(2),
+            'startDate' => $startDate,
             'endDate' => now(),
             'noDate' => false,
             'ragSoc' => $client->rag_soc,

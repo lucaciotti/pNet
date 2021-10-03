@@ -466,3 +466,43 @@ $.src='https://v2.zopim.com/?5kD2eVVklHiJSkiTapXQljZtRRhqT8MG';z.t=+new Date;$.
 type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 </script>
 <!--End of Zendesk Chat Script-->
+
+{{-- Thumbnail --}}
+<style type="text/css">
+    .thumbnail {
+        position: relative;
+        z-index: 0;
+    }
+
+    .thumbnail:hover {
+        background-color: transparent;
+        z-index: 50;
+    }
+
+    .thumbnail span {
+        /*CSS for enlarged image*/
+        position: absolute;
+        background-color: white;
+        padding: 5px;
+        left: -1000px;
+        border: 1px solid gray;
+        visibility: hidden;
+        color: black;
+        text-decoration: none;
+    }
+
+    .thumbnail span img {
+        /*CSS for enlarged image*/
+        border-width: 0;
+        padding: 2px;
+    }
+
+    .thumbnail:hover span {
+        /*CSS for enlarged image on hover*/
+        visibility: visible;
+        top: 0;
+        left: 60px;
+        /*position where enlarged image should offset horizontally */
+
+    }
+</style>

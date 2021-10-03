@@ -40,6 +40,17 @@ class AppServiceProvider extends ServiceProvider
                     'route'  => 'client::list',
                     'icon' => 'fa fa-users',
                 ]);
+                $event->menu->addAfter('products', [
+                    'key' => 'stats_header',
+                    'header' => 'stats_header',
+                    'classes'  => 'text-bold text-center',
+                ]);
+                $event->menu->addAfter('stats_header', [
+                    'key' => 'AbcArt',
+                    'text' => 'AbcArt',
+                    'route'  => 'abcProds::list',
+                    'icon' => 'fa fa-sort-alpha-down',
+                ]);
             } else {
                 $event->menu->addBefore('documents', [
                     'key' => 'clients',

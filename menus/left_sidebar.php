@@ -50,11 +50,23 @@ $leftSidebar = [
         ],
     ],
     [
+        'key'  => 'products',
         'text' => 'products',
         // 'url'  => '#',
         'route' => 'product::list',
         'icon' => 'fa fa-boxes',
     ],
+
+    // [
+    //     'header' => 'stats_header',
+    //     'classes'  => 'text-bold text-center',
+    // ],
+    // [
+    //     'text' => 'AbcArt',
+    //     // 'url'  => '#',
+    //     'route' => 'product::list',
+    //     'icon' => 'fa fa-sort-alpha-down',
+    // ],
 
     [
         'header' => 'tutorial_header',

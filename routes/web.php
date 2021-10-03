@@ -9,6 +9,7 @@ use App\Http\Controllers\parideCtrl\DocCliController;
 use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ProductController;
+use App\Http\Controllers\parideCtrl\StatAbcProdController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,13 @@ Route::name('doc::')->middleware('auth')->group(function () {
     Route::get('/ddtToSend', [DocToSendController::class, 'index'])->name('indexDdtToSend');
     Route::post('/ddtToSend', [DocToSendController::class, 'fltIndex'])->name('fltDdtToSend');
     Route::get('/ddtToSend/{id}', [DocToSendController::class, 'sendDdt'])->name('sendDdt');
+});
+
+// Routes AbcProds
+Route::name('abcProds::')->middleware('auth')->group(function () {
+    Route::get('/abcProds', [StatAbcProdController::class, 'index'])->name('list');
+    Route::post('/abcProds/filter', [StatAbcProdController::class, 'fltIndex'])->name('fltList');
+    Route::post('/abcProdToDocs', [StatAbcProdController::class, 'fromArtToDocs'])->name('artToDocs');
 });
 
 

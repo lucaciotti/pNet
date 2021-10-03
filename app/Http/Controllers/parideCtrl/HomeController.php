@@ -23,22 +23,22 @@ class HomeController extends Controller
     {
         //dd(session('user.ditta_DB'));
         $dt = now();
-        $lastMonth = new Carbon('first day of last month');
-        $thisMonth = new Carbon('first day of this month');
+        $lastMonth = (new Carbon('first day of last month'))->toDateString();
+        $thisMonth = (new Carbon('first day of this month'))->toDateString();
 
         // $nQuotes = QuoteCli::whereHas('rows', function ($query) {
         //                 return $query->where('qta_eva', '<', 'qta_ord');
         //             })->count();
-        $nQuotes = QuoteCli::where('data', '>=', $thisMonth->subDays(1))->count();
+        $nQuotes = QuoteCli::where('data', '>=', $thisMonth)->count();
 
         // $nOrds = OrdCli::whereHas('rows', function ($query) {
         //                 return $query->where('qta_eva', '<', 'qta_ord');
         //             })->count();
 
-        $nDDTs = DDTCli::where('data', '>=', $thisMonth->subDays(1))->count();
+        $nDDTs = DDTCli::where('data', '>=', $thisMonth)->count();
                     
-        $nFattDir = FTCli::where('data', '>=', $lastMonth->subDays(1))->count();
-        $nFattDif = FDCli::where('data', '>=', $lastMonth->subDays(1))->count();
+        $nFattDir = FTCli::where('data', '>=', $lastMonth)->count();
+        $nFattDif = FDCli::where('data', '>=', $lastMonth)->count();
 
         $nNewProds = 50; //Product::where('non_attivo', 0)->count();
 
@@ -75,9 +75,9 @@ class HomeController extends Controller
 
     public function newQuotes(Request $req)
     {
-        $thisMonth = new Carbon('first day of this month');
+        $thisMonth = (new Carbon('first day of this month'))->toDateString();
 
-        $docs = QuoteCli::where('data', '>=', $thisMonth->subDays(1))->with(['client'])->get();
+        $docs = QuoteCli::where('data', '>=', $thisMonth)->with(['client'])->get();
         $descModulo = trans('doc.quotes_title');
 
         $docs = $docs->sortBy([
@@ -89,7 +89,7 @@ class HomeController extends Controller
             'docs' => $docs,
             'tipomodulo' => "P",
             'descModulo' => $descModulo,
-            'startDate' => $thisMonth->subDays(1),
+            'startDate' => $thisMonth,
             'endDate' => now(),
             'noDate' => false,
         ]);
@@ -97,9 +97,9 @@ class HomeController extends Controller
 
     public function showDDTs(Request $req)
     {
-        $thisMonth = new Carbon('first day of this month');
+        $thisMonth = (new Carbon('first day of this month'))->toDateString();
         
-        $docs = DDTCli::where('data', '>=', $thisMonth->subDays(1))->with(['client'])->get();
+        $docs = DDTCli::where('data', '>=', $thisMonth)->with(['client'])->get();
         $descModulo = trans('doc.ddt_title');
                 
         $docs = $docs->sortBy([
@@ -111,7 +111,7 @@ class HomeController extends Controller
             'docs' => $docs,
             'tipomodulo' => "B",
             'descModulo' => $descModulo,
-            'startDate' => $thisMonth->subDays(1),
+            'startDate' => $thisMonth,
             'endDate' => now(),
             'noDate' => false,
         ]);
@@ -119,11 +119,11 @@ class HomeController extends Controller
 
     public function showInvoices(Request $req, $tipomodulo = null)
     {
-        $lastMonth = new Carbon('first day of last month');
-        $thisMonth = new Carbon('first day of this month');
+        $lastMonth = (new Carbon('first day of last month'))->toDateString();
+        $thisMonth = (new Carbon('first day of this month'))->toDateString();
         
-        $invoices = FTCli::where('data', '>=', $lastMonth->subDays(1))->with(['client'])->get();
-        $invoicesDiff = FDCli::where('data', '>=', $lastMonth->subDays(1))->with(['client'])->get();
+        $invoices = FTCli::where('data', '>=', $lastMonth)->with(['client'])->get();
+        $invoicesDiff = FDCli::where('data', '>=', $lastMonth)->with(['client'])->get();
         $docs = $invoices->merge($invoicesDiff);
         $descModulo = trans('doc.invoice_title');
                 
@@ -136,7 +136,7 @@ class HomeController extends Controller
             'docs' => $docs,
             'tipomodulo' => 'F',
             'descModulo' => $descModulo,
-            'startDate' => $lastMonth->subDays(1),
+            'startDate' => $lastMonth,
             'endDate' => now(),
             'noDate' => false,
         ]);

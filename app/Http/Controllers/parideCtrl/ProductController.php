@@ -26,7 +26,7 @@ class ProductController extends Controller
         $gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
         $grpSelected = '';//$gruppi->first()->id_fam;
 
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo', 'nome_foto');
             // ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
         $products = $products->with(['grpProd', 'supplier', 'magGiac', 'marche'])->orderBy('id_art', 'desc')->take(50)->get();
 
@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function fltIndex(Request $req)
     {
         $isFilter = false;
-        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo');
+        $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo', 'nome_foto');
 
         if ($req->input('codArt')) {
             if ($req->input('codArtOp') == 'eql') {

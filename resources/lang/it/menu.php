@@ -37,6 +37,9 @@ return [
     'superAgent'              => 'Area Manager',
 
     // Prossime Implementazioni
+
+    'stats_header'            => 'Statistiche',
+
     'contacts'                => 'Rubrica Contatti',
     'webOrders'               => 'Inserimento Pre-Ordini da Web',
     'statsAbc'                => 'Statistiche Abc',

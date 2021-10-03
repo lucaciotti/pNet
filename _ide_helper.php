@@ -17566,6 +17566,70 @@
      
 }
 
+    namespace Intervention\Image\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Image {
+                    /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @return self 
+         * @static 
+         */ 
+        public static function configure($config = [])
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->configure($config);
+        }
+                    /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function make($data)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->make($data);
+        }
+                    /**
+         * Creates an empty image canvas
+         *
+         * @param int $width
+         * @param int $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function canvas($width, $height, $background = null)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->canvas($width, $height, $background);
+        }
+                    /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param int $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
+         * @static 
+         */ 
+        public static function cache($callback, $lifetime = null, $returnObj = false)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->cache($callback, $lifetime, $returnObj);
+        }
+         
+    }
+     
+}
+
     namespace Livewire { 
             /**
      * 
@@ -18019,6 +18083,194 @@
         {
                         /** @var \Lorisleiva\Actions\ActionManager $instance */
                         return $instance->registerCommandsForAction($className);
+        }
+         
+    }
+     
+}
+
+    namespace Rolandstarke\Thumbnail\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Thumbnail {
+                    /**
+         * 
+         *
+         * @throws Exception
+         * @static 
+         */ 
+        public static function preset($preset)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->preset($preset);
+        }
+                    /**
+         * 
+         *
+         * @throws Exception
+         * @static 
+         */ 
+        public static function src($path, $disk = null)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->src($path, $disk);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function greyscale()
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->greyscale();
+        }
+                    /**
+         * coution: blur with large images takes long
+         *
+         * @static 
+         */ 
+        public static function blur($amount = 1)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->blur($amount);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function smartcrop($width, $height)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->smartcrop($width, $height);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function crop($width, $height)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->crop($width, $height);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function widen($width)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->widen($width);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function heighten($height)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->heighten($height);
+        }
+                    /**
+         * 
+         *
+         * @param string $format one of jpg, png, gif, webp
+         * @param integer $quality 100-0 where 100 is best quality and 0 worst
+         * @static 
+         */ 
+        public static function format($format, $quality = null)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->format($format, $quality);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function param($name, $value)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->param($name, $value);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function url($ensurePresence = false)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->url($ensurePresence);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function response($useExisting = true)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->response($useExisting);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function string($useExisting = true)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->string($useExisting);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function save()
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->save();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function delete()
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->delete();
+        }
+                    /**
+         * 
+         *
+         * @internal 
+         * @static 
+         */ 
+        public static function isValidRequest($filename)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->isValidRequest($filename);
+        }
+                    /**
+         * 
+         *
+         * @throws Exception
+         * @internal 
+         * @static 
+         */ 
+        public static function setParamsFromUrl($urlParams)
+        {
+                        /** @var \Rolandstarke\Thumbnail\Thumbnail $instance */
+                        return $instance->setParamsFromUrl($urlParams);
         }
          
     }
@@ -21759,8 +22011,10 @@ namespace  {
             class PDF extends \Barryvdh\Snappy\Facades\SnappyPdf {}
             class SnappyImage extends \Barryvdh\Snappy\Facades\SnappyImage {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class Image extends \Intervention\Image\Facades\Image {}
             class Livewire extends \Livewire\Livewire {}
             class Action extends \Lorisleiva\Actions\Facades\Actions {}
+            class Thumbnail extends \Rolandstarke\Thumbnail\Facades\Thumbnail {}
             class Laratrust extends \Laratrust\LaratrustFacade {}
             class Currency extends \Torann\Currency\Facades\Currency {}
      
