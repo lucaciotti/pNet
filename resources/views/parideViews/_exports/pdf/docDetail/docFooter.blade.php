@@ -125,4 +125,19 @@
         @endif
     </dl>
     @endif
+
+    @if($head->tipodoc == 'XC' || $head->tipodo == 'OC')
+    <span class="contentSubTitle">{{ trans('doc.dataSped') }}</span>
+    <dl class="dl-horizontal">
+    
+        @if($destinaz)
+        <hr class="smalldivider">
+        <dt>{{ trans('doc.goodsDestination') }}</dt>
+        <dd>{{$destinaz->ragionesoc}}</dd>
+        <dd>{{$destinaz->cap}}, {{$destinaz->localita}} ({{$destinaz->pv}}) - {{$destinaz->u_nazione}}</dd>
+        <dd>{{$destinaz->indirizzo}}</dd>
+        <dd>{{$destinaz->telefono}}</dd>
+        @endif
+    </dl>
+    @endif
 </span>

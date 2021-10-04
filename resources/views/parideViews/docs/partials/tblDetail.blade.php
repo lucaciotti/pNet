@@ -40,7 +40,7 @@
             @else
               <td> - </td>
             @endif
-            <td>{{ htmlspecialchars($row->descr) }}</td>
+            <td>{{ $row->descr }}</td>
             <td>@if ($row->prezzo!=0){{ $row->qtarow }} {{ $row->um }}@endif</td>
             <td>@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
             <td>@if ($row->prezzo!=0){{ $row->sc1+$row->sc2 }}@endif</td>
@@ -62,11 +62,11 @@
                 </a>
               @endif --}}
             </td>
-            <td>{{ htmlspecialchars($row->descr) }}</td>
-            <td>{{ $row->qtarow }}</td>
+            <td>{{ $row->descr }}</td>
+            <td>@if ($row->um!=''){{ $row->qtarow }}@endif</td>
             <td>
               @if($row->qtares>0)
-                {{ $row->qtares }}
+                @if ($row->um!='') {{ $row->qtares }} @endif
               @else
                 -
               @endif
@@ -131,10 +131,10 @@
           {{ $row->descr }}
         </td>
         <td style="text-align: center;">
-          {{ $row->qtarow }} {{ $row->um }}
+          @if ($row->um!='') {{ $row->qtarow }} {{ $row->um }} @endif
         </td>
         @if($head->tipomodulo=='O')
-        <td style="text-align: center;">{{ $row->qtares }}</td>
+        <td style="text-align: center;">@if ($row->um!='') {{ $row->qtares }} @endif</td>
         @endif
         @if($head->tipomodulo=='O')
         <td style="text-align: center;">

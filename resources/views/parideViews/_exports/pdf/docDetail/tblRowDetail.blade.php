@@ -71,10 +71,10 @@
                     {{ Illuminate\Support\Str::ucfirst(Illuminate\Support\Str::lower($row->descr)) }}
                 </td>
                 <td style="text-align: center;">
-                    {{ $row->qtarow }} {{ $row->um }}
+                    @if ($row->um!='') {{ $row->qtarow }} {{ $row->um }} @endif
                 </td>
                 @if($head->tipomodulo=='O')
-                <td style="text-align: center;">{{ $row->qtares }}</td>
+                <td style="text-align: center;">@if ($row->um!='') {{ $row->qtares }} @endif</td>
                 @endif
                 @if ($stampaPrezzi)
                     @if($row->ommerce)

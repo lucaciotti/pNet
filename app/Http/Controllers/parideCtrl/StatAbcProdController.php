@@ -106,10 +106,20 @@ class StatAbcProdController extends Controller
             "client" => unserialize(base64_decode($req->input('client'))),
         );
         $idArt = $req->input('idArt');
+        $descrArt = Product::select('descr')->find($idArt)->descr;
 
         $reverseAbcProd = $this->reverseAbcProd($idArt, $startDate, $endDate, $optParams);
 
-        dd($reverseAbcProd);
+        // dd($reverseAbcProd);
+
+        return view('parideViews.stats.abcprods.fromArtToDocs', [
+            'docs' => $reverseAbcProd,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'idArt' => $idArt,
+            'client' => unserialize(base64_decode($req->input('client'))),
+            'descrArt' => $descrArt
+        ]);
     }
 
 
@@ -180,7 +190,7 @@ class StatAbcProdController extends Controller
             $q->where('id_art', $idArt);
         });
         $ddts->with('rows', function ($query) use ($idArt) {
-            return $query->select('id_doc_tes', 'id_art', 'qta', 'val_riga')
+            return $query->select('id_doc_tes', 'id_art', 'prezzo', 'um', 'sc1', 'sc2', 'qta', 'val_riga')
                 ->where('id_art', $idArt)
                 ->with('product', function ($query) {
                     return $query->select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1', 'non_attivo', 'nome_foto');

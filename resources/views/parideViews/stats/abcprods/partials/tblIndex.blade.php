@@ -4,8 +4,8 @@
         <th>{{ trans('prod.descArt') }}</th>
         {{-- <th>Famiglia Prodotto</th> --}}
         <th>Lista Docs</th>
-        <th>Prezzo</th>
-        <th>Disponibilità</th>
+        <th>Prezzo Medio</th>
+        <th>Qta Tot.</th>
         <th>UM</th>
         {{-- <th>Barcode</th>
                 <th>Forn.</th> --}}
@@ -35,13 +35,16 @@
                     @endif
                 </td> --}}
                 <td>
-                    <form id="{{ $prod->id_art }}_toDoc" action="{{ route('abcProds::artToDocs') }}" method="post">
+                    <form id="{{ $prod->id_art }}_toDoc" action="{{ route('abcProds::artToDocs') }}" method="post" target="_blank">
                         {!! csrf_field() !!}
                         <input type="hidden" name="startDate" value={{ $startDate }}>
                         <input type="hidden" name="endDate" value="{{ $endDate }}">
                         <input type="hidden" name="idArt" value="{{ $prod->id_art }}">
                         <input type="hidden" name="client" value="{{ base64_encode(serialize($client)) }}">
-                        <a href='#' target="_blank" onclick="$('#{{ $prod->id_art }}_toDoc').submit()">Lista Documenti</a>
+                        {{-- <a href='javascript(0);' onclick="$('#{{ $prod->id_art }}_toDoc').submit()">Lista Documenti</a> --}}
+                        <button type="submit" class="btn btn-sm btn-default">
+                            <i class="fa fa-external-link-alt text-primary"></i>
+                        </button>
                     </form>
                 </td>
                 <td style="text-align: right">{{ number_format((float)round($prod->val/$prod->qta,3), 2, ',', '') }} €</td>

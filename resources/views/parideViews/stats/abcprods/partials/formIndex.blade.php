@@ -17,12 +17,13 @@
   </div>
 
   {{-- Ragione Sociale --}}
+  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
   <div class="form-group">
     <label>Ragione Sociale Cliente</label>
     <select name="client[]" class="form-control select2" multiple="multiple" style="width: 100%;">
       @foreach ($fltClients as $cli)
       <option value="{{ $cli->id_cli_for }}" 
-        @if ($client ? in_array($cli->id_cli_for, $client) : in_array($cli->id_cli_for,old('client')))
+        @if ($client ? in_array($cli->id_cli_for, $client) : in_array($cli->id_cli_for, Arr::wrap(old('client'))))
         selected
         @endif
         >
@@ -31,6 +32,7 @@
       @endforeach
     </select>
   </div>
+  @endif
 
   <div class="form-group">
     <label>Famiglia</label>

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Helpers\PdfReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use App\Models\parideModels\Client;
 use App\Http\Controllers\Controller;
 use App\Models\parideModels\Docs\FDCli;
@@ -14,6 +15,7 @@ use App\Models\parideModels\Docs\FTCli;
 use App\Models\parideModels\Docs\NCCli;
 use App\Models\parideModels\Docs\DDTCli;
 use App\Models\parideModels\Docs\OrdCli;
+use App\Models\parideModels\Docs\RowDoc;
 use App\Models\parideModels\Docs\QuoteCli;
 
 class DocCliController extends Controller
@@ -302,10 +304,14 @@ class DocCliController extends Controller
         }
 
         // dd($doc);
+        $prevDocs = $this->searchPrevDocs($doc->rows);
+        $nextDocs = $this->searchNextDocs($doc->num, $doc->data);
 
         return view('parideViews.docs.detail', [
             'head' => $doc,
             'tipodoc' => $tipodoc,
+            'prevDocs' => $prevDocs,
+            'nextDocs' => $nextDocs,
         ]);
 
     }
@@ -496,6 +502,87 @@ class DocCliController extends Controller
         }]);
         $docs = $docs->get();
         return $docs;
+    }
+
+    protected function searchPrevDocs($rows){
+        $listDocs = array();
+        foreach($rows as $row){
+            $tipodoc = null;
+            $numdoc = null;
+            $datadoc = null;
+            if(empty($row->id_art) && stripos($row->descr, 'rif')!==false){
+                if(stripos($row->descr, 'off')!==false){
+                    $tipodoc= 'OC';
+                }
+                if (stripos($row->descr, 'ordine') !== false) {
+                    $tipodoc = 'OC';
+                }
+                if (stripos($row->descr, 'ddt') !== false) {
+                    $tipodoc = 'BO';
+                }
+                $n = preg_match_all('!\d+!', $row->descr, $matches);
+                if($n==4){
+                    $numdoc = $matches[0][0];
+                    $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
+                    $idDoc = $this->getIdHeadDoc($tipodoc, $numdoc, $datadoc);
+                    array_push($listDocs, (array('id_doc'=>$idDoc,'tipodoc'=>$tipodoc,'numdoc'=>$numdoc,'datadoc' => $datadoc)));
+                }
+            }
+        }
+        // dd($listDocs);
+        return $listDocs;
+    }
+
+    protected function searchNextDocs($numdoc, $datadoc){
+        $dateString = $datadoc->format('d-m-y');
+        $rowsFound=RowDoc::select('id_doc_tes')
+            ->where('id_art', '==', '')
+            ->where('descr', 'LIKE', '%'.$numdoc.'%')
+            ->where('descr', 'LIKE', '%' . $dateString . '%')
+            ->get();
+        $ddt = DDTCli::select('id_doc_tes', 'num','data', DB::raw('"BO" as tipo'))
+            ->whereIn('id_doc_tes', $rowsFound->pluck('id_doc_tes')->all())
+            ->get();
+        $ft = FTCli::select('id_doc_tes', 'num','data', DB::raw('"FT" as tipo'))
+            ->whereIn('id_doc_tes', $rowsFound->pluck('id_doc_tes')->all())
+            ->get();
+        $listDocs = collect()->merge($ddt)->merge($ft);
+        // dd($listDocs);
+        return $listDocs;
+    }
+
+    protected function getIdHeadDoc($tipodoc, $numerodoc, $datadoc){
+        switch ($tipodoc) {
+            case 'XC':
+                $docs = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                break;
+            case 'OC':
+                $docs = OrdCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                break;
+            case 'BO':
+                $docs = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                break;
+            case 'FT':
+                $docs = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                break;
+            case 'FP':
+                $docs = FPCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                break;
+            case 'FD':
+                $docs = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                break;
+            case 'NC':
+                $docs = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                break;
+            default:
+                break;
+        }
+
+        $docs = $docs->where('num', $numerodoc);
+        $docs = $docs->where('data', $datadoc);
+        $docs = $docs->first();
+
+        return $docs->id_doc;
     }
 
 }

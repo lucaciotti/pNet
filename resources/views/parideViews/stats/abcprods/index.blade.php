@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="card-body">
-          @include('parideViews.stats.abcprods..partials.formIndex')
+          @include('parideViews.stats.abcprods.partials.formIndex')
         </div>
       </div>
     </div>

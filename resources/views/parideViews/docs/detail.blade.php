@@ -24,6 +24,41 @@ if($tipodoc=='BO') {
   <div class="col-lg-5">
     @include('parideViews.docs.partials.cardDetailDoc')
 
+    @if($prevDocs || $nextDocs)
+      <div class="card card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Documenti Collegati</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          @if($prevDocs)
+            @foreach ($prevDocs as $doc)
+            <h6>{{ trans('doc.prevDocs') }}</h6>
+            <a type="button" class="btn btn-default btn-block" target="_blank"
+              href="{{ route('doc::detail', [$doc['tipodoc'], $doc['id_doc']]) }}">
+              <strong> {{ $doc['tipodoc'] }} n. {{ $doc['numdoc'] }} del {{ $doc['datadoc'] }}</strong>
+            </a>
+            @endforeach
+          @endif
+          <hr>
+          @if($nextDocs)
+            @foreach ($nextDocs as $doc)
+            <h6>{{ trans('doc.nextDocs') }}</h6>
+            <a type="button" class="btn bg-lightblue btn-block" target="_blank"
+              href="{{ route('doc::detail', [$doc->tipo, $doc->id_doc_tes]) }}">
+              <strong> {{ $doc->tipo }} n. {{ $doc->num }} del {{ $doc->data->format('d/m/Y') }}</strong>
+            </a>
+            @endforeach
+          @endif
+        </div>
+        <!-- /.card -->
+      </div>
+    @endif
+
     <div class="card card-outline">
       <div class="card-header">
         <h3 class="card-title">Downloads</h3>
