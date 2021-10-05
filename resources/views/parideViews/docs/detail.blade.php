@@ -24,7 +24,7 @@ if($tipodoc=='BO') {
   <div class="col-lg-5">
     @include('parideViews.docs.partials.cardDetailDoc')
 
-    @if($prevDocs || $nextDocs)
+    @if(!$prevDocs->isEmpty() || !$nextDocs->isEmpty())
       <div class="card card-outline">
         <div class="card-header">
           <h3 class="card-title">Documenti Collegati</h3>
@@ -35,22 +35,22 @@ if($tipodoc=='BO') {
           </div>
         </div>
         <div class="card-body">
-          @if($prevDocs)
+          @if(!$prevDocs->isEmpty())
+          <h6>{{ trans('doc.prevDocs') }}</h6>
             @foreach ($prevDocs as $doc)
-            <h6>{{ trans('doc.prevDocs') }}</h6>
             <a type="button" class="btn btn-default btn-block" target="_blank"
-              href="{{ route('doc::detail', [$doc['tipodoc'], $doc['id_doc']]) }}">
-              <strong> {{ $doc['tipodoc'] }} n. {{ $doc['numdoc'] }} del {{ $doc['datadoc'] }}</strong>
+              href="{{ route('doc::detail', [$doc->tipo_doc, $doc->id_doc]) }}">
+              <strong> {{ $doc->descr_tipodoc }} n. {{ $doc->num }} del {{ $doc->data->format('d/m/Y') }}</strong>
             </a>
             @endforeach
+            <hr>
           @endif
-          <hr>
-          @if($nextDocs)
+          @if(!$nextDocs->isEmpty())
+          <h6>{{ trans('doc.nextDocs') }}</h6>
             @foreach ($nextDocs as $doc)
-            <h6>{{ trans('doc.nextDocs') }}</h6>
             <a type="button" class="btn bg-lightblue btn-block" target="_blank"
-              href="{{ route('doc::detail', [$doc->tipo, $doc->id_doc_tes]) }}">
-              <strong> {{ $doc->tipo }} n. {{ $doc->num }} del {{ $doc->data->format('d/m/Y') }}</strong>
+              href="{{ route('doc::detail', [$doc->tipo_doc, $doc->id_doc]) }}">
+              <strong> {{ $doc->descr_tipodoc }} n. {{ $doc->num }} del {{ $doc->data->format('d/m/Y') }}</strong>
             </a>
             @endforeach
           @endif

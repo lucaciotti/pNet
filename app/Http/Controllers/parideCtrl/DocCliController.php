@@ -505,7 +505,7 @@ class DocCliController extends Controller
     }
 
     protected function searchPrevDocs($rows){
-        $listDocs = array();
+        $listDocs = collect();
         foreach($rows as $row){
             $tipodoc = null;
             $numdoc = null;
@@ -524,12 +524,11 @@ class DocCliController extends Controller
                 if($n==4 && stripos($row->descr, 'vostro') === false){
                     $numdoc = $matches[0][0];
                     $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
-                    $idDoc = $this->getIdHeadDoc($tipodoc, $numdoc, $datadoc);
-                    if($idDoc!=0) array_push($listDocs, (array('id_doc'=>$idDoc,'tipodoc'=>$tipodoc,'numdoc'=>$numdoc,'datadoc' => $datadoc)));
+                    $prevDoc = $this->getDocFromTipoNumData($tipodoc, $numdoc, $datadoc);
+                    if(!$prevDoc->isEmpty()) $listDocs = $listDocs->merge($prevDoc);
                 }
             }
         }
-        // dd($listDocs);
         return $listDocs;
     }
 
@@ -540,56 +539,56 @@ class DocCliController extends Controller
             ->where('descr', 'LIKE', '%'.$numdoc.'%')
             ->where('descr', 'LIKE', '%' . $dateString . '%')
             ->get();
-        $ddt = DDTCli::select('id_doc_tes', 'num','data', DB::raw('"BO" as tipo'))
+        $ddt = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for')
             ->whereIn('id_doc_tes', $rowsFound->pluck('id_doc_tes')->all())
             ->get();
-        $ft = FTCli::select('id_doc_tes', 'num','data', DB::raw('"FT" as tipo'))
+        $ft = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for')
             ->whereIn('id_doc_tes', $rowsFound->pluck('id_doc_tes')->all())
             ->get();
-        $listDocs = collect()->merge($ddt)->merge($ft);
+        $fd = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for')
+            ->whereIn('id_doc_tes', $rowsFound->pluck('id_doc_tes')->all())
+            ->get();
+        $listDocs = collect()->merge($ddt)->merge($ft)->merge($fd);
         // dd($listDocs);
         return $listDocs;
     }
 
-    protected function getIdHeadDoc($tipodoc, $numerodoc, $datadoc){
-        $idDoc = 0;
+    protected function getDocFromTipoNumData($tipodoc, $numerodoc, $datadoc){
         switch ($tipodoc) {
             case 'XC':
-                $docs = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                $doc = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'OC':
-                $docs = OrdCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                $doc = OrdCli::select('id_ord_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'BO':
-                $docs = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $doc = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'FT':
-                $docs = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $doc = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'FP':
-                $docs = FPCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
+                $doc = FPCli::select('id_ord_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'FD':
-                $docs = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $doc = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for');
                 break;
             case 'NC':
-                $docs = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $doc = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for');
                 break;
             default:
                 break;
         }
 
-        $docs = $docs->where('num', $numerodoc);
-        $docs = $docs->where('data', $datadoc);
-        $docs = $docs->first();
-        if($docs){
-            $idDoc = $docs->id_doc;
-        } else {
+        $doc = $doc->where('num', $numerodoc);
+        $doc = $doc->where('data', $datadoc);
+        $doc = $doc->get();
+        if($doc->isEmpty()){
             if($tipodoc=='OC'){
-                return $this->getIdHeadDoc('XC', $numerodoc, $datadoc);
+                return $this->getDocFromTipoNumData('XC', $numerodoc, $datadoc);
             }
         }
-        return $idDoc;
+        return $doc;
     }
 
 }

@@ -101,9 +101,9 @@ class StatAbcProdController extends Controller
             $startDate = (now()->subMonths(2))->toDateString();
             $endDate = (now())->toDateString();
         }
-        // dd($req->input('client'));
+        $client = unserialize(base64_decode($req->input('client')));
         $optParams = array(
-            "client" => unserialize(base64_decode($req->input('client'))),
+            "client" => !empty($client[0]) ? $client : Arr::wrap(null),
         );
         $idArt = $req->input('idArt');
         $descrArt = Product::select('descr')->find($idArt)->descr;
@@ -184,6 +184,7 @@ class StatAbcProdController extends Controller
 
         $ddts = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for')->whereBetween('data', [$startDate, $endDate]);
         if (!empty($client) && RedisUser::get('role') != 'client') {
+            // dd(empty($client));
             $ddts->whereIn('id_cli_for', $client);
         }
         $ddts->whereHas('rows', function ($q) use ($idArt) {

@@ -42,7 +42,8 @@ task('deploy', [
     'supervisor:reload:email',
     'supervisor:reload:dataMining',
     'setPermission:bootstrap',
-    'setPermission:storage'
+    'setPermission:storage',
+    'apache:restart'
 ]);
 
 task('npm:run:prod', function () {
@@ -77,6 +78,10 @@ task('setPermission:bootstrap', function () {
     cd('{{release_path}}');
     run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chown -R $USER:www-data bootstrap/cache');
     run('echo "RJ6SMfkPZa9qBcoN" | sudo -S chmod -R 777 bootstrap/cache');
+});
+
+task('apache:restart', function () {
+    run('echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service apache2 restart');
 });
 
 after('deploy:failed', 'deploy:unlock');
