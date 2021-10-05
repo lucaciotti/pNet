@@ -521,11 +521,11 @@ class DocCliController extends Controller
                     $tipodoc = 'BO';
                 }
                 $n = preg_match_all('!\d+!', $row->descr, $matches);
-                if($n==4){
+                if($n==4 && stripos($row->descr, 'vostro') === false){
                     $numdoc = $matches[0][0];
                     $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
                     $idDoc = $this->getIdHeadDoc($tipodoc, $numdoc, $datadoc);
-                    array_push($listDocs, (array('id_doc'=>$idDoc,'tipodoc'=>$tipodoc,'numdoc'=>$numdoc,'datadoc' => $datadoc)));
+                    if($idDoc!=0) array_push($listDocs, (array('id_doc'=>$idDoc,'tipodoc'=>$tipodoc,'numdoc'=>$numdoc,'datadoc' => $datadoc)));
                 }
             }
         }
@@ -552,6 +552,7 @@ class DocCliController extends Controller
     }
 
     protected function getIdHeadDoc($tipodoc, $numerodoc, $datadoc){
+        $idDoc = 0;
         switch ($tipodoc) {
             case 'XC':
                 $docs = QuoteCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
@@ -581,8 +582,14 @@ class DocCliController extends Controller
         $docs = $docs->where('num', $numerodoc);
         $docs = $docs->where('data', $datadoc);
         $docs = $docs->first();
-
-        return $docs->id_doc;
+        if($docs){
+            $idDoc = $docs->id_doc;
+        } else {
+            if($tipodoc=='OC'){
+                return $this->getIdHeadDoc('XC', $numerodoc, $datadoc);
+            }
+        }
+        return $idDoc;
     }
 
 }
