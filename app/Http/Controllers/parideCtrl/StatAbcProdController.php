@@ -202,7 +202,7 @@ class StatAbcProdController extends Controller
         });
         $ddts = $ddts->get();
         
-        $invoices = FTCli::select('id_doc_tes')->whereBetween('data', [$startDate, $endDate]);
+        $invoices = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for')->whereBetween('data', [$startDate, $endDate]);
         if (!empty($client) && RedisUser::get('role') != 'client') {
             $invoices->whereIn('id_cli_for', $client);
         }
@@ -210,7 +210,7 @@ class StatAbcProdController extends Controller
             $q->where('id_art', $idArt);
         });
         $invoices->with('rows', function ($query) use ($idArt) {
-            return $query->select('id_doc_tes', 'id_art', 'qta', 'val_riga')
+            return $query->select('id_doc_tes', 'id_art', 'prezzo', 'um', 'sc1', 'sc2', 'qta', 'val_riga')
                 ->where('id_art', $idArt)
                 ->with('product', function ($query) {
                     return $query->select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for', 'prezzo_1', 'non_attivo', 'nome_foto');

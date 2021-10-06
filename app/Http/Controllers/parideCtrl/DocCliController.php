@@ -4,10 +4,12 @@ namespace App\Http\Controllers\parideCtrl;
 
 use Carbon\Carbon;
 use App\Helpers\PdfReport;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\parideModels\Client;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\parideModels\Docs\FDCli;
 use App\Models\parideModels\Docs\FPCli;
@@ -523,7 +525,15 @@ class DocCliController extends Controller
                 $n = preg_match_all('!\d+!', $row->descr, $matches);
                 if($n==4 && stripos($row->descr, 'vostro') === false){
                     $numdoc = $matches[0][0];
-                    $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
+                    try{
+                        if(Str::length($matches[0][3])==4){
+                            $datadoc = (Carbon::createFromFormat('Y-m-d', $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
+                        } else {
+                            $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
+                        }
+                    } catch (\Exception $e) {
+                        Log::error("Error Search Prev Doc: " .$e->getMessage());
+                    }
                     $prevDoc = $this->getDocFromTipoNumData($tipodoc, $numdoc, $datadoc);
                     if(!$prevDoc->isEmpty()) $listDocs = $listDocs->merge($prevDoc);
                 }

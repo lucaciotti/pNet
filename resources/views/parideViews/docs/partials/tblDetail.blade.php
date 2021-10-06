@@ -74,7 +74,7 @@
             <td>            
                 @if($row->data_eva) {{ $row->data_eva->format('d-m-Y') }} @endif
             </td>
-            <td>{{ currency($row->val_riga) }}</td>
+            <td>@if ($row->um!='') {{ currency($row->val_riga) }} @endif</td>
             <td>@if ($row->tva) {{ $row->tva->perc }} % @endif</td>
           </tr>
         @endif
