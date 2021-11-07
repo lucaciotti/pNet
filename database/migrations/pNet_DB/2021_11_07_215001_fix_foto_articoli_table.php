@@ -19,7 +19,7 @@ class FixFotoArticoliTable extends Migration
             $table->string('nome_foto4', 250)->change();
             $table->string('nome_foto5', 250)->change();
             $table->string('file_tecn', 250)->change();
-            $table->string('file_sic', 250)->change();
+            $table->string('file_sicu', 250)->change();
         });
     }
 
