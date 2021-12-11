@@ -10,6 +10,7 @@ set('keep_releases', 2);
 set('repository', 'git@github.com:lucaciotti/pNet.git');
 set('git_tty', true);
 set('php_fpm_version', '8.0');
+set('php_fpm_command', 'echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service {{php_fpm_service}} reload');
 
 set('use_relative_symlink', false);
 set('ssh_multiplexing', false);
@@ -19,13 +20,13 @@ host('prod')
     ->set('remote_user', 'PNet-User')
     ->set('hostname', 'pnet.ferramentaparide.it')
     ->set('port', 2289)
-    ->set('php_fpm_command', 'echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service {{php_fpm_service}} reload')
     ->set('deploy_path', '/var/www/html/{{hostname}}');
 
 host('dev')
     ->set('stage', 'dev')
     ->set('remote_user', 'root')
     ->set('hostname', 'pnet.lucaciotti.space')
+    ->set('current_path', '/var/www/pnet.lucaciotti.space/current')
     ->set('deploy_path', '/var/www/{{hostname}}');
 
 task('deploy', [

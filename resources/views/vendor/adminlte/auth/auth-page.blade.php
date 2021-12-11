@@ -61,6 +61,7 @@
 
     {{-- ZenDesk --}}
     <!--Start of Zendesk Chat Script-->
+    @if(App::environment('production'))
     <script type="text/javascript">
         window.$zopim||(function(d,s){var z=$zopim=function(c){
     z._.push(c)},$=z.s=
@@ -69,5 +70,6 @@
     $.src='https://v2.zopim.com/?5kD2eVVklHiJSkiTapXQljZtRRhqT8MG';z.t=+new Date;$.
     type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
     </script>
+    @endif
     <!--End of Zendesk Chat Script-->
 @stop
