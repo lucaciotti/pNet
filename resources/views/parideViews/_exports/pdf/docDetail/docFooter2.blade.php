@@ -1,21 +1,4 @@
 <span class="floatleft">
-    @if($head->colli > 0)
-    <span class="contentSubTitle">{{ trans('doc.dataSped') }}</span>
-    <dl class="dl-horizontal">
-        <dt>{{ trans('doc.nColli') }}</dt>
-        <dd>{{$head->colli}}</dd>
-
-        <dt>{{ trans('doc.goodsAspect') }}</dt>
-        <dd>{{ $head->descr_aeb }}</dd>
-
-        @if($head->peso>0)
-            <dt>{{ trans('doc.weightGross') }}</dt>
-            <dd>{{$head->peso}} Kg</dd>
-        @endif
-
-    </dl>
-    @endif
-
     @if(!$head->destinazioni)
     @if(!empty($head->des_dive1) || !empty($head->des_dive2))
     <span class="contentSubTitle">Destinazione Merce</span>
@@ -49,9 +32,26 @@
         <dd>{{$head->destinazioni->rag_soc}}</dd>
         <dt>Indirizzo</dt>
         <dd>
-            {{$head->destinazioni->cap}}, {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}) <br>
+            {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}), {{$head->destinazioni->cap}} <br>
             {{$head->destinazioni->indirizzo}}
         </dd>
+    </dl>
+    @endif
+    
+    @if($head->colli > 0)
+    <span class="contentSubTitle">{{ trans('doc.dataSped') }}</span>
+    <dl class="dl-horizontal">
+        <dt>{{ trans('doc.nColli') }}</dt>
+        <dd>{{$head->colli}}</dd>
+    
+        <dt>{{ trans('doc.goodsAspect') }}</dt>
+        <dd>{{ $head->descr_aeb }}</dd>
+    
+        @if($head->peso>0)
+        <dt>{{ trans('doc.weightGross') }}</dt>
+        <dd>{{$head->peso}} Kg</dd>
+        @endif
+    
     </dl>
     @endif
 </span>

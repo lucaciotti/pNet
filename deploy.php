@@ -62,7 +62,7 @@ task('supervisor:reload:dbSeed', function () {
     if(get('stage')=='prod'){
         run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dbSeed:*');
     } else {
-        run('sudo -S supervisorctl restart pnet-worker-dbSeed:*');
+        // run('sudo supervisorctl restart pnet-worker-dbSeed:*');
     }
 });
 
@@ -74,7 +74,7 @@ task('supervisor:reload:dataMining', function () {
     if (get('stage') == 'prod'){
         run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dataMining:*');
     } else {
-        run('sudo -S supervisorctl restart pnet-worker-dataMining:*');
+        // run('sudo supervisorctl restart pnet-worker-dataMining:*');
     }
 });
 
@@ -98,7 +98,7 @@ task('apache:restart', function () {
     if (get('stage') == 'prod') {
          run('echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service apache2 restart');
     } else {
-        run('sudo -S /usr/sbin/service apache2 restart');
+        // run('sudo /usr/sbin/service apache2 restart');
     }
 });
 

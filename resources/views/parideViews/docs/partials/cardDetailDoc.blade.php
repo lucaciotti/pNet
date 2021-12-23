@@ -59,26 +59,10 @@
 
                 </dl>
             </div>
-            <div class="tab-pane fade" id="Sped" role="tabpanel" aria-labelledby="Sped-tab">
-                @if($head->colli > 0)
-                <dl class="dl-horizontal">
-                    <dt>{{ trans('doc.nColli') }}</dt>
-                    <dd>{{$head->colli}}</dd>
-                
-                    <dt>{{ trans('doc.goodsAspect') }}</dt>
-                    <dd>{{ $head->descr_aeb }}</dd>
-                
-                    @if($head->peso>0)
-                    <dt>{{ trans('doc.weightGross') }}</dt>
-                    <dd>{{$head->peso}} Kg</dd>
-                    @endif
-                
-                </dl>
-                @endif
-                
+            <div class="tab-pane fade" id="Sped" role="tabpanel" aria-labelledby="Sped-tab">                
                 @if(!$head->destinazioni)
                     @if(!empty($head->des_dive1) || !empty($head->des_dive2))
-                        <span class="contentSubTitle">Destinazione Merce</span>
+                        <h6>Destinazione Merce</h6>
                         @if(empty($head->des_dive3) && empty($head->des_dive4))
                         <dl class="dl-horizontal">
                             <dt>Indirizzo</dt>
@@ -103,16 +87,33 @@
                         @endif
                     @endif
                 @else
-                    <span class="contentSubTitle">Destinazione Merce</span>
+                    <h6>Destinazione Merce</h6>
                     <dl class="dl-horizontal">
                         <dt>Ragione Sociale</dt>
                         <dd>{{$head->destinazioni->rag_soc}}</dd>
                         <dt>Indirizzo</dt>
                         <dd>
-                            {{$head->destinazioni->cap}}, {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}) <br>
+                            {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}), {{$head->destinazioni->cap}}<br>
                             {{$head->destinazioni->indirizzo}}
                         </dd>
                     </dl>
+                @endif
+
+                @if($head->colli > 0)
+                <hr>
+                <dl class="dl-horizontal">
+                    <dt>{{ trans('doc.nColli') }}</dt>
+                    <dd>{{$head->colli}}</dd>
+                
+                    <dt>{{ trans('doc.goodsAspect') }}</dt>
+                    <dd>{{ $head->descr_aeb }}</dd>
+                
+                    @if($head->peso>0)
+                    <dt>{{ trans('doc.weightGross') }}</dt>
+                    <dd>{{$head->peso}} Kg</dd>
+                    @endif
+                
+                </dl>
                 @endif
             </div>
             <div class="tab-pane fade" id="Tot" role="tabpanel" aria-labelledby="Tot-tab">
