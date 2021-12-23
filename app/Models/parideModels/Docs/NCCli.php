@@ -3,14 +3,16 @@
 namespace App\Models\parideModels\Docs;
 
 use App\Helpers\RedisUser;
+use Awobaz\Compoships\Compoships;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Auth;
 
 class NCCli extends Model
 {
     use HasFactory;
+    use \Awobaz\Compoships\Compoships;
 
 
     protected $table = 'doc_tes';
@@ -91,5 +93,10 @@ class NCCli extends Model
     public function docSent()
     {
         return $this->hasOne('App\Models\parideModels\Docs\wDocSent', 'id_doc', 'id_doc_tes');
+    }
+
+    public function destinazioni()
+    {
+        return $this->hasOne('App\Models\parideModels\Destinazioni', ['id_dest_pro', 'id_cli_for'], ['id_dest', 'id_cli_for']);
     }
 }

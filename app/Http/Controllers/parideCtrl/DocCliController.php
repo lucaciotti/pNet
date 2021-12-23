@@ -227,6 +227,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_ord_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'OC':
@@ -239,6 +240,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_ord_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'BO':
@@ -251,6 +253,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_doc_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'FT':
@@ -263,6 +266,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_doc_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'FP':
@@ -275,6 +279,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_ord_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'FD':
@@ -287,6 +292,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_doc_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             case 'NC':
@@ -299,6 +305,7 @@ class DocCliController extends Controller
                             'rows' => function ($query) {
                                 $query->orderBy('id_doc_rig', 'asc')->with('tva');
                             },
+                            'destinazioni',
                         ])->findOrFail($id_doc);
                 break;
             default:
@@ -331,6 +338,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'OC':
@@ -343,6 +351,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'BO':
@@ -355,6 +364,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'FT':
@@ -367,6 +377,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'FP':
@@ -379,6 +390,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_ord_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'FD':
@@ -391,6 +403,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             case 'NC':
@@ -403,6 +416,7 @@ class DocCliController extends Controller
                     'rows' => function ($query) {
                         $query->orderBy('id_doc_rig', 'asc')->with('tva');
                     },
+                    'destinazioni',
                 ])->findOrFail($id_doc);
                 break;
             default:

@@ -3,14 +3,16 @@
 namespace App\Models\parideModels\Docs;
 
 use App\Helpers\RedisUser;
+use Awobaz\Compoships\Compoships;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Auth;
 
 class OrdCli extends Model
 {
     use HasFactory;
+    use \Awobaz\Compoships\Compoships;
 
     protected $table = 'ord_tes';
     public $timestamps = false;
@@ -90,5 +92,10 @@ class OrdCli extends Model
     public function docSent()
     {
         return $this->hasOne('App\Models\parideModels\Docs\wOrdSent', 'id_doc', 'id_ord_tes');
+    }
+
+    public function destinazioni()
+    {
+        return $this->hasOne('App\Models\parideModels\Destinazioni', ['id_dest_pro', 'id_cli_for'], ['id_dest', 'id_cli_for']);
     }
 }

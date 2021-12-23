@@ -61,6 +61,8 @@ task('migrate:pNet', function () {
 task('supervisor:reload:dbSeed', function () {
     if(get('stage')=='prod'){
         run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dbSeed:*');
+    } else {
+        run('sudo -S supervisorctl restart pnet-worker-dbSeed:*');
     }
 });
 
@@ -69,7 +71,11 @@ task('supervisor:reload:email', function () {
 });
 
 task('supervisor:reload:dataMining', function () {
-    if (get('stage') == 'prod') run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dataMining:*');
+    if (get('stage') == 'prod'){
+        run('echo "RJ6SMfkPZa9qBcoN" | sudo -S supervisorctl restart pnet-worker-dataMining:*');
+    } else {
+        run('sudo -S supervisorctl restart pnet-worker-dataMining:*');
+    }
 });
 
 task('setPermission:storage', function () {
@@ -89,7 +95,11 @@ task('setPermission:bootstrap', function () {
 });
 
 task('apache:restart', function () {
-    if (get('stage') == 'prod') run('echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service apache2 restart');
+    if (get('stage') == 'prod') {
+         run('echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service apache2 restart');
+    } else {
+        run('sudo -S /usr/sbin/service apache2 restart');
+    }
 });
 
 after('deploy:failed', 'deploy:unlock');

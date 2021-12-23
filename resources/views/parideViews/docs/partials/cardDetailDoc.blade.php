@@ -76,30 +76,43 @@
                 </dl>
                 @endif
                 
-                @if(!empty($head->des_dive1) || !empty($head->des_dive2))
-                <span class="contentSubTitle">Destinazione Merce</span>
-                @if(empty($head->des_dive3) && empty($head->des_dive4))
-                <dl class="dl-horizontal">
-                    <dt>Indirizzo</dt>
-                    <dd>{{$head->des_dive1}}</dd>
-                </dl>
-                @else
-                <dl class="dl-horizontal">
-                    <dt>Ragione Sociale</dt>
-                    @if(!empty($head->des_dive1))
-                    <dd>{{$head->des_dive1}}</dd>
-                    @else
-                    <dd>{{$head->des_dive2}}</dd>
-                    @endif
-                    <dt>Indirizzo</dt>
-                    <dd>
-                        @if(!empty($head->des_dive4))
-                        {{$head->des_dive4}} <br>
+                @if(!$head->destinazioni)
+                    @if(!empty($head->des_dive1) || !empty($head->des_dive2))
+                        <span class="contentSubTitle">Destinazione Merce</span>
+                        @if(empty($head->des_dive3) && empty($head->des_dive4))
+                        <dl class="dl-horizontal">
+                            <dt>Indirizzo</dt>
+                            <dd>{{$head->des_dive1}}</dd>
+                        </dl>
+                        @else
+                        <dl class="dl-horizontal">
+                            <dt>Ragione Sociale</dt>
+                            @if(!empty($head->des_dive1))
+                            <dd>{{$head->des_dive1}}</dd>
+                            @else
+                            <dd>{{$head->des_dive2}}</dd>
+                            @endif
+                            <dt>Indirizzo</dt>
+                            <dd>
+                                @if(!empty($head->des_dive4))
+                                {{$head->des_dive4}} <br>
+                                @endif
+                                {{$head->des_dive3}}
+                            </dd>
+                        </dl>
                         @endif
-                        {{$head->des_dive3}}
-                    </dd>
-                </dl>
-                @endif
+                    @endif
+                @else
+                    <span class="contentSubTitle">Destinazione Merce</span>
+                    <dl class="dl-horizontal">
+                        <dt>Ragione Sociale</dt>
+                        <dd>{{$head->destinazioni->rag_soc}}</dd>
+                        <dt>Indirizzo</dt>
+                        <dd>
+                            {{$head->destinazioni->cap}}, {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}) <br>
+                            {{$head->destinazioni->indirizzo}}
+                        </dd>
+                    </dl>
                 @endif
             </div>
             <div class="tab-pane fade" id="Tot" role="tabpanel" aria-labelledby="Tot-tab">

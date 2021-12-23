@@ -3,20 +3,22 @@
 namespace App\Models\parideModels;
 
 use App\Helpers\RedisUser;
+use Awobaz\Compoships\Compoships;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Client extends Model
+class Destinazioni extends Model
 {
-    use HasFactory;
+    use \Awobaz\Compoships\Compoships;
 
-    protected $table = 'cli_for';
+    protected $table = 'destinazioni';
     public $timestamps = false;
-    protected $primaryKey = 'id_cli_for';
+    protected $primaryKey = ['id_dest', 'id_dest_pro', 'id_cli_for'];
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
+
+    protected $guarded = ['id_dest', 'id_dest_pro', 'id_cli_for'];
 
     // Scope that garante to find only Client from anagrafe
     protected static function boot()
@@ -29,11 +31,11 @@ class Client extends Model
 
         if (Auth::check()) {
             switch (RedisUser::get('role')) {
-                // case 'agent':
-                //     static::addGlobalScope('agent', function (Builder $builder) {
-                //         $builder->where('agente', RedisUser::get('codag'));
-                //     });
-                //     break;
+                    // case 'agent':
+                    //     static::addGlobalScope('agent', function (Builder $builder) {
+                    //         $builder->where('agente', RedisUser::get('codag'));
+                    //     });
+                    //     break;
                 case 'client':
                     static::addGlobalScope('client', function (Builder $builder) {
                         $builder->where('id_cli_for', RedisUser::get('codcli'));
@@ -54,23 +56,5 @@ class Client extends Model
         // $this->setConnection(RedisUser::get('ditta_DB'));
     }
 
-    public function user()
-    {
-        return $this->hasOne('App\Models\User', 'codcli', 'id_cli_for');
-    }
 
-    public function payType()
-    {
-        return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
-    }
-
-    public function typeCli()
-    {
-        return $this->hasOne('App\Models\parideModels\ClientType', 'id_tipo_cl', 'id_tipo_cl');
-    }
-
-    public function destinazioni()
-    {
-        return $this->hasMany('App\Models\parideModels\Destinazioni', 'id_cli_for', 'id_cli_for');
-    }
 }
