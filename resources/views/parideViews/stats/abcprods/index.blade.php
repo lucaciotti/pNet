@@ -52,6 +52,11 @@
 @stop
 
 @section('extra_script')
+  <script>
+    if ( window.history.replaceState ) {
+          window.history.replaceState( null, null, window.location.href );
+      }
+  </script>
   {{-- @include('layouts.partials.scripts.iCheck')
   @include('layouts.partials.scripts.select2')
   @include('layouts.partials.scripts.datePicker') --}}

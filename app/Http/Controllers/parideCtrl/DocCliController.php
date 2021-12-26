@@ -545,11 +545,11 @@ class DocCliController extends Controller
                         } else {
                             $datadoc = (Carbon::createFromFormat('Y-m-d', "20" . $matches[0][3] . "-" . $matches[0][2] . "-" . $matches[0][1]))->toDateString();
                         }
+                        if ($tipodoc != null) $prevDoc = $this->getDocFromTipoNumData($tipodoc, $numdoc, $datadoc);
+                        if (!$prevDoc->isEmpty()) $listDocs = $listDocs->merge($prevDoc);
                     } catch (\Exception $e) {
                         Log::error("Error Search Prev Doc: " .$e->getMessage());
                     }
-                    $prevDoc = $this->getDocFromTipoNumData($tipodoc, $numdoc, $datadoc);
-                    if(!$prevDoc->isEmpty()) $listDocs = $listDocs->merge($prevDoc);
                 }
             }
         }

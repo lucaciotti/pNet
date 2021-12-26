@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->save();
         RedisUser::store();
 
-        return Redirect::route('user::users.index');
+        return ($req->input('role')=='client') ? Redirect::route('user::usersCli') : Redirect::route('user::users.index');
     }
 
     public function actLike(Request $req, $id)
