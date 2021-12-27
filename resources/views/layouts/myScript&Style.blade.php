@@ -489,6 +489,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
         left: -1000px;
         border: 1px solid gray;
         visibility: hidden;
+        display: none;
         color: black;
         text-decoration: none;
     }
@@ -502,7 +503,8 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
     .thumbnail:hover span {
         /*CSS for enlarged image on hover*/
         visibility: visible;
-        top: 0;
+        display: block;
+        bottom: 0;
         left: 60px;
         /*position where enlarged image should offset horizontally */
 

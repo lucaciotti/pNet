@@ -51,13 +51,46 @@
   </div>
 @stop
 
-@section('extra_script')
-  <script>
-    if ( window.history.replaceState ) {
-          window.history.replaceState( null, null, window.location.href );
-      }
+@push('js')
+  {{-- <script>
+    // if ( (window.location.href).endsWith('filter') && window.history.replaceState ) {
+    //       window.history.replaceState( null, null, (window.location.href).replace('filter', '') );
+    //   }
+    // window.onbeforeunload = function() {
+    //   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    //     console.info( "This page is reloaded" );
+    //     if("Your work will be lost."){
+    //       return window.location.href = "{{ route('abcProds::list')}}";
+    //     };
+    //   }
+    //   return false; 
+    // };
+    $(document).ready(function($) {
+
+        if(window.event)
+        {
+        if(window.event.clientX < 40 && window.event.clientY < 0) { alert("Browser back button is clicked..."); } else {
+          alert("Browser refresh button is clicked..."); } } else { if(event.currentTarget.performance.navigation.type==1) {
+          alert("Browser refresh button is clicked..."); } if(event.currentTarget.performance.navigation.type==2) {
+          alert("Browser back button is clicked..."); } }
+
+      // if (window.history && window.history.pushState) {
+
+      //   $(window).on('popstate', function() {
+      //     var hashLocation = location.hash;
+      //     var hashSplit = hashLocation.split("#!/");
+      //     var hashName = hashSplit[1];
+
+      //     if (hashName !== '') {
+      //       var hash = window.location.hash;
+      //       if (hash === '') {
+      //         alert('Back button was pressed.');
+      //       }
+      //     }
+      //   });
+      //   // window.history.pushState('forward', null, './#forward');
+      // }
+
+    }); --}}
   </script>
-  {{-- @include('layouts.partials.scripts.iCheck')
-  @include('layouts.partials.scripts.select2')
-  @include('layouts.partials.scripts.datePicker') --}}
-@endsection
+@endpush

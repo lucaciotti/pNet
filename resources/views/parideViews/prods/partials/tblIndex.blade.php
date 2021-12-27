@@ -13,14 +13,16 @@
         @foreach ($products as $prod)
         <tr>
             <td>
+                @if (!empty($prod->nome_foto))
                 <a class="thumbnail" href="{{ route('product::detail', $prod->id_art) }}">
                     {{ $prod->id_art }}
                     <span>
-                        @if (!empty($prod->nome_foto))
-                            <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}"/>
-                        @endif
+                        <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" />
                     </span>
                 </a>
+                @else
+                <a href="{{ route('product::detail', $prod->id_art) }}"> {{ $prod->id_art }} </a>
+                @endif
                 {{-- <a href="{{ route('product::detail', $prod->id_art) }}"> {{ $prod->id_art }} </a> --}}
                 @if ($prod->non_attivo=='1')
                 <span class="right badge badge-danger">NON ATTIVO</span>
