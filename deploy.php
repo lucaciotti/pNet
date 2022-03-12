@@ -7,7 +7,7 @@ require 'contrib/npm.php';
 
 set('application', 'pNet');
 set('keep_releases', 2);
-set('repository', 'git@github.com:lucaciotti/pNet.git');
+set('repository', 'https://github.com/lucaciotti/pNet.git');
 set('git_tty', true);
 set('php_fpm_version', '8.0');
 

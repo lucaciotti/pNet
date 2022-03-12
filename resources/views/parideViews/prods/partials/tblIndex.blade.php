@@ -35,7 +35,13 @@
                 @endif
             </td>
             <td style="text-align: right">{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }} €</td>
-            <td style="text-align:right;">{{ number_format((float)$prod->magGiac->esistenza, 2, ',', '') }} </td>
+            <td style="text-align:right;">
+                @if($prod->magGiac)
+                {{ number_format((float)$prod->magGiac->esistenza, 2, ',', '') }}
+                @else
+                0
+                @endif
+            </td>
             <td>{{ $prod->um }}</td>
             {{-- <td>{{ $prod->id_cod_bar }}</td>
             <td>[{{ $prod->id_cli_for }}]
