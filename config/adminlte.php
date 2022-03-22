@@ -373,6 +373,21 @@ return [
                     'location' => 'https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js',
                 ],
             ]
+        ],
+        'bs-stepper' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js',
+                ],
+            ]
         ]
     ],
 

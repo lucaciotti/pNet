@@ -10,6 +10,7 @@ use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ProductController;
 use App\Http\Controllers\parideCtrl\StatAbcProdController;
+use App\Http\Controllers\sysCtrl\PrivacyPolicyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,17 @@ Route::get('/', function () {
     return redirect('/login');
 });
 require __DIR__.'/auth.php';
+//Privacy Policy
+Route::name('privacy::')->middleware('auth')->group(function () {
+    Route::get('/privacyPolicy', [PrivacyPolicyController::class, 'index'])->name('index');
+    Route::get('/downloadPDFprivacy', [PrivacyPolicyController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::post('/privacyAceptance', [PrivacyPolicyController::class, 'update'])->name('update');
+});
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'privacy']);
 
 //Home Canvas
-Route::name('home::')->middleware('auth')->group(function () {
+Route::name('home::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/quotesLeft', [HomeController::class, 'leftQuotes'])->name('quotesLeft');
     Route::get('/newQuotes', [HomeController::class, 'newQuotes'])->name('newQuotes');
     Route::get('/newDDTs', [HomeController::class, 'showDDTs'])->name('newDDTs');
@@ -42,21 +49,21 @@ Route::name('home::')->middleware('auth')->group(function () {
 });
 
 // Routes Clients
-Route::name('client::')->middleware('auth')->group(function () {
+Route::name('client::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/clients', [ClientController::class, 'index'])->name('list');
     Route::get('/client/{codCli}', [ClientController::class, 'detail'])->name('detail');
     Route::post('/clients/filter', [ClientController::class, 'fltIndex'])->name('fltList');
 });
 
 // Routes Products
-Route::name('product::')->middleware('auth')->group(function () {
+Route::name('product::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('list');
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
 });
 
 // Routes Docs
-Route::name('doc::')->middleware('auth')->group(function () {
+Route::name('doc::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/docs/{tipomodulo?}', [DocCliController::class, 'index'])->name('list');
     Route::get('/clidocs/{id_cli_for}/{tipomodulo?}', [DocCliController::class, 'clientList'])->name('clientList');
     Route::post('/docs/filtered', [DocCliController::class, 'fltIndex'])->name('fltList');
@@ -68,7 +75,7 @@ Route::name('doc::')->middleware('auth')->group(function () {
 });
 
 // Routes AbcProds
-Route::name('abcProds::')->middleware('auth')->group(function () {
+Route::name('abcProds::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/abcProds', [StatAbcProdController::class, 'index'])->name('list');
     Route::post('/abcProds/filter', [StatAbcProdController::class, 'fltIndex'])->name('fltList');
     Route::post('/abcProdToDocs', [StatAbcProdController::class, 'fromArtToDocs'])->name('artToDocs');
@@ -78,11 +85,11 @@ Route::name('abcProds::')->middleware('auth')->group(function () {
 // -------------------------------------------------
 //GESTIONE UTENTI
 Route::name('user::')->group(function () {
-    Route::resource('users', UserController::class)->middleware('auth');
-    Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli')->middleware('auth');
-    Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike')->middleware('auth');
-    Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB')->middleware('auth');
-    Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang')->middleware('auth');
+    Route::resource('users', UserController::class)->middleware(['auth', 'privacy']);
+    Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli')->middleware(['auth', 'privacy']);
+    Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike')->middleware(['auth', 'privacy']);
+    Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB')->middleware(['auth', 'privacy']);
+    Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang')->middleware(['auth', 'privacy']);
     Route::get('/resetPassword/{id}', [UserController::class, 'sendResetPassword'])->name('resetPassword');
 });
 
