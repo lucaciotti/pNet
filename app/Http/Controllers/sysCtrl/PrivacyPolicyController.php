@@ -5,12 +5,17 @@ namespace App\Http\Controllers\sysCtrl;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PrivacyPolicyController extends Controller
 {
     public function index(Request $req)
     {
-        return view('sysViews.privacyPolicy.index');
+        $user = User::with(['roles', 'client'])->findOrFail(Auth::user()->id);
+        // dd($user);
+        return view('sysViews.privacyPolicy.index', [
+            'user' => $user,
+        ]);
     }
 
     public function update(Request $req)

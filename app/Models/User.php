@@ -21,7 +21,7 @@ class User extends Authenticatable implements PortableContract
     protected $connection = 'pNet_SYS';
     
     // GPDR Properties
-    protected $gdprWith = ['client'];
+    protected $gdprWith = ['client', 'privacyAgreement'];
     protected $gdprHidden = ['password', 'remember_token'];
     // protected $gdprVisible = ['name', 'email'];
     // protected $encrypted = ['ssnumber'];
@@ -84,5 +84,10 @@ class User extends Authenticatable implements PortableContract
     public function agent()
     {
         return $this->hasOne('App\Models\parideModels\Agent', 'id_agente', 'codag');
+    }
+
+    public function privacyAgreement()
+    {
+        return $this->hasOne('App\Models\PrivacyUserAgree', 'user_id', 'id');
     }
 }

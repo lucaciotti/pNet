@@ -9,7 +9,7 @@
         <span class="col-md-2" style="display: inline-block">
             <input type="text" class="form-control form-control-sm form-inline" name="surname" id="privacySurname" placeholder="Cognome">
         </span>
-        (INTERESSATO)
+        (INTERESSATO), in qualità di rappresentante dell'azienda [{{ $user->client ? $user->client->rag_soc : $user->name }}],
         a seguito di consultazione e presa visone dell’informativa sulla privacy ed essendo, quindi, stato informato in
         merito
         all’identità del titolare del
@@ -44,12 +44,12 @@
     </div> --}}
     <div class="form-group" style="margin-bottom: 10px; text-align: center;">
         <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="checkNewLetter" name="checkNewLetter" value='1' checked="">
+            <input class="custom-control-input" type="radio" id="checkNewLetter" name="checkNewsLetter" value='1'>
             <label for="checkNewLetter" class="custom-control-label"><strong>Acconsento</strong></label>
         </div>
         <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="checkNewLetterNO" name="checkNewLetter" value='0'>
-            <label for="checkNewLetterNO" class="custom-control-label"><strong>NON Acconsento</strong></label>
+            <input class="custom-control-input" type="radio" id="checkNewLetterNO" name="checkNewsLetter" value='0'>
+            <label for="checkNewLetterNO" class="custom-control-label"><strong>Non Acconsento</strong></label>
         </div>
     </div>
     <p>
@@ -84,7 +84,7 @@
             '- Consenso <br>',
             showConfirmButton: true,
             timer: 3500
-            })
+            });
             $('#privacyName').focus();
             return false;
         }
@@ -100,7 +100,7 @@
             '- Consenso <br>',
             showConfirmButton: true,
             timer: 3500
-            })
+            });
             $('#privacySurname').focus();
             return false;
         }
@@ -116,8 +116,23 @@
             '- Consenso <br>',
             showConfirmButton: true,
             timer: 3500
-            })
+            });
             $('#privacyCheckDatiPers').focus();
+            return false;
+        }
+        if($('#checkNewLetter').prop("checked")==false && $('#checkNewLetterNO').prop("checked")==false){
+            Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Attenzione!',
+            html:
+            'E\' richiesta una scelta sulle finalità di Marketing: <br> ' +
+            '- Acconsento <br>' +
+            '- Non Acconsento',
+            showConfirmButton: true,
+            timer: 3500
+            });
+            $('#checkNewLetter').focus();
             return false;
         }
         $('#formPrivacy').submit();
