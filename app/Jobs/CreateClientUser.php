@@ -78,17 +78,17 @@ class CreateClientUser implements ShouldQueue
                                 'privacy_agreement' => false,
                                 'marketing_agreement' => false
                             ]);
-                        } 
+                        }
+                        $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
                         if($clientDateStart < $dateStartPrivacy){
                             //PER I CLIENTI ANTECEDENTI AL 01/04(2022 -> Privacy accettata di default
-                            $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
                             $privacyAgree->name = '-';
                             $privacyAgree->surname = '-';
                             $privacyAgree->privacy_agreement = true;
                             $privacyAgree->marketing_agreement = false;
                             $privacyAgree->save();
                         } else {
-                            if($user->privacyAgreement->created_at->diffInDays(Carbon::now()) > 14) {
+                            if($privacyAgree->created_at->diffInDays(Carbon::now()) > 14) {
                                 //Dopo 14 giorni-> Privacy accettata di default
                                 $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
                                 $privacyAgree->name = '-';

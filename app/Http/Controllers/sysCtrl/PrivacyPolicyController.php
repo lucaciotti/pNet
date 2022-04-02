@@ -67,7 +67,7 @@ class PrivacyPolicyController extends Controller
                                 return $q->select('id_cli_for', 'rag_soc');
                             }]);
                         }])->orderBy('id')->get();
-
+        dd($privacyAgree->last());
         return view('sysViews.privacyPolicy.listAgreement', [
             'privacyAgree' => $privacyAgree,
         ]);
