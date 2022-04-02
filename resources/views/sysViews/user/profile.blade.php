@@ -76,8 +76,15 @@
 
             <hr>
             @livewire('paride-lw.btn.reset-user-password', ['idUser' => $user->id])
-            <hr>
 
+            <hr>
+            <a href="{{ url('/privacyPolicy/'.$user->id) }}">
+              <button type="submit" id="privacyPolicy-{{ $user->id }}" class="btn btn-block btn-sm btn-outline-success">
+                <i class="fa fa-handshake"></i>&nbsp;&nbsp; Privacy Terms Agreement
+              </button>
+            </a>
+
+            <hr>
             <form action="{{ url('/gdpr/download') }}" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <button type="submit" class="btn btn-block btn-sm btn-outline-danger" >

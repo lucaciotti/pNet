@@ -10,6 +10,7 @@
     <th>&nbsp;</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
+    <th>&nbsp;</th>
   </thead>
   <tbody>
       @foreach ($users as $user)
@@ -44,7 +45,7 @@
             @endif
           </td>
           <td>
-            <a href="{{ route('user::users.edit', $user->id ) }}">
+            <a href="{{ route('user::users.edit', $user->id ) }}" target="_blank" title="Modifica Utente">
               <button type="submit" id="edit-user-{{ $user->id }}" class="btn">
                   <i class="fa fa-btn fa-pencil">
                   </i>
@@ -52,7 +53,14 @@
             </a>
           </td>
           <td>
-            <a href="{{ route('user::resetPassword', $user->id ) }}">
+            <a href="{{ url('/privacyPolicy/'.$user->id) }}" target="_blank" title="Modifica Privacy Agreement Utente">
+              <button type="submit" id="privacyPolicy-{{ $user->id }}" class="btn btn-block btn-sm btn-outline-success">
+                <i class="fa fa-btn fa-handshake"></i>
+              </button>
+            </a>
+          </td>
+          <td>
+            <a href="{{ route('user::resetPassword', $user->id ) }}" title="Reset Password Utente">
               <button type="submit" id="reset-user-{{ $user->id }}" class="btn btn-success">
                 <i class="fa fa-btn fa-key">
                 </i>
@@ -64,7 +72,7 @@
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
 
-                <button type="submit" id="delete-user-{{ $user->id }}" class="btn btn-danger">
+                <button type="submit" id="delete-user-{{ $user->id }}" class="btn btn-danger" title="Cancella Utente">
                     <i class="fa fa-btn fa-trash"></i>
                 </button>
             </form>

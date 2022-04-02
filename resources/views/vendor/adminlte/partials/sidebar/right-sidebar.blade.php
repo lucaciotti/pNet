@@ -31,6 +31,12 @@
                                 <i class="fas fa-user-tie"></i>&nbsp;&nbsp;Gestione Clienti
                             </button>
                         </a>
+                        <hr class="mb-2 bg-white">
+                        <a href='{{ url('listPrivacyAgreement') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-success">
+                                <i class="fas fa-handshake"></i>&nbsp;&nbsp;Lista Consensi Privacy
+                            </button>
+                        </a>
                         {{-- <hr class="mb-2 bg-white">
                         <a href='#'>
                             <button type="submit" class="btn btn-block btn-outline-info">

@@ -34,7 +34,7 @@
               <input type="text" class="form-control" name="email" value="{{$user->email}}" required>
             </div>
 
-            <hr>
+            {{-- <hr>
 
             <div class="form-group">
               <label>Ricezione Email Automatiche</label>
@@ -46,7 +46,7 @@
                   <input type="radio" name="auto_email" id="optauto_email2" value="1" @if($user->auto_email) checked @endif>&nbsp;&nbsp;Si
                 </label>
               </div>
-            </div>
+            </div> --}}
 
             @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'superAgent', 'user']))
             <hr>

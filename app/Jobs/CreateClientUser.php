@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Mail\InviteUser;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use App\Models\PrivacyUserAgree;
 use App\Models\parideModels\Client;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -60,10 +62,43 @@ class CreateClientUser implements ShouldQueue
                     $user->isActive = false;
                     $user->save();                              
                 }
-                //ora se cliente è configurato per invito automatico, inivo invito
-                if($client->fat_email){
-                    if(User::where('codcli', $client->id_cli_for)->exists()){
-                        $user = User::where('codcli', $client->id_cli_for)->first();
+
+                //Procedura inivo invito Automatino && Creazione Privacy
+                if($client->fat_email) {
+                    if(User::where('codcli', $client->id_cli_for)->exists()) {
+                        $user = User::with(['privacyAgreement'])->where('codcli', $client->id_cli_for)->first();
+                        $clientDateStart = new Carbon($client->data_m);
+                        $dateStartPrivacy = Carbon::createFromFormat('d/m/Y H:i:s',  '01/04/2022 00:00:00');
+                        //CREAZIONE PRIVACY AGREEMENT
+                        if (!$user->privacyAgreement) {
+                            $privacyAgree = PrivacyUserAgree::create([
+                                'user_id' => $user->id,
+                                'name' => '',
+                                'surname' => '',
+                                'privacy_agreement' => false,
+                                'marketing_agreement' => false
+                            ]);
+                        } 
+                        if($clientDateStart < $dateStartPrivacy){
+                            //PER I CLIENTI ANTECEDENTI AL 01/04(2022 -> Privacy accettata di default
+                            $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
+                            $privacyAgree->name = '-';
+                            $privacyAgree->surname = '-';
+                            $privacyAgree->privacy_agreement = true;
+                            $privacyAgree->marketing_agreement = false;
+                            $privacyAgree->save();
+                        } else {
+                            if($user->privacyAgreement->created_at->diffInDays(Carbon::now()) > 14) {
+                                //Dopo 14 giorni-> Privacy accettata di default
+                                $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
+                                $privacyAgree->name = '-';
+                                $privacyAgree->surname = '-';
+                                $privacyAgree->privacy_agreement = true;
+                                $privacyAgree->marketing_agreement = false;
+                                $privacyAgree->save();
+                            }
+                        }
+                        //INVIO INVITO EMAIL
                         if(!$user->invitato_email && !$user->isActive){
                             $token = Password::getRepository()->create($user);
                             $mail = (new InviteUser($token, $user->id))->onQueue('emails');

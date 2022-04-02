@@ -1,11 +1,17 @@
-<div class="card">
-    <div class="card-header border-transparent">
-        <h3 class="card-title"><strong>Privacy Policy - Ferramenta Paride</strong></h3>
+<div class="card @if($user->privacyAgreement) collapsed-card @endif">
+    <div class="card-header border-transparent" data-card-widget="collapse">
+        <h3 class="card-title"><strong>Privacy Policy - Ferramenta Paride</strong> @if($user->privacyAgreement) <small>(clicca per aprire)</small> @endif</h3>
 
         <div class="card-tools">
+            @if(!$user->privacyAgreement)
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
             </button>
+            @else
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-plus"></i>
+            </button>
+            @endif
         </div>
     </div>
     <!-- /.card-header -->

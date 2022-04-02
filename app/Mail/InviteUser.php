@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +17,8 @@ class InviteUser extends Mailable
     public $token;
     public $user;
     public $url;
+    public $hasToPrivacyAgree = false;
+    public $daysLeftAgree = 14;
     /**
      * Create a new message instance.
      *
@@ -23,9 +26,15 @@ class InviteUser extends Mailable
      */
     public function __construct($token, $id)
     {
-        $this->user = User::findOrFail($id);
+        $this->user = User::with(['roles', 'client', 'privacyAgreement'])->findOrFail($id);
         $this->token = $token;
         $this->url = route("password.reset", ['token' => $token, 'nickname' => $this->user->nickname]);
+        if($this->user->roles->first()->name == 'client') {
+            if ($this->user->privacyAgreement && !$this->user->privacyAgreement->privacy_agreement) $this->hasToPrivacyAgree = true;
+        }
+        if($this->hasToPrivacyAgree) {
+            $this->daysLeftAgree = $this->daysLeftAgree - $this->user->privacyAgreement->created_at->diffInDays(Carbon::now());
+        }
     }
 
     /**

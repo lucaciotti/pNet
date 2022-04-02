@@ -20,6 +20,19 @@ Accedi Qui
 </center>
 <br>
 
+@if($hasToPrivacyAgree)
+La invitiamo contestualmente a prendere visione delle <b>"Condizioni sulla Privacy"</b> durante il primo accesso.
+Le ricordiamo che allo scadere di 14 giorni dal primo invio della presente, le "Condizioni sulla Privacy" saranno considerata accettata in tutte le sue parti.
+<br>
+<center>
+    <small>
+        <i>
+            Giorni rimasti: {{ $daysLeftAgree }}
+        </i>
+    </small>
+</center>
+@endif
+
 Come sempre, rimaniamo a sua disposizione.  
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.  

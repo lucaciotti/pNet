@@ -3,13 +3,15 @@
 
     <p>
         Io sottoscritto/a
-        <span class="col-md-2" style="display: inline-block">
-            <input type="text" class="form-control form-control-sm form-inline" name="name" id="privacyName" placeholder="Nome">
+        <span class="col-md-2" style="display: inline-block;">
+            <input type="text" class="form-control form-control-sm form-inline" style="font-weight: bold; text-align:center;" name="name" id="privacyName" placeholder="Nome" 
+            value="{{ $user->privacyAgreement ? $user->privacyAgreement->name : '' }}">
         </span>
-        <span class="col-md-2" style="display: inline-block">
-            <input type="text" class="form-control form-control-sm form-inline" name="surname" id="privacySurname" placeholder="Cognome">
+        <span class="col-md-2" style="display: inline-block;">
+            <input type="text" class="form-control form-control-sm form-inline" style="font-weight: bold; text-align:center;" name="surname" id="privacySurname" placeholder="Cognome" 
+            value="{{ $user->privacyAgreement ? $user->privacyAgreement->surname : '' }}">
         </span>
-        (INTERESSATO), in qualità di rappresentante dell'azienda [{{ $user->client ? $user->client->rag_soc : $user->name }}],
+        (INTERESSATO), in qualità di rappresentante dell'azienda [<b>{{ $user->client ? $user->client->rag_soc : $user->name }}</b>],
         a seguito di consultazione e presa visone dell’informativa sulla privacy ed essendo, quindi, stato informato in
         merito
         all’identità del titolare del
@@ -20,7 +22,8 @@
     </p>
     <div class="form-group" style="margin-bottom: 10px; text-align: center;">
         <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" id="privacyCheckDatiPers" name="checkDatiPers">
+            <input class="custom-control-input" type="checkbox" id="privacyCheckDatiPers" name="checkDatiPers" 
+            @if($user->privacyAgreement) @if($user->privacyAgreement->privacy_agreement) checked disabled @endif @endif>
             <label for="privacyCheckDatiPers" class="custom-control-label"><strong>Acconsento</strong></label>
         </div>
     </div>
@@ -44,11 +47,13 @@
     </div> --}}
     <div class="form-group" style="margin-bottom: 10px; text-align: center;">
         <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="checkNewLetter" name="checkNewsLetter" value='1'>
+            <input class="custom-control-input" type="radio" id="checkNewLetter" name="checkNewsLetter" value='1' 
+            @if($user->privacyAgreement) @if($user->privacyAgreement->marketing_agreement) checked @endif @endif>
             <label for="checkNewLetter" class="custom-control-label"><strong>Acconsento</strong></label>
         </div>
         <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="checkNewLetterNO" name="checkNewsLetter" value='0'>
+            <input class="custom-control-input" type="radio" id="checkNewLetterNO" name="checkNewsLetter" value='0' 
+            @if($user->privacyAgreement) @if(!$user->privacyAgreement->marketing_agreement) checked @endif @endif>
             <label for="checkNewLetterNO" class="custom-control-label"><strong>Non Acconsento</strong></label>
         </div>
     </div>
@@ -56,6 +61,7 @@
         al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità informative di marketing
         indicate al punto 2.2.
     </p>
+    <hr>
     <p>
         Sono consapevole e sono stato informato del fatto di potere revocare il consenso in qualunque momento inviando una
         richiesta per posta
@@ -63,6 +69,14 @@
         Lovadina 63/2 - 31050 – Vascon di Carbonera (TV).
     </p>
 
+    @if($user->privacyAgreement) 
+        <hr>
+        <p>
+            <strong>Consenso registrato in data: {{ $user->privacyAgreement->updated_at->format('d-m-Y') }}</strong>
+        </p>
+    @endif
+    
+    <input type="hidden" name="user_id" value='{{ $user_id }}'>
     <div class="col-md-2 float-right">
         <button type="button" class="btn btn-primary btn-block" onclick="checkPrivacyForm()">{{ trans('_message.submit') }}</button>
     </div>

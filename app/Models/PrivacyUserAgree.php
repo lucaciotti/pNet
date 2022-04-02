@@ -12,6 +12,7 @@ class PrivacyUserAgree extends Model
     protected $connection = 'pNet_SYS';
 
     protected $guarded = ['id'];
+    protected $dates = ['created_at', 'updated_at'];
 
     //JOIN pNet
     public function user()

@@ -1,16 +1,18 @@
 <?php
 
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Actions\Sys\DbSeed\ZipFileUpload;
 use App\Http\Controllers\sysCtrl\UserController;
+use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ClientController;
 use App\Http\Controllers\parideCtrl\DocCliController;
-use App\Http\Controllers\parideCtrl\DocToSendController;
-use App\Http\Controllers\parideCtrl\HomeController;
 use App\Http\Controllers\parideCtrl\ProductController;
-use App\Http\Controllers\parideCtrl\StatAbcProdController;
+use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\sysCtrl\PrivacyPolicyController;
+use App\Http\Controllers\parideCtrl\StatAbcProdController;
+use App\Imports\PrivacyAgreementImport;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +35,15 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 //Privacy Policy
 Route::name('privacy::')->middleware('auth')->group(function () {
-    Route::get('/privacyPolicy', [PrivacyPolicyController::class, 'index'])->name('index');
-    Route::get('/downloadPDFprivacy', [PrivacyPolicyController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::get('/privacyPolicy/{user_id}', [PrivacyPolicyController::class, 'index'])->name('index');
     Route::post('/privacyAceptance', [PrivacyPolicyController::class, 'update'])->name('update');
+    Route::get('/downloadPDFprivacy', [PrivacyPolicyController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::get('/downloadCSVprivacy', [PrivacyPolicyController::class, 'exportCsv'])->name('downloadCSV');
+    Route::post('/importCSVprivacy', function () {
+        Excel::import(new PrivacyAgreementImport, request()->file('file'));
+        return redirect()->back()->with('success', 'Data Imported Successfully');
+    })->name('importCSV');
+    Route::get('/listPrivacyAgreement', [PrivacyPolicyController::class, 'listAgreement'])->name('listPrivacyAgreement');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'privacy']);
