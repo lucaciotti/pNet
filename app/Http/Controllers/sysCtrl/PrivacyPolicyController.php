@@ -16,11 +16,18 @@ class PrivacyPolicyController extends Controller
         if(RedisUser::get('role')=='client'){
             $user_id = Auth::user()->id;
         }
+        $showTerms = false;
         $user = User::with(['roles', 'client', 'privacyAgreement'])->findOrFail($user_id);
+        if(!$user->privacyAgreement){
+            $showTerms = true;
+        } else {
+            if(!$user->privacyAgreement->privacy_agreement) $showTerms = true;
+        }
         // dd($user);
         return view('sysViews.privacyPolicy.index', [
             'user' => $user,
             'user_id' => $user_id,
+            'showTerms' => $showTerms,
         ]);
     }
 
@@ -43,7 +50,7 @@ class PrivacyPolicyController extends Controller
             $privacyAgree = PrivacyUserAgree::where('user_id', $user_id)->first();
             $privacyAgree->name = $req->name;
             $privacyAgree->surname = $req->surname;
-            if (RedisUser::get('role') == 'client') {
+            if (RedisUser::get('role') == 'client' && $privacyAgree->privacy_agreement==true) {
                 //il cliente non può scegliere in autonomia di togliere il consenso una volta che lo ha concesso
                 $privacyAgree->privacy_agreement = $privacyAgree->privacy_agreement;
             } else {
@@ -52,10 +59,19 @@ class PrivacyPolicyController extends Controller
             $privacyAgree->marketing_agreement = $req->checkNewsLetter == 1 ? true : false;
             $privacyAgree->save();
         }
+
+        $showTerms = false;
         $user = User::with(['roles', 'client', 'privacyAgreement'])->findOrFail($user_id);
+        if (!$user->privacyAgreement) {
+            $showTerms = true;
+        } else {
+            if (!$user->privacyAgreement->privacy_agreement) $showTerms = true;
+        }
+
         return view('sysViews.privacyPolicy.index', [
             'user' => $user,
             'user_id' => $user_id,
+            'showTerms' => $showTerms,
         ]);
     }
 
@@ -67,7 +83,7 @@ class PrivacyPolicyController extends Controller
                                 return $q->select('id_cli_for', 'rag_soc');
                             }]);
                         }])->orderBy('id')->get();
-        dd($privacyAgree->last());
+        // dd($privacyAgree->last());
         return view('sysViews.privacyPolicy.listAgreement', [
             'privacyAgree' => $privacyAgree,
         ]);

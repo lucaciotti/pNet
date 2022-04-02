@@ -23,7 +23,7 @@
     <div class="form-group" style="margin-bottom: 10px; text-align: center;">
         <div class="custom-control custom-checkbox">
             <input class="custom-control-input" type="checkbox" id="privacyCheckDatiPers" name="checkDatiPers" 
-            @if($user->privacyAgreement) @if($user->privacyAgreement->privacy_agreement) checked disabled @endif @endif>
+            @if(!$showTerms) @if($user->privacyAgreement->privacy_agreement) checked @if(RedisUser::get('role')=='client') disabled @endif @endif @endif>
             <label for="privacyCheckDatiPers" class="custom-control-label"><strong>Acconsento</strong></label>
         </div>
     </div>
@@ -48,12 +48,12 @@
     <div class="form-group" style="margin-bottom: 10px; text-align: center;">
         <div class="custom-control custom-radio">
             <input class="custom-control-input" type="radio" id="checkNewLetter" name="checkNewsLetter" value='1' 
-            @if($user->privacyAgreement) @if($user->privacyAgreement->marketing_agreement) checked @endif @endif>
+            @if(!$showTerms) @if($user->privacyAgreement->marketing_agreement) checked @endif @endif>
             <label for="checkNewLetter" class="custom-control-label"><strong>Acconsento</strong></label>
         </div>
         <div class="custom-control custom-radio">
             <input class="custom-control-input" type="radio" id="checkNewLetterNO" name="checkNewsLetter" value='0' 
-            @if($user->privacyAgreement) @if(!$user->privacyAgreement->marketing_agreement) checked @endif @endif>
+            @if(!$showTerms) @if(!$user->privacyAgreement->marketing_agreement) checked @endif @endif>
             <label for="checkNewLetterNO" class="custom-control-label"><strong>Non Acconsento</strong></label>
         </div>
     </div>
@@ -69,7 +69,7 @@
         Lovadina 63/2 - 31050 – Vascon di Carbonera (TV).
     </p>
 
-    @if($user->privacyAgreement) 
+    @if(!$showTerms) 
         <hr>
         <p>
             <strong>Consenso registrato in data: {{ $user->privacyAgreement->updated_at->format('d-m-Y') }}</strong>
@@ -78,7 +78,7 @@
     
     <input type="hidden" name="user_id" value='{{ $user_id }}'>
     <div class="col-md-2 float-right">
-        <button type="button" class="btn btn-primary btn-block" onclick="checkPrivacyForm()">{{ trans('_message.submit') }}</button>
+        <button type="button" class="btn btn-primary btn-block" @if(RedisUser::get('role')=='client') onclick="checkPrivacyForm()" @else onclick="$('#formPrivacy').submit();" @endif>{{ trans('_message.submit') }}</button>
     </div>
 
 </form>

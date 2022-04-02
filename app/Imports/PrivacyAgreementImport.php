@@ -2,8 +2,9 @@
 
 namespace App\Imports;
 
-use App\Models\PrivacyUserAgree;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\PrivacyUserAgree;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
@@ -37,6 +38,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
         $surname = $row[5];
         $privacy_agree = $row[6]==1 ? true : false;
         $marketing_agree = $row[7]==1 ? true : false;
+        $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[8].' 00:00:00');
 
         if($user_id==''){
             $user = User::select('id')->where('codcli', $id_cli_for)->first();
@@ -49,7 +51,8 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
                 'name' => $name,
                 'surname' => $surname,
                 'privacy_agreement' => $privacy_agree,
-                'marketing_agreement' => $marketing_agree
+                'marketing_agreement' => $marketing_agree,
+                'updated_at' => $dateAgreement
             ]);
             // $privacyAgree->save();
         } else {
@@ -58,6 +61,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
             $privacyAgree->surname = $surname;
             $privacyAgree->privacy_agreement = $privacy_agree;
             $privacyAgree->marketing_agreement = $marketing_agree;
+            $privacyAgree->updated_at = $dateAgreement;
             return $privacyAgree;
         }
         // return new PrivacyUserAgree([
