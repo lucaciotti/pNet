@@ -17,7 +17,7 @@ class AlterPrivacyUserAgree extends Migration
             $table->string('name', 50)->default('')->change();
             $table->string('surname', 50)->default('')->change();
             $table->boolean('privacy_agreement')->default(0)->change();
-            $table->boolean('marketing_aggrement')->default(0)->change();
+            $table->boolean('marketing_agreement')->default(0)->change();
         });
     }
 
@@ -32,7 +32,7 @@ class AlterPrivacyUserAgree extends Migration
             $table->string('name', 50)->change();
             $table->string('surname', 50)->change();
             $table->boolean('privacy_agreement')->change();
-            $table->boolean('marketing_aggrement')->change();
+            $table->boolean('marketing_agreement')->change();
         });
     }
 }
