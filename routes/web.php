@@ -44,6 +44,7 @@ Route::name('privacy::')->middleware('auth')->group(function () {
         return redirect()->back()->with('success', 'Data Imported Successfully');
     })->name('importCSV');
     Route::get('/listPrivacyAgreement', [PrivacyPolicyController::class, 'listAgreement'])->name('listPrivacyAgreement');
+    Route::get('/sendMailPrivacyAgree/{id}', [PrivacyPolicyController::class, 'sendMailPrivacyAgreement'])->name('sendMailPrivacyAgree');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'privacy']);

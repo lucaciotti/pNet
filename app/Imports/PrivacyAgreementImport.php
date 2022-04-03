@@ -34,8 +34,8 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
         // dd($row);
         $user_id = $row[0];
         $id_cli_for = $row[2];
-        $name = $row[4];
-        $surname = $row[5];
+        $name = $row[4]==null ? '' : $row[4];
+        $surname = $row[5] == null ? '' : $row[5];
         $privacy_agree = $row[6]==1 ? true : false;
         $marketing_agree = $row[7]==1 ? true : false;
         $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[8].' 00:00:00');

@@ -7,6 +7,7 @@
         <th>Consenso Privacy</th>
         <th>Consenso Marketing</th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
     </thead>
     <tbody>
         @foreach ($privacyAgree as $userAgree)
@@ -32,11 +33,18 @@
             <td style="text-align: center;">@if($userAgree->marketing_agreement) <i class="fa fa-check"></i> @endif</td>
             <td>
                 @if($userAgree->user)
-                <a href="{{ url('/privacyPolicy/'.$userAgree->user->id) }}" target="_blank"
-                    title="Modifica Privacy Agreement Utente">
-                    <button type="submit" id="privacyPolicy-{{ $userAgree->user->id }}"
-                        class="btn btn-block btn-sm btn-outline-success">
-                        <i class="fa fa-btn fa-handshake"></i> Modifica Privacy
+                <a href="{{ url('/privacyPolicy/'.$userAgree->user->id) }}" target="_blank" title="Modifica Privacy Agreement Utente">
+                    <button type="submit" id="privacyPolicy-{{ $userAgree->user->id }}" class="btn btn-sm btn-outline-success">
+                        <i class="fa fa-handshake"></i>
+                    </button>
+                </a>
+                @endif
+            </td>
+            <td>
+                @if($userAgree->user)
+                <a href="{{ route('privacy::sendMailPrivacyAgree', $userAgree->user->id ) }}" title="Invia email Privacy Agreement">
+                    <button type="submit" id="mail-privacy-{{ $userAgree->user->id }}" class="btn btn-sm btn-danger">
+                        <i class="fa fa-envelope-open-text"></i>
                     </button>
                 </a>
                 @endif

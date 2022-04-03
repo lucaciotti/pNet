@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\sysCtrl;
 
+use RedisUser;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PrivacyUserAgree;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Mail\PrivacyUserAgreement;
 use Illuminate\Support\Facades\Auth;
-use RedisUser;
+use Illuminate\Support\Facades\Mail;
 
 class PrivacyPolicyController extends Controller
 {
@@ -58,6 +62,20 @@ class PrivacyPolicyController extends Controller
             }
             $privacyAgree->marketing_agreement = $req->checkNewsLetter == 1 ? true : false;
             $privacyAgree->save();
+        }
+
+        if($user_id == Auth::user()->id){
+            $user = User::findOrFail($user_id);
+            try {
+                if (App::environment(['local', 'staging'])) {
+                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+                } else {
+                    Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+                }
+            } catch (\Exception $e) {
+                Log::error("Send Privacy Agreement error: " . $e->getMessage());
+                $req->session()->flash('status', 'Errore imprevisto per favore riprovare!');
+            }
         }
 
         $showTerms = false;
@@ -157,5 +175,20 @@ class PrivacyPolicyController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function sendMailPrivacyAgreement(Request $req, $id){
+        $user = User::findOrFail($id);
+        try {
+            if (App::environment(['local', 'staging'])) {
+                Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+            } else {
+                Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+            }
+        } catch (\Exception $e) {
+            Log::error("Send Privacy Agreement error: " . $e->getMessage());
+            $req->session()->flash('status', 'Errore imprevisto per favore riprovare!');
+        }
+        return redirect()->back();
     }
 }
