@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }}
 
-le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei consesso a [Ferramenta Paride](https://www.ferramentaparide.it/).     
+le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei concesso a [Ferramenta Paride](https://www.ferramentaparide.it/).     
 Da questo momento potrà visualizzare lo stato dei sui Preventivi, Ordini, DDT e Fatture, unitamente al catalogo completo
 dei nostri prodotti, sui nostri sistemi informativi.
 
