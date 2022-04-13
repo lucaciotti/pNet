@@ -15,7 +15,7 @@
         </div>
     </div>
     <!-- /.card-header -->
-    <div class="card-body">
+    <div class="card-body" style="text-align: justify">
         <p>
             Documento informativo articolo 13 D. Lgs. 196/03 e art. 13 Regolamento (UE) 679/2016 - GDPR
             Informativa per trattamento di dati personali raccolti presso l’interessato.

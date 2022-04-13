@@ -107,8 +107,7 @@ class UserController extends Controller
         $user->auto_email = $req->input('auto_email') ? $req->input('auto_email') : true;
         $user->save();
         RedisUser::store();
-
-        return ($req->input('role')=='4') ? Redirect::route('user::usersCli') : Redirect::route('user::users.index');
+        return ($req->input('role')=='3') ? Redirect::route('user::usersCli') : Redirect::route('user::users.index');
     }
 
     public function actLike(Request $req, $id)
@@ -145,7 +144,7 @@ class UserController extends Controller
             $user->save();
             // $user->sendPasswordResetNotification($token);
             if (App::environment(['local', 'staging'])) {
-                Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
+                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             } else {
                 Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new InviteUser($token, $user->id));
             }

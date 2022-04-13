@@ -61,7 +61,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                 $fileToAttach = $this->createPdfDoc($ordToSend->tipo_doc, $ordToSend->id_doc);
                 $mail = (new OrdToSend($user->id, $fileToAttach, $ordToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }
@@ -76,7 +76,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                 $fileToAttach = $this->createPdfDoc($docToSend->tipo_doc, $docToSend->id_doc);
                 $mail = (new DocToSend($user->id, $fileToAttach, $docToSend->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }

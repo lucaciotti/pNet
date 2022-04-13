@@ -69,8 +69,10 @@
               <dt>Marca</dt>
               <dd>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                @if ($prod->marche)
-                <strong>{{ $prod->marche->descr }}</strong>              
+                @if (!empty($prod->id_mar) && $prod->marche)
+                <strong>{{ $prod->marche->descr }}</strong>     
+                @else        
+                <strong>-</strong>
                 @endif
               </dd>
             

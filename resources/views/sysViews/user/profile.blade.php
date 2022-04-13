@@ -80,7 +80,7 @@
             <hr>
             <a href="{{ url('/privacyPolicy/'.$user->id) }}">
               <button type="submit" id="privacyPolicy-{{ $user->id }}" class="btn btn-block btn-sm btn-outline-success">
-                <i class="fa fa-handshake"></i>&nbsp;&nbsp; Privacy Terms Agreement
+                <i class="fa fa-handshake"></i>&nbsp;&nbsp; Consensi Privacy
               </button>
             </a>
 

@@ -68,9 +68,21 @@ class PrivacyPolicyController extends Controller
             $user = User::findOrFail($user_id);
             try {
                 if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
                 } else {
                     Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+                }
+                return redirect()->route('home');
+            } catch (\Exception $e) {
+                Log::error("Send Privacy Agreement error: " . $e->getMessage());
+                $req->session()->flash('status', 'Errore imprevisto per favore riprovare!');
+            }
+        } else {
+            try {
+                if (App::environment(['local', 'staging'])) {
+                    Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user_id));
+                } else {
+                    Mail::to('alexschiavon90@gmail.com')->bcc(['luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user_id));
                 }
             } catch (\Exception $e) {
                 Log::error("Send Privacy Agreement error: " . $e->getMessage());
@@ -124,7 +136,7 @@ class PrivacyPolicyController extends Controller
         $privacyAgree = PrivacyUserAgree::whereHas('user', function ($query) { $query->where('codcli', '!=', ''); })
                         ->with(['user' => function ($query) {
                             $query->with(['client' => function ($q) {
-                                return $q->select('id_cli_for', 'rag_soc');
+                                return $q->select('id_cli_for', 'rag_soc', 'e_mail');
                             }]);
                         }])->get();
 
@@ -136,7 +148,7 @@ class PrivacyPolicyController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('user_id', 'user_name', 'id_cli_for', 'rag_soc', 'name', 'surname', 'privacy_agreement', 'marketing_agreement', 'date_agreement');
+        $columns = array('user_id', 'user_name', 'id_cli_for', 'rag_soc', 'email_principale', 'name', 'surname', 'privacy_agreement', 'marketing_agreement', 'date_agreement');
 
         $callback = function () use ($privacyAgree, $columns) {
             $file = fopen('php://output', 'w');
@@ -147,6 +159,7 @@ class PrivacyPolicyController extends Controller
                 $row['user_name']  = $userAgree->user->name;
                 $row['id_cli_for'] = ($userAgree->user->client ? $userAgree->user->client->id_cli_for : '' );
                 $row['rag_soc'] = ($userAgree->user->client ? $userAgree->user->client->rag_soc : '' );
+                $row['email_principale'] = ($userAgree->user->client ? $userAgree->user->client->e_mail : '');
 
                 $row['name']  = $userAgree->name;
                 $row['surname']  = $userAgree->surname;
@@ -157,10 +170,11 @@ class PrivacyPolicyController extends Controller
                 fputcsv(
                     $file, 
                     array(
-                        $row['user_id'], 
-                        $row['user_name'], 
-                        $row['id_cli_for'], 
-                        $row['rag_soc'], 
+                        $row['user_id'],
+                        $row['user_name'],
+                        $row['id_cli_for'],
+                        $row['rag_soc'],
+                        $row['email_principale'],
                         $row['name'],
                         $row['surname'],
                         $row['privacy_agreement'],
@@ -181,7 +195,7 @@ class PrivacyPolicyController extends Controller
         $user = User::findOrFail($id);
         try {
             if (App::environment(['local', 'staging'])) {
-                Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
+                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
             } else {
                 Mail::to($user->email)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->send(new PrivacyUserAgreement($user->id));
             }

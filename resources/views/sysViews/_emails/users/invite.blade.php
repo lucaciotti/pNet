@@ -22,16 +22,19 @@ Accedi Qui
 
 @if($hasToPrivacyAgree)
 <hr>
+<div style="text-align: justify">
 La invitiamo contestualmente a prendere visione delle <b>"Condizioni sulla Privacy"</b> durante il primo accesso.
-<br>Le ricordiamo che allo scadere di 14 giorni dal primo invio della presente, le "Condizioni sulla Privacy" saranno considerata accettata in tutte le sue parti.
 <br>
+Le ricordiamo che allo scadere di 14 giorni dal primo invio della presente, le "Condizioni sulla Privacy" saranno considerata accettata in tutte le sue parti.
+</div>
+{{-- <br>
 <center>
     <small>
         <i>
             Giorni rimasti: {{ $daysLeftAgree }}
         </i>
     </small>
-</center>
+</center> --}}
 <br>
 <hr>
 @endif

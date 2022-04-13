@@ -6,21 +6,26 @@ Da questo momento potrà visualizzare lo stato dei sui Preventivi, Ordini, DDT e
 dei nostri prodotti, sui nostri sistemi informativi.
 
 @component('mail::panel')
-Io sottoscritto/a **{{ $user->privacyAgreement->name }} {{ $user->privacyAgreement->surname }}** (INTERESSATO), in
+<div style="text-align: justify">
+Io sottoscritto/a <b>{{ $user->privacyAgreement->name }} {{ $user->privacyAgreement->surname }}</b> (INTERESSATO), in
 qualità di rappresentante dell'azienda [<b>{{ $user->client ? $user->client->rag_soc : $user->name }}</b>],
 a seguito di consultazione e presa visone dell’informativa sulla privacy ed essendo, quindi, stato informato in merito
 all’identità del titolare del trattamento, delle modalità con cui i miei dati vengono trattati,
 delle finalità del trattamento cui sono destinati i miei dati personali ai sensi
-dell’Art.13 del Regolamento UE 2016/679, con la presente:
+dell’Art.13 del Regolamento UE 2016/679, con la presente:</div>
+<br>
 
 @if($user->privacyAgreement->privacy_agreement)
 **Acconsento**
 @endif
 
+<div style="text-align: justify">
 al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità strettamente connesse allo
-svolgimento delle attività amministrative indicate al punto 2.1
-
-Inoltre, date le premesse di cui al punto precedente:
+svolgimento delle attività amministrative indicate al punto 2.1</div>
+<br>
+<div style="text-align: justify">
+Inoltre, date le premesse di cui al punto precedente:</div>
+<br>
 
 @if($user->privacyAgreement->marketing_agreement)
 **Acconsento**
@@ -29,16 +34,22 @@ Inoltre, date le premesse di cui al punto precedente:
 **Non Acconsento**
 @endif
 
+<br>
+<div style="text-align: justify">
 al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità informative di marketing
-indicate al punto 2.2.
+indicate al punto 2.2.</div>
+<br>
 
-
+<div style="text-align: justify">
 Sono consapevole e sono stato informato del fatto di potere revocare il consenso in qualunque momento inviando una
 richiesta per posta elettronica
 certificata all’indirizzo amministrazioneparide@pec.it o tramite posta raccomandata all’indirizzo Via Lovadina 63/2 -
-31050 – Vascon di Carbonera (TV).
+31050 – Vascon di Carbonera (TV).</div>
 
+<br>
+<div style="text-align: justify">
 Consenso registrato in data: {{ $user->privacyAgreement->updated_at->format('d-m-Y') }}
+</div>
 @endcomponent
 
 Cliccando qui avrà accesso alla pagina con le condizioni sulla privacy:
