@@ -68,7 +68,7 @@ class CreateClientUser implements ShouldQueue
                     if(User::where('codcli', $client->id_cli_for)->exists()) {
                         $user = User::with(['privacyAgreement'])->where('codcli', $client->id_cli_for)->first();
                         $clientDateStart = new Carbon($client->data_m);
-                        $dateStartPrivacy = Carbon::createFromFormat('d/m/Y H:i:s',  '01/04/2022 00:00:00');
+                        $dateStartPrivacy = Carbon::createFromFormat('d/m/Y H:i:s',  '15/04/2022 00:00:00');
                         //CREAZIONE PRIVACY AGREEMENT
                         if (!$user->privacyAgreement) {
                             $privacyAgree = PrivacyUserAgree::create([
@@ -81,7 +81,7 @@ class CreateClientUser implements ShouldQueue
                         }
                         $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
                         if($clientDateStart < $dateStartPrivacy){
-                            //PER I CLIENTI ANTECEDENTI AL 01/04(2022 -> Privacy accettata di default
+                            //PER I CLIENTI ANTECEDENTI AL 15/04(2022 -> Privacy accettata di default
                             $privacyAgree->name = '-';
                             $privacyAgree->surname = '-';
                             $privacyAgree->privacy_agreement = true;
