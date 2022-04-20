@@ -25,7 +25,7 @@ Accedi Qui
 <div style="text-align: justify">
 La invitiamo contestualmente a prendere visione delle <b>"Condizioni sulla Privacy"</b> durante il primo accesso.
 <br>
-Le ricordiamo che allo scadere di 14 giorni dal primo invio della presente, le "Condizioni sulla Privacy" <u>saranno considerate accettate in tutte le sue parti</u>.
+Le ricordiamo che allo scadere di 14 giorni dal primo invio della presente, le "Condizioni sulla Privacy" saranno considerate accettate in tutte le loro parti.
 </div>
 {{-- <br>
 <center>
