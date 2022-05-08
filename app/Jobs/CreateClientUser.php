@@ -94,7 +94,7 @@ class CreateClientUser implements ShouldQueue
                                 $privacyAgree->name = '-';
                                 $privacyAgree->surname = '-';
                                 $privacyAgree->privacy_agreement = true;
-                                $privacyAgree->marketing_agreement = false;
+                                $privacyAgree->marketing_agreement = true;
                                 $privacyAgree->save();
                             }
                         }
