@@ -88,7 +88,7 @@ class CreateClientUser implements ShouldQueue
                             $privacyAgree->marketing_agreement = false;
                             $privacyAgree->save();
                         } else {
-                            if($privacyAgree->created_at->diffInDays(Carbon::now()) > 14) {
+                            if($privacyAgree->created_at->diffInDays(Carbon::now()) > 14 && !$privacyAgree->privacy_agreement) {
                                 //Dopo 14 giorni-> Privacy accettata di default
                                 $privacyAgree = PrivacyUserAgree::where('user_id', $user->id)->first();
                                 $privacyAgree->name = '-';
