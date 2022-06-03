@@ -88,7 +88,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         }
         Log::info('FetchDocToSendByEmail DDT Ended');
 
-        $ftList = FTCli::where('data', '>', now()->subDays(2))
+        $ftList = FTCli::where('data', '>', now()->subDays(30))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
                 $q->where('fat_email', '1');
@@ -102,7 +102,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         }
         Log::info('FetchDocToSendByEmail FT Ended');
 
-        $FDList = FDCli::where('data', '>', now()->subDays(2))
+        $FDList = FDCli::where('data', '>', now()->subDays(30))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
                 $q->where('fat_email', '1');
@@ -116,7 +116,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         }
         Log::info('FetchDocToSendByEmail FD Ended');
 
-        $FPList = FPCli::where('data', '>', now()->subDays(2))
+        $FPList = FPCli::where('data', '>', now()->subDays(30))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
                 $q->where('fat_email', '1');
@@ -130,7 +130,7 @@ class FetchDocToSendByEmail implements ShouldQueue
         }
         Log::info('FetchDocToSendByEmail FP Ended');
 
-        $NCCli = NCCli::where('data', '>', now()->subDays(2))
+        $NCCli = NCCli::where('data', '>', now()->subDays(30))
             ->doesntHave('docSent')
             ->whereHas('client', function ($q) {
                 $q->where('fat_email', '1');
