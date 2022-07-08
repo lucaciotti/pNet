@@ -52,7 +52,7 @@
         </div>
     @endif
 
-    @if($tipodoc=='XC' || $tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC')
+    @if($tipodoc=='XC' || $tipodoc=='OC'|| $tipodoc=='BO'|| $tipodoc=='FT' || $tipodoc=='FD' || $tipodoc=='NC')
         
         <div class="row">
             {{-- <br><br><br><br><br><br><br><br><br><br><br> --}}
