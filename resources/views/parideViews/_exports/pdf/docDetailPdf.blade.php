@@ -63,13 +63,17 @@
             <u>
                 <h4>Note:</h4>
             </u>
-            @if($tipodoc=='XC')
+            @if($tipodoc=='XC'|| $tipodoc=='OC')
             <h5>
-                La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
+                {{-- La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
                 <br>
                 I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
                 <br><br>
-                Validità del preventivo: 5gg.
+                Validità del preventivo: 5gg. --}}
+                Le date di consegna sono indicative e non vincolanti.
+                <br>
+                Il materiale viene fornito in base alle condizioni generali di vendita così come riportato su:
+                <br>https://www.ferramentaparide.it/treviso-termini-e-condizioni
             </h5>
             @endif
             @if($tipodoc=='BO'|| $tipodoc=='FT')

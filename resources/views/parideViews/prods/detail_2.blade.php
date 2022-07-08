@@ -266,7 +266,7 @@
           <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_1,3) }}"
             style="text-align:right;">
           <div class="input-group-append">
-            <span class="input-group-text">€</span>
+            <span class="input-group-text">€ / {{ $prod->um }}</span>
           </div>
         </div>
         @if (!in_array(RedisUser::get('role'), ['client', 'user']))
@@ -275,7 +275,7 @@
             <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_2,3) }}"
               style="text-align:right;">
             <div class="input-group-append">
-              <span class="input-group-text">€</span>
+              <span class="input-group-text">€ / {{ $prod->um }}</span>
             </div>
           </div>
 
@@ -284,7 +284,7 @@
             <input type="text" class="form-control" readonly name="prezzVend" value="{{ round($prod->prezzo_3,3) }}"
               style="text-align:right;">
             <div class="input-group-append">
-              <span class="input-group-text">€</span>
+              <span class="input-group-text">€ / {{ $prod->um }}</span>
             </div>
           </div>     
         @endif
