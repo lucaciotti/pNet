@@ -8,7 +8,6 @@ use App\Models\PrivacyUserAgree;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
 class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSettings
@@ -49,36 +48,44 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
             $privacy_agree = isset($row[7]) ? ($row[7]==1 ? true : false) : false;
             $marketing_agree = isset($row[8]) ? ($row[8] == 1 ? true : false) : false;
             $dateAgreement = isset($row[9]) ? (str_contains($row[9], '/') ? Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00') :  Carbon::createFromFormat('d-m-Y H:i:s',  $row[9] . ' 00:00:00')) : now();
+            
+            // Se non c'è User ID errato o mancante lo cerco a partire dal codice cliente
+            if($user_id!=''){
+                $user = User::find($user_id);
+                $user_id = $user->id;
+            }
 
             if($user_id=='' && $id_cli_for!=''){
-                $user = User::select('id')->where('codcli', $id_cli_for)->first();
+                $user = User::where('codcli', $id_cli_for)->first();
                 $user_id = $user->id;
             } 
+
+            //Fine dei Mandatory check
             if($user_id == '' && $id_cli_for == '') {
                 Log::error("Import Privacy Agreement CSV error: Missing parameters!");
                 Log::error($row);
-                throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
-            }
-
-            if (!PrivacyUserAgree::where('user_id', $user_id)->exists()) {
-                return new PrivacyUserAgree([
-                    'user_id' => $user_id,
-                    'name' => $name,
-                    'surname' => $surname,
-                    'privacy_agreement' => $privacy_agree,
-                    'marketing_agreement' => $marketing_agree,
-                    'updated_at' => $dateAgreement
-                ]);
-                // $privacyAgree->save();
             } else {
-                $privacyAgree = PrivacyUserAgree::where('user_id', $user_id)->first();
-                Log::info($name);
-                $privacyAgree->name = $name;
-                $privacyAgree->surname = $surname;
-                $privacyAgree->privacy_agreement = $privacy_agree;
-                $privacyAgree->marketing_agreement = $marketing_agree;
-                $privacyAgree->updated_at = $dateAgreement;
-                return $privacyAgree;
+                if (!PrivacyUserAgree::where('user_id', $user_id)->exists()) {
+                    Log::info("Import Privacy Agreement CSV -> Info: Inserimento Privacy: " . $user->name);
+                    return new PrivacyUserAgree([
+                        'user_id' => $user_id,
+                        'name' => $name,
+                        'surname' => $surname,
+                        'privacy_agreement' => $privacy_agree,
+                        'marketing_agreement' => $marketing_agree,
+                        'updated_at' => $dateAgreement
+                    ]);
+                    // $privacyAgree->save();
+                } else {
+                    $privacyAgree = PrivacyUserAgree::where('user_id', $user_id)->first();
+                    Log::info("Import Privacy Agreement CSV -> Info: Modifica Privacy: ".$user->name);
+                    $privacyAgree->name = $name;
+                    $privacyAgree->surname = $surname;
+                    $privacyAgree->privacy_agreement = $privacy_agree;
+                    $privacyAgree->marketing_agreement = $marketing_agree;
+                    $privacyAgree->updated_at = $dateAgreement;
+                    return $privacyAgree;
+                }
             }
         } catch (\Exception $e) {
             Log::error("Import Privacy Agreement CSV error: " . $e->getMessage());
