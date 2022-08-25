@@ -33,19 +33,19 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
     public function model(array $row)
     {
         // dd($row);
-        $user_id = $row[0];
-        $id_cli_for = $row[2];
-        $name = $row[5]==null ? '-' : $row[5];
-        $surname = $row[6] == null ? '-' : $row[6];
-        $privacy_agree = $row[7]==1 ? true : false;
-        $marketing_agree = $row[8]==1 ? true : false;
-        $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00');
-        
-        if($user_id==''){
-            $user = User::select('id')->where('codcli', $id_cli_for)->first();
-            $user_id = $user->id;
-        }
-        try{
+        try {
+            $user_id = $row[0];
+            $id_cli_for = $row[2];
+            $name = $row[5]==null ? '-' : $row[5];
+            $surname = $row[6] == null ? '-' : $row[6];
+            $privacy_agree = $row[7]==1 ? true : false;
+            $marketing_agree = $row[8]==1 ? true : false;
+            $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00');
+            
+            if($user_id==''){
+                $user = User::select('id')->where('codcli', $id_cli_for)->first();
+                $user_id = $user->id;
+            }
             if (!PrivacyUserAgree::where('user_id', $user_id)->exists()) {
                 return new PrivacyUserAgree([
                     'user_id' => $user_id,
@@ -69,7 +69,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
         } catch (\Exception $e) {
             Log::error("Import Privacy Agreement CSV error: " . $e->getMessage());
             Log::error($row);
-            dd($row);
+            // dd($row);
         }
         // return new PrivacyUserAgree([
         //     //
