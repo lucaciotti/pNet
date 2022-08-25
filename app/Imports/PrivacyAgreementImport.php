@@ -8,6 +8,7 @@ use App\Models\PrivacyUserAgree;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
 class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSettings
@@ -41,10 +42,10 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
     {
         // dd($row);
         try{
-            $user_id = isset($row[0]) ? '' : $row[0];
-            $id_cli_for = isset($row[2])  ? '' : $row[2];
-            $name = isset($row[5]) ? '-' : $row[5];
-            $surname = isset($row[6]) ? '-' : $row[6];
+            $user_id = isset($row[0]) ? $row[0] : '';
+            $id_cli_for = isset($row[2])  ? $row[2] : '';
+            $name = isset($row[5]) ? $row[5] : '-';
+            $surname = isset($row[6]) ? $row[6] : '-';
             $privacy_agree = isset($row[7]) ? ($row[7]==1 ? true : false) : false;
             $marketing_agree = isset($row[8]) ? ($row[8] == 1 ? true : false) : false;
             $dateAgreement = isset($row[9]) ? Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00') : now()->format('d/m/Y H:i:s');
@@ -56,6 +57,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
             if($user_id == '' && $id_cli_for == '') {
                 Log::error("Import Privacy Agreement CSV error: Missing parameters!");
                 Log::error($row);
+                throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
             }
 
             if (!PrivacyUserAgree::where('user_id', $user_id)->exists()) {
