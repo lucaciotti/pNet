@@ -52,7 +52,11 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
             // Se non c'è User ID errato o mancante lo cerco a partire dal codice cliente
             if($user_id!=''){
                 $user = User::find($user_id);
-                $user_id = $user->id;
+                if($user){
+                    $user_id = $user->id;
+                } else {
+                    Log::error("Import Privacy Agreement CSV error: User Not Found! ".$row);
+                }
             }
 
             if($user_id=='' && $id_cli_for!=''){
