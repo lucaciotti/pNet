@@ -34,13 +34,13 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
     {
         // dd($row);
         try{
-            $user_id = $row[0] == null ? '' : $row[0];
-            $id_cli_for = $row[2] == null ? '' : $row[2];
-            $name = $row[5]==null ? '-' : $row[5];
-            $surname = $row[6] == null ? '-' : $row[6];
-            $privacy_agree = $row[7]==1 ? true : false;
-            $marketing_agree = $row[8]==1 ? true : false;
-            $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00');
+            $user_id = isset($row[0]) ? '' : $row[0];
+            $id_cli_for = isset($row[2])  ? '' : $row[2];
+            $name = isset($row[5]) ? '-' : $row[5];
+            $surname = isset($row[6]) ? '-' : $row[6];
+            $privacy_agree = isset($row[7]) ? ($row[7]==1 ? true : false) : false;
+            $marketing_agree = isset($row[8]) ? ($row[8] == 1 ? true : false) : false;
+            $dateAgreement = isset($row[9]) ? Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00') : now()->format('d/m/Y H:i:s');
 
             if($user_id=='' && $id_cli_for!=''){
                 $user = User::select('id')->where('codcli', $id_cli_for)->first();
