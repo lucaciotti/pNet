@@ -13,6 +13,13 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSettings
 {
 
+    private $delimiter;
+
+    public function __construct($delimiter)
+    {
+        $this->delimiter = $delimiter;
+    }
+
     public function startRow(): int
     {
         return 2;
@@ -21,7 +28,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
     public function getCsvSettings(): array
     {
         return [
-            'delimiter' => ';'
+            'delimiter' => $this->delimiter
         ];
     }
 

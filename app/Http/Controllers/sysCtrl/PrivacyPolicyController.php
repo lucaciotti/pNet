@@ -5,6 +5,7 @@ namespace App\Http\Controllers\sysCtrl;
 use RedisUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\PrivacyUserAgree;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\PrivacyUserAgreement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PrivacyAgreementImport;
 
 class PrivacyPolicyController extends Controller
 {
@@ -190,6 +193,29 @@ class PrivacyPolicyController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+    public function importCsv(Request $req) {
+        if ($req->file) {
+            $file = $req->file;
+            $extension = $file->getClientOriginalExtension(); //Get extension of uploaded file
+            $fileSize = $file->getSize(); //Get size of uploaded file in bytes
+            //Checks to see that the valid file types and sizes were uploaded
+            $this->checkUploadedFileProperties($extension, $fileSize);
+
+            $delimiter = $this->detectDelimiter($file);
+            
+            Excel::import(new PrivacyAgreementImport($delimiter), $file);
+            return redirect()->back()->with('success', 'Data Imported Successfully');
+            
+            // //Return a success response with the number if records uploaded
+            // return response()->json([
+            //     'message' => $import->data->count() . " records successfully uploaded"
+            // ]);
+        } else {
+            throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);
+        }
+
+        
+    }
 
     public function sendMailPrivacyAgreement(Request $req, $id){
         $user = User::findOrFail($id);
@@ -205,4 +231,34 @@ class PrivacyPolicyController extends Controller
         }
         return redirect()->back();
     }
+
+    //FOR CSV IMPORT
+    private function checkUploadedFileProperties($extension, $fileSize): void
+    {
+        $valid_extension = array("csv"); //Only want csv and excel files
+        $maxFileSize = 2097152; // Uploaded file size limit is 2mb
+        if (in_array(strtolower($extension), $valid_extension)) {
+            if ($fileSize <= $maxFileSize) {
+            } else {
+                throw new \Exception('No file was uploaded', Response::HTTP_REQUEST_ENTITY_TOO_LARGE); //413 error
+            }
+        } else {
+            throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
+        }
+    }
+
+    private function detectDelimiter($csvFile)
+    {
+        $delimiters = [';' => 0, ',' => 0, "\t" => 0, '|' => 0];
+
+        $handle = fopen($csvFile, "r");
+        $firstLine = fgets($handle);
+        fclose($handle);
+        foreach ($delimiters as $delimiter => &$count) {
+            $count = count(str_getcsv($firstLine, $delimiter));
+        }
+
+        return array_search(max($delimiters), $delimiters);
+    }
+
 }
