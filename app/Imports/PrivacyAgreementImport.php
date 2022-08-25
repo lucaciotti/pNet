@@ -33,19 +33,22 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
     public function model(array $row)
     {
         // dd($row);
-        try {
-            $user_id = $row[0];
-            $id_cli_for = $row[2];
-            $name = $row[5]==null ? '-' : $row[5];
-            $surname = $row[6] == null ? '-' : $row[6];
-            $privacy_agree = $row[7]==1 ? true : false;
-            $marketing_agree = $row[8]==1 ? true : false;
-            $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00');
-            
-            if($user_id==''){
-                $user = User::select('id')->where('codcli', $id_cli_for)->first();
-                $user_id = $user->id;
-            }
+        $user_id = $row[0] == null ? '' : $row[5];;
+        $id_cli_for = $row[2] == null ? '' : $row[5];
+        $name = $row[5]==null ? '-' : $row[5];
+        $surname = $row[6] == null ? '-' : $row[6];
+        $privacy_agree = $row[7]==1 ? true : false;
+        $marketing_agree = $row[8]==1 ? true : false;
+        $dateAgreement = Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00');
+        
+        if($user_id=='' && $id_cli_for!=''){
+            $user = User::select('id')->where('codcli', $id_cli_for)->first();
+            $user_id = $user->id;
+        } else {
+            Log::error("Import Privacy Agreement CSV error: Missing parameters!");
+            Log::error($row);
+        }
+        try{
             if (!PrivacyUserAgree::where('user_id', $user_id)->exists()) {
                 return new PrivacyUserAgree([
                     'user_id' => $user_id,
