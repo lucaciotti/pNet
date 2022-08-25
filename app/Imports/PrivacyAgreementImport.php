@@ -48,7 +48,7 @@ class PrivacyAgreementImport implements ToModel, WithStartRow, WithCustomCsvSett
             $surname = isset($row[6]) ? $row[6] : '-';
             $privacy_agree = isset($row[7]) ? ($row[7]==1 ? true : false) : false;
             $marketing_agree = isset($row[8]) ? ($row[8] == 1 ? true : false) : false;
-            $dateAgreement = isset($row[9]) ? Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00') : now()->format('d/m/Y H:i:s');
+            $dateAgreement = isset($row[9]) ? (str_contains($row[9], '/') ? Carbon::createFromFormat('d/m/Y H:i:s',  $row[9].' 00:00:00') :  Carbon::createFromFormat('d-m-Y H:i:s',  $row[9] . ' 00:00:00')) : now();
 
             if($user_id=='' && $id_cli_for!=''){
                 $user = User::select('id')->where('codcli', $id_cli_for)->first();
