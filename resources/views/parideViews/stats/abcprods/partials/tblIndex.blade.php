@@ -7,6 +7,9 @@
         <th>Prezzo Medio</th>
         <th>Qta Tot.</th>
         <th>UM</th>
+        @if (!in_array(RedisUser::get('role'), ['client']))
+        <th>Valore</th>
+        @endif
         {{-- <th>Barcode</th>
                 <th>Forn.</th> --}}
     </thead>
@@ -45,6 +48,9 @@
             <td style="text-align: right">{{ number_format((float)round($prod->val/$prod->qta,3), 2, ',', '') }} €</td>
             <td style="text-align:right;">{{ number_format((float)$prod->qta, 2, ',', '') }} </td>
             <td>@if ($prod->product){{ $prod->product->um }} @endif</td>
+            @if (!in_array(RedisUser::get('role'), ['client']))
+            <td>{{ currency($prod->val) }}</td>
+            @endif
         </tr>
         @endforeach
     </tbody>
