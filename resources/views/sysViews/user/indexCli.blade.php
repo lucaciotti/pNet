@@ -27,7 +27,8 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        @include('sysViews.user.partial.tblIndex', ['users' => $clients])
+        {{-- @include('sysViews.user.partial.tblIndex', ['users' => $clients]) --}}
+        <livewire:user-client-table />
       </div>
     </div>
 

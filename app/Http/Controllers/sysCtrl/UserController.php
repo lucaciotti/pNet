@@ -47,14 +47,14 @@ class UserController extends Controller
 
     public function indexCli(Request $req)
     {
-        $clients = User::with(['roles', 'client'])
-            ->whereHas('roles', function ($q) {
-                $q->whereIn('name', ['client']);
-            })
-            ->orderBy('id')->get();
+        // $clients = User::with(['roles', 'client'])
+        //     ->whereHas('roles', function ($q) {
+        //         $q->whereIn('name', ['client']);
+        //     })
+        //     ->orderBy('id')->get();
 
         return view('sysViews.user.indexCli', [
-            'clients' => $clients,
+            // 'clients' => $clients,
         ]);
     }
 
