@@ -510,3 +510,9 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
     }
 </style>
+
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>
