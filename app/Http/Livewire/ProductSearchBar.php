@@ -57,7 +57,7 @@ class ProductSearchBar extends Component
         $searchStr = Str::upper($this->searchStr);
         $this->products = Product::select('id_art', 'descr', 'id_cli_for')
             ->where('id_art', 'like', $searchStr . '%')
-            ->where('id_art', 'like', $searchStr . '%')
+            ->where('desc_ecom', 'like', '%' . $searchStr . '%')
             ->orWhere('descr', 'like', '%' . $searchStr . '%')
             ->orWhere('id_cod_bar', 'like', $this->searchStr . '%')
             ->orWhereHas('barcodes', function ($query) use ($searchStr) {

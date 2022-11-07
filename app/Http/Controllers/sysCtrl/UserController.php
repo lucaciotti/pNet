@@ -47,14 +47,79 @@ class UserController extends Controller
 
     public function indexCli(Request $req)
     {
-        // $clients = User::with(['roles', 'client'])
-        //     ->whereHas('roles', function ($q) {
-        //         $q->whereIn('name', ['client']);
-        //     })
-        //     ->orderBy('id')->get();
+        $clients = User::with(['roles', 'client'])
+            ->whereHas('roles', function ($q) {
+                $q->whereIn('name', ['client']);
+            })
+            ->where('isActive', true)
+            ->orderBy('id')->limit(250)->get();
 
         return view('sysViews.user.indexCli', [
-            // 'clients' => $clients,
+            'clients' => $clients,
+            'fltClients' => $clients->sortBy('name'),
+        ]);
+    }
+
+    public function filterCli(Request $req)
+    {
+        $clients = User::with(['roles', 'client'])
+            ->whereHas('roles', function ($q) {
+                $q->whereIn('name', ['client']);
+            });
+
+        if ($req->input('ragsoc')) {
+            if ($req->input('ragsocOp') == 'eql') {
+                $clients = $clients->where('name', strtoupper($req->input('ragsoc')));
+            }
+            if ($req->input('ragsocOp') == 'stw') {
+                $clients = $clients->where('name', 'LIKE', strtoupper($req->input('ragsoc')) . '%');
+            }
+            if ($req->input('ragsocOp') == 'cnt') {
+                $clients = $clients->where('name', 'LIKE', '%' . strtoupper($req->input('ragsoc')) . '%');
+            }
+        }
+        if ($req->input('codcli')) {
+            if ($req->input('codcliOp') == 'eql') {
+                $clients = $clients->where('codcli', strtoupper($req->input('codcli')));
+            }
+            if ($req->input('codcliOp') == 'stw') {
+                $clients = $clients->where('codcli', 'LIKE', strtoupper($req->input('codcli')) . '%');
+            }
+            if ($req->input('codcliOp') == 'cnt') {
+                $clients = $clients->where('codcli', 'LIKE', '%' . strtoupper($req->input('codcli')) . '%');
+            }
+        }
+        if ($req->input('email')) {
+            if ($req->input('emailOp') == 'eql') {
+                $clients = $clients->where('email', strtoupper($req->input('email')));
+            }
+            if ($req->input('emailOp') == 'stw') {
+                $clients = $clients->where('email', 'LIKE', strtoupper($req->input('email')) . '%');
+            }
+            if ($req->input('emailOp') == 'cnt') {
+                $clients = $clients->where('email', 'LIKE', '%' . strtoupper($req->input('email')) . '%');
+            }
+        }
+        $isActive = $req->input('optIsActive');
+         switch ($isActive) {
+            case '1':
+                $clients = $clients->where('isActive', true);                
+                break;
+            case '0':
+                $clients = $clients->where('isActive', false);
+                break;
+            default:
+                $clients = $clients->where('isActive', true);    
+            }            
+
+        $clients = $clients->orderBy('id')->limit(250)->get();
+
+        return view('sysViews.user.indexCli', [
+            'clients' => $clients,
+            'fltClients' => $clients->sortBy('name'),
+            'ragsocflt' => $req->input('ragsoc'),
+            'codcliflt' => $req->input('codcli'),
+            'emailflt' => $req->input('email'),
         ]);
     }
 

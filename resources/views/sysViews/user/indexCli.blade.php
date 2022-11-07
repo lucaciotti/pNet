@@ -11,9 +11,9 @@
 @stop
 
 
-@section('content')
+@section('content-fluid')
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-lg-7">
 
     <div class="card">
       <div class="card-header border-transparent">
@@ -27,12 +27,27 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        {{-- @include('sysViews.user.partial.tblIndex', ['users' => $clients]) --}}
-        {{-- <livewire:user-client-table /> --}}
-        <livewire:users-table />
+        @include('sysViews.user.partial.tblIndex', ['users' => $clients])
+        {{-- <livewire:user-table /> --}}
       </div>
     </div>
 
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ trans('client.filter') }}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        @include('sysViews.user.partial.formIndex')
+      </div>
+    </div>
   </div>
 </div>
 @endsection

@@ -93,6 +93,7 @@ Route::name('abcProds::')->middleware(['auth', 'privacy'])->group(function () {
 Route::name('user::')->group(function () {
     Route::resource('users', UserController::class)->middleware(['auth', 'privacy']);
     Route::get('/cli_users', [UserController::class, 'indexCli'])->name('usersCli')->middleware(['auth', 'privacy']);
+    Route::post('/cli_users', [UserController::class, 'filterCli'])->name('usersFilterCli')->middleware(['auth', 'privacy']);
     Route::get('/actLike/{id}', [UserController::class, 'actLike'])->name('actLike')->middleware(['auth', 'privacy']);
     Route::post('/user_changeDB', [UserController::class, 'changeDB'])->name('changeDB')->middleware(['auth', 'privacy']);
     Route::post('/user_changeLang', [UserController::class, 'changeSelfLang'])->name('changeLang')->middleware(['auth', 'privacy']);
