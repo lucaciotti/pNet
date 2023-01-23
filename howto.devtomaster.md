@@ -11,3 +11,4 @@ git merge master (there won't be any conflicts now)
 
 // DEPLOY
 php artisan deploy -v production
+dep deploy dev or prod
