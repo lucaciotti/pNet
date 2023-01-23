@@ -2,6 +2,7 @@
 
 namespace App\Models\parideModels\Docs;
 
+// use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class RowOrd extends Model
 {
     use HasFactory;
+    // use \Awobaz\Compoships\Compoships;
 
     protected $table = 'ord_rig';
     public $timestamps = false;
@@ -48,9 +50,9 @@ class RowOrd extends Model
         return $this->hasOne('App\Models\parideModels\Iva', 'id_iva', 'id_iva');
     }
 
-    public function skuCustomCode()
-    {
-        return $this->hasMany('App\Models\parideModels\wSkuCustom', 'id_art', 'id_art');
-    }
+    // public function skuCustomCode()
+    // {
+    //     // return $this->hasOne('App\Models\parideModels\wSkuCustom', 'id_art', 'id_art')->where('id_cli_for', $this->id_cli_for);
+    // }
 
 }

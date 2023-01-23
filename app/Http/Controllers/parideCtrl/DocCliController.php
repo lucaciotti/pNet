@@ -337,7 +337,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -350,7 +350,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -363,7 +363,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -376,7 +376,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -389,7 +389,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -402,7 +402,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -415,7 +415,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -442,7 +442,7 @@ class DocCliController extends Controller
         $data = [
             'head' => $doc,
             'tipodoc' => $tipodoc,
-            'noteDoc' => $$noteDoc,
+            'noteDoc' => $noteDoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
 

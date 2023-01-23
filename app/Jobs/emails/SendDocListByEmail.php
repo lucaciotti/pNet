@@ -210,7 +210,7 @@ class SendDocListByEmail implements ShouldQueue
         $data = [
             'head' => $doc,
             'tipodoc' => $tipodoc,
-            'noteDoc' => $$noteDoc,
+            'noteDoc' => $noteDoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $filename);
         if (Storage::exists('DocPDFToSend/' . $filename . '.pdf')) {

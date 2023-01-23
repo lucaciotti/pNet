@@ -96,7 +96,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -108,7 +108,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -120,7 +120,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -132,7 +132,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -144,7 +144,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -156,7 +156,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -168,7 +168,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -186,7 +186,7 @@ class SendOneDocListedByEmail implements ShouldQueue
         $data = [
             'head' => $doc,
             'tipodoc' => $tipodoc,
-            'noteDoc' => $$noteDoc,
+            'noteDoc' => $noteDoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $filename);
         if (Storage::exists('DocPDFToSend/' . $filename . '.pdf')) {
