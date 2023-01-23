@@ -63,7 +63,7 @@
             <u>
                 <h4>Note:</h4>
             </u>
-            @if(!emptY($noteDoc))
+            @if(!empty($noteDoc))
                 <h5>
                     {{ $noteDoc }}
                 </h5>

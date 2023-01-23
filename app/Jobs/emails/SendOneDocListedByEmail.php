@@ -24,6 +24,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Models\parideModels\Docs\QuoteCli;
 use App\Models\parideModels\Docs\wDocSent;
 use App\Models\parideModels\Docs\wOrdSent;
+use App\Models\parideModels\Docs\wDocNotes;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -95,7 +96,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -107,7 +108,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -119,7 +120,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -131,7 +132,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -143,7 +144,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -155,7 +156,7 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
@@ -167,19 +168,25 @@ class SendOneDocListedByEmail implements ShouldQueue
                         ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                 ])->findOrFail($id_doc);
                 break;
             default:
                 break;
         }
+
+        $noteDoc = wDocNotes::where('start_date', '<=', $doc->data)
+                            ->where('end_date', '>', $doc->data)
+                            ->where('tipo_doc', $tipodoc)->first()->note;
+
         $title = "Doc Detail";
         $filename = $doc->descr_tipodoc . "_" . $doc->num . "_" . $doc->data->year;
         $view = 'parideViews._exports.pdf.docDetailPdf';
         $data = [
             'head' => $doc,
             'tipodoc' => $tipodoc,
+            'noteDoc' => $$noteDoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $filename);
         if (Storage::exists('DocPDFToSend/' . $filename . '.pdf')) {

@@ -442,6 +442,7 @@ class DocCliController extends Controller
         $data = [
             'head' => $doc,
             'tipodoc' => $tipodoc,
+            'noteDoc' => $$noteDoc,
         ];
         $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
 
