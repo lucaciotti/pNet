@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-docNotes_{{ $idNote }}">
-    Inserisci Nuovo Codice Personalizzato
+    Inserisci Nuova Nota su Documento
 </button>
 
 <div class="modal fade show" id="modal-docNotes_{{ $idNote }}" aria-modal="true" role="dialog">
@@ -7,9 +7,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 @if ($idNote!=0)
-                <h6 class="modal-title">Modifica Codice Prodotto Personalizzato</h6>
+                <h6 class="modal-title">Nota Personalizzata Documento</h6>
                 @else
-                <h6 class="modal-title">Inserisci Codice Prodotto Personalizzato</h6>
+                <h6 class="modal-title">Nota Personalizzata Documento</h6>
                 @endif
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
