@@ -12,6 +12,7 @@ use App\Http\Controllers\parideCtrl\ProductController;
 use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\sysCtrl\PrivacyPolicyController;
 use App\Http\Controllers\parideCtrl\StatAbcProdController;
+use App\Http\Controllers\parideCtrl\DocNotesController;
 use App\Imports\PrivacyAgreementImport;
 
 /*
@@ -66,6 +67,8 @@ Route::name('product::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('list');
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
+    
+    Route::get('/search-products/{searchStr}', [ProductController::class, 'searchProducts'])->name('searchProducts');
 });
 
 // Routes Docs
@@ -78,6 +81,8 @@ Route::name('doc::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/ddtToSend', [DocToSendController::class, 'index'])->name('indexDdtToSend');
     Route::post('/ddtToSend', [DocToSendController::class, 'fltIndex'])->name('fltDdtToSend');
     Route::get('/ddtToSend/{id}', [DocToSendController::class, 'sendDdt'])->name('sendDdt');
+
+    Route::get('/docNotes', [DocNotesController::class, 'index'])->name('docNotes');
 });
 
 // Routes AbcProds

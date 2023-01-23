@@ -72,7 +72,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/favicon/favicon-96x96.png') }}">
         <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('assets/favicon/android-icon-192x192.png') }}">
-        <link rel="manifest" href="{{ asset('assets/favicon/manifest.json') }}">
+        {{-- <link rel="manifest" href="{{ asset('assets/favicon/manifest.json') }}"> --}}
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('assets/favicon/ms-icon-144x144.png') }}">
     @endif

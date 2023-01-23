@@ -5,7 +5,7 @@
             wire:model="searchStr"
             wire:keydown.escape="resetFilters"
             wire:keydown.tab="resetFilters"
-            wire:keydown.enter="selectProduct"
+            wire:keydown.enter="goToProducts"
             wire:keydown.ArrowUp="decrementHighlight"
             wire:keydown.ArrowDown="incrementHighlight">
             <div class="input-group-append">
@@ -16,16 +16,23 @@
         </div>
         @if(!empty($searchStr))
         <div id='productSearchResult' class="navbar-search-results mySearchResults">
-            <div class="list-group">
+            <div class="list-group myListGroup">
+                <a href="#" class="list-group-item list-group-item-action" wire:loading wire:target="searchStr">
+                  <p class="mb-1 text-warning">Caricamento ...</p>
+                  {{-- <small>{{ $product['searchStr'] }}</small> --}}
+                </a>
                 @if(!empty($products))
                     @foreach($products as $i => $product)
-                    <a href="{{ route('product::detail', $product['id_art']) }}" class="list-group-item">
-                        {{-- {{ $highlightIndex === $i ? 'mySearchHighlight' : '' }} --}}
-                        <div class="search-title">
-                            <strong>{{ $product['id_art'] }}</strong> - {{ $product['descr'] }}
-                        </div>
-                        {{-- <div class="search-path"><small>Barcode: {{ $product['id_cod_bar'] }}</small></div> --}}
+                    
+                    <a href="{{ route('product::detail', $product['id_art']) }}" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ $product['id_art'] }}</h5>
+                        <small>{{ $product['type'] }}</small>
+                      </div>
+                      <p class="mb-1">{{ $product['descr'] }}</p>
+                      {{-- <small>{{ $product['searchStr'] }}</small> --}}
                     </a>
+
                     @endforeach
                 @else
                     <a href="#" class="list-group-item">
@@ -42,9 +49,16 @@
 
 
 <style>
+
+    .myListGroup {
+      max-height: 400px;
+      margin-bottom: 10px;
+      overflow-y:scroll;
+      -webkit-overflow-scrolling: touch;
+    }
     .mySearchResults {
         position: absolute;
-        width: auto;
+        width: 500px;
         overflow-y: auto;
         /* background: white; */
         /* border-bottom-left-radius: 10px; */
@@ -55,6 +69,11 @@
         /* left: 0;
         right: 0;
         top: 40px; */
+    }
+    @media screen and (max-width: 500px) {
+      .mySearchResults {
+      width: auto;
+      }
     }
     .mySearchResults a:link,a:visited,a:hover,a:active {
         color:#000;
@@ -67,6 +86,7 @@
     }
 </style>
 
+@push('js')
 <script>
     document.addEventListener("click", function(evt) {
         var flyoutElement = document.getElementById('productSearchBar'),
@@ -89,3 +109,4 @@
         }
     });
 </script>
+@endpush

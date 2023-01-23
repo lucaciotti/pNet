@@ -51,6 +51,11 @@
                         </a>
 
                         <hr class="mb-2 bg-white">
+                        <a href='{{ url('docNotes') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-light">
+                                <i class="far fa-pencil"></i>&nbsp;&nbsp;Note su Documenti
+                            </button>
+                        </a><br>
                         <a href='{{ url('ddtToSend') }}'>
                             <button type="submit" class="btn btn-block btn-outline-warning">
                                 <i class="fas fa-at"></i>&nbsp;&nbsp;Ddt da Inviare

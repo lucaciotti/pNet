@@ -145,6 +145,11 @@ class Product extends Model
         return $this->hasOne('App\Models\parideModels\Iva', 'id_iva', 'id_iva');
     }
 
+    public function skuCustomCode()
+    {
+        return $this->hasMany('App\Models\parideModels\wSkuCustom', 'id_art', 'id_art');
+    }
+
 
     // public function descrLang(String $lang)
     // {

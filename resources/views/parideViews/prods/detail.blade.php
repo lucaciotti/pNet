@@ -12,7 +12,7 @@
 @stop --}}
 
 @section('content-fluid')
-{{-- <div class="container"> --}}
+
 <div class="row">
   
   <div class="col-lg-4">
@@ -119,6 +119,43 @@
   </div>
 
   <div class="col-lg-4">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" data-card-widget="collapse">Codice Personalizzato</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        @if (in_array(RedisUser::get('role'), ['client']))
+          @if ($prod->skuCustomCode->count()==0)
+            <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-sku_cli">
+              Inserisci Riferimento Codice Interno
+            </button>
+          @else
+            <dl class="dl-horizontal">
+              <dt>Codice di Riferimento Interno</dt>
+              <dd>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <big><strong>{{$prod->skuCustomCode->first()->sku_code}}</strong></big>
+              </dd>
+            </dl>
+            <hr>
+            <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-sku_cli">
+              Modifica Riferimento Codice Interno
+            </button>
+          @endif
+        @else
+          <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-sku_cli_list">
+            Lista Codice Personalizzati
+          </button>
+        @endif
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <h3 class="card-title" data-card-widget="collapse">Giacenza</h3>
@@ -129,7 +166,7 @@
         </div>
       </div>
       <div class="card-body">
-        <label>Quantità:</label>
+        {{-- <label>Quantità:</label> --}}
         <div class="input-group">
           {{-- <div class="input-group-prepend">
             <span class="input-group-text">{{ $prod->um }}</span>
@@ -152,17 +189,17 @@
     </div>
 
     @if (!in_array(RedisUser::get('role'), ['client', 'user', 'agent']))
-    <div class="card">
+    <div class="card collapsed-card">
       <div class="card-header">
         <h3 class="card-title" data-card-widget="collapse">Vendute</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
+            <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
       <div class="card-body">
-        <label>Quantità:</label>
+        {{-- <label>Quantità:</label> --}}
         <div class="input-group">
           {{-- <div class="input-group-prepend">
             <span class="input-group-text">{{ $prod->um }}</span>
@@ -219,6 +256,7 @@
   </div>
 
 </div>
+
 
 <div class="row">
 
@@ -318,23 +356,33 @@
 
 </div>
 
-<div class="modal fade show" id="modal-lg" aria-modal="true" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title"><strong>{{ $prod->id_art }}</strong> - Specifiche</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! $prod->desc_ecom !!}
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 
-{{-- </div> --}}
+{{-- MODAL FORMS --}}
+@include('parideViews.prods.modals.descEcom')
+
+@if (in_array(RedisUser::get('role'), ['client']))
+  @php
+    $sku_code = $prod->skuCustomCode->count()>0 ? $prod->skuCustomCode->first()->sku_code : '';
+  @endphp
+  @include('parideViews.prods.modals.skuCliForm', ['id_art' => $prod->id_art, 'id_cli_for' => RedisUser::get('codcli'), 'sku_code' => $sku_code ])
+
+@else
+  @include('parideViews.prods.modals.skuCliList', ['id_art' => $prod->id_art])
+@endif
+
 @endsection
+
+@push('js')
+<script>
+  $(document).ready(function() {
+
+        $('#modal-sku_cli').on('shown.bs.modal', function (e) {
+          setTimeout(()=> {
+              livewire.emit('skuCodeModalShowed');
+            }
+            ,500);
+        });
+
+    });
+</script>
+@endpush

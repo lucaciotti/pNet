@@ -28,7 +28,7 @@ class ProductController extends Controller
 
         $products = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo', 'nome_foto');
             // ->where('data_reg', '>', now()->subMonths(6))->orderBy('data_reg');
-        $products = $products->with(['grpProd', 'supplier', 'magGiac', 'marche'])->orderBy('id_art', 'desc')->take(50)->get();
+        $products = $products->with(['grpProd', 'supplier', 'magGiac', 'marche', 'skuCustomCode'])->orderBy('id_art', 'desc')->take(50)->get();
 
         $supplierList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
             ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
@@ -148,6 +148,13 @@ class ProductController extends Controller
             'supplierSelected' => $req->input('supplierSelected'),
             'marcheList' => $marcheList,
             'marcheSelected' => $req->input('marcheSelected'),
+        ]);
+    }
+
+    public function searchProducts(Request $req, $searchStr)
+    {
+        return view('parideViews.prods.searchProducts', [
+            'searchStr' => $searchStr
         ]);
     }
 

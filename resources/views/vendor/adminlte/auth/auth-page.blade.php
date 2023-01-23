@@ -25,7 +25,17 @@
                 {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
             </a>
         </div>
+    @if(Request::is('login'))
+    </div>
 
+    <div class="d-flex justify-content-center">
+        <h4 class="text-lightblue">
+            Aiutiamo le Persone a Creare, Costruire, Innovare
+        </h4>
+    </div>
+
+    <div class="{{ $auth_type ?? 'login' }}-box">
+    @endif
         {{-- Card Box --}}
         <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
 

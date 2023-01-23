@@ -63,34 +63,40 @@
             <u>
                 <h4>Note:</h4>
             </u>
-            @if($tipodoc=='XC')
-            <h5>
-                La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
-                <br>
-                I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
-                <br><br>
-                Validità del preventivo: 5gg.
-            </h5>
-            @endif
-            @if($tipodoc=='OC')
-            <h5>
-                Le date di consegna sono indicative e non vincolanti.
-                <br>
-                Il materiale viene fornito in base alle condizioni generali di vendita così come riportato su:
-                <br>https://www.ferramentaparide.it/treviso-termini-e-condizioni
-            </h5>
-            @endif
-            @if($tipodoc=='BO'|| $tipodoc=='FT')
-            <h5>
-                Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
-                <br>
-                I resi devono essere approvati.
-            </h5>
-            @endif
-            @if($tipodoc=='FT'|| $tipodoc=='FD' || $tipodoc=='NC')
-            <h5>
-                Copia digitale della fattura inviata a SDI.
-            </h5>
+            @if(!emptY($noteDoc))
+                <h5>
+                    {{ $noteDoc }}
+                </h5>
+            @else
+                @if($tipodoc=='XC')
+                <h5>
+                    La disponibilità del materiale indicato si intende salvo venduto dalla data del presente documento.
+                    <br>
+                    I tempi o data di consegna sono puramente indicativi e potrebbero subire variazione.
+                    <br><br>
+                    Validità del preventivo: 5gg.
+                </h5>
+                @endif
+                @if($tipodoc=='OC')
+                <h5>
+                    Le date di consegna sono indicative e non vincolanti.
+                    <br>
+                    Il materiale viene fornito in base alle condizioni generali di vendita così come riportato su:
+                    <br>https://www.ferramentaparide.it/treviso-termini-e-condizioni
+                </h5>
+                @endif
+                @if($tipodoc=='BO'|| $tipodoc=='FT')
+                <h5>
+                    Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
+                    <br>
+                    I resi devono essere approvati.
+                </h5>
+                @endif
+                @if($tipodoc=='FT'|| $tipodoc=='FD' || $tipodoc=='NC')
+                <h5>
+                    Copia digitale della fattura inviata a SDI.
+                </h5>
+                @endif
             @endif
             
             {{-- @if($tipodoc=='FP' && $head->id_pag!=16)

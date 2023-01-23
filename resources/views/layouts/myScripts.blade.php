@@ -34,6 +34,7 @@
             setDataRange(start, end);
         }
     });
+    
     function setDataRange(start, end) {
         $('input[name="docDataPicker"]').data('daterangepicker').setStartDate(start);
         $('input[name="docDataPicker"]').data('daterangepicker').setEndDate(end);
@@ -393,24 +394,6 @@
     });
   });
 </script>
-<style>
-    .dtTbls_light span.date {
-        display: none;
-    }
-
-    .dtTbls_full span.date {
-        display: none;
-    }
-
-    .dtTbls_full_Tot span.date {
-        display: none;
-    }
-
-    .dtTbls_total span.date {
-        display: none;
-    }
-    
-</style>
 
 {{-- mySelect2 --}}
 <script>
@@ -458,61 +441,13 @@
 {{-- ZenDesk --}}
 <!--Start of Zendesk Chat Script-->
 @if(App::environment('production'))
-<script type="text/javascript">
-    window.$zopim||(function(d,s){var z=$zopim=function(c){
-z._.push(c)},$=z.s=
-d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-$.src='https://v2.zopim.com/?5kD2eVVklHiJSkiTapXQljZtRRhqT8MG';z.t=+new Date;$.
-type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
-</script>
+    <script type="text/javascript">
+        window.$zopim||(function(d,s){var z=$zopim=function(c){
+        z._.push(c)},$=z.s=
+        d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+        $.src='https://v2.zopim.com/?5kD2eVVklHiJSkiTapXQljZtRRhqT8MG';z.t=+new Date;$.
+        type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+    </script>
 @endif
 <!--End of Zendesk Chat Script-->
-
-{{-- Thumbnail --}}
-<style type="text/css">
-    .thumbnail {
-        position: relative;
-        z-index: 0;
-    }
-
-    .thumbnail:hover {
-        background-color: transparent;
-        z-index: 50;
-    }
-
-    .thumbnail span {
-        /*CSS for enlarged image*/
-        position: absolute;
-        background-color: white;
-        padding: 5px;
-        left: -1000px;
-        border: 1px solid gray;
-        visibility: hidden;
-        display: none;
-        color: black;
-        text-decoration: none;
-    }
-
-    .thumbnail span img {
-        /*CSS for enlarged image*/
-        border-width: 0;
-        padding: 2px;
-    }
-
-    .thumbnail:hover span {
-        /*CSS for enlarged image on hover*/
-        visibility: visible;
-        display: block;
-        bottom: 0;
-        left: 60px;
-        /*position where enlarged image should offset horizontally */
-
-    }
-</style>
-
-<style>
-    [x-cloak] {
-        display: none !important;
-    }
-</style>

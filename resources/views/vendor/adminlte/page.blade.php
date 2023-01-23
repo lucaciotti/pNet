@@ -10,6 +10,7 @@
 
 @section('adminlte_css')
     @stack('css')
+    @include('layouts.myStyles')
     @yield('css')
 @stop
 
@@ -73,6 +74,6 @@
 
 @section('adminlte_js')
     @stack('js')
-    @include('layouts.myScript&Style')
+    @include('layouts.myScripts')
     @yield('js')
 @stop

@@ -19,6 +19,7 @@ use App\Models\parideModels\Docs\DDTCli;
 use App\Models\parideModels\Docs\OrdCli;
 use App\Models\parideModels\Docs\RowDoc;
 use App\Models\parideModels\Docs\QuoteCli;
+use App\Models\parideModels\Docs\wDocNotes;
 
 class DocCliController extends Controller
 {
@@ -336,7 +337,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -349,7 +350,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -362,7 +363,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -375,7 +376,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -388,7 +389,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_ord_rig', 'asc')->with('tva');
+                        $query->orderBy('id_ord_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -401,7 +402,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -414,7 +415,7 @@ class DocCliController extends Controller
                             ->withoutGlobalScope('client');
                     },
                     'rows' => function ($query) {
-                        $query->orderBy('id_doc_rig', 'asc')->with('tva');
+                        $query->orderBy('id_doc_rig', 'asc')->with(['tva', 'skuCustomCode']);
                     },
                     'destinazioni',
                 ])->findOrFail($id_doc);
@@ -428,6 +429,12 @@ class DocCliController extends Controller
         // $nextDocs = DocCli::select('id', 'tipodoc', 'numerodoc', 'datadoc')->whereIn('id', $nextIds->pluck('id_testa'))->get();
 
         // $totValueFOC = $rows->where('ommerce', true)->sum('prezzotot');
+
+        $noteDoc = wDocNotes::where('start_date', '<=', $doc->data)
+                            ->where('end_date', '>', $doc->data)
+                            ->where('tipo_doc', $tipodoc)->first()->note;
+        
+        // dd($noteDoc);
 
         $title = "Doc Detail";
         $subTitle = $doc->descr_tipodoc . "_" . $doc->num . "/" . $doc->data->year;

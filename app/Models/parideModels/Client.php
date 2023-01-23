@@ -73,4 +73,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Models\parideModels\Destinazioni', 'id_cli_for', 'id_cli_for');
     }
+    
+    public function skuCustomCode()
+    {
+        return $this->hasMany('App\Models\parideModels\wSkuCustom', 'id_cli_for', 'id_cli_for');
+    }
 }
