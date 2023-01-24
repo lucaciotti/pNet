@@ -65,7 +65,7 @@
             </u>
             @if(!empty($noteDoc))
                 <h5>
-                    {{ $noteDoc }}
+                    {!! $noteDoc !!}
                 </h5>
             @else
                 @if($tipodoc=='XC')
