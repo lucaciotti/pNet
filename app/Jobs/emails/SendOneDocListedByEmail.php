@@ -176,9 +176,16 @@ class SendOneDocListedByEmail implements ShouldQueue
                 break;
         }
 
-        $noteDoc = wDocNotes::where('start_date', '<=', $doc->data)
+        $listNoteDoc = wDocNotes::where('start_date', '<=', $doc->data)
                             ->where('end_date', '>', $doc->data)
-                            ->where('tipo_doc', $tipodoc)->first()->note;
+                            ->where('tipo_doc', $tipodoc)
+                            ->orderBy('start_date')
+                            ->get();
+        
+        $noteDoc='';                            
+        foreach ($listNoteDoc as $note) {
+            $noteDoc = nl2br($note->note) . '<br/>';
+        } 
 
         $title = "Doc Detail";
         $filename = $doc->descr_tipodoc . "_" . $doc->num . "_" . $doc->data->year;
