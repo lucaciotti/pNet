@@ -79,6 +79,12 @@ class NoteDocForm extends Component
         }
     }
 
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
     // public function updated($propertyName)
     // {
     //     $this->validateOnly($propertyName);
