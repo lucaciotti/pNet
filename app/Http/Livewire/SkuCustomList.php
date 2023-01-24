@@ -34,7 +34,8 @@ class SkuCustomList extends Component
     {
         return view('livewire.sku-custom-list', [
             'listSkuCodes' => $this->readyToLoad
-                ? wSkuCustom::with(['client' => function ($query) { $query->select('id_cli_for', 'rag_soc'); }])->get()
+                ? wSkuCustom::with(['client' => function ($query) { $query->select('id_cli_for', 'rag_soc'); }])
+                            ->where('id_art', $this->id_art)->get()
                 : [],
         ]);
     }

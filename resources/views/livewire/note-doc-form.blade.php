@@ -62,19 +62,21 @@
             lang: 'it-IT',
             singleDatePicker: true,
             showDropdowns: true,
-        },
-        function(start, end, label) {
-            @this.set('start_date', start);
+        }).on('blur', function (e) {
+            var data = $('input[id="start_date"]').data('daterangepicker');
+            // console.log(data.startDate);
+            @this.set('start_date', data.startDate);
         });
 
         $('input[id="end_date"]').daterangepicker({
             lang: 'it-IT',
             singleDatePicker: true,
             showDropdowns: true,
-        },
-        function(start, end, label) {
-            @this.set('end_date', start);
-        });
+        }).on('blur', function (e) {
+            var data = $('input[id="end_date"]').data('daterangepicker');
+            // console.log(data.startDate);
+            @this.set('end_date', data.startDate);
+        });;
 
     });
     document.addEventListener("livewire:load", () => {
