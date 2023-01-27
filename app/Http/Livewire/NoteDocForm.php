@@ -100,17 +100,17 @@ class NoteDocForm extends Component
                     }
                 }
                 // dd($this->start_date);
-                try {
-                    $e_notes=wDocNotes::where('tipo_doc', $this->tipo_doc)
-                        ->where('end_date', '>=', $this->start_date)
-                        ->where('start_date', '<=', $this->end_date)->get();
+                // try {
+                //     $e_notes=wDocNotes::where('tipo_doc', $this->tipo_doc)
+                //         ->where('end_date', '>=', $this->start_date)
+                //         ->where('start_date', '<=', $this->end_date)->get();
 
-                    if($e_notes->count()>0){
-                        $validator->errors()->add('note', 'Esiste già una Nota Personalizzata valida nel periodo selezionato ('.$e_notes->first()->start_date->format('d/m/Y').' - '.$e_notes->first()->end_date->format('d/m/Y').')!');
-                    }
-                } catch (\Throwable $th) {
-                    $validator->errors()->add('start_date', 'Errore di riconoscimento data!');
-                }
+                //     if($e_notes->count()>0){
+                //         $validator->errors()->add('note', 'Esiste già una Nota Personalizzata valida nel periodo selezionato ('.$e_notes->first()->start_date->format('d/m/Y').' - '.$e_notes->first()->end_date->format('d/m/Y').')!');
+                //     }
+                // } catch (\Throwable $th) {
+                //     $validator->errors()->add('start_date', 'Errore di riconoscimento data!');
+                // }
             });
         })->validate();
         

@@ -184,7 +184,7 @@ class SendOneDocListedByEmail implements ShouldQueue
         
         $noteDoc='';                            
         foreach ($listNoteDoc as $note) {
-            $noteDoc = nl2br($note->note) . '<br/>';
+            $noteDoc += nl2br($note->note) . '<br/>';
         } 
 
         $title = "Doc Detail";
