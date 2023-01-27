@@ -49,7 +49,7 @@
             <td style="text-align:right;">{{ number_format((float)$prod->qta, 2, ',', '') }} </td>
             <td>@if ($prod->product){{ $prod->product->um }} @endif</td>
             @if (!in_array(RedisUser::get('role'), ['client']))
-            <td>{{ currency($prod->val) }}</td>
+            <td><span class='date'>{{$prod->val * 100}}</span>{{ currency($prod->val) }}</td>
             @endif
         </tr>
         @endforeach
