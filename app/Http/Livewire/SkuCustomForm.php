@@ -104,6 +104,16 @@ class SkuCustomForm extends Component
         }
     }
 
+    public function delete(){
+        // dd($id_cli_for);
+        wSkuCustom::where(['id_art' => $this->id_art, 'id_cli_for' => $this->id_cli_for])->delete();
+        $this->dispatchBrowserEvent('closeModalSkuCli');
+        $this->emit('closeModalSkuCli');
+        if(in_array(RedisUser::get('role'), ['client'])){
+            return redirect()->to('product/'.$this->id_art);
+        }
+    }
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);

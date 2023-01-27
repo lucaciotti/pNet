@@ -5,7 +5,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cerca Prodotti" wire:model.lazy="searchString" wire:keydown.enter="loadProducts">
                 <div class="input-group-append">
-                    <span class="input-group-text"><i class="fas fa-fw fa-search"></i></span>
+                    <a href="#" class="input-group-text"><i class="fas fa-fw fa-search"></i></a>
                 </div>
             </div>
             <hr>

@@ -55,26 +55,54 @@ class ProductSearchBar extends Component
 
     public function updatedSearchStr()
     {
-        $searchStr = Str::upper($this->searchStr);
-        $products_code = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Codice Prodotto" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
-            ->where('id_art', 'like', $searchStr . '%')->take(25)->get();
-        $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
-            ->where('desc_ecom', 'like', '%' . $searchStr . '%')
-            ->orWhere('descr', 'like', '%' . $searchStr . '%')->take(25)->get();
-        $products_barcode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Barcode" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
-            ->where('id_cod_bar', 'like', $this->searchStr . '%')
-            ->orWhereHas('barcodes', function ($query) use ($searchStr) {
-                $query->where('id_cod_bar', 'like', $searchStr . '%');
-            })->take(25)->get();
-        $products_customCode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"CustomCode" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
-            ->whereHas('supplierCodes', function ($query) use ($searchStr) {
-                $query->where('id_cod_for', 'like', $searchStr . '%');
-            })
-            ->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
-                $query->where('sku_code', 'like', $searchStr . '%');
-            })->take(25)->get();
+        $searchStr = trim(Str::upper($this->searchStr));
+        if(Str::wordCount($searchStr)==1){
+            $products_code = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Codice Prodotto" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                ->where('id_art', 'like', $searchStr . '%')->take(25)->get();
+            $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                ->whereRaw('upper(desc_ecom) like (?)',["%{$searchStr}%"])
+                ->orWhereRaw('upper(descr) like (?)',["%{$searchStr}%"])
+                ->take(25)->get();
+            $products_barcode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Barcode" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                ->where('id_cod_bar', 'like', $this->searchStr . '%')
+                ->orWhereHas('barcodes', function ($query) use ($searchStr) {
+                    $query->where('id_cod_bar', 'like', $searchStr . '%');
+                })->take(25)->get();
+            $products_supplierCode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Cod. Fornitore" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                ->whereHas('supplierCodes', function ($query) use ($searchStr) {
+                    $query->where('id_cod_for', 'like', $searchStr . '%');
+                })->take(25)->get();
+            $products_customCode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Cod. Personalizzato" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                ->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
+                    $query->where('sku_code', 'like', $searchStr . '%');
+                })->take(25)->get();
 
-        $this->products = $products_code->merge($products_desc)->merge($products_barcode)->merge($products_customCode)->toArray();
+            $this->products = $products_code->merge($products_desc)->merge($products_barcode)->merge($products_supplierCode)->merge($products_customCode)->toArray();
+        } else {
+                $aSearchStr = Str::of($searchStr)->explode(' ');
+                $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'));
+                // foreach ($aSearchStr as $key => $value) {
+                //     if($key==0){
+                //         $products_desc->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"])
+                //                     ->orWhereRaw('upper(descr) like (?)',["%{$value}%"]);
+                //     } else {
+                //         $products_desc->orWhereRaw('upper(desc_ecom) like (?)',["%{$value}%"])
+                //                     ->orWhereRaw('upper(descr) like (?)',["%{$value}%"]);
+                //     }
+                // }
+                $products_desc->where(function($query) use($aSearchStr) {
+                    foreach ($aSearchStr as $key => $value) {
+                        $query->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"]);
+                    }
+                });
+                $products_desc->orWhere(function($query) use($aSearchStr) {
+                    foreach ($aSearchStr as $key => $value) {
+                        $query->whereRaw('upper(descr) like (?)',["%{$value}%"]);
+                    }
+                });
+                $products_desc = $products_desc->take(25)->get();
+                $this->products = $products_desc->toArray();
+        }   
         
         // dd($this->products);
     }

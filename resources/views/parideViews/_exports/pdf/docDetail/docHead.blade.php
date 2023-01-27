@@ -18,6 +18,9 @@
         <dt>{{ trans('doc.client') }}</dt>
         <dd><strong>{{$head->client->rag_soc}} [{{$head->id_cli_for}}]</strong></dd>
 
+        <dt>{{ trans('client.vatCode') }}</dt>
+        <dd>{{$head->client->p_i}}</dd>
+
         <dt>{{ trans('doc.dateDoc') }}</dt>
         <dd>{{$head->data->format('d/m/Y')}}</dd>
 

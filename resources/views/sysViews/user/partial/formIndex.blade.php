@@ -62,7 +62,7 @@
     </div>
 
   <div class="form-group">
-    <label>{{ trans('doc.typeDoc') }}</label>
+    <label>Stato Cliente</label>
     @php
         if(!empty($fltClients) && !empty($fltClients->first())){
           $active = $fltClients->first()->isActive;

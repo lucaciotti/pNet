@@ -1,40 +1,48 @@
-<form wire:submit.prevent="submit" wire:init="readyToLoad">
-    
-    <dl class="dl-horizontal">
-        <dt>Codice</dt>
-        <dd>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <big><strong>{{$id_art}}</strong></big> -
-            <small>{{$descr_art}}</small>
-        </dd>
-    </dl>
+<div>
+    <form wire:submit.prevent="submit" wire:init="readyToLoad">
+        
+        <dl class="dl-horizontal">
+            <dt>Codice</dt>
+            <dd>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <big><strong>{{$id_art}}</strong></big> -
+                <small>{{$descr_art}}</small>
+            </dd>
+        </dl>
 
-    @if (RedisUser::get('role') != 'client')
-        <div class="form-group"style="margin-bottom:5px;">
-            <label for="id_cli_for">Codice Cliente</label>
-            <select class="form-control select2 livewireSelect2" id="id_cli_for" style="width: 100%;" placeholder="Codice Cliente" wire:model.lazy="id_cli_for">
-                @foreach ($clients as $client)
-                <option value="{{ $client['id_cli_for'] }}"> {{ $client['rag_soc'] }} </option>
-                @endforeach
-            </select>
-            @error('id_cli_for') <span class="text-danger">{{ $message }}</span> @enderror
-            @if (!$clientsLoaded)
-                <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
-            @endif        
+        @if (RedisUser::get('role') != 'client')
+            <div class="form-group"style="margin-bottom:5px;">
+                <label for="id_cli_for">Codice Cliente</label>
+                <select class="form-control select2 livewireSelect2" id="id_cli_for" style="width: 100%;" placeholder="Codice Cliente" wire:model.lazy="id_cli_for">
+                    @foreach ($clients as $client)
+                    <option value="{{ $client['id_cli_for'] }}"> {{ $client['rag_soc'] }} </option>
+                    @endforeach
+                </select>
+                @error('id_cli_for') <span class="text-danger">{{ $message }}</span> @enderror
+                @if (!$clientsLoaded)
+                    <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
+                @endif        
+            </div>
+        @endif
+        
+        <div class="form-group" style="margin-bottom:5px;">
+            <label for="sku_code">Codice Personalizzato</label>
+            <input type="text" class="form-control form-control-sm" id="sku_code" placeholder="Codice Personalizzato Prodotto" wire:model.lazy="sku_code" >
+            @error('sku_code') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-    @endif
-    
-    <div class="form-group" style="margin-bottom:5px;">
-        <label for="sku_code">Codice Personalizzato</label>
-        <input type="text" class="form-control form-control-sm" id="sku_code" placeholder="Codice Personalizzato Prodotto" wire:model.lazy="sku_code" >
-        @error('sku_code') <span class="text-danger">{{ $message }}</span> @enderror
-    </div>
-    
-    <div>
-        <button type="submit" class="btn bg-lightblue btn-sm btn-block" style="margin-top:10px;">Salva</button>
-    </div>
+        
+        <div>
+            <button type="submit" class="btn bg-lightblue btn-sm btn-block" style="margin-top:10px;">Salva</button>
+        </div>
 
-</form>
+    </form>
+    <hr>
+    @if (!empty($sku_code))
+    <div>
+        <button class="btn btn-danger btn-sm btn-block" style="margin-top:10px;" wire:click="delete()">Cancella</button>
+    </div>
+    @endif
+</div>
 
 @push('js')
 <script>

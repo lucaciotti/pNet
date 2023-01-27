@@ -16,7 +16,7 @@
                 @if (!empty($prod->nome_foto))
                 <a class="thumbnail" href="{{ route('product::detail', $prod->id_art) }}">
                     {{ $prod->id_art }}
-                    @if($prod->skuCustomCode && RedisUser::get('role')=='client')
+                    @if($prod->skuCustomCode->count()>0 && RedisUser::get('role')=='client')
                     [{{ $prod->skuCustomCode->sku_code }}]
                     @endif
                     <span>

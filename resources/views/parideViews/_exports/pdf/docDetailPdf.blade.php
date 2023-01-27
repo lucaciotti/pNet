@@ -87,7 +87,7 @@
                 @endif
                 @if($tipodoc=='BO'|| $tipodoc=='FT')
                 <h5>
-                    Non si accetano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
+                    Non si accettano resi o sostituzioni di materiale oltre 14gg dalla data della presente.
                     <br>
                     I resi devono essere approvati.
                 </h5>

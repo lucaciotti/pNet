@@ -28,29 +28,44 @@ class SearchProducts extends Component
     }
 
     public function loadProducts() {
-        $searchStr = Str::upper($this->searchString);
+        $searchStr = trim(Str::upper($this->searchString));
         
         $products_code = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo', 'nome_foto')
                                 ->with(['grpProd', 'supplier', 'magGiac', 'marche']);
+        if(Str::wordCount($searchStr)==1){
+            if($this->codeArtSwitch){
+                    $products_code->where('id_art', 'like', $searchStr . '%');
+            }
 
-        if($this->codeArtSwitch){
-                $products_code->where('id_art', 'like', $searchStr . '%');
-        }
+            if($this->descrSwitch){
+                    // $products_code->orwhere('desc_ecom', 'like', '%' . $searchStr . '%')->orWhere('descr', 'like', '%' . $searchStr . '%');
+                    $products_code->orWhereRaw('upper(desc_ecom) like (?)',["%{$searchStr}%"])
+                                ->orWhereRaw('upper(descr) like (?)',["%{$searchStr}%"]);
+            }
 
-        if($this->descrSwitch){
-                $products_code->orwhere('desc_ecom', 'like', '%' . $searchStr . '%')->orWhere('descr', 'like', '%' . $searchStr . '%');
-        }
+            if($this->barcodeSwitch){
+                    $products_code->orWhere('id_cod_bar', 'like', $searchStr . '%')
+                    ->orWhereHas('barcodes', function ($query) use ($searchStr) {
+                        $query->where('id_cod_bar', 'like', $searchStr . '%');
+                    });
+            }
 
-        if($this->barcodeSwitch){
-                $products_code->orWhere('id_cod_bar', 'like', $searchStr . '%')
-                ->orWhereHas('barcodes', function ($query) use ($searchStr) {
-                    $query->where('id_cod_bar', 'like', $searchStr . '%');
+            if($this->customCodeSwitch){
+                $products_code->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
+                    $query->where('sku_code', 'like', $searchStr . '%');
                 });
-        }
-
-        if($this->customCodeSwitch){
-            $products_code->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
-                $query->where('sku_code', 'like', $searchStr . '%');
+            }
+        } else {
+            $aSearchStr = Str::of($searchStr)->explode(' ');
+            $products_code->where(function($query) use($aSearchStr) {
+                foreach ($aSearchStr as $key => $value) {
+                    $query->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"]);
+                }
+            });
+            $products_code->orWhere(function($query) use($aSearchStr) {
+                foreach ($aSearchStr as $key => $value) {
+                    $query->whereRaw('upper(descr) like (?)',["%{$value}%"]);
+                }
             });
         }
         

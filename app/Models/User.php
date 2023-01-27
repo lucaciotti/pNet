@@ -57,7 +57,7 @@ class User extends Authenticatable implements PortableContract
 
     public function getRoleNameAttribute()
     {
-        return $this->roles()->first()->name;
+        return $this->roles()->count() >0 ? $this->roles()->first()->name : 'client';
     }
 
     public function adminlte_image()
@@ -67,7 +67,7 @@ class User extends Authenticatable implements PortableContract
 
     public function adminlte_desc()
     {
-        return $this->roles()->first()->display_name;
+        return $this->roles()->count() >0 ? $this->roles()->first()->display_name : 'client';
     }
 
     public function adminlte_profile_url() {
