@@ -56,7 +56,8 @@ class ProductSearchBar extends Component
     public function updatedSearchStr()
     {
         $searchStr = trim(Str::upper($this->searchStr));
-        if(Str::wordCount($searchStr)==1){
+        // dd(Str::wordCount($searchStr));
+        if(Str::of($searchStr)->explode(' ')->count()==1){
             $products_code = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Codice Prodotto" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
                 ->where('id_art', 'like', $searchStr . '%')->take(25)->get();
             $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'))

@@ -32,7 +32,7 @@ class SearchProducts extends Component
         
         $products_code = Product::select('id_art', 'descr', 'um', 'pz_x_conf', 'id_fam', 'id_cod_bar', 'id_cli_for','prezzo_1', 'non_attivo', 'nome_foto')
                                 ->with(['grpProd', 'supplier', 'magGiac', 'marche']);
-        if(Str::wordCount($searchStr)==1){
+        if(Str::of($searchStr)->explode(' ')->count()==1){
             if($this->codeArtSwitch){
                     $products_code->where('id_art', 'like', $searchStr . '%');
             }
@@ -57,19 +57,26 @@ class SearchProducts extends Component
             }
         } else {
             $aSearchStr = Str::of($searchStr)->explode(' ');
-            $products_code->where(function($query) use($aSearchStr) {
-                foreach ($aSearchStr as $key => $value) {
-                    $query->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"]);
-                }
-            });
-            $products_code->orWhere(function($query) use($aSearchStr) {
-                foreach ($aSearchStr as $key => $value) {
-                    $query->whereRaw('upper(descr) like (?)',["%{$value}%"]);
-                }
-            });
+            if($this->descrSwitch){
+                $products_code->where(function($query) use($aSearchStr) {
+                    foreach ($aSearchStr as $key => $value) {
+                        $query->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"]);
+                    }
+                });
+                $products_code->orWhere(function($query) use($aSearchStr) {
+                    foreach ($aSearchStr as $key => $value) {
+                        $query->whereRaw('upper(descr) like (?)',["%{$value}%"]);
+                    }
+                });
+            } else {
+                $products_code->where('id_art', '-1');
+            }
         }
-        
-        $this->products = $products_code->get();
+        if($this->codeArtSwitch || $this->descrSwitch || $this->barcodeSwitch || $this->customCodeSwitch){
+            $this->products = $products_code->get();
+        } else {
+            $this->products = $products_code->where('id_art', '-1')->get();
+        }
     }
 
     public function updatedSearchString(){
