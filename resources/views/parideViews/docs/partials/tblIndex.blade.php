@@ -21,7 +21,13 @@
     </tfoot> --}}
   <tbody>
     @foreach ($docs as $doc)
-      <tr>
+      @if ($doc->getEvaso()==2)
+        <tr class="table-warning">
+      @elseif ($doc->getEvaso()==1)
+        <tr class="table-danger">
+      @else
+        <tr>
+      @endif
         <td>{{ $doc->descr_tipodoc }}</td>
         <td>
           <a href="{{ route('doc::detail', [$doc->tipodoc, $doc->id_doc]) }}"> {{ $doc->num }} </a>

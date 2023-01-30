@@ -74,6 +74,10 @@ class NCCli extends Model
         return 'N';
     }
 
+    public function getEvaso(){
+        return $this->attributes['fatturato'];
+    }
+
     // JOINS
     public function rows()
     {

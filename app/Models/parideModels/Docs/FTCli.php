@@ -52,6 +52,10 @@ class FTCli extends Model
         }
     }
 
+    public function getEvaso(){
+        return $this->attributes['fatturato'];
+    }
+
     // APPENDS Calculated Columns
     public function getIdDocAttribute()
     {

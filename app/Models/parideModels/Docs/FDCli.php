@@ -73,6 +73,10 @@ class FDCli extends Model
         return 'F';
     }
 
+    public function getEvaso(){
+        return $this->attributes['fatturato'];
+    }
+
     // JOINS
     public function rows()
     {

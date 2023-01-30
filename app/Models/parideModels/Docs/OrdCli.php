@@ -73,6 +73,20 @@ class OrdCli extends Model
         return 'O';
     }
 
+    public function getEvaso(){
+        $n_rows = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->count();
+        $n_rows_eva = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->whereColumn('qta_eva', 'qta_ord')->count();
+        $n_rows_part_eva = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->where('qta_eva', '>', '0')->whereColumn('qta_eva', '<', 'qta_ord')->count();
+        if ($n_rows==$n_rows_eva){
+            #evaso
+            return 1;
+        } elseif ($n_rows_part_eva>0) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
     // JOINS
     public function rows()
     {

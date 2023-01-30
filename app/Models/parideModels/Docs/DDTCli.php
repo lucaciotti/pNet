@@ -73,6 +73,10 @@ class DDTCli extends Model
         return 'B';
     }
 
+    public function getEvaso(){
+        return $this->attributes['fatturato'];
+    }
+
     // JOINS
     public function rows()
     {
