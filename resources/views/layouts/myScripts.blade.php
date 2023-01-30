@@ -1,16 +1,17 @@
 {{-- myCurrency --}}
 <script>
     jQuery.extend( jQuery.fn.dataTableExt.oSort, {
-    "my-currency-pre": function(a) {
-    return parseFloat(a.replace(/[^\d\-]/g, ''));
-    },
-    "my-currency-asc": function(a,b) {
-    return ((a < b) ? -1 : ((a> b) ? 1 : 0));
+        "my-currency-pre": function(a) {
+            // console.log('sort currency:'+ a.replace(/[^\d\-]/g, ''));
+            return parseFloat(a.replace(/[^\d\-]/g, ''));
+        },
+        "my-currency-asc": function(a,b) {
+            return ((a < b) ? -1 : ((a> b) ? 1 : 0));
         },
         "my-currency-desc": function(a,b) {
-        return ((a < b) ? 1 : ((a> b) ? -1 : 0));
-            }
-            });
+            return ((a < b) ? 1 : ((a> b) ? -1 : 0));
+        }
+    });
 </script>
 
 {{-- myDatePicker --}}
@@ -150,45 +151,16 @@
       "ordering": true,
       "info": true,
       "autoWidth": false,
-      "aaSorting": [],
-      "footerCallback": function ( row, data, start, end, display ) {
-          var api = this.api(), data;
-
-          // Remove the formatting to get integer data for summation
-          var intVal = function ( i ) {
-              return typeof i === 'string' ?
-                  i.replace(/[\$,]/g, '')*1 :
-                  typeof i === 'number' ?
-                      i : 0;
-          };
-
-          // Total over all pages
-          total = api
-              .column( 5 )
-              .data()
-              .reduce( function (a, b) {
-                  return intVal(a) + intVal(b);
-              }, 0 );
-
-          // Total over this page
-          pageTotal = api
-              .column( 5, { page: 'current'} )
-              .data()
-              .reduce( function (a, b) {
-                  return intVal(a) + intVal(b);
-              }, 0 );
-
-          // Update footer
-          $( api.column( 5 ).footer() ).html(
-              pageTotal.toFixed(2) +' €'              
-          );
-      },
-      "responsive": true,
-        "columnDefs": [
-            { "responsivePriority": 1, "targets": 0 },
-            { "responsivePriority": 2, "targets": 1 },
-            { "responsivePriority": 3, "targets": -1 }
+      'aoColumnDefs': [
+        { 'sType': 'currency', 'aTargets': [4] } // In this case 5th column will be sorted on currency basis.
         ],
+      "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 },
+        { type: 'my-currency', targets: 4 }
+        ],
+      "responsive": true,
       "language": {
         "lengthMenu": "Mostra _MENU_ righe per pagina",
         "zeroRecords": "Nessuna corrispondenza trovata",
@@ -293,7 +265,7 @@
         }
       }
     });
-    $('.dtTbls_stat3').DataTable({
+    $('.dtTbls_statAbc').DataTable({
         "iDisplayLength": 25,
         "paging": true,
         "lengthChange": false,
@@ -301,10 +273,12 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
-        "aoColumnDefs": [
-            {"sType": "my-currency", "aTargets": [2]},
-            {"sType": "my-currency", "aTargets": [3]},
-            {"sType": "my-currency", "aTargets": [4]}
+        "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 },
+        { type: 'my-currency', targets: 3 },
+        { type: 'my-currency', targets: 6 },
         ],
       "language": {
         "lengthMenu": "Mostra _MENU_ righe per pagina",

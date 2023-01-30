@@ -1,4 +1,4 @@
-<table class="table table-hover table-condensed dtTbls_full" id="listDocs">
+<table class="table table-hover table-condensed dtTbls_statAbc" id="listDocs">
     <thead>
         <th>{{ trans('prod.codeArt') }}</th>
         <th>{{ trans('prod.descArt') }}</th>
@@ -49,7 +49,7 @@
             <td style="text-align:right;">{{ number_format((float)$prod->qta, 2, ',', '') }} </td>
             <td>@if ($prod->product){{ $prod->product->um }} @endif</td>
             @if (!in_array(RedisUser::get('role'), ['client']))
-            <td><span class='date'>{{$prod->val * 100}}</span>{{ currency($prod->val) }}</td>
+            <td>{{ currency($prod->val) }}</td>
             @endif
         </tr>
         @endforeach

@@ -86,11 +86,11 @@
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        {{-- Configured Scripts --}}
+        @include('adminlte::plugins', ['type' => 'js'])
         {{-- Moment For DatePicker --}}
         <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.js"></script>
         <script type="text/javascript" src="https://adminlte.io/themes/v3/plugins/daterangepicker/daterangepicker.js"></script>
-        {{-- Configured Scripts --}}
-        @include('adminlte::plugins', ['type' => 'js'])
 
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
