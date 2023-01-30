@@ -28,8 +28,8 @@
     @if(Request::is('login'))
     </div>
 
-    <div class="d-flex justify-content-center">
-        <h4 class="text-lightblue">
+    <div class="d-sm-flex justify-content-center">
+        <h4 style="color: #0d92d7">
             Aiutiamo le Persone a Creare, Costruire, Innovare
         </h4>
     </div>
