@@ -465,19 +465,19 @@ class DocCliController extends Controller
                 $docs = OrdCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
                 break;
             case 'BO':
-                $docs = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $docs = DDTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva', 'fatturato');
                 break;
             case 'FT':
-                $docs = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $docs = FTCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva', 'fatturato');
                 break;
             case 'FP':
                 $docs = FPCli::select('id_ord_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_iva');
                 break;
             case 'FD':
-                $docs = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $docs = FDCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva', 'fatturato');
                 break;
             case 'NC':
-                $docs = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva');
+                $docs = NCCli::select('id_doc_tes', 'num', 'data', 'id_cli_for', 'tot_imp', 'tot_rit', 'tot_iva', 'fatturato');
                 break;
             default:
                 break;

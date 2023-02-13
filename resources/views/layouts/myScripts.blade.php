@@ -17,9 +17,77 @@
 {{-- myDatePicker --}}
 <script>
     moment.locale('it');
-    $('#datePicker').daterangepicker();
+    $('#datePicker').daterangepicker({
+      "locale": {
+        "format": "DD/MM/YYYY",
+        "separator": " - ",
+        "applyLabel": "Applica",
+        "cancelLabel": "Cancella",
+        "fromLabel": "Da",
+        "toLabel": "A",
+        "customRangeLabel": "Personalizza",
+        "daysOfWeek": [
+          "Dom",
+          "Lun",
+          "Mar",
+          "Mer",
+          "Gio",
+          "Ven",
+          "Sab"
+        ],
+        "monthNames": [
+          "Gennaio",
+          "Febbraio",
+          "Marzo",
+          "Aprile",
+          "Maggio",
+          "Giugno",
+          "Luglio",
+          "Agosto",
+          "Settembre",
+          "Ottobre",
+          "Novembre",
+          "Dicembre"
+        ],
+        "firstDay": 1
+      }
+    });
     $('input[name="docDataPicker"]').daterangepicker(
-        {},
+        {
+          "locale": {
+          "format": "DD/MM/YYYY",
+          "separator": " - ",
+          "applyLabel": "Applica",
+          "cancelLabel": "Cancella",
+          "fromLabel": "Da",
+          "toLabel": "A",
+          "customRangeLabel": "Personalizza",
+          "daysOfWeek": [
+          "Dom",
+          "Lun",
+          "Mar",
+          "Mer",
+          "Gio",
+          "Ven",
+          "Sab"
+          ],
+          "monthNames": [
+          "Gennaio",
+          "Febbraio",
+          "Marzo",
+          "Aprile",
+          "Maggio",
+          "Giugno",
+          "Luglio",
+          "Agosto",
+          "Settembre",
+          "Ottobre",
+          "Novembre",
+          "Dicembre"
+          ],
+          "firstDay": 1
+          }
+        },
         function (start, end) {
             // $('.daterange-btn span').html(start.format('D/MM/YYYY') + ' - ' + end.format('D/MM/YYYY'));
             $('input[name="startDate"]').val(start.format('D/MM/YYYY'));
@@ -104,6 +172,8 @@
       }
     });
     $('.dtTbls_light').DataTable({
+      "deferRender": true,
+      "stateSave": true,
       "iDisplayLength": 25,
       "paging": true,
       "lengthChange": false,
@@ -208,7 +278,7 @@
 
           // Total over all pages
           total = api
-              .column( 6 )
+              .column( 7 )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
@@ -216,7 +286,7 @@
 
           // Total over this page
           pageTotal = api
-              .column( 6, { page: 'current'} )
+              .column( 7, { page: 'current'} )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
@@ -225,11 +295,11 @@
           // Update footer
           console.log(pageTotal);
           if(api.page.info().page == api.page.info().pages-1){
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( 7 ).footer() ).html(
                 total.toFixed(2) +' €'//+' ['+ total +' € Tot.Doc.]'
             );
           } else {
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( 7 ).footer() ).html(
                 "<i class='fa fa-arrow-right'> Ultima Pagina</i> "
             );
           }

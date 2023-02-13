@@ -12,11 +12,11 @@ class SubGrpProd extends Model
     
     protected $table = 'famiglia';
     public $timestamps = false;
-    protected $primaryKey = 'id_farm';
+    protected $primaryKey = 'id_fam';
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
 
-    protected $guarded = ['id_farm'];
+    protected $guarded = ['id_fam'];
 
     protected static function boot()
     {

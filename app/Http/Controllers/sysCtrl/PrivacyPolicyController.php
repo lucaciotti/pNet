@@ -193,6 +193,7 @@ class PrivacyPolicyController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+    
     public function importCsv(Request $req) {
         if ($req->file) {
             $file = $req->file;

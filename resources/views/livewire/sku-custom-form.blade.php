@@ -20,7 +20,11 @@
                 </select>
                 @error('id_cli_for') <span class="text-danger">{{ $message }}</span> @enderror
                 @if (!$clientsLoaded)
-                    <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
+                    {{-- <span class="text-warning"> Caricamento Clienti... Attendere prego </span> --}}
+                    <div class="d-flex align-items-center text-secondary">
+                        <strong>Caricamento Clienti...</strong>
+                        <div class="spinner-border-sm ml-auto" role="status" aria-hidden="true"></div>
+                    </div>
                 @endif        
             </div>
         @endif

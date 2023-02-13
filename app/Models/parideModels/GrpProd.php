@@ -12,7 +12,7 @@ class GrpProd extends Model
     
     protected $table = 'famiglia';
     public $timestamps = false;
-    protected $primaryKey = 'id_farm';
+    protected $primaryKey = 'id_fam';
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
 

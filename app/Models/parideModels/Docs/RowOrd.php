@@ -39,6 +39,68 @@ class RowOrd extends Model
         return round($this->qta_ord - $this->qta_eva, 2);
     }
 
+    #JOIN WITH HEAD
+    public function FDHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\FDCli', 'id_doc_tes', 'id_doc_tes');
+    }
+
+    public function DDTHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\DDTCli', 'id_doc_tes', 'id_doc_tes');
+    }
+
+    public function FPHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\FPCli', 'id_ord_tes', 'id_ord_tes');
+    }
+
+    public function FTHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\FTCli', 'id_doc_tes', 'id_doc_tes');
+    }
+
+    public function NCHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\NCCli', 'id_doc_tes', 'id_doc_tes');
+    }
+
+    public function OrdHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\OrdCli', 'id_ord_tes', 'id_ord_tes');
+    }
+
+    public function QuoteHead()
+    {
+        return $this->hasOne('App\Models\parideModels\Docs\QuoteCli', 'id_ord_tes', 'id_ord_tes');
+    }
+
+
+    public function head()
+    {
+        if ($this->FDHead!=null) {
+            return $this->FDHead();
+        }
+        if ($this->DDTHead!=null) {
+            return $this->DDTHead();
+        }
+        if ($this->FPHead!=null) {
+            return $this->FPHead();
+        }
+        if ($this->NCHead!=null) {
+            return $this->NCHead();
+        }
+        if ($this->OrdHead!=null) {
+            return $this->OrdHead();
+        }
+        if ($this->QuoteHead!=null) {
+            return $this->QuoteHead();
+        }
+        if ($this->FTHead!=null) {
+            return $this->FTHead();
+        }
+    }
+
     // JOINS
     public function product()
     {
@@ -50,9 +112,9 @@ class RowOrd extends Model
         return $this->hasOne('App\Models\parideModels\Iva', 'id_iva', 'id_iva');
     }
 
-    // public function skuCustomCode()
-    // {
-    //     // return $this->hasOne('App\Models\parideModels\wSkuCustom', 'id_art', 'id_art')->where('id_cli_for', $this->id_cli_for);
-    // }
+    public function skuCustomCode()
+    {
+        return $this->hasOne('App\Models\parideModels\wSkuCustom', 'id_art', 'id_art')->where('id_cli_for', $this->head->id_cli_for);
+    }
 
 }

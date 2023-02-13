@@ -18,8 +18,11 @@
         <div id='productSearchResult' class="navbar-search-results mySearchResults">
             <div class="list-group myListGroup">
                 <a href="#" class="list-group-item list-group-item-action" wire:loading wire:target="searchStr">
-                  <p class="mb-1 text-warning">Caricamento ...</p>
-                  {{-- <small>{{ $product['searchStr'] }}</small> --}}
+                  {{-- <p class="mb-1 text-warning">Caricamento ...</p> --}}
+                    <div class="d-flex align-items-center text-secondary">
+                        <strong>Loading...</strong>
+                        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                    </div>
                 </a>
                 @if(!empty($products))
                     @foreach($products as $i => $product)

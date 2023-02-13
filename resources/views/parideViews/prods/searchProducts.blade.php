@@ -10,13 +10,13 @@
 <br>
 @stop
 
-@section('content')
-<div class="row">
+@section('content-fluid')
+{{-- <div class="row"> --}}
 
-    <div class="col-lg-12">
+    {{-- <div class="col-lg-12"> --}}
        @livewire('search-products', ['searchStr' => $searchStr])
-    </div>
-</div>
+    {{-- </div> --}}
+{{-- </div> --}}
 @stop
 
 @section('extra_script')

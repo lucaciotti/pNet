@@ -68,7 +68,7 @@ Route::name('product::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/product/{codice}', [ProductController::class, 'detail'])->name('detail');
     Route::post('/products/filter', [ProductController::class, 'fltIndex'])->name('fltList');
     
-    Route::get('/search-products/{searchStr}', [ProductController::class, 'searchProducts'])->name('searchProducts');
+    Route::get('/search-products/{searchStr?}', [ProductController::class, 'searchProducts'])->name('searchProducts');
 });
 
 // Routes Docs

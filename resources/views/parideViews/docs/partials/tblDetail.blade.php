@@ -3,6 +3,7 @@
     <thead>
       <th>{{ trans('doc.#Row') }}</th>
       <th>{{ trans('doc.codeArt') }}</th>
+      <th>Vs.Cod.Interno</th>
       <th>{{ trans('doc.descArt') }}</th>
       @if($head->tipomodulo!='O')
         <th>{{ trans('doc.quantity_condensed') }}</th>
@@ -18,7 +19,7 @@
     </thead>
     <tfoot>
       <tr>
-        <th colspan="5" style="text-align:right">{{ trans('doc.totMerce') }}:</th>
+        <th colspan="6" style="text-align:right">{{ trans('doc.totMerce') }}:</th>
         <th></th>
         <th></th>
         <th></th>
@@ -40,6 +41,7 @@
             @else
               <td> - </td>
             @endif
+            <td>{{ $row->skuCustomCode->sku_code ?? '' }}</td>
             <td>{{ $row->descr }}</td>
             <td>@if ($row->prezzo!=0){{ $row->qtarow }} {{ $row->um }}@endif</td>
             <td>@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
@@ -62,6 +64,7 @@
                 </a>
               @endif --}}
             </td>
+            <td>{{ $row->skuCustomCode->sku_code ?? '' }}</td>
             <td>{{ $row->descr }}</td>
             <td>@if ($row->um!=''){{ $row->qtarow }}@endif</td>
             <td>
@@ -85,6 +88,7 @@
   <table class="table table-hover table-condensed dtTbls_light">
     <col width="30">
     <col width="100">
+    <col width="100">
     <col width="250">
     <col width="80">
     @if($head->tipomodulo=='O')
@@ -96,6 +100,7 @@
     <thead>
       <th>{{ trans('doc.#Row') }}</th>
       <th>{{ trans('doc.codeArt') }}</th>
+      <th>Vs.Cod.Interno</th>
       <th>{{ trans('doc.descArt') }}</th>
       <th>{{ trans('doc.quantity_condensed') }}</th>
       @if($head->tipomodulo=='O')
@@ -127,6 +132,7 @@
         @else
         <td> - </td>
         @endif
+        <td>{{ $row->skuCustomCode->sku_code ?? '' }}</td>
         <td>
           {{ $row->descr }}
         </td>

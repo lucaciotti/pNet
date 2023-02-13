@@ -1,6 +1,7 @@
 <table class="table table-hover table-condensed">
     <col width="30">
     <col width="100">
+    <col width="100">
     <col width="250">
     <col width="80">
     @if($head->tipomodulo=='O')
@@ -24,6 +25,7 @@
     <thead>
         <th>{{ trans('doc.#Row') }}</th>
         <th>{{ trans('doc.codeArt') }}</th>
+        <th>Vs.Cod.Interno</th>
         <th>{{ trans('doc.descArt') }}</th>
         <th>{{ trans('doc.quantity_condensed') }}</th>
         @if($head->tipomodulo=='O')
@@ -67,6 +69,7 @@
                 @else
                     <td> - </td>
                 @endif
+                <td>{{ $row->skuCustomCode->sku_code ?? '' }}</td>
                 <td>
                     {{ Illuminate\Support\Str::ucfirst(Illuminate\Support\Str::lower($row->descr)) }}
                 </td>

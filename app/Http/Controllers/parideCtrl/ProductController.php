@@ -20,6 +20,8 @@ class ProductController extends Controller
 
     public function index(Request $req)
     {
+        return $this->searchProducts($req);
+
         $masterGrps = GrpProd::orderBy('id_fam')->get();
         $masterGrpFilter = ''; //$masterGrps->first()->id_fam;
         // ->whereRaw('left(id_fam,2) = ?', $masterGrpFilter)
@@ -151,7 +153,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function searchProducts(Request $req, $searchStr)
+    public function searchProducts(Request $req, $searchStr='')
     {
         return view('parideViews.prods.searchProducts', [
             'searchStr' => $searchStr

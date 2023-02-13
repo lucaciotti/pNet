@@ -52,7 +52,7 @@ class RowDoc extends Model
 
     public function FPHead()
     {
-        return $this->hasOne('App\Models\parideModels\Docs\FPCli', 'id_doc_tes', 'id_doc_tes');
+        return $this->hasOne('App\Models\parideModels\Docs\FPCli', 'id_ord_tes', 'id_ord_tes');
     }
 
     public function FTHead()
@@ -67,12 +67,12 @@ class RowDoc extends Model
 
     public function OrdHead()
     {
-        return $this->hasOne('App\Models\parideModels\Docs\OrdCli', 'id_doc_tes', 'id_doc_tes');
+        return $this->hasOne('App\Models\parideModels\Docs\OrdCli', 'id_ord_tes', 'id_ord_tes');
     }
 
     public function QuoteHead()
     {
-        return $this->hasOne('App\Models\parideModels\Docs\QuoteCli', 'id_doc_tes', 'id_doc_tes');
+        return $this->hasOne('App\Models\parideModels\Docs\QuoteCli', 'id_ord_tes', 'id_ord_tes');
     }
 
 

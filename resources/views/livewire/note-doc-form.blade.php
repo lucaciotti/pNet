@@ -62,6 +62,39 @@
             lang: 'it-IT',
             singleDatePicker: true,
             showDropdowns: true,
+            "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Applica",
+            "cancelLabel": "Cancella",
+            "fromLabel": "Da",
+            "toLabel": "A",
+            "customRangeLabel": "Personalizza",
+            "daysOfWeek": [
+            "Dom",
+            "Lun",
+            "Mar",
+            "Mer",
+            "Gio",
+            "Ven",
+            "Sab"
+            ],
+            "monthNames": [
+            "Gennaio",
+            "Febbraio",
+            "Marzo",
+            "Aprile",
+            "Maggio",
+            "Giugno",
+            "Luglio",
+            "Agosto",
+            "Settembre",
+            "Ottobre",
+            "Novembre",
+            "Dicembre"
+            ],
+            "firstDay": 1
+            }
         }).on('blur', function (e) {
             var data = $('input[id="start_date"]').data('daterangepicker');
             // console.log(data.startDate);
@@ -72,6 +105,39 @@
             lang: 'it-IT',
             singleDatePicker: true,
             showDropdowns: true,
+            "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Applica",
+            "cancelLabel": "Cancella",
+            "fromLabel": "Da",
+            "toLabel": "A",
+            "customRangeLabel": "Personalizza",
+            "daysOfWeek": [
+            "Dom",
+            "Lun",
+            "Mar",
+            "Mer",
+            "Gio",
+            "Ven",
+            "Sab"
+            ],
+            "monthNames": [
+            "Gennaio",
+            "Febbraio",
+            "Marzo",
+            "Aprile",
+            "Maggio",
+            "Giugno",
+            "Luglio",
+            "Agosto",
+            "Settembre",
+            "Ottobre",
+            "Novembre",
+            "Dicembre"
+            ],
+            "firstDay": 1
+            }
         }).on('blur', function (e) {
             var data = $('input[id="end_date"]').data('daterangepicker');
             // console.log(data.startDate);
