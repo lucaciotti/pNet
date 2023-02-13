@@ -120,7 +120,7 @@
     @if ($stampaPrezzi)
         <tfoot>
             <tr>
-                <th @if($head->tipomodulo=='O') colspan="8" @else colspan="6" @endif style="text-align:right">Total:</th>
+                <th @if($head->tipomodulo=='O') colspan="9" @else colspan="7" @endif style="text-align:right">Total:</th>
                 <th style="text-align: right;">{{ currency($totMerce) }}</th>
                 <th></th>
                 {{-- @if (!in_array(RedisUser::get('role'), ['client']) && ($head->tipomodulo == 'F' || $head->tipomodulo == 'N' || $head->tipodoc == 'PP'))
