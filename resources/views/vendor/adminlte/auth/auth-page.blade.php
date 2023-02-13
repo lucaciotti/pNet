@@ -11,6 +11,13 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <style>
+        @media only screen and (max-width: 600px) {
+            h4 {
+                font-size: 1em;
+            }
+        }
+    </style>
 @stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
