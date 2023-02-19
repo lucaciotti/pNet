@@ -23,7 +23,7 @@
     @foreach ($docs as $doc)
       @if ($doc->getEvaso()==2)
         <tr class="table-warning">
-      @elseif ($doc->getEvaso()==1)
+      @elseif ($doc->getEvaso()==0)
         <tr class="table-danger">
       @else
         <tr>
