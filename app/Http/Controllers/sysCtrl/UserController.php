@@ -52,7 +52,7 @@ class UserController extends Controller
                 $q->whereIn('name', ['client']);
             })
             ->where('isActive', true)
-            ->orderBy('id')->limit(250)->get();
+            ->orderBy('id')->limit(100)->get();
 
         return view('sysViews.user.indexCli', [
             'clients' => $clients,

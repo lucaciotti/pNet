@@ -4,8 +4,8 @@
     <th>{{ trans('user.name') }}</th>
     <th>{{ trans('user.eMail') }}</th>
     <th>{{ trans('user.role') }}</th>
-    <th>{{ trans('user.codAg') }}</th>
-    <th>{{ trans('user.codCli') }}</th>
+    {{-- <th>{{ trans('user.codAg') }}</th>
+    <th>{{ trans('user.codCli') }}</th> --}}
     <th>isActive?</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
@@ -18,7 +18,7 @@
           <td>
             @if ($user->isActive)
             <a href="{{ route('user::actLike', $user->id ) }}">
-              <button type="submit" id="act-user-{{ $user->id }}" class="btn btn-warning">
+              <button type="submit" id="act-user-{{ $user->id }}" class="btn btn-xs btn-warning">
                   <i class="fa fa-btn fa-user-secret">
                   </i>
               </button>
@@ -30,13 +30,12 @@
           <td>@foreach ($user->roles as $role)
             {{ $role->display_name }}
           @endforeach</td>
-          <td>@if (!empty($user->codag))
+          {{-- <td>@if (!empty($user->codag))
             {{ $user->codag }} - {{ $user->agent->descrizion or 'NONE' }}
           @endif</td>
           <td>@if (!empty($user->codcli))
             {{ $user->codcli }}
-            {{-- {{ $user->codcli }} - {{ $user->client->descrizion }} --}}
-          @endif</td>
+          @endif</td> --}}
           <td>
             @if ($user->isActive)
               Si
@@ -46,7 +45,7 @@
           </td>
           <td>
             <a href="{{ route('user::users.edit', $user->id ) }}" target="_blank" title="Modifica Utente">
-              <button type="submit" id="edit-user-{{ $user->id }}" class="btn">
+              <button type="submit" id="edit-user-{{ $user->id }}" class="btn btn-xs btn-secondary">
                   <i class="fa fa-btn fa-pencil">
                   </i>
               </button>
@@ -54,14 +53,14 @@
           </td>
           <td>
             <a href="{{ url('/privacyPolicy/'.$user->id) }}" target="_blank" title="Modifica Privacy Agreement Utente">
-              <button type="submit" id="privacyPolicy-{{ $user->id }}" class="btn btn-block btn-sm btn-outline-success">
+              <button type="submit" id="privacyPolicy-{{ $user->id }}" class="btn btn-xs btn-outline-success">
                 <i class="fa fa-btn fa-handshake"></i>
               </button>
             </a>
           </td>
           <td>
             <a href="{{ route('user::resetPassword', $user->id ) }}" title="Reset Password Utente">
-              <button type="submit" id="reset-user-{{ $user->id }}" class="btn btn-success">
+              <button type="submit" id="reset-user-{{ $user->id }}" class="btn btn-xs btn-success">
                 <i class="fa fa-btn fa-key">
                 </i>
               </button>
@@ -72,7 +71,7 @@
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
 
-                <button type="submit" id="delete-user-{{ $user->id }}" class="btn btn-danger" title="Cancella Utente">
+                <button type="submit" id="delete-user-{{ $user->id }}" class="btn btn-xs btn-danger" title="Cancella Utente">
                     <i class="fa fa-btn fa-trash"></i>
                 </button>
             </form>
