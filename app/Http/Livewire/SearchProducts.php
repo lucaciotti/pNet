@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\parideModels\Product;
+use App\Models\parideModels\Supplier;
 use App\Models\parideModels\SubGrpProd;
 use App\Models\parideModels\Marche;
 
@@ -27,14 +28,22 @@ class SearchProducts extends Component
     public $isEmptyMultiSearch = false;
 
     public $products = [];
+    public $viewLoaded = false;
 
     public function mount($searchStr){
         $this->searchString  = $searchStr;
-        $this->gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
-        $this->suppliersList = Product::select('id_cli_for')->where('id_cli_for', 'like', 'F%')
-                                    ->with('supplier')->groupBy('id_cli_for')->orderBy('id_cli_for')->get();
-        $this->marcheList = Marche::all();
+        if(!$this->viewLoaded){
+            $this->gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
+            $this->suppliersList = Supplier::select('id_cli_for', 'rag_soc')->whereHas('products')->orderBy('id_cli_for')->get();
+            $this->marcheList = Marche::all();
+        }
         $this->loadProducts();
+    }
+
+    public function readyToLoad()
+    {
+        // wire:init
+        $this->viewLoaded = true;
     }
 
     public function render()

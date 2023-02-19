@@ -1,10 +1,11 @@
-<div class="row">
-    <div class="col-lg-4">
+<div class="row d-flex justify-content-start" wire:init="readyToLoad">
+    <div class="col-lg-8">
         <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Ricerca Libera" wire:model.lazy="searchString" wire:keydown.enter="loadProducts">
+                    <input type="text" class="form-control" placeholder="Ricerca Libera" wire:model.lazy="searchString"
+                        wire:keydown.enter="loadProducts">
                     {{-- <div class="input-group-append">
                         <a href="#" class="input-group-text"><i class="fas fa-fw fa-search"></i></a>
                     </div> --}}
@@ -15,71 +16,39 @@
                 <hr>
                 <div id="myCustomControl" class="form-group d-md-flex justify-content-around">
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="codeArtSwitch" wire:model="codeArtSwitch" checked>
+                        <input type="checkbox" class="custom-control-input" id="codeArtSwitch" wire:model="codeArtSwitch"
+                            checked>
                         <label class="custom-control-label" for="codeArtSwitch">Codice Articolo</label>
                     </div>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="descrSwitch" wire:model="descrSwitch" checked>
-                        <label class="custom-control-label" for="descrSwitch" >Descrizione</label>
+                        <input type="checkbox" class="custom-control-input" id="descrSwitch" wire:model="descrSwitch"
+                            checked>
+                        <label class="custom-control-label" for="descrSwitch">Descrizione</label>
                     </div>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="barcodeSwitch" wire:model="barcodeSwitch" checked>
-                        <label class="custom-control-label" for="barcodeSwitch" >Barcode</label>
+                        <input type="checkbox" class="custom-control-input" id="barcodeSwitch" wire:model="barcodeSwitch"
+                            checked>
+                        <label class="custom-control-label" for="barcodeSwitch">Barcode</label>
                     </div>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customCodeSwitch" wire:model="customCodeSwitch" checked>
+                        <input type="checkbox" class="custom-control-input" id="customCodeSwitch"
+                            wire:model="customCodeSwitch" checked>
                         <label class="custom-control-label" for="customCodeSwitch">Codice Personalizzato</label>
                     </div>
                 </div>
-                <hr>
-                <div class="d-md-flex justify-content-between">
-                    <div class="form-group col-md-6" style="margin-bottom:5px;">
-                        <label for="grp_selected">Famiglia</label>
-                        <select class="form-control select2 livewireSelect2" id="grp_selected" style="width: 100%;" multiple placeholder="Famiglia Prodotto" wire:model.lazy="grpSelected">
-                            @foreach ($gruppi as $grp)
-                            <option value="{{ $grp['id_fam'] }}"> [{{ $grp->id_fam }}] {{ $grp->descr }}</option>
-                            @endforeach
-                        </select>
-                        @error('grp_selected') <span class="text-danger">{{ $message }}</span> @enderror
-                        {{-- @if (!$clientsLoaded)
-                        <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
-                        @endif --}}
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="marche_selected">Marca Prodotto</label>
-                        <select class="form-control select2 livewireSelect2" id="marche_selected" style="width: 100%;" multiple placeholder="Marca Prodotto" wire:model.lazy="marcheSelected">
-                            @foreach ($marcheList as $marca)
-                            <option value="{{ $marca->id_mar }}">[{{ $marca->id_mar }}] {{ $marca->descr ?? '' }}</option>
-                            @endforeach
-                        </select>
-                        @error('marche_selected') <span class="text-danger">{{ $message }}</span> @enderror
-                        {{-- @if (!$clientsLoaded)
-                        <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
-                        @endif --}}
-                    </div>
-                </div>
-                @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'user']))
-                <hr>
-                <div class="form-group">
-                    <label for="supplier_selected">Fornitore</label>
-                        <select class="form-control select2 livewireSelect2" id="supplier_selected" style="width: 100%;" multiple placeholder="Fornitore" wire:model.lazy="supplierSelected">
-                            @foreach ($suppliersList as $sup)
-                            <option value="{{ $sup->id_cli_for }}">[{{ $sup->id_cli_for }}] {{ $sup->supplier->rag_soc ?? '' }}</option>
-                            @endforeach
-                        </select>
-                        @error('supplier_selected') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                @endif
                 {{-- <div wire:loading> --}}
                     <div class="text-secondary float-right">
                         <strong wire:loading>Caricamento...</strong>
                         <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" wire:loading></div>
                     </div>
-                {{-- </div> --}}
+                    {{--
+                </div> --}}
             </div>
             <!-- /.card-body -->
         </div>
     </div>
+{{-- </div>
+<div class="row"> --}}
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
@@ -124,7 +93,7 @@
                                 <a class="thumbnail" href="{{ route('product::detail', $prod->id_art) }}">
                                     {{ $prod->id_art }}
                                     <span>
-                                        <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" />
+                                        {{-- <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" /> --}}
                                     </span>
                                 </a>
                                 @else
@@ -156,6 +125,60 @@
                     </tbody>
                 </table>
         
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Extra Filtri</h3>
+        
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-md-flex justify-content-between">
+                    <div class="form-group col-md-6" style="margin-bottom:5px;">
+                        <label for="grp_selected">Famiglia</label>
+                        <select class="form-control select2 livewireSelect2" id="grp_selected" style="width: 100%;" multiple placeholder="Famiglia Prodotto" wire:model.lazy="grpSelected">
+                            @foreach ($gruppi as $grp)
+                            <option value="{{ $grp['id_fam'] }}"> [{{ $grp->id_fam }}] {{ $grp->descr }}</option>
+                            @endforeach
+                        </select>
+                        @error('grp_selected') <span class="text-danger">{{ $message }}</span> @enderror
+                        {{-- @if (!$clientsLoaded)
+                        <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
+                        @endif --}}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="marche_selected">Marca Prodotto</label>
+                        <select class="form-control select2 livewireSelect2" id="marche_selected" style="width: 100%;" multiple placeholder="Marca Prodotto" wire:model.lazy="marcheSelected">
+                            @foreach ($marcheList as $marca)
+                            <option value="{{ $marca->id_mar }}">[{{ $marca->id_mar }}] {{ $marca->descr ?? '' }}</option>
+                            @endforeach
+                        </select>
+                        @error('marche_selected') <span class="text-danger">{{ $message }}</span> @enderror
+                        {{-- @if (!$clientsLoaded)
+                        <span class="text-warning"> Caricamento Clienti... Attendere prego </span>
+                        @endif --}}
+                    </div>
+                </div>
+                @if (!in_array(RedisUser::get('role'), ['client', 'agent', 'user']))
+                <hr>
+                <div class="form-group">
+                    <label for="supplier_selected">Fornitore</label>
+                        <select class="form-control select2 livewireSelect2" id="supplier_selected" style="width: 100%;" multiple placeholder="Fornitore" wire:model.lazy="supplierSelected">
+                            @foreach ($suppliersList as $sup)
+                            <option value="{{ $sup->id_cli_for }}">[{{ $sup->id_cli_for }}] {{ $sup->rag_soc ?? '' }}</option>
+                            @endforeach
+                        </select>
+                        @error('supplier_selected') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                @endif
             </div>
             <!-- /.card-body -->
         </div>

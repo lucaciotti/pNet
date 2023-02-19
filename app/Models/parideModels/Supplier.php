@@ -24,29 +24,6 @@ class Supplier extends Model
         static::addGlobalScope('supplier', function (Builder $builder) {
             $builder->where('id_cli_for', 'like', 'F%');
         });
-
-        // switch (RedisUser::get('role')) {
-        //     case 'agent':
-        //         static::addGlobalScope('agent', function (Builder $builder) {
-        //             $builder->where('agente', RedisUser::get('codag'));
-        //         });
-        //         break;
-        //     case 'superAgent':
-        //         static::addGlobalScope('superAgent', function (Builder $builder) {
-        //             $builder->whereHas('agent', function ($query) {
-        //                 $query->where('u_capoa', RedisUser::get('codag'));
-        //             });
-        //         });
-        //         break;
-        //     case 'client':
-        //         static::addGlobalScope('client', function (Builder $builder) {
-        //             $builder->where('codice', RedisUser::get('codcli'));
-        //         });
-        //         break;
-
-        //     default:
-        //         break;
-        // }
     }
 
     public function __construct($attributes = array())
@@ -55,5 +32,10 @@ class Supplier extends Model
         parent::__construct($attributes);
         //Imposto la Connessione al Database
         // $this->setConnection(RedisUser::get('ditta_DB'));
+    }
+
+    public function products()
+    {
+        return $this->hasMany('App\Models\parideModels\Product', 'id_cli_for', 'id_cli_for');
     }
 }
