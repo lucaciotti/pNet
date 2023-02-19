@@ -93,7 +93,7 @@
                                 <a class="thumbnail" href="{{ route('product::detail', $prod->id_art) }}">
                                     {{ $prod->id_art }}
                                     <span>
-                                        {{-- <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" /> --}}
+                                        <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" />
                                     </span>
                                 </a>
                                 @else
