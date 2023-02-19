@@ -20,7 +20,7 @@
                 <a href="#" class="list-group-item list-group-item-action" wire:loading wire:target="searchStr">
                   {{-- <p class="mb-1 text-warning">Caricamento ...</p> --}}
                     <div class="d-flex align-items-center text-secondary">
-                        <strong>Loading...</strong>
+                        <strong>Caricamento...</strong>
                         <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
                     </div>
                 </a>

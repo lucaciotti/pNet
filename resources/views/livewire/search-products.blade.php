@@ -72,7 +72,7 @@
                 @endif
                 {{-- <div wire:loading> --}}
                     <div class="text-secondary float-right">
-                        <strong wire:loading>Loading...</strong>
+                        <strong wire:loading>Caricamento...</strong>
                         <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" wire:loading></div>
                     </div>
                 {{-- </div> --}}
