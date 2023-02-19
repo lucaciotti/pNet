@@ -39,7 +39,7 @@
                     @endforeach
                 @else
                     <a href="#" class="list-group-item">
-                        <div class="search-title">No results...
+                        <div class="search-title">Nessun risultato...
                         </div>
                         <div class="search-path"></div>
                     </a>
