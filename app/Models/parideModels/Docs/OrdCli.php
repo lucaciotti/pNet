@@ -80,7 +80,7 @@ class OrdCli extends Model
         if ($n_rows==$n_rows_eva){
             #evaso
             return 1;
-        } elseif ($n_rows_part_eva>0) {
+        } elseif ($n_rows_part_eva>0 || $n_rows_eva>0) {
             return 2;
         } else {
             return 0;

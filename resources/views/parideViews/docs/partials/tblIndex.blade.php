@@ -21,9 +21,9 @@
     </tfoot> --}}
   <tbody>
     @foreach ($docs as $doc)
-      @if ($doc->getEvaso()==2)
+      @if ($doc->getEvaso()==2 && (in_array($doc->tipomodulo, ['O', 'P'])))
         <tr class="table-warning">
-      @elseif ($doc->getEvaso()==0)
+      @elseif ($doc->getEvaso()==0 && (in_array($doc->tipomodulo, ['O', 'P'])))
         <tr class="table-danger">
       @else
         <tr>
