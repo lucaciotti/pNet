@@ -271,6 +271,10 @@
         </div>
       </div>
       <div class="card-body">
+
+        <label>Aggiungi al carrello:</label>
+        <livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art">
+        <hr>
   
         <label>Listino 1 (IVA escl.):</label>
         <div class="input-group">
@@ -382,7 +386,6 @@
             }
             ,500);
         });
-
     });
 </script>
 @endpush

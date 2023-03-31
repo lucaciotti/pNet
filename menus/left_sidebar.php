@@ -57,6 +57,45 @@ $leftSidebar = [
         'icon' => 'fa fa-boxes',
     ],
 
+    
+    [
+        'header' => 'cart_header',
+        'classes'  => 'text-bold text-center',
+    ],
+    // [
+    //     'key'     => 'carts',
+    //     'text'    => 'carts',
+    //     'icon'    => 'fa fa-shopping-cart',
+    //     'submenu' => [
+    //         [
+    //             'text' => 'insOrder',
+    //             // 'url'  => '#',
+    //             'icon' => 'fa fa-cart-plus',
+    //             'route' => 'cart::index',
+    //         ],
+    //         [
+    //             'text' => 'listOrder',
+    //             // 'url'  => '#',
+    //             'icon' => 'fa fa-clipboard',
+    //             'route' => 'cart::list',
+    //         ]
+    //     ],
+    // ],
+    [
+        'key' => 'listOrder',
+        'text' => 'listOrder',
+        // 'url'  => '#',
+        'icon' => 'fa fa-clipboard',
+        'route' => 'cart::list',
+    ],
+    [
+        'key' => 'insOrder',
+        'text' => 'insOrder',
+        // 'url'  => '#',
+        'icon' => 'fa fa-cart-plus',
+        'route' => 'cart::index',
+    ],
+
     // [
     //     'header' => 'stats_header',
     //     'classes'  => 'text-bold text-center',

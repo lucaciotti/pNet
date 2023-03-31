@@ -13,6 +13,7 @@ use App\Http\Controllers\parideCtrl\DocToSendController;
 use App\Http\Controllers\sysCtrl\PrivacyPolicyController;
 use App\Http\Controllers\parideCtrl\StatAbcProdController;
 use App\Http\Controllers\parideCtrl\DocNotesController;
+use App\Http\Controllers\parideCtrl\CartController;
 use App\Imports\PrivacyAgreementImport;
 
 /*
@@ -90,6 +91,16 @@ Route::name('abcProds::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/abcProds', [StatAbcProdController::class, 'index'])->name('list');
     Route::post('/abcProds/filter', [StatAbcProdController::class, 'fltIndex'])->name('fltList');
     Route::post('/abcProdToDocs', [StatAbcProdController::class, 'fromArtToDocs'])->name('artToDocs');
+});
+
+// Routes AbcProds
+Route::name('cart::')->middleware(['auth', 'privacy'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('index');
+    Route::get('/store-cart', [CartController::class, 'store'])->name('store');
+    Route::get('/ordweb/list', [CartController::class, 'list'])->name('list');
+    Route::post('/ordweb/list/filtered', [CartController::class, 'fltList'])->name('fltList');
+    Route::get('/ordweb/{id}', [CartController::class, 'showDetail'])->name('docdetail');
+    Route::get('/ordweb/csv/{id_doc}', [CartController::class, 'exportCsv'])->name('exportCsv');
 });
 
 

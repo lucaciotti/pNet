@@ -9,9 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Product extends Model
+use Jackiedo\Cart\Contracts\UseCartable; // Interface
+use Jackiedo\Cart\Traits\CanUseCart;     // Trait
+
+
+class Product extends Model implements UseCartable
 {
     use \Awobaz\Compoships\Compoships;
+    use CanUseCart;
     
     protected $table = 'articoli';
     public $timestamps = false;
@@ -22,6 +27,10 @@ class Product extends Model
     protected $guarded = ['id_art'];
     protected $dates = ['data_reg'];
     // protected $appends = ['master_grup'];
+    
+    // CartProperties
+    protected $cartTitleField = 'descr';        // Your correctly field for product's title
+    protected $cartPriceField = 'prezzo_1';  // Your correctly field for product's price
 
     // Scope that garante to find only Supplier from anagrafe
     protected static function boot()
@@ -54,6 +63,12 @@ class Product extends Model
     public function getMasterGrupAttribute()
     {
         return substr($this->attributes['id_fam'], 0, 2);
+    }
+
+    
+    public function livewireKey()
+    {
+        return md5("$this->id_art.$this->updated_at");
     }
 
     // public function getTipoProdAttribute()

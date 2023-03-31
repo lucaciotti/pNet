@@ -45,7 +45,12 @@ return [
     'statsAbc'                => 'Statistiche Abc',
     'AbcArt'                  => 'Abc Articoli',
     'AbcCli'                  => 'Abc Cliente',
-
+    
+    'cart_header'             => 'Ordini Web',
+    'videoLink'               => 'Video',
+    'carts'                   => 'Carrello',
+    'insOrder'                => 'Nuovo Ordine Web',
+    'listOrder'               => 'Lista Ordini Web',
 
     'tutorial_header'         => 'Tutorial utilizzo pNet',
     'videoLink'               => 'Video',

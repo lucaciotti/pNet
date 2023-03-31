@@ -21,6 +21,7 @@
 
         {{-- Configured right links --}}
         @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-right'), 'item')
+        @livewire('cart.nav-item')
 
         {{-- User menu link --}}
         @if(Auth::user())

@@ -346,7 +346,7 @@
         "columnDefs": [
         { "responsivePriority": 1, "targets": 0 },
         { "responsivePriority": 2, "targets": 1 },
-        { "responsivePriority": 3, "targets": -1 },
+        { "responsivePriority": 3, "targets": -2 },
         { type: 'my-currency', targets: 3 },
         { type: 'my-currency', targets: 6 },
         ],
@@ -480,6 +480,13 @@
         event.preventDefault();
         $(this).ekkoLightbox();
     });
+</script>
+
+{{-- Tooltip --}}
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 </script>
 
 {{-- ZenDesk --}}

@@ -82,10 +82,11 @@
                         <th>Prezzo</th>
                         <th>Disponibilità</th>
                         <th>UM</th>
+                        <th width='100'></th>
                         {{-- <th>Barcode</th>
                         <th>Forn.</th> --}}
                     </thead>
-                    <tbody wire:loading.remove>
+                    <tbody >
                         @foreach ($products as $prod)
                         <tr>
                             <td>
@@ -93,7 +94,7 @@
                                 <a class="thumbnail" href="{{ route('product::detail', $prod->id_art) }}">
                                     {{ $prod->id_art }}
                                     <span>
-                                        <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" />
+                                        {{-- <img src="{{ Thumbnail::src($prod->nome_foto)->widen(400)->url() }}" /> --}}
                                     </span>
                                 </a>
                                 @else
@@ -120,6 +121,8 @@
                                 @endif
                             </td>
                             <td>{{ $prod->um }}</td>
+                            <td><livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art"></td>
+                            {{-- <td>{{ $loop->index }}</td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -247,53 +250,57 @@
     });
     document.addEventListener("livewire:load", () => {
         Livewire.hook('message.sent', (message, component) => {
-            if ( $.fn.dataTable.isDataTable( '#listProds' ) ) {
-                table = $('#listProds').DataTable();
-                table.clear().destroy();
+            if(message.component.fingerprint.name=='search-products'){
+                if ( $.fn.dataTable.isDataTable( '#listProds' ) ) {
+                    table = $('#listProds').DataTable();
+                    table.clear().destroy();
+                }
             }
         });
         Livewire.hook('message.processed', (message, component) => {
-            $('.select2').select2();
-            $('#listProds').DataTable({
-                "iDisplayLength": 25,
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": false,
-                "info": true,
-                "autoWidth": false,
-                "aaSorting": [],
-                "responsive": true,
-                "columnDefs": [
-                { "responsivePriority": 1, "targets": 0 },
-                { "responsivePriority": 2, "targets": 1 },
-                { "responsivePriority": 3, "targets": -1 }
-                ],
-                "language": {
-                "lengthMenu": "Mostra _MENU_ righe per pagina",
-                "zeroRecords": "Nessuna corrispondenza trovata",
-                "info": "Pagina _PAGE_ di _PAGES_",
-                "infoEmpty": "Nessuna riga trovata",
-                "infoFiltered": "(filtrato da _MAX_ righe totali)",
-                "decimal": "",
-                "emptyTable": "Nessun dato disponibile nella tabella",
-                "infoPostFix": "",
-                "thousands": ".",
-                "loadingRecords": "Caricamento...",
-                "processing": "Processamento...",
-                "search": "Ricerca:",
-                "paginate": {
-                "first": "Primo",
-                "last": "Ultimo",
-                "next": "Prossima",
-                "previous": "Precedente"
-                },
-                "aria": {
-                "sortAscending": ": attiva per ordinare la colonna in ordine crescente",
-                "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
-                }
-                }
-            });
+            if(message.component.fingerprint.name=='search-products'){
+                $('.select2').select2();
+                $('#listProds').DataTable({
+                    "iDisplayLength": 25,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "aaSorting": [],
+                    "responsive": true,
+                    "columnDefs": [
+                    { "responsivePriority": 1, "targets": 0 },
+                    { "responsivePriority": 2, "targets": 1 },
+                    { "responsivePriority": 3, "targets": -1 }
+                    ],
+                    "language": {
+                    "lengthMenu": "Mostra _MENU_ righe per pagina",
+                    "zeroRecords": "Nessuna corrispondenza trovata",
+                    "info": "Pagina _PAGE_ di _PAGES_",
+                    "infoEmpty": "Nessuna riga trovata",
+                    "infoFiltered": "(filtrato da _MAX_ righe totali)",
+                    "decimal": "",
+                    "emptyTable": "Nessun dato disponibile nella tabella",
+                    "infoPostFix": "",
+                    "thousands": ".",
+                    "loadingRecords": "Caricamento...",
+                    "processing": "Processamento...",
+                    "search": "Ricerca:",
+                    "paginate": {
+                    "first": "Primo",
+                    "last": "Ultimo",
+                    "next": "Prossima",
+                    "previous": "Precedente"
+                    },
+                    "aria": {
+                    "sortAscending": ": attiva per ordinare la colonna in ordine crescente",
+                    "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+                    }
+                    }
+                });
+            }
         });
     });
 </script>
