@@ -142,7 +142,7 @@
             var data = $('input[id="end_date"]').data('daterangepicker');
             // console.log(data.startDate);
             @this.set('end_date', data.startDate);
-        });;
+        });
 
     });
     document.addEventListener("livewire:load", () => {
