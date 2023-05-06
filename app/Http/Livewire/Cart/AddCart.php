@@ -23,7 +23,8 @@ class AddCart extends Component
     public $descrArt;
     public $umArt;
     public $quantity=0;
-    public $searchStr;
+
+    public $freeDescr;
 
     public $listArts = [];
     public $listCustomCodes = [];
@@ -120,14 +121,6 @@ class AddCart extends Component
         $this->listDescrArts = Product::select('id_art', 'descr')->whereRaw('upper(descr) like (?)',["%{$this->descrArt}%"])->get()->toArray();
     }
 
-    public function updatedSearchStr(){
-        if(strlen($this->searchStr)<3) {
-            $this->reset(['listArts', 'listCustomCodes', 'listDescrArts', 'listProducts']);
-            return;
-        }
-        $this->loadProducts();
-    }
-
     public function toogleSearch(){
         $this->isToogleSearch = !$this->isToogleSearch;
     }
@@ -180,6 +173,18 @@ class AddCart extends Component
         $this->emit('cart_updated');
     }
 
+    public function addFreeDescr(){
+        Cart::updateItem([
+            'id'=> 0,
+            'descr' => $this->freeDescr,
+            'quantity' => 0,
+            'taxable' => false,
+            'price' => 0,
+        ]);
+        $this->reset();
+        $this->emit('cart_updated');
+    }
+
     public function applyEstraPrices(){
         # COTROLLO SUBTOTALE CARRELLO E AGGIUNGO ACTION SOVRAPPREZZO ORDINE MINIMO
         $totalCart = Cart::getItemsSubtotal();
@@ -220,64 +225,5 @@ class AddCart extends Component
 
     public function resetAll(){
         $this->reset();
-    }
-
-    public function updatedSearchString(){
-        $this->loadProducts();
-    }
-
-    public function loadProducts() {
-        
-        $products_code = Product::select('id_art', 'descr');
-        
-        $this->isMultiWordsSearch = false;
-        $this->isEmptyMultiSearch = false;
-        if(!empty($this->searchStr)) {
-            $this->listProducts = $this->searchStringWhereStatement($products_code);
-        }
-        
-        if(count($this->listProducts)==0 && $this->isMultiWordsSearch){
-            $this->isEmptyMultiSearch = true;
-        }
-    }
-
-    private function searchStringWhereStatement($products_list){
-        $searchStr = trim(Str::upper($this->searchStr));
-
-        if(Str::of($searchStr)->explode(' ')->count()==1){
-            $products_list->where(function ($query) use ($searchStr) {
-                $query->where('id_art', 'like', $searchStr . '%');
-
-                $query->orWhereRaw('upper(desc_ecom) like (?)',["%{$searchStr}%"])
-                        ->orWhereRaw('upper(descr) like (?)',["%{$searchStr}%"]);
-
-                $query->orWhere('id_cod_bar', 'like', $searchStr . '%')
-                        ->orWhereHas('barcodes', function ($query) use ($searchStr) {
-                            $query->where('id_cod_bar', 'like', $searchStr . '%');
-                        });
-
-                $query->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
-                    $query->where('sku_code', 'like', $searchStr . '%');
-                });
-
-            });
-        } else {
-            $aSearchStr = Str::of($searchStr)->explode(' ');
-            $this->isMultiWordsSearch = true;
-            $products_list->where(function ($query) use ($aSearchStr) {
-                $query->where(function($query) use($aSearchStr) {
-                    foreach ($aSearchStr as $key => $value) {
-                        $query->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"]);
-                    }
-                });
-                $query->orWhere(function($query) use($aSearchStr) {
-                    foreach ($aSearchStr as $key => $value) {
-                        $query->whereRaw('upper(descr) like (?)',["%{$value}%"]);
-                    }
-                });
-            });
-        }
-
-        return $products_list->get()->toArray();
     }
 }

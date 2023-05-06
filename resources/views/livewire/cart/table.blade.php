@@ -30,48 +30,71 @@
         </thead>
         <tbody>
             @foreach ($cartItems as $item)
-                <tr>
-                    <td class="align-middle">{{ $loop->index+1 }}</td>
-                    <td class="align-middle"><a href="{{ route('product::detail', $item->model->id_art) }}"> {{ $item->model->id_art }} </a></td>
-                    <td class="align-middle">{{ '' }}</td>
-                    <td class="align-middle text-smaller">{{ $item->model->descr }}</td>
-                    <td class="align-middle">{{ $item->model->um }}</td>
-                    <td>
-                        @if ($isReadOnly)
+                @if ($item->model != null)
+                    <tr>
+                        <td class="align-middle">{{ $loop->index+1 }}</td>
+                        <td class="align-middle"><a href="{{ route('product::detail', $item->model->id_art) }}"> {{ $item->model->id_art }}
+                            </a></td>
+                        <td class="align-middle">{{ '' }}</td>
+                        <td class="align-middle text-smaller">{{ $item->model->descr }}</td>
+                        <td class="align-middle">{{ $item->model->um }}</td>
+                        <td>
+                            @if ($isReadOnly)
                             {{ $item->quantity }}
-                        @else
+                            @else
                             <livewire:cart.add-element :product="$item->model" :wire:key="time().$item->hash">
-                        @endif
-                    </td>
-                    <td>
-                        @php
+                                @endif
+                        </td>
+                        <td>
+                            @php
                             $giac = $item->model->maggiac->esistenza;
-                        @endphp
-                        @if ($item->quantity < $giac)
-                            <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8"/>
-                            </svg> 
-                        @elseif ($item->quantity > $giac && $giac>0)
-                            <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8"/>
-                            </svg> 
-                        @else
-                            <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8"/>
-                            </svg> 
-                        @endif
-                    </td>
-                    <td>{{ $item->price }} €</td>
-                    <td>{{ currency($item->total_price) }}</td>
-                    <td>
-                        @if (!$isReadOnly)
-                        <div class="input-group input-group-sm">
-                            <button class="btn btn-sm btn-outline-danger" type="button" wire:click='deleteItem("{{ $item->hash }}")'><i
-                                    class="fas fa-fw fa-trash"></i></button>
-                        </div>
-                        @endif
-                    </td>
-                </tr>
+                            @endphp
+                            @if ($item->quantity < $giac) <svg height="20" width="20">
+                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8" />
+                                </svg>
+                                @elseif ($item->quantity > $giac && $giac>0)
+                                <svg height="20" width="20">
+                                    <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8" />
+                                </svg>
+                                @else
+                                <svg height="20" width="20">
+                                    <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8" />
+                                </svg>
+                                @endif
+                        </td>
+                        <td>{{ $item->price }} €</td>
+                        <td>{{ currency($item->total_price) }}</td>
+                        <td>
+                            @if (!$isReadOnly)
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-sm btn-outline-danger" type="button" wire:click='deleteItem("{{ $item->hash }}")'><i
+                                        class="fas fa-fw fa-trash"></i></button>
+                            </div>
+                            @endif
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td class="align-middle">{{ $loop->index+1 }}</td>
+                        <td class="align-middle"> - </td>
+                        <td class="align-middle"></td>
+                        <td class="align-middle text-smaller">{{ $item->descr }}</td>
+                        <td class="align-middle"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @if (!$isReadOnly)
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-sm btn-outline-danger" type="button" wire:click='deleteItem("{{ $item->hash }}")'><i
+                                        class="fas fa-fw fa-trash"></i></button>
+                            </div>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
+                
             @endforeach
         </tbody>
         

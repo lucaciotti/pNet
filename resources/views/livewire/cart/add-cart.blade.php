@@ -21,60 +21,31 @@
         <tbody style="background-color: lightgrey">
             <tr>
                 <td>
-                    <div class="input-group input-group-sm">
+                    {{-- <div class="input-group input-group-sm">
                         @if (!$isArtSelected)
-                            <button class="btn btn-sm btn-outline-primary" type="button" wire:click="toogleSearch" data-toggle="tooltip" data-placement="bottom" title="Ricerca Libera">
-                                <i class="fas fa-fw fa-search-plus"></i>
+                            <button class="btn btn-sm btn-outline-primary" type="button" wire:click="toogleSearch" data-toggle="tooltip" data-placement="bottom" title="Descrizione Libera">
+                                <i class="fas fa-fw fa-pen-alt"></i>
                             </button>
                         @else
                             <button class="btn btn-sm btn-outline-warning" type="button" wire:click="resetAll" data-toggle="tooltip" data-placement="bottom" title="Reset Valori">
                                 <i class="fas fa-fw fa-undo"></i>
                             </button>
                         @endif
-                    </div>
+                    </div> --}}
                 </td>
                 @if ($isToogleSearch)
-                <td colspan="3">
+                {{-- <td colspan="6">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="text" placeholder="Ricerca Libera" wire:model="searchStr" @if($isArtSelected) readonly @endif>
+                        <input class="form-control form-control-navbar" type="text" placeholder="Descrizione Libera" wire:model="freeDescr" @if($isArtSelected) readonly @endif>
                         @if (!$isArtSelected)
                         <div class="input-group-append">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-fw fa-search"></i>
+                            <button class="btn btn-success" wire:click='addFreeDescr'>
+                                <i class="fas fa-fw fa-plus"></i>
                             </button>
                         </div>
                         @endif
                     </div>
-                    @if(!empty($listProducts))
-                    <div id='dropdownList' class="navbar-search-results myDropdownDiv" style='width: 60%'>
-                        <div class="list-group myDropdownList">
-                            <a href="#" class="list-group-item list-group-item-action" wire:loading wire:target="searchStr">
-                                <div class="d-flex align-items-center text-secondary">
-                                    <strong>Caricamento...</strong>
-                                    <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
-                                </div>
-                            </a>
-                            @if(!empty($listProducts))
-                            @foreach($listProducts as $i => $product)
-                    
-                            <a class="list-group-item list-group-item-action" wire:click="selectedArt({{ $product['id_art'] }})">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="mb-1">{{ $product['id_art'] }} - {{ $product['descr'] }}</p>
-                                </div>
-                            </a>
-                    
-                            @endforeach
-                            @else
-                            <a class="list-group-item">
-                                <div class="search-title">Nessun risultato...
-                                </div>
-                                <div class="search-path"></div>
-                            </a>
-                            @endif
-                        </div>
-                    </div>
-                    @endif
-                </td>
+                </td> --}}
                 @else
                 <td>
                     <div class="input-group input-group-sm">
@@ -200,7 +171,6 @@
                     </div>
                     @endif
                 </td>
-                @endif
                 <td>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" readonly wire:model.lazy="umArt">
@@ -219,6 +189,8 @@
                         </button>
                     </div>
                 </td>
+                @endif
+                
             </tr>
         </tbody>
     </table>

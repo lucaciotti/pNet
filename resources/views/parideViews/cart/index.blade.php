@@ -131,7 +131,7 @@
                         </div>
                         <br>
                         <div class="d-md-flex justify-content-between">
-                            <div class="card card-default col-md-8">
+                            <div class="card card-default col-md-6">
                                 <div class="card-body ">
                                     <p>Il presente documento verrà caricato e seguentemente processato da Ferramenta Paride.
                                         <br>
