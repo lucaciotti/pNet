@@ -44,6 +44,7 @@ class AddExtrainfo extends Component
             $this->listDest = Destinazioni::where('id_cli_for', $this->codCli)->get()->toArray();
             $this->listPag = PaymentType::all()->toArray();
             $this->id_pag = $this->clientDefault->id_pag;
+            Cart::setExtraInfo('order.idPag', $this->id_pag);
             $this->reset('idDest', 'listDest');        
             $this->destSelected = $this->clientDefault;
         }

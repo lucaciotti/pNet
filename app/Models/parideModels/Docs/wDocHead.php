@@ -18,9 +18,9 @@ class wDocHead extends Model
     protected $table = 'w_doc_head';
     protected $connection = 'pNet_DATA';
 
-    protected $fillable = ['tipo_doc', 'id_cli_for', 'id_dest_pro', 'processed' , 'id_ord_tes'];
-    
-    // protected $dates = ['start_date', 'end_date'];
+    // protected $fillable = ['tipo_doc', 'id_cli_for', 'id_dest_pro', 'processed' , 'id_ord_tes'];
+    protected $guarded = ['id'];
+    protected $dates = ['data', 'data_eva'];
 
     protected static function boot()
     {
@@ -68,5 +68,10 @@ class wDocHead extends Model
     public function destinazioni()
     {
         return $this->hasOne('App\Models\parideModels\Destinazioni', ['id_dest_pro', 'id_cli_for'], ['id_dest_pro', 'id_cli_for']);
+    }
+
+    public function payType()
+    {
+        return $this->hasOne('App\Models\parideModels\PaymentType', 'id_pag', 'id_pag');
     }
 }

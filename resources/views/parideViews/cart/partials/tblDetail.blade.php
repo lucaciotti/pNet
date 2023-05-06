@@ -6,6 +6,7 @@
       <th>Vs.Cod.Interno</th>
       <th>{{ trans('doc.descArt') }}</th>
       <th>{{ trans('doc.quantity_condensed') }}</th>
+      <th>Prezzo Tot.</th>
     </thead>
     <tbody>
       @php
@@ -23,9 +24,12 @@
             <td> - </td>
           @endif
           <td>{{ $row->skuCustomCode->sku_code ?? '' }}</td>
-          <td>{{ $row->product->descr }}</td>
+          <td>{{ $row->descr ?? '' }}</td>
           <td style="text-align: center;">
-            {{ $row->quantity }} {{ $row->product->um }} 
+            {{ $row->quantity }} {{ $row->product->um ?? '' }} 
+          </td>
+          <td style="text-align: center;">
+            {{ $row->val_riga }} €
           </td>
         </tr>
       @endforeach

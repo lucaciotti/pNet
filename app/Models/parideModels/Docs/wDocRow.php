@@ -11,7 +11,8 @@ class wDocRow extends Model
     protected $table = 'w_doc_row';
     protected $connection = 'pNet_DATA';
 
-    protected $fillable = ['doc_head_id', 'id_art', 'quantity'];
+    // protected $fillable = ['doc_head_id', 'id_art', 'quantity'];
+    protected $guarded = ['id'];
 
     public function head()
     {
