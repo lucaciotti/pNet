@@ -24,6 +24,15 @@ if($tipodoc=='BO') {
   <div class="col-lg-5">
     @include('parideViews.docs.partials.cardDetailDoc')
 
+    @if ($head->getEvaso()!=0)
+      <div class="card card-outline">
+        <div class="card-body">
+          @livewire('cart.doc2cart', ['doc' => $head])
+        </div>
+        <!-- /.card -->
+      </div>
+    @endif
+
     @if(!$prevDocs->isEmpty() || !$nextDocs->isEmpty())
       <div class="card card-outline">
         <div class="card-header">

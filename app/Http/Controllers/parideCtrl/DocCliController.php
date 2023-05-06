@@ -4,6 +4,7 @@ namespace App\Http\Controllers\parideCtrl;
 
 use Carbon\Carbon;
 use App\Helpers\PdfReport;
+use App\Helpers\PriceManager;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -20,6 +21,9 @@ use App\Models\parideModels\Docs\OrdCli;
 use App\Models\parideModels\Docs\RowDoc;
 use App\Models\parideModels\Docs\QuoteCli;
 use App\Models\parideModels\Docs\wDocNotes;
+use App\Models\parideModels\Product;
+use Arr;
+use Jackiedo\Cart\Facades\Cart;
 
 class DocCliController extends Controller
 {
@@ -454,6 +458,169 @@ class DocCliController extends Controller
 
         return $pdf->inline($title . '-' . $subTitle . '.pdf');
     }
+
+    // // DOC 2 Cart
+    // public function doc2cart(Request $req, $tipodoc, $id_doc)
+    // {
+    //     switch ($tipodoc) {
+    //         case 'XC':
+    //             $doc = QuoteCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'OC':
+    //             $doc = OrdCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'BO':
+    //             $doc = DDTCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'FT':
+    //             $doc = FTCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'FP':
+    //             $doc = FPCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_ord_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'FD':
+    //             $doc = FDCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         case 'NC':
+    //             $doc = NCCli::with([
+    //                 'client' => function ($query) {
+    //                     $query->withoutGlobalScope('agent')
+    //                     ->withoutGlobalScope('superAgent')
+    //                     ->withoutGlobalScope('client');
+    //                 },
+    //                 'rows' => function ($query) {
+    //                     $query->orderBy('id_doc_rig', 'asc')->with(['tva']);
+    //                 },
+    //                 'destinazioni',
+    //             ])->findOrFail($id_doc);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+        
+    //     Cart::destroy();
+    //     Cart::setExtraInfo('order.id', $doc->rif_num);
+    //     Cart::setExtraInfo('order.shipdate', Carbon::now());
+    //     Cart::setExtraInfo('customer.code', $doc->id_cli_for);
+    //     Cart::setExtraInfo('price.customer', $doc->id_cli_for);
+    //     Cart::setExtraInfo('customer.destination', $doc->id_dest);
+    //     Cart::setExtraInfo('order.idPag', $doc->id_pag);
+    //     Cart::setExtraInfo('order.tipoSped', '');
+    //     foreach ($doc->rows as $row) {
+    //         $product = Product::find($row->id_art);
+    //         $cartItem = ($product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $product->id_art])) : null;
+    //         $qta = ($cartItem == null) ? $row->qta_ord : $cartItem->getQuantity() + $row->qta_ord;
+    //         $price = PriceManager::getPrice($doc->id_cli_for, $row->id_art, $qta);
+    //         if ($cartItem == null) {
+    //             $product->addToCart('default', [
+    //                 'quantity' => $qta,
+    //                 'price' => $price,
+    //             ]);
+    //         } else {
+    //             Cart::updateItem($cartItem->getHash(), [
+    //                 'quantity' => $qta,
+    //                 'price' => $price,
+    //             ]);
+    //         }
+    //     }
+    //     dd(Cart::getDetails()->get('items'));
+    //     $this->applyEstraPrices();
+    //     session()->push('cart-updated', true);
+    //     return redirect()->route('cart::index');
+    // }
+
+    // protected function applyEstraPrices()
+    // {
+    //     # COTROLLO SUBTOTALE CARRELLO E AGGIUNGO ACTION SOVRAPPREZZO ORDINE MINIMO
+    //     $totalCart = Cart::getItemsSubtotal();
+    //     if ($totalCart < 50) {
+    //         $actions = Cart::getActions(['id' => 1]);
+    //         if (count($actions) == 0) {
+    //             Cart::applyAction([
+    //                 'group' => 'Additional costs',
+    //                 'id'    => 1,
+    //                 'title' => 'Spese Gestione Ordine Minimo',
+    //                 'value' => 2.50
+    //             ]);
+    //         }
+    //     } else {
+    //         $actions = Cart::getActions(['id' => 1]);
+    //         if (count($actions) > 0) {
+    //             Cart::removeAction($actions[0]);
+    //         }
+    //     }
+    //     # AGGIUNGO SCONTO DI 2% ORDINE WEB
+    //     $actionsDiscount = Cart::getActions(['id' => 101]);
+    //     if (count($actionsDiscount) == 0) {
+    //         Cart::applyAction([
+    //             'group' => 'Discount',
+    //             'id'    => 101,
+    //             'title' => 'Sconto 2% ordine web',
+    //             'value' => '-2%'
+    //         ]);
+    //     }
+    // }
+
 
     //PROTECTED FUNCTIONS
     protected function getFilteredTipoDocs($tipodoc, $startDate, $endDate, $noDate, $ragSoc, $ragsocOp, $numdoc, $numdocOp){

@@ -10,6 +10,7 @@ use Illuminate\Validation\Validator;
 use App\Models\parideModels\Client;
 use App\Models\parideModels\Destinazioni;
 use Carbon\Carbon;
+use Session;
 
 class AddClientinfo extends Component
 {
@@ -33,6 +34,10 @@ class AddClientinfo extends Component
     ];
 
     public function mount(){
+        if (Session::has('cart_updated')) {
+            $this->emit('cart_updated');
+            Session::forget('cart_updated');
+        }
         $this->loadInit();
     }
 

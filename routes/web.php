@@ -83,6 +83,7 @@ Route::name('doc::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/ddtToSend', [DocToSendController::class, 'index'])->name('indexDdtToSend');
     Route::post('/ddtToSend', [DocToSendController::class, 'fltIndex'])->name('fltDdtToSend');
     Route::get('/ddtToSend/{id}', [DocToSendController::class, 'sendDdt'])->name('sendDdt');
+    Route::get('/doc2cart/{tipodoc}/{id_doc}', [DocCliController::class, 'doc2cart'])->name('doc2cart');
 
     Route::get('/docNotes', [DocNotesController::class, 'index'])->name('docNotes');
 });

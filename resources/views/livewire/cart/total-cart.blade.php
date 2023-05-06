@@ -6,7 +6,7 @@
                 Totale Merce
             </th>
             <th class='text-right'>
-                {{ currency($cart->get('items_subtotal')) }}
+                {{ currency($cart->get('items_subtotal') ?? 0) }}
             </th>
         </tr>
         @php
@@ -19,7 +19,7 @@
                 {{ $action->get('title') }}
             </th>
             <th class='text-right'>
-                {{ currency($action->get('amount')) }}
+                {{ currency($action->get('amount') ?? 0) }}
             </th>
         </tr>
         @endforeach
@@ -29,7 +29,7 @@
                 Totale Imponibile
             </th>
             <th class='text-right'>
-                {{ currency($cart->get('taxable_amount')) }}
+                {{ currency($cart->get('taxable_amount') ?? 0) }}
             </th>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
                 Totale IVA (22%)
             </th>
             <th class='text-right'>
-                + {{ currency($cart->get('tax_amount')) }}
+                + {{ currency($cart->get('tax_amount') ?? 0) }}
             </th>
         </tr>
         <tfoot style="background-color: lightgrey">
@@ -46,7 +46,7 @@
                     Importo Totale
                 </th>
                 <th class='text-right'>
-                    {{ currency($cart->get('total')) }}
+                    {{ currency($cart->get('total') ?? 0) }}
                 </th>
             </tr>
         </tfoot>

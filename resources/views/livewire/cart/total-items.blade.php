@@ -16,7 +16,7 @@
             Totale Merce
         </th>
         <th class='text-right'>
-            {{ currency($cart->get('items_subtotal')) }}
+            {{ currency($cart->get('items_subtotal') ?? 0) }}
         </th>
     </tr>
     @php
@@ -29,7 +29,7 @@
             {{ $action->get('title') }}
         </th>
         <th class='text-right'>
-            {{ currency($action->get('amount')) }}
+            {{ currency($action->get('amount') ?? 0) }}
         </th>
     </tr>        
     @endforeach
@@ -40,7 +40,7 @@
                 Importo Totale
             </th>
             <th class='text-right'>
-                {{ currency($cart->get('subtotal')) }}
+                {{ currency($cart->get('subtotal') ?? 0) }}
             </th>
         </tr>
     </tfoot>

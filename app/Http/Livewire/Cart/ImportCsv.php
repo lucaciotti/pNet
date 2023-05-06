@@ -68,20 +68,21 @@ class ImportCsv extends Component
                     $quantity = $data[1];
                     $product = Product::find($id_art);
                     if($product){
+                        $cartItem = ($product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $product->id_art])) : null;
+                        $qta = ($cartItem == null) ? $quantity : $cartItem->getQuantity() + $quantity;
                         if (!empty($codCli)) {
-                            $price = PriceManager::getPrice($codCli, $id_art, $quantity, $shipdate);
+                            $price = PriceManager::getPrice($codCli, $id_art, $qta, $shipdate);
                         } else {
                             $price = 0;
                         }
-                        $cartItem = ($product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $product->id_art])) : null;
                         if ($cartItem == null) {
                             $product->addToCart('default', [
-                                'quantity' => $quantity,
+                                'quantity' => $qta,
                                 'price' => $price
                             ]);
                         } else {
                             Cart::updateItem($cartItem->getHash(), [
-                                'quantity' => $cartItem->getQuantity()+$quantity,
+                                'quantity' => $qta,
                                 'price' => $price
                             ]);
                         }

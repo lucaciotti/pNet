@@ -68,7 +68,7 @@
                         </div>
 
                         <div>
-                            @livewire('cart.reset-cart')                            
+                            {{-- @livewire('cart.reset-cart')                             --}}
                             <button class="btn btn-primary float-right" onclick="stepper.next(); Livewire.emit('checkClient')">Continua</button>
                         </div>
                     </div>
