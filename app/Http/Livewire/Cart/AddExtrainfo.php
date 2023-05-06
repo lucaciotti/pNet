@@ -9,15 +9,18 @@ use Illuminate\Validation\Validator;
 
 use App\Models\parideModels\Client;
 use App\Models\parideModels\Destinazioni;
+use App\Models\parideModels\PaymentType;
 
 class AddExtrainfo extends Component
 {
     public $codCli;
     public $idDest;
+    public $tipo_sped;
+    public $id_pag;
 
-    public $listCli = [];
-    public $destDefault;
+    public $clientDefault;
     public $listDest = [];
+    public $listPag = [];
     
     public $destSelected;
     
@@ -25,36 +28,41 @@ class AddExtrainfo extends Component
         'codCli' => 'required',
     ];
 
+    protected $listeners = [
+        'cart_client_updated' => 'loadClient',
+    ];
+
     public function mount(){
-        $this->codCli = Cart::getExtraInfo('customer.code', '');
         $this->idDest = Cart::getExtraInfo('customer.destination', '');
-        if(in_array(RedisUser::get('role'), ['client'])){
-            if(empty($this->codCli)) $this->codCli = RedisUser::get('codcli');
-            // $this->destDefault = = Client::select('id_cli_for', 'rag_soc', 'indirizzo', 'citta', 'cap', 'provincia')->find($this->codCli);
-            // $this->listCli = $this->destDefault->toArray();
-        } else {
-            $this->listCli = Client::select('id_cli_for', 'rag_soc')->get()->toArray();
-        }
-        if (!empty($this->codCli)){
-            $this->updatedCodCli();
-        }
+        $this->loadClient();
     }
 
-    public function updatedCodCli(){
-        $this->reset('idDest', 'listDest');
-        Cart::setExtraInfo('customer.code', $this->codCli);
-        $this->emit('cart_info_updated');
-        
-        $this->destDefault = Client::select('id_cli_for', 'rag_soc', 'indirizzo', 'citta', 'cap', 'provincia')->find($this->codCli);
-        $this->destSelected = $this->destDefault;
-        $this->listDest = Destinazioni::where('id_cli_for', $this->codCli)->get()->toArray();
+    public function loadClient(){
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
+        if (!empty($this->codCli)) {
+            $this->clientDefault = Client::select('id_cli_for', 'rag_soc', 'indirizzo', 'citta', 'cap', 'provincia', 'id_pag')->find($this->codCli);
+            $this->listDest = Destinazioni::where('id_cli_for', $this->codCli)->get()->toArray();
+            $this->listPag = PaymentType::all()->toArray();
+            $this->id_pag = $this->clientDefault->id_pag;
+            $this->reset('idDest', 'listDest');        
+            $this->destSelected = $this->clientDefault;
+        }
     }
 
     public function updatedIdDest(){
         Cart::setExtraInfo('customer.destination', $this->idDest);
-        $this->emit('cart_info_updated');
+        if(!empty($this->idDest)) $this->destSelected = Destinazioni::select('rag_soc', 'indirizzo', 'citta', 'cap', 'provincia')->where('id_cli_for', $this->codCli)->where('id_dest_pro', $this->idDest)->first();
+        if(empty($this->idDest))  $this->destSelected = $this->clientDefault;
+    }
 
-        $this->destSelected = Destinazioni::select('rag_soc', 'indirizzo', 'citta', 'cap', 'provincia')->where('id_cli_for', $this->codCli)->where('id_dest_pro', $this->idDest)->first();
+    public function updatedIdPag()
+    {
+        Cart::setExtraInfo('order.idPag', $this->id_pag);
+    }
+
+    public function updatedTipoSped()
+    {
+        Cart::setExtraInfo('order.tipoSped', $this->tipo_sped);
     }
 
     public function render()

@@ -37,7 +37,7 @@ class NavItem extends Component
             'timer' =>  3000,
             'toast' =>  true,
             'cancelButtonText' =>  'Cancel',
-            'showCancelButton' =>  true,
+            'showCancelButton' =>  false,
             'showConfirmButton' =>  false,
         ]);
         $this->render();

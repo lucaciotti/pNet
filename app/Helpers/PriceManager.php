@@ -12,6 +12,9 @@ class PriceManager
 {
 
     public static function getPrice($id_cli_for, $id_art, $qta, $date=null){
+        if($id_art==0){
+            return 0;
+        }
         $client = Client::find($id_cli_for);
         $art = Product::find($id_art);
         if($date==null){

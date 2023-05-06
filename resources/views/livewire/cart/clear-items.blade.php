@@ -1,0 +1,1 @@
+<button class="btn btn-block btn-outline-danger" wire:click="resetItems">Vuota Carrello</button>

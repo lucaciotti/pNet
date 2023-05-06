@@ -1,71 +1,80 @@
 <div>
-    @if (RedisUser::get('role') != 'client')
-    <div class="form-group" style="margin-bottom:5px;">
-        <label for="codCli">Codice Cliente</label>
-        <select class="form-control select2 livewireSelect2" id="codCli" style="width: 100%;" placeholder="Codice Cliente" wire:model.lazy="codCli">
-            @foreach ($listCli as $client)
-            <option value="{{ $client['id_cli_for'] }}"> {{ $client['id_cli_for'] }} - {{ $client['rag_soc'] }} </option>
-            @endforeach
-        </select>
-        @error('codCli') <span class="text-danger">{{ $message }}</span> @enderror
-        @if (!$listCli)
-        {{-- <span class="text-warning"> Caricamento Clienti... Attendere prego </span> --}}
-        <div class="d-flex align-items-center text-secondary">
-            <strong>Caricamento Clienti...</strong>
-            <div class="spinner-border-sm ml-auto" role="status" aria-hidden="true"></div>
+   
+    <div class="d-md-flex justify-content-between">
+        <div class="form-group col-md-6" style="margin-bottom:5px;">
+            <label for="tipo_sped">Opzioni Spedizione</label>
+            <select class="form-control select2 livewireSelect2" id="tipo_sped" style="width: 100%;" placeholder="Opzioni Spedizione" wire:model.lazy="tipo_sped">
+                <option value=""></option>
+                <option value="Ritiro in Sede">Ritiro in Sede</option>
+                <option value="Porto Franco">Porto Franco</option>
+                <option value="Porto Assegnato">Porto Assegnato</option>
+            </select>
+            @error('tipo_sped') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        @endif
+        <div class="form-group col-md-6" style="margin-bottom:5px;">
+            <label for="id_pag">Tipo Pagamento</label>
+            <select class="form-control select2 livewireSelect2" id="id_pag" style="width: 100%;" placeholder="Tipo Pagamento" wire:model.lazy="id_pag">
+               @foreach ($listPag as $pag)
+                <option value="{{ $pag['id_pag'] }}"> 
+                    {{ $pag['descr'] }}
+                </option>
+                @endforeach
+            </select>
+            @error('id_pag') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
     </div>
-    @endif
 
-    <div class="form-group" style="margin-bottom:5px;" @disabled(empty($codCli))>
-        <label for="idDest">Destinazione Merce</label>
-        <select class="form-control select2 livewireSelect2" id="idDest" style="width: 100%;" placeholder="Destinazione" wire:model.lazy="idDest">
-            @if (!empty($destDefault))
-                <option value=""> {{ $destDefault->rag_soc }} - {{ $destDefault->citta }} [{{ $destDefault->provincia }}]</option>
-            @endif
-            @foreach ($listDest as $dest)
-                <option value="{{ $dest['id_dest_pro'] }}"> {{ $dest['rag_soc'] }} - {{ $dest['citta'] }} [{{ $dest['provincia'] }}] </option>
-            @endforeach
-        </select>
-        @error('idDest') <span class="text-danger">{{ $message }}</span> @enderror
-    </div>
-    <br>
-    @if (!empty($destSelected))
-    <div class="row d-flex justify-content-center pt-10">
-        <div class="card col-lg-6" style="background: lightgrey" >
-            <div class="card-body">
-                <h5 class="card-title">Destinazione finale</h5>
-                <p class="card-text">
-                    <dl class="dl-horizontal">
-                        {{-- <dt>Ragione Sociale</dt> --}}
-                        <dt>{{ $destSelected->rag_soc }}</dt>
-                        {{-- <dt>Via</dt> --}}
-                        <dd>
-                            {{ $destSelected->indirizzo }}
-                            <br>
-                            {{ $destSelected->cap }}, {{ $destSelected->citta }} [{{ $destSelected->provincia }}]
-                        </dd>
-                    </dl>
-                </p>
+    <hr>
+    <div class="d-md-flex justify-content-between">
+        <div class="form-group col-md-6" style="margin-bottom:5px;" @disabled(empty($codCli))>
+            <label for="idDest">Destinazione Merce</label>
+            <select class="form-control select2 livewireSelect2" id="idDest" style="width: 100%;" placeholder="Destinazione" wire:model.lazy="idDest">
+                @if (!empty($clientDefault))
+                    <option value=""> {{ $clientDefault->rag_soc }} - {{ $clientDefault->citta }} [{{ $clientDefault->provincia }}]</option>
+                @endif
+                @foreach ($listDest as $dest)
+                    <option value="{{ $dest['id_dest_pro'] }}"> {{ $dest['rag_soc'] }} - {{ $dest['citta'] }} [{{ $dest['provincia'] }}] </option>
+                @endforeach
+            </select>
+            @error('idDest') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        @if (!empty($destSelected))
+        <div class="row col-md-6 d-flex justify-content-center pt-10">
+            <div class="card col-lg-10" style="background: lightgrey" >
+                <div class="card-body">
+                    <h5 class="card-title">Destinazione finale</h5>
+                    <p class="card-text">
+                        <dl class="dl-horizontal">
+                            <dt>{{ $destSelected->rag_soc }}</dt>
+                            <dd>
+                                {{ $destSelected->indirizzo }}
+                                <br>
+                                {{ $destSelected->cap }}, {{ $destSelected->citta }} [{{ $destSelected->provincia }}]
+                            </dd>
+                        </dl>
+                    </p>
+                </div>
             </div>
         </div>
+        @endif
+
     </div>
-    @endif
 </div>
 
 @push('js')
 <script>
     $(document).ready(function() {
-
-        $('#codCli').on('change', function (e) {
-            var data = $('#codCli').select2("val");
-            @this.set('codCli', data);
-        });
-
         $('#idDest').on('change', function (e) {
             var data = $('#idDest').select2("val");
             @this.set('idDest', data);
+        });
+        $('#tipo_sped').on('change', function (e) {
+            var data = $('#tipo_sped').select2("val");
+            @this.set('tipo_sped', data);
+        });
+        $('#id_pag').on('change', function (e) {
+            var data = $('#id_pag').select2("val");
+            @this.set('id_pag', data);
         });
 
     });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Cart;
 
+use App\Helpers\PriceManager;
 use Livewire\Component;
 use Jackiedo\Cart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
@@ -10,9 +11,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 
 use App\Models\parideModels\Product;
+use RedisUser;
 
 class AddCart extends Component
 {
+    public $codCli;
+    public $shipdate;
+
     public $idArt;
     public $skuCustom;
     public $descrArt;
@@ -40,7 +45,38 @@ class AddCart extends Component
     protected $listeners = [
         'cart_updated' => 'render',
         'resetLists' => 'resetLists',
+        'checkClient' => 'checkClient',
     ];
+
+    public function checkClient()
+    {
+        if (in_array(RedisUser::get('role'), ['client'])) {
+            if (empty($this->codCli)) $this->codCli = RedisUser::get('codcli');
+        } else {
+            $this->codCli = Cart::getExtraInfo('customer.code', '');
+        }
+        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        if(empty($this->codCli)){
+            $this->dispatchBrowserEvent('insertClient');
+        } else {
+            #CONTROLLO RIGHE con valore 0
+            $cartModified=false;
+            foreach (Cart::getItems() as $hash => $item) {
+                if($item->getPrice()==0 || Cart::getExtraInfo('price.customer', '')!=$this->codCli) {
+                    $cartModified = true;
+                    $price = PriceManager::getPrice($this->codCli, $item->getId(), $item->getQuantity(), $this->shipdate);
+                    Cart::updateItem($hash, [
+                        'price' => $price,
+                    ]);
+                }
+            }
+            if($cartModified){
+                $this->applyEstraPrices();
+                Cart::setExtraInfo('price.customer', $this->codCli);
+                $this->emit('cart_updated');
+            }
+        }
+    }
 
     public function render()
     {
@@ -58,6 +94,10 @@ class AddCart extends Component
             $this->reset(['listArts', 'listCustomCodes', 'listDescrArts', 'listProducts']);
             return;
         }
+        $this->searchListArt();
+    }
+    public function searchListArt()
+    {
         $this->listArts = Product::select('id_art', 'descr')->where('id_art', 'like', $this->idArt . '%')->get()->toArray();
     }
 
@@ -66,7 +106,7 @@ class AddCart extends Component
             $this->reset(['listArts', 'listCustomCodes', 'listDescrArts', 'listProducts']);
             return;
         }
-        $searchStr = this->skuCustom;
+        $searchStr = $this->skuCustom;
         $this->listCustomCodes = Product::select('id_art', 'descr')->whereHas('skuCustomCode', function ($query) use ($searchStr) {
                                     $query->where('sku_code', 'like', $searchStr . '%');
                                 })->get()->toArray();
@@ -99,11 +139,13 @@ class AddCart extends Component
         $this->descrArt = $art->descr;
         $this->umArt = $art->um;
         $this->isArtSelected = true;
+        $dfl_qta = $art->pz_x_conf;
         $cartItem = ($art->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->idArt])) : null;
-        $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : 0;
+        $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : $dfl_qta;
     }
 
     public function addToCart(){
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
         $product = Product::find($this->idArt);
         $this->withValidator(function (Validator $validator) use ($product){
             $validator->after(function ($validator) use ($product) {
@@ -117,17 +159,56 @@ class AddCart extends Component
         })->validate();
 
         $cartItem = ($product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $product->id_art])) : null;
+        
+        if(!empty($this->codCli)){
+            $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
+        }
+
         if($cartItem==null){
             $product->addToCart('default', [
-                'quantity' => $this->quantity
+                'quantity' => $this->quantity,
+                'price' => $price,
             ]);
         } else {
             Cart::updateItem($cartItem->getHash(), [
-                'quantity' => $this->quantity
+                'quantity' => $this->quantity,
+                'price' => $price,
             ]);
         }
+        $this->applyEstraPrices();
         $this->reset();
         $this->emit('cart_updated');
+    }
+
+    public function applyEstraPrices(){
+        # COTROLLO SUBTOTALE CARRELLO E AGGIUNGO ACTION SOVRAPPREZZO ORDINE MINIMO
+        $totalCart = Cart::getItemsSubtotal();
+        if ($totalCart < 50) {
+            $actions = Cart::getActions(['id' => 1]);
+            if (count($actions) == 0) {
+                Cart::applyAction([
+                    'group' => 'Additional costs',
+                    'id'    => 1,
+                    'title' => 'Spese Gestione Ordine Minimo',
+                    'value' => 2.50
+                ]);
+            }
+        } else {
+            $actions = Cart::getActions(['id' => 1]);
+            if (count($actions) > 0) {
+                Cart::removeAction($actions[0]);
+            }
+        }
+        # AGGIUNGO SCONTO DI 2% ORDINE WEB
+        $actionsDiscount = Cart::getActions(['id' => 101]);
+        if (count($actionsDiscount) == 0) {
+            Cart::applyAction([
+                'group' => 'Discount',
+                'id'    => 101,
+                'title' => 'Sconto 2% ordine web',
+                'value' => '-2%'
+            ]);
+        }
     }
 
     public function resetLists(){

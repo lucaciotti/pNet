@@ -5,11 +5,14 @@
     <table class="table table-hover table-condensed text-center" id="riepCart">
     @endif
         <col width='3%'>
-        <col width='15%'>
-        <col width='15%'>
-        <col width='40%'>
         <col width='10%'>
-        <col width='15%'>
+        <col width='10%'>
+        <col width='35%'>
+        <col width='3%'>
+        <col width='13%'>
+        <col width='3%'>
+        <col width='10%'>
+        <col width='10%'>
         <col width='3%'>
         <thead>
             <tr>
@@ -19,6 +22,9 @@
                 <th>Descrizione</th>
                 <th>UM</th>
                 <th>Quantità</th>
+                <th>Stock</th>
+                <th>Prezzo</th>
+                <th>Totale</th>
                 <th></th>
             </tr>
         </thead>
@@ -28,7 +34,7 @@
                     <td class="align-middle">{{ $loop->index+1 }}</td>
                     <td class="align-middle"><a href="{{ route('product::detail', $item->model->id_art) }}"> {{ $item->model->id_art }} </a></td>
                     <td class="align-middle">{{ '' }}</td>
-                    <td class="align-middle">{{ $item->model->descr }}</td>
+                    <td class="align-middle text-smaller">{{ $item->model->descr }}</td>
                     <td class="align-middle">{{ $item->model->um }}</td>
                     <td>
                         @if ($isReadOnly)
@@ -37,7 +43,26 @@
                             <livewire:cart.add-element :product="$item->model" :wire:key="time().$item->hash">
                         @endif
                     </td>
-                    {{-- <td>{{ $item->quantity }}</td> --}}
+                    <td>
+                        @php
+                            $giac = $item->model->maggiac->esistenza;
+                        @endphp
+                        @if ($item->quantity < $giac)
+                            <svg height="20" width="20">
+                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8"/>
+                            </svg> 
+                        @elseif ($item->quantity > $giac && $giac>0)
+                            <svg height="20" width="20">
+                                <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8"/>
+                            </svg> 
+                        @else
+                            <svg height="20" width="20">
+                                <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8"/>
+                            </svg> 
+                        @endif
+                    </td>
+                    <td>{{ $item->price }} €</td>
+                    <td>{{ currency($item->total_price) }}</td>
                     <td>
                         @if (!$isReadOnly)
                         <div class="input-group input-group-sm">

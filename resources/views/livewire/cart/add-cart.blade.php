@@ -78,7 +78,7 @@
                 @else
                 <td>
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="text" placeholder="Cod.Art." wire:model.debounce.1000ms="idArt" @if ($isArtSelected) readonly @endif>
+                        <input class="form-control form-control-navbar" type="text" placeholder="Cod.Art." wire:model.debounce.1000ms="idArt" wire:keydown.enter="searchListArt" @if ($isArtSelected) readonly @endif>
                         @if (!$isArtSelected)
                             {{-- <div class="input-group-append">
                                 <button class="btn btn-primary">
@@ -214,7 +214,7 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
-                        <button class="btn btn-sm btn-warning" type="button" wire:click="addToCart">
+                        <button class="btn btn-sm btn-success" type="button" wire:click="addToCart">
                             <i class="fas fa-fw fa-cart-plus"></i>
                         </button>
                     </div>
