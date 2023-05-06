@@ -50,14 +50,14 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $nNewProds }}<small><small><small><i> Nuovi prodotti</i></small></small></small></h3>
+                        <h3>&NonBreakingSpace;</h3>
             
-                        <p>Catalogo</p>
+                        <p>Nuovo Ordine Web</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-barcode"></i>
+                        <i class="fa fa-cart-plus"></i>
                     </div>
-                    <a href="{{ route('product::list') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('cart::index') }}" class="small-box-footer">Visualizza <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-6 col-6 ml-auto">
