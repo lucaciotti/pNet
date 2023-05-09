@@ -14,6 +14,7 @@ use Session;
 
 class AddClientinfo extends Component
 {
+    public $importfromDoc;
     public $codCli;
     public $idOrd;
     public $start_date;
@@ -91,6 +92,7 @@ class AddClientinfo extends Component
 
     public function render()
     {
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.add-clientinfo');
     }
 }

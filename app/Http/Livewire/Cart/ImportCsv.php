@@ -22,6 +22,8 @@ class ImportCsv extends Component
     public $filename = '';
     public $file_placeolder = 'Carica file csv...';
 
+    public $importfromDoc;
+
     protected $rules = [
         'file' => 'required|mimes:csv,txt',
         'file_extension' => 'required|in:csv,txt',
@@ -30,6 +32,7 @@ class ImportCsv extends Component
 
     public function render()
     {
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.import-csv');
     }
 
@@ -121,7 +124,7 @@ class ImportCsv extends Component
         } else {
             $actions = Cart::getActions(['id' => 1]);
             if (count($actions) > 0) {
-                Cart::removeAction($actions[0]);
+                Cart::removeAction(Arr::first($actions)->getHash());
             }
         }
         # AGGIUNGO SCONTO DI 2% ORDINE WEB

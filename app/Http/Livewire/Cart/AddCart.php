@@ -15,14 +15,18 @@ use RedisUser;
 
 class AddCart extends Component
 {
+    public $importfromDoc;
     public $codCli;
     public $shipdate;
 
+    public $art;
     public $idArt;
     public $skuCustom;
     public $descrArt;
     public $umArt;
     public $quantity=0;
+    public $price=0.00;
+    public $total=0.00;
 
     public $freeDescr;
 
@@ -51,11 +55,7 @@ class AddCart extends Component
 
     public function checkClient()
     {
-        if (in_array(RedisUser::get('role'), ['client'])) {
-            if (empty($this->codCli)) $this->codCli = RedisUser::get('codcli');
-        } else {
-            $this->codCli = Cart::getExtraInfo('customer.code', '');
-        }
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
         $this->shipdate = Cart::getExtraInfo('order.dhipdate');
         if(empty($this->codCli)){
             $this->dispatchBrowserEvent('insertClient');
@@ -64,23 +64,31 @@ class AddCart extends Component
             $cartModified=false;
             foreach (Cart::getItems() as $hash => $item) {
                 if($item->getPrice()==0 || Cart::getExtraInfo('price.customer', '')!=$this->codCli) {
-                    $cartModified = true;
-                    $price = PriceManager::getPrice($this->codCli, $item->getId(), $item->getQuantity(), $this->shipdate);
-                    Cart::updateItem($hash, [
-                        'price' => $price,
-                    ]);
+                    if(!empty($item->get('associated_class'))){
+                        $cartModified = true;
+                        $price = PriceManager::getPrice($this->codCli, $item->getId(), $item->getQuantity(), $this->shipdate);
+                        Cart::updateItem($hash, [
+                            'price' => $price,
+                        ]);
+                    }
                 }
             }
             if($cartModified){
                 $this->applyEstraPrices();
                 Cart::setExtraInfo('price.customer', $this->codCli);
-                $this->emit('cart_updated');
+                // $this->emit('cart_updated');
             }
+            $this->dispatchBrowserEvent('stepperGoOn');
         }
     }
 
+    // public function updated($prop){
+    //     dd($prop);
+    // }
+
     public function render()
     {
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.add-cart');
     }
 
@@ -122,24 +130,42 @@ class AddCart extends Component
     }
 
     public function toogleSearch(){
+        // dd();
         $this->isToogleSearch = !$this->isToogleSearch;
     }
 
     public function selectedArt($id_art){
-        $art =  Product::where('id_art', $id_art)->first();
         $this->reset();
-        $this->idArt = $art->id_art;
-        $this->descrArt = $art->descr;
-        $this->umArt = $art->um;
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
+        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        $this->art =  Product::where('id_art', $id_art)->first();
+        $this->idArt = $this->art->id_art;
+        $this->descrArt = $this->art->descr;
+        $this->umArt = $this->art->um;
         $this->isArtSelected = true;
-        $dfl_qta = $art->pz_x_conf;
-        $cartItem = ($art->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->idArt])) : null;
+        $dfl_qta = $this->art->pz_x_conf;
+        $cartItem = ($this->art->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->idArt])) : null;
         $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : $dfl_qta;
+        if (!empty($this->codCli)) {
+            $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
+            $this->price = number_format((float)($price), 3, ',', '\'');
+            $this->total = number_format((float)($this->quantity * $price), 2, ',', '\'');
+        }
+    }
+
+    public function updatedQuantity(){
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
+        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        if (!empty($this->codCli)) {
+            $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
+            $this->price = number_format((float)($price), 3, ',', '\'');
+            $this->total = number_format((float)($this->quantity * $price), 2, ',', '\'');
+        }
     }
 
     public function addToCart(){
         $this->codCli = Cart::getExtraInfo('customer.code', '');
-        $product = Product::find($this->idArt);
+        $product = $this->art;
         $this->withValidator(function (Validator $validator) use ($product){
             $validator->after(function ($validator) use ($product) {
                 if(empty($product)){
@@ -174,9 +200,9 @@ class AddCart extends Component
     }
 
     public function addFreeDescr(){
-        Cart::updateItem([
-            'id'=> 0,
-            'descr' => $this->freeDescr,
+        Cart::addItem([
+            'id'=> 999999,
+            'title' => $this->freeDescr,
             'quantity' => 0,
             'taxable' => false,
             'price' => 0,
@@ -200,8 +226,9 @@ class AddCart extends Component
             }
         } else {
             $actions = Cart::getActions(['id' => 1]);
+            // dd(Arr::first($actions));
             if (count($actions) > 0) {
-                Cart::removeAction($actions[0]);
+                Cart::removeAction(Arr::first($actions)->getHash());
             }
         }
         # AGGIUNGO SCONTO DI 2% ORDINE WEB

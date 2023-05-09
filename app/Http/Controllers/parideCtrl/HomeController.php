@@ -11,6 +11,7 @@ use App\Models\parideModels\Docs\FTCli;
 use App\Models\parideModels\Docs\DDTCli;
 use App\Models\parideModels\Docs\OrdCli;
 use App\Models\parideModels\Docs\QuoteCli;
+use App\Models\parideModels\Docs\wDocHead;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,7 @@ class HomeController extends Controller
         //             })->count();
 
         $nDDTs = DDTCli::where('data', '>=', $thisMonth)->count();
+        $nXWs = wDocHead::where('data', '>=', $thisMonth)->count();
                     
         $nFattDir = FTCli::where('data', '>=', $lastMonth)->count();
         $nFattDif = FDCli::where('data', '>=', $lastMonth)->count();
@@ -45,6 +47,7 @@ class HomeController extends Controller
         return view('home', [
             'nQuotes' => $nQuotes,
             'nDDTs' => $nDDTs,
+            'nXWs' => $nXWs,
             'nFattDir' => $nFattDir,
             'nFattDif' => $nFattDif,
             'nNewProds' => $nNewProds,

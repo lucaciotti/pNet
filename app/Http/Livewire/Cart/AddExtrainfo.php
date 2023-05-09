@@ -13,6 +13,7 @@ use App\Models\parideModels\PaymentType;
 
 class AddExtrainfo extends Component
 {
+    public $importfromDoc;
     public $codCli;
     public $idDest;
     public $tipo_sped;
@@ -68,6 +69,7 @@ class AddExtrainfo extends Component
 
     public function render()
     {
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.add-extrainfo');
     }
 }

@@ -13,7 +13,7 @@
         </div>
         <div class="form-group col-md-6" style="margin-bottom:5px;">
             <label for="id_pag">Tipo Pagamento</label>
-            <select class="form-control select2 livewireSelect2" id="id_pag" style="width: 100%;" placeholder="Tipo Pagamento" wire:model.lazy="id_pag">
+            <select class="form-control select2 livewireSelect2" id="id_pag" style="width: 100%;" placeholder="Tipo Pagamento" disabled wire:model.lazy="id_pag">
                @foreach ($listPag as $pag)
                 <option value="{{ $pag['id_pag'] }}"> 
                     {{ $pag['descr'] }}

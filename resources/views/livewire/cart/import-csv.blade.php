@@ -8,7 +8,7 @@
     </div>
     <div wire:loading wire:target="file">Caricamento ...</div>
     <div>
-        <button type="submit" class="btn bg-lightblue btn-sm btn-block" style="margin-top:10px;">Importa</button>
+        <button type="submit" @if($importfromDoc) disabled @endif class="btn bg-lightblue btn-sm btn-block" style="margin-top:10px;">Importa</button>
     </div>
 
 </form>

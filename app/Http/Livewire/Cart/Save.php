@@ -71,8 +71,8 @@ class Save extends Component
                     foreach ($cartItems as $item) {
                         wDocRow::create([
                             'doc_head_id' => $head->id,
-                            'id_art' => $item->model->id_art,
-                            'descr' => $item->model->descr,
+                            'id_art' => (!empty($item->get('associated_class'))) ? $item->model->id_art : 0,
+                            'descr' => $item->get('title'),
                             'quantity' => $item->quantity,
                             'prezzo' => $item->get('price'),
                             'iva' => 22,

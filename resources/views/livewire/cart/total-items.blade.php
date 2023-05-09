@@ -6,7 +6,7 @@
             $value=50-$cart->get('items_subtotal');
         @endphp
         <tr>
-            <th colspan="2" class="text-center bg-warning">
+            <th colspan="2" class="text-center bg-primary">
                 Manca un valore di {{ currency($value) }} a porto franco
             </th>
         </tr>

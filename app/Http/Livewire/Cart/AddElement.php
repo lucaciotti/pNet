@@ -12,6 +12,8 @@ use Carbon\Carbon;
 
 class AddElement extends Component
 {
+    public $importfromDoc;
+    public $productPage;
     public $codCli;
 
     public $product;
@@ -20,19 +22,24 @@ class AddElement extends Component
     
     private $viewLoaded = false;
 
-    // protected $listeners = [
-    //     'cart_updated' => 'render',
-    // ];
+    protected $listeners = [
+        'cart_updated' => 'render',
+    ];
 
-    public function mount($product){
+    public function mount($product, $productPage=false){
+        $this->productPage = $productPage;
         $this->product = Product::find($product->id_art);
-        $cartItem = ($this->product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->product->id_art])) : null;
-        $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : 0;
-        $this->iconRefresh = $cartItem!=null ? true : false;
     }
 
     public function render()
-    {   
+    {
+        $cartItem = ($this->product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->product->id_art])) : null;
+        $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : 0;
+        $this->iconRefresh = $cartItem != null ? true : false;
+        if ($this->productPage && $this->quantity == 0) {
+            $this->quantity = $this->product->pz_x_conf;
+        }
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.add-element');
     }
 
@@ -82,7 +89,7 @@ class AddElement extends Component
         } else {
             $actions = Cart::getActions(['id' => 1]);
             if (count($actions) > 0) {
-                Cart::removeAction($actions[0]);
+                Cart::removeAction(Arr::first($actions)->getHash());
             }
         }
         # AGGIUNGO SCONTO DI 2% ORDINE WEB

@@ -50,9 +50,10 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>&NonBreakingSpace;</h3>
+                        {{-- <h3>&NonBreakingSpace;</h3> --}}
+                        <h3>{{ $nXWs }}</h3>
             
-                        <p>Nuovo Ordine Web</p>
+                        <p>Ordini Web</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-cart-plus"></i>

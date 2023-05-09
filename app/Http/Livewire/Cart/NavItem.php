@@ -10,6 +10,8 @@ class NavItem extends Component
 {
     use LivewireAlert;
 
+    public $importfromDoc;
+    
     public $cartCount= 0;
     public $cartItems;
 
@@ -27,12 +29,13 @@ class NavItem extends Component
     {
         $this->cartItems=Cart::getDetails()->get('items');
         $this->cartCount=$this->cartItems->count();
+        $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.nav-item');
     }
 
     public function updated(){
-        $this->alert('success', 'Carrello Aggiornato!', [
-            'position' =>  'bottom-end',
+        $this->alert('info', 'Carrello Aggiornato!', [
+            'position' =>  'top-end',
             // 'padding' => '10px',
             'timer' =>  3000,
             'toast' =>  true,
@@ -44,13 +47,13 @@ class NavItem extends Component
     }
 
     public function saved(){
-        $this->alert('success', 'Ordine Salvato con Successo!', [
-            'position' =>  'bottom-end',
+        $this->alert('info', 'Ordine Salvato con Successo!', [
+            'position' =>  'top-end',
             // 'padding' => '10px',
             'timer' =>  3000,
             'toast' =>  true,
             'cancelButtonText' =>  'Cancel',
-            'showCancelButton' =>  true,
+            'showCancelButton' =>  false,
             'showConfirmButton' =>  false,
         ]);
         $this->render();

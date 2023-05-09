@@ -24,7 +24,7 @@
     <hr>
     <div class="form-group" style="margin-bottom:5px;">
         <label for="codCli">Codice Cliente</label>
-        <select class="form-control select2 livewireSelect2 text-bold" id="codCli" style="width: 100%;" placeholder="Codice Cliente" wire:model.lazy="codCli">
+        <select class="form-control select2 livewireSelect2 text-bold" id="codCli" style="width: 100%;" placeholder="Codice Cliente" @if($importfromDoc) disabled @endif wire:model.lazy="codCli">
             <option value=""> </option>
             @foreach ($listCli as $client)
             <option value="{{ $client['id_cli_for'] }}"> {{ $client['id_cli_for'] }} - {{ $client['rag_soc'] }} </option>

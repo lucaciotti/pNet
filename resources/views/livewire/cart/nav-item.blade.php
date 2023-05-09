@@ -1,12 +1,15 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-cart-arrow-down"></i>
-        <span class="badge badge-danger navbar-badge">{{ $cartCount }}</span>
+        <i class="fas fa-cart-arrow-down" style="font-size:1.1rem;"></i>
+        @if ($cartCount>0)
+            <span class="badge badge-danger navbar-badge">{{ $cartCount }}</span>
+        @endif
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="width: 400px;">
         <span class="dropdown-item dropdown-header">{{ $cartCount }} Prodotti</span>
             <div class="dropdown-divider"></div>
         @foreach ($cartItems as $item)
+            @if (!empty($item->get('associated_class')))
 
             {{-- <a href="#" class="dropdown-item">
                 <small><strong>{{ $item->model->id_art }}</strong> - {{ $item->model->descr }}</small>&nbsp;&nbsp;&nbsp;
@@ -26,7 +29,7 @@
                             {{-- <span class="float-right text-sm text-prymary"><i class="fas fa-open"></i></span>
                             <span class="float-right text-sm text-danger"><i class="fas fa-trash"></i></span> --}}
                         </h3>
-                        <p class="text-sm"><small>{{ $item->model->descr }}</small></p>
+                        <p class="text-sm"><small>{{ $item->get('title') }}</small></p>
                         <livewire:cart.add-element :product="$item->model" :wire:key="time().$item->id">
                         {{-- <p class="text-sm text-muted float-right">pz {{ $item->quantity }}</p> --}}
                     </div>
@@ -34,6 +37,7 @@
                 
             </a>
             <div class="dropdown-divider"></div>
+            @endif
         @endforeach
         
         <a href="{{ route('cart::index') }}" class="dropdown-item dropdown-footer">Emetti Ordine</a>

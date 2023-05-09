@@ -273,7 +273,7 @@
       <div class="card-body">
 
         <label>Aggiungi al carrello:</label>
-        <livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art">
+        <livewire:cart.add-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
         <hr>
   
         <label>Listino 1 (IVA escl.):</label>

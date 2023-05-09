@@ -1,5 +1,5 @@
 
-<button class="btn btn-block btn-warning" data-toggle="modal" data-target="#modal-cartCSV">
+<button class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-cartCSV">
     Import CSV
 </button>
 

@@ -68,8 +68,11 @@
                         </div>
 
                         <div>
-                            {{-- @livewire('cart.reset-cart')                             --}}
-                            <button class="btn btn-primary float-right" onclick="stepper.next(); Livewire.emit('checkClient')">Continua</button>
+                            @livewire('cart.reset-cart')                            
+                            <button class="btn btn-primary float-right" onclick="/* stepper.next(); */ Livewire.emit('checkClient');">
+                                {{-- <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style></div> --}}
+                                Inizia
+                            </button>
                         </div>
                     </div>
                     <div id="first-part" class="content" role="tabpanel" aria-labelledby="first-part-trigger">
@@ -196,6 +199,9 @@
     window.addEventListener('insertClient', event => {
         Livewire.emit('insertClient');
         stepper.to(1);
-    })
+    });
+    window.addEventListener('stepperGoOn', event => {
+    stepper.next();
+    });
 </script>
 @endpush

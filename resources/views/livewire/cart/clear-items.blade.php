@@ -1,1 +1,1 @@
-<button class="btn btn-block btn-outline-danger" wire:click="resetItems">Vuota Carrello</button>
+<button class="btn btn-block btn-outline-danger" @if($importfromDoc) disabled @endif wire:click="resetItems">Svuota Carrello</button>

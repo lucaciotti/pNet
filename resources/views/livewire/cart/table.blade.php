@@ -30,13 +30,13 @@
         </thead>
         <tbody>
             @foreach ($cartItems as $item)
-                @if ($item->model != null)
+                @if (!empty($item->get('associated_class')))
                     <tr>
                         <td class="align-middle">{{ $loop->index+1 }}</td>
                         <td class="align-middle"><a href="{{ route('product::detail', $item->model->id_art) }}"> {{ $item->model->id_art }}
                             </a></td>
                         <td class="align-middle">{{ '' }}</td>
-                        <td class="align-middle text-smaller">{{ $item->model->descr }}</td>
+                        <td class="align-middle text-smaller">{{ $item->get('title') }}</td>
                         <td class="align-middle">{{ $item->model->um }}</td>
                         <td>
                             @if ($isReadOnly)
@@ -78,7 +78,7 @@
                         <td class="align-middle">{{ $loop->index+1 }}</td>
                         <td class="align-middle"> - </td>
                         <td class="align-middle"></td>
-                        <td class="align-middle text-smaller">{{ $item->descr }}</td>
+                        <td class="align-middle text-smaller">{{ $item->get('title') }}</td>
                         <td class="align-middle"></td>
                         <td></td>
                         <td></td>
