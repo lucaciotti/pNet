@@ -45,6 +45,7 @@ task('deploy', [
     'supervisor:reload:dataMining',
     'setPermission:bootstrap',
     'setPermission:storage',
+    'move:myVendor',
     'apache:restart'
 ]);
 
@@ -98,8 +99,13 @@ task('apache:restart', function () {
     if (get('stage') == 'prod') {
          run('echo "RJ6SMfkPZa9qBcoN" | sudo -S /usr/sbin/service apache2 restart');
     } else {
-        // run('sudo /usr/sbin/service apache2 restart');
+        run('sudo /usr/sbin/service apache2 restart');
     }
+});
+
+task('move:myVendor', function () {
+    cd('{{release_path}}');
+    run('mv myVendor/jackiedo/cart/src/Item.php vendor/jackiedo/cart/src/Item.php');
 });
 
 after('deploy:failed', 'deploy:unlock');
