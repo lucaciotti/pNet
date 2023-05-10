@@ -62,7 +62,7 @@
                                 </svg>
                                 @endif
                         </td>
-                        <td>{{ $item->price }} €</td>
+                        <td>{{ number_format((float)($item->price), 3, ',', '\'') }} €</td>
                         <td>{{ currency($item->total_price) }}</td>
                         <td>
                             @if (!$isReadOnly)

@@ -56,7 +56,7 @@ class AddCart extends Component
     public function checkClient()
     {
         $this->codCli = Cart::getExtraInfo('customer.code', '');
-        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        $this->shipdate = Cart::getExtraInfo('order.shipdate');
         if(empty($this->codCli)){
             $this->dispatchBrowserEvent('insertClient');
         } else {
@@ -76,7 +76,7 @@ class AddCart extends Component
             if($cartModified){
                 $this->applyEstraPrices();
                 Cart::setExtraInfo('price.customer', $this->codCli);
-                // $this->emit('cart_updated');
+                $this->emit('cart_updated');
             }
             $this->dispatchBrowserEvent('stepperGoOn');
         }
@@ -165,6 +165,7 @@ class AddCart extends Component
 
     public function addToCart(){
         $this->codCli = Cart::getExtraInfo('customer.code', '');
+        Cart::setExtraInfo('price.customer', $this->codCli);
         $product = $this->art;
         $this->withValidator(function (Validator $validator) use ($product){
             $validator->after(function ($validator) use ($product) {

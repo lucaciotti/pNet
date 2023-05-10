@@ -35,10 +35,6 @@ class AddClientinfo extends Component
     ];
 
     public function mount(){
-        if (Session::has('cart_updated')) {
-            $this->emit('cart_updated');
-            Session::forget('cart_updated');
-        }
         $this->loadInit();
     }
 
@@ -47,11 +43,11 @@ class AddClientinfo extends Component
         $this->idOrd = Cart::getExtraInfo('order.id');
         $this->start_date = Cart::getExtraInfo('order.shipdate');
         if (in_array(RedisUser::get('role'), ['client'])) {
-            if (empty($this->codCli)) $this->codCli = RedisUser::get('codcli');
+            $this->codCli = RedisUser::get('codcli');
         } else {
             $this->listCli = Client::select('id_cli_for', 'rag_soc')->get()->toArray();
-            $this->updatedCodCli();
         }
+        $this->updatedCodCli();
         if (empty($this->start_date)) {
             $this->start_date = Carbon::now();
             $this->updatedStartDate();

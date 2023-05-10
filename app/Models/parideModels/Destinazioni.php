@@ -10,11 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Destinazioni extends Model
 {
-    use \Awobaz\Compoships\Compoships;
-
     protected $table = 'destinazioni';
     public $timestamps = false;
-    protected $primaryKey = ['id_dest', 'id_dest_pro', 'id_cli_for'];
+    // protected $primaryKey = ['id_dest', 'id_dest_pro', 'id_cli_for'];
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
 

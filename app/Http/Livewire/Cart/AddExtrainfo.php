@@ -41,19 +41,22 @@ class AddExtrainfo extends Component
     public function loadClient(){
         $this->codCli = Cart::getExtraInfo('customer.code', '');
         if (!empty($this->codCli)) {
+            $this->reset('idDest', 'listDest');
             $this->clientDefault = Client::select('id_cli_for', 'rag_soc', 'indirizzo', 'citta', 'cap', 'provincia', 'id_pag')->find($this->codCli);
             $this->listDest = Destinazioni::where('id_cli_for', $this->codCli)->get()->toArray();
             $this->listPag = PaymentType::all()->toArray();
             $this->id_pag = $this->clientDefault->id_pag;
-            Cart::setExtraInfo('order.idPag', $this->id_pag);
-            $this->reset('idDest', 'listDest');        
-            $this->destSelected = $this->clientDefault;
+            $this->idDest = Cart::getExtraInfo('customer.destination', '');
+            $this->tipo_sped = Cart::getExtraInfo('order.tipoSped', '');
+            $this->updatedIdPag();
+            $this->updatedIdDest();
+            $this->updatedTipoSped();
         }
     }
 
     public function updatedIdDest(){
         Cart::setExtraInfo('customer.destination', $this->idDest);
-        if(!empty($this->idDest)) $this->destSelected = Destinazioni::select('rag_soc', 'indirizzo', 'citta', 'cap', 'provincia')->where('id_cli_for', $this->codCli)->where('id_dest_pro', $this->idDest)->first();
+        if(!empty($this->idDest)) $this->destSelected = Destinazioni::where('id_cli_for', $this->codCli)->where('id_dest_pro', $this->idDest)->first();
         if(empty($this->idDest))  $this->destSelected = $this->clientDefault;
     }
 
