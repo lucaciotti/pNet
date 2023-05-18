@@ -302,6 +302,15 @@
               <span class="input-group-text">€ / {{ $prod->um }}</span>
             </div>
           </div>     
+
+          <label>Listino 4 (IVA escl.):</label>
+          <div class="input-group">
+            <input type="text" class="form-control" readonly name="prezzVend"
+              value="{{ number_format((float)round($prod->prezzo_4,3), 2, ',', '') }}" style="text-align:right;">
+            <div class="input-group-append">
+              <span class="input-group-text">€ / {{ $prod->um }}</span>
+            </div>
+          </div>
         @endif
         <hr>
         <label>IVA:</label>
