@@ -68,6 +68,7 @@ class AddExtrainfo extends Component
     public function updatedTipoSped()
     {
         Cart::setExtraInfo('order.tipoSped', $this->tipo_sped);
+        $this->updatedIdDest();
     }
 
     public function render()
