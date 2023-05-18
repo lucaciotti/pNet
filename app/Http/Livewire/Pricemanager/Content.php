@@ -13,24 +13,26 @@ class Content extends Component
     public $price_lists = [];
 
     #Filtri
-    public $gruppi;
+    public $gruppi = [];
     public $grp_selected;
-    public $clients;
+    public $clients = [];
     public $client_selected;
-    public $tipiCli;
+    public $codcli;
+    public $ragsoc;
+    public $tipiCli = [];
     public $tipocli_selected;
 
     public $viewLoaded = false;
 
-    protected $listeners = ['closeModalPriceMngrForm' => '$refresh', 'refreshComponent' => '$refresh'];
+    protected $listeners = [
+        'closeModalPriceMngrForm' => '$refresh', 
+        'refreshComponent' => '$refresh',
+        'loadFilters' => 'loadFilters'
+    ];
 
     public function mount()
     {
-        if (!$this->viewLoaded) {
-            $this->gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
-            $this->tipiCli = ClientType::all();
-            $this->clients = Client::select('id_cli_for', 'rag_soc')->get();
-        }
+        $this->loadFilters();
     }
 
     public function readyToLoad()
@@ -53,10 +55,27 @@ class Content extends Component
         if (!empty($this->client_selected)) {
             $price_lists->whereIn('id_cli_for', $this->client_selected);
         }
+        if (!empty($this->codcli)) {
+            $price_lists->where('id_cli_for', 'like', '%'.$this->codcli.'%');
+        }
+        if (!empty($this->ragsoc)) {
+            $price_lists->whereHas('cliente', function ($query) {
+                $query->where('rag_soc', 'like', '%' . $this->ragsoc . '%')
+                    ->withoutGlobalScope('agent')
+                    ->withoutGlobalScope('superAgent')
+                    ->withoutGlobalScope('client');
+            });;
+        }
         if (!empty($this->tipocli_selected)) {
             $price_lists->whereIn('id_tipo_cl', $this->tipocli_selected);
         }
         $this->price_lists = $price_lists->get();
+    }
+
+    public function loadFilters(){
+        if (empty($this->gruppi)) $this->gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
+        if (empty($this->tipiCli)) $this->tipiCli = ClientType::all();
+        // if (empty($this->clients)) $this->clients = Client::select('id_cli_for', 'rag_soc')->get();
     }
 
     public function delete($id_price)

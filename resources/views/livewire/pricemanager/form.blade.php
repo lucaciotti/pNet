@@ -68,6 +68,11 @@
         @error('listino') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
 
+    <div class="form-group">
+        <label for="extrasconto">Extra Sconto (%)</label>
+        <input type="number" class="form-control" id="extrasconto" style="width: 100%;" style="text-align:right;" wire:model="extrasconto" step='0.5'>
+    </div>
+
     <div class="d-md-flex justify-content-between">
         <div class="form-group col-md-6" style="margin-bottom:5px;">
             <label for="start_date">Data Inizio Validità</label>

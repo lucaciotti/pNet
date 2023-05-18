@@ -31,6 +31,7 @@
                         <th>Cliente</th>
                         <th>Famiglia Prd.</th>
                         <th>Listino Rif.</th>
+                        <th>Sconto %</th>
                         <th>Data Inizio</th>
                         <th>Data Fine</th>
                         <th></th>
@@ -42,6 +43,7 @@
                             <td>{{ $price->cliente->rag_soc ?? '' }}</td>
                             <td>{{ $price->grpProd->descr }}</td>
                             <td>L-{{ $price->listino }}</td>
+                            <td>{{ $price->extrasconto }}</td>
                             <td>{{ $price->start_date->format('d/m/Y') }}</td>
                             <td>{{ $price->end_date->format('d/m/Y') }}</td>
                             {{-- <td>@include('parideViews.docNotes.modalForm', ['idNote' => $note->id])</td> --}}
@@ -67,6 +69,15 @@
                     </button>
                 </div>
             </div>
+            <div class="form-group" style="margin-bottom:5px;">
+                <label for="grp_selected">Famiglia Prodotto</label>
+                <select class="form-control select2 livewireSelect2" id="grp_selected" style="width: 100%;" multiple
+                    placeholder="Famiglia Prodotto" wire:model.lazy="grp_selected">
+                    @foreach ($gruppi as $grp)
+                    <option value="{{ $grp->id_fam }}"> [{{ $grp->id_fam }}] {{ $grp->descr }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="tipocli_selected">Tipo Cliente</label>
@@ -77,20 +88,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="client_selected">Cliente</label>
-                    <select class="form-control select2 livewireSelect2" id="client_selected" style="width: 100%;" multiple placeholder="Cliente" wire:model.lazy="client_selected">
-                        @foreach ($clients as $cli)
-                        <option value="{{ $cli->id_cli_for }}">[{{ $cli->id_cli_for }}] {{ $cli->rag_soc ?? '' }}</option>
-                        @endforeach
-                    </select>
+                    <label>Codice Cliente</label>
+                    <div class="input-group input-group mb-3">
+                        <div class="input-group-prepend">
+                            <select type="button" class="btn btn-primary dropdown-toggle" name="codcliOp">
+                                {{-- <option value="eql">=</option> --}}
+                                {{-- <option value="stw">[]...</option> --}}
+                                <option value="cnt" selected>...[]...</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" name="codcli" wire:model.lazy="codcli">
+                    </div>
                 </div>
-                <div class="form-group" style="margin-bottom:5px;">
-                    <label for="grp_selected">Famiglia Prodotto</label>
-                    <select class="form-control select2 livewireSelect2" id="grp_selected" style="width: 100%;" multiple placeholder="Famiglia Prodotto" wire:model.lazy="grp_selected">
-                        @foreach ($gruppi as $grp)
-                        <option value="{{ $grp->id_fam }}"> [{{ $grp->id_fam }}] {{ $grp->descr }}</option>
-                        @endforeach
-                    </select>
+                <div class="form-group">
+                    <label>{{ trans('doc.descClient') }}</label>
+                    <div class="input-group input-group mb-3">
+                        <div class="input-group-prepend">
+                            <select type="button" class="btn btn-primary dropdown-toggle" name="ragsocOp">
+                                {{-- <option value="eql">=</option>
+                                <option value="stw">[]...</option> --}}
+                                <option value="cnt" selected>...[]...</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" name="ragsoc" wire:model.lazy="ragsoc">
+                    </div>
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@ class PriceManager
         $id_fam = $art->id_fam;
         $dfl_listino_cli = 1;
         $dfl_listino_prd = 1;
+        $dfl_sconto = 0;
         
         #Check 1 - PriceManager
         $priceRule = wPriceManager::where('id_fam', $id_fam)
@@ -35,6 +36,7 @@ class PriceManager
             ->orderBy('listino', 'DESC')->get();
         if(count($priceRule)>0){
             $dfl_listino_cli = $priceRule->first()->listino;
+            $dfl_sconto = $priceRule->first()->extrasconto;
         }
         #Check2 - qtaConf
         $qta_conf = $art->pz_x_conf;
@@ -55,16 +57,16 @@ class PriceManager
         $listino = max($dfl_listino_cli, $dfl_listino_prd);
         switch ($listino) {
             case 1:
-                return $art->prezzo_1;
+                return $art->prezzo_1 * (1 - ($dfl_sconto/100));
                 break;
             case 2:
-                return $art->prezzo_2;
+                return $art->prezzo_2 * (1 - ($dfl_sconto/100));
                 break;
             case 3:
-                return $art->prezzo_3;
+                return $art->prezzo_3 * (1 - ($dfl_sconto/100));
                 break;
             case 4:
-                return $art->prezzo_4;
+                return $art->prezzo_4 * (1 - ($dfl_sconto/100));
                 break;
             default:
                 break;

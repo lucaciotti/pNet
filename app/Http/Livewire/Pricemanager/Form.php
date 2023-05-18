@@ -20,6 +20,7 @@ class Form extends Component
     public $id_cli_for;
     public $id_fam;
     public $listino;
+    public $extrasconto=0;
     public $start_date;
     public $end_date;
 
@@ -38,6 +39,7 @@ class Form extends Component
         'id_cli_for' => '',
         'id_fam' => 'required',
         'listino' => 'required',
+        'extrasconto' => 'required',
         'start_date' => 'required',
         'end_date' => 'required',
     ];
