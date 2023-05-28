@@ -117,9 +117,9 @@
               </dd>
             
               <dt>{{ trans('client.mobilePhone') }}</dt>
-              <dd>{{$client->telcell}}
-                @if (!empty($client->telcell))
-                &nbsp;<a class="badge bg-green" href="tel:{{$client->telcell}}"><i class="fa fa-phone"></i></a>
+              <dd>{{$client->cell}}
+                @if (!empty($client->cell))
+                &nbsp;<a class="badge bg-green" href="tel:{{$client->cell}}"><i class="fa fa-phone"></i></a>
                 @endif
               </dd>
             
