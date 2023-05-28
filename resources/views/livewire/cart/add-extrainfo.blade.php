@@ -26,23 +26,28 @@
 
     <hr>
     <div class="d-md-flex justify-content-between">
-        <div class="form-group col-md-6" style="margin-bottom:5px;" @disabled(empty($codCli))>
-            <label for="idDest">Destinazione Merce</label>
-            <select class="form-control select2 livewireSelect2" id="idDest" style="width: 100%;" placeholder="Destinazione" wire:model.lazy="idDest">
-                @if (!empty($clientDefault))
-                    <option value=""> {{ $clientDefault->rag_soc }} - {{ $clientDefault->citta }} [{{ $clientDefault->provincia }}]</option>
-                @endif
-                @foreach ($listDest as $dest)
-                    <option value="{{ $dest['id_dest_pro'] }}"> {{ $dest['rag_soc'] }} - {{ $dest['citta'] }} [{{ $dest['provincia'] }}] </option>
-                @endforeach
-            </select>
-            @error('idDest') <span class="text-danger">{{ $message }}</span> @enderror
+        <div class="form-group col-md-6" style="margin-bottom:5px;">
+            <label for="note">Note</label>
+            <textarea class="form-control" rows="5" placeholder="Inserisci Note ..." id="note" wire:model.lazy="note"></textarea>
+            @error('note') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         @if (!empty($destSelected))
-        <div class="row col-md-6 d-flex justify-content-center pt-10">
+        <div class="row col-md-6 d-flex justify-content-center pt-10 pl-0">
+            <div class="form-group col-md-12 pl-0" style="margin-bottom:5px;" @disabled(empty($codCli))>
+                <label for="idDest">Destinazione Finale Merce</label>
+                <select class="form-control select2 livewireSelect2" id="idDest" style="width: 100%;" placeholder="Destinazione" wire:model.lazy="idDest">
+                    @if (!empty($clientDefault))
+                        <option value=""> {{ $clientDefault->rag_soc }} - {{ $clientDefault->citta }} [{{ $clientDefault->provincia }}]</option>
+                    @endif
+                    @foreach ($listDest as $dest)
+                        <option value="{{ $dest['id_dest_pro'] }}"> {{ $dest['rag_soc'] }} - {{ $dest['citta'] }} [{{ $dest['provincia'] }}] </option>
+                    @endforeach
+                </select>
+                @error('idDest') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
             <div class="card col-lg-10" style="background: lightgrey" >
-                <div class="card-body">
-                    <h5 class="card-title">Destinazione finale</h5>
+                <div class="card-body pb-1 pt-1">
+                    {{-- <h5 class="card-title">Destinazione finale</h5> --}}
                     <p class="card-text">
                         <dl class="dl-horizontal">
                             <dt>{{ $destSelected->rag_soc }}</dt>

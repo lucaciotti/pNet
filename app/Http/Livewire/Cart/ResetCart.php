@@ -22,6 +22,7 @@ class ResetCart extends Component
         Cart::setExtraInfo('customer.destination', '');
         Cart::setExtraInfo('order.idPag', '');
         Cart::setExtraInfo('order.tipoSped', '');
+        Cart::setExtraInfo('order.note', '');
         Cart::setExtraInfo('order.fromDoc', false);
         Cart::clearItems();
         $this->emit('cart_deleted');

@@ -33,6 +33,7 @@ class Doc2cart extends Component
         Cart::setExtraInfo('customer.destination', $doc->id_dest);
         Cart::setExtraInfo('order.idPag', $doc->id_pag);
         Cart::setExtraInfo('order.tipoSped', '');
+        Cart::setExtraInfo('order.note', '');
         Cart::setExtraInfo('order.fromDoc', true);
         Cart::clearItems();
         // sleep(1);

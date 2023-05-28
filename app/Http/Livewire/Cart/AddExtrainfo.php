@@ -18,6 +18,7 @@ class AddExtrainfo extends Component
     public $idDest;
     public $tipo_sped;
     public $id_pag;
+    public $note;
 
     public $clientDefault;
     public $listDest = [];
@@ -48,6 +49,7 @@ class AddExtrainfo extends Component
             $this->id_pag = $this->clientDefault->id_pag;
             $this->idDest = Cart::getExtraInfo('customer.destination', '');
             $this->tipo_sped = Cart::getExtraInfo('order.tipoSped', '');
+            $this->note = Cart::getExtraInfo('order.note', '');
             $this->updatedIdPag();
             $this->updatedIdDest();
             $this->updatedTipoSped();
@@ -69,6 +71,11 @@ class AddExtrainfo extends Component
     {
         Cart::setExtraInfo('order.tipoSped', $this->tipo_sped);
         $this->updatedIdDest();
+    }
+
+    public function updatedNote()
+    {
+        Cart::setExtraInfo('order.note', $this->note);
     }
 
     public function render()

@@ -42,6 +42,7 @@ class Save extends Component
         $rif_ord = Cart::getExtraInfo('order.id', '');
         $shipdate = Cart::getExtraInfo('order.shipdate');
         $tipo_sped = Cart::getExtraInfo('order.tipoSped', '');
+        $note = Cart::getExtraInfo('order.note', '');
         $id_pag = Cart::getExtraInfo('order.idPag', 0);
 
         if($cartCount==0){
@@ -53,7 +54,7 @@ class Save extends Component
             return;
         }
         try {
-            DB::transaction(function() use ($codCli, $idDest, $rif_ord, $shipdate, $tipo_sped, $id_pag, $cartDetails, $cartItems, $cartActions) {
+            DB::transaction(function() use ($codCli, $idDest, $rif_ord, $shipdate, $tipo_sped, $note, $id_pag, $cartDetails, $cartItems, $cartActions) {
                 $head=wDocHead::create([
                     'tipo_doc' => 'XW',
                     'id_cli_for' => $codCli,
@@ -62,6 +63,7 @@ class Save extends Component
                     'data_eva' => $shipdate,
                     'id_pag' => $id_pag,
                     'tipo_sped' => $tipo_sped,
+                    'note' => $note,
                     'tot_imp' => $cartDetails->get('taxable_amount'),
                     'tot_iva' => $cartDetails->get('tax_amount'),
                     'totale' =>  $cartDetails->get('total'),
