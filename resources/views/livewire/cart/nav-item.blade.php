@@ -1,8 +1,8 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-cart-arrow-down" style="font-size:1.1rem;"></i>
+        <i class="fas fa-cart-arrow-down" style="font-size:1.4rem;"></i>
         @if ($cartCount>0)
-            <span class="badge badge-danger navbar-badge">{{ $cartCount }}</span>
+            <span class="badge badge-warning navbar-badge" style="font-size:0.9rem; font-weight:bold;">{{ $cartCount }}</span>
         @endif
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="width: 400px;">

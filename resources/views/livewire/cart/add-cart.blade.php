@@ -34,7 +34,7 @@
                                 <i class="fas fa-fw fa-pen-alt"></i>
                             </button>
                             @else
-                            <button class="btn btn-sm btn-outline-warning" type="button" wire:click="resetAll" data-toggle="tooltip"
+                            <button class="btn btn-sm btn-warning" type="button" wire:click="resetAll" data-toggle="tooltip"
                                 data-placement="bottom" title="Reset Valori">
                                 <i class="fas fa-fw fa-undo"></i>
                             </button>
@@ -233,7 +233,7 @@
                     </td>
                     <td colspan="9">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="text" placeholder="Descrizione Libera"
+                            <input class="form-control form-control-navbar" type="text" placeholder="Inserisci Descrizione Libera (es: «10 pezzi serratura Cisa 43110»)"
                                 wire:model="freeDescr" @if($isArtSelected) readonly @endif>
                         </div>
                         {{-- <div class="input-group input-group-sm">

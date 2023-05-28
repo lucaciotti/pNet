@@ -58,7 +58,7 @@
 
                 </div>
 
-                <div class="bs-stepper-content">
+                <div class="bs-stepper-content pl-0 pr-0 pb-10">
                     
                     <div id="zero-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="zero-part-trigger">
                         <div class="card card-default">
@@ -143,9 +143,9 @@
                                     <div class='text-danger'>
                                         Nel caso di:
                                         <ul>
-                                            <li>articoli non disponibili o parzialmente disponibili i prezzi potrebbero variare rispetto a quanto indicato
+                                            <li>articoli non disponibili o parzialmente disponibili: i prezzi potrebbero variare rispetto a quanto indicato
                                                 nel portale;</li>
-                                            <li>spedizione con porto franco i costi di spedizione verranno riportati nella successiva conferma d'ordine.
+                                            <li>spedizione con porto franco: i costi di spedizione verranno riportati nella successiva conferma d'ordine.
                                             </li>
                                         </ul>
                                     </div>
@@ -173,9 +173,10 @@
             </div>
 
         </div>
-        
-        <div>
-            <br>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <br>&nbsp;
         </div>
     </div>
 
