@@ -202,7 +202,7 @@ class AddCart extends Component
 
     public function addFreeDescr(){
         Cart::addItem([
-            'id'=> 999999,
+            'id'=> random_int(1, 999999),
             'title' => $this->freeDescr,
             'quantity' => 0,
             'taxable' => false,
