@@ -31,7 +31,7 @@ class AddElement extends Component
         $this->productPage = $productPage;
         $this->product = Product::find($product->id_art);
 
-        if($this->product->um=='%') $this->useDecimal=true;
+        if($this->umArt == '%' || $this->umArt == 'KG') $this->useDecimal=true;
 
         $cartItem = ($this->product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->product->id_art])) : null;
         $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : $this->quantity;
