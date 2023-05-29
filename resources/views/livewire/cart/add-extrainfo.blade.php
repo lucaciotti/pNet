@@ -28,7 +28,7 @@
     <div class="d-md-flex justify-content-between">
         <div class="form-group col-md-6" style="margin-bottom:5px;">
             <label for="note">Note</label>
-            <textarea class="form-control" rows="5" placeholder="Inserisci Note ..." id="note" wire:model.lazy="note"></textarea>
+            <textarea class="form-control" rows="5" placeholder="Inserisci qui commenti sul tuo ordine, Destinazioni diverse, Istruzioni sulla consegna, ..." id="note" wire:model.lazy="note"></textarea>
             @error('note') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         @if (!empty($destSelected))
