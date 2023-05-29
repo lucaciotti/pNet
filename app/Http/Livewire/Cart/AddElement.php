@@ -17,8 +17,9 @@ class AddElement extends Component
     public $codCli;
 
     public $product;
-    public $quantity;
+    public $quantity=0;
     public $iconRefresh=false;
+    public $useDecimal=false;
     
     private $viewLoaded = false;
 
@@ -29,23 +30,26 @@ class AddElement extends Component
     public function mount($product, $productPage=false){
         $this->productPage = $productPage;
         $this->product = Product::find($product->id_art);
-    }
 
-    public function render()
-    {
+        if($this->product->um=='%') $this->useDecimal=true;
+
         $cartItem = ($this->product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->product->id_art])) : null;
-        $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : 0;
+        $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : $this->quantity;
         $this->iconRefresh = $cartItem != null ? true : false;
         if ($this->productPage && $this->quantity == 0) {
             $this->quantity = $this->product->pz_x_conf;
         }
+    }
+
+    public function render()
+    {
         $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.add-element');
     }
 
-    public function hydrate(){
-        return;
-    }
+    // public function hydrate(){
+    //     return;
+    // }
 
     public function addToCart(){
         $this->codCli = Cart::getExtraInfo('customer.code', '');

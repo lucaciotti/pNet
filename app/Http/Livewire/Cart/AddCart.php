@@ -40,6 +40,7 @@ class AddCart extends Component
     public $isToogleSearch = false;
     public $isMultiWordsSearch = false;
     public $isEmptyMultiSearch = false;
+    public $useDecimal = false;
 
     protected $rules = [
         'idArt' => 'required',
@@ -144,6 +145,7 @@ class AddCart extends Component
         $this->umArt = $this->art->um;
         $this->isArtSelected = true;
         $dfl_qta = $this->art->pz_x_conf;
+        if($this->umArt=='%') $this->useDecimal=true;
         $cartItem = ($this->art->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->idArt])) : null;
         $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : $dfl_qta;
         if (!empty($this->codCli)) {

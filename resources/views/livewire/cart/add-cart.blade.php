@@ -179,7 +179,7 @@
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input type="number" class="form-control" style="text-align:right;" step='0.5' wire:model="quantity">
+                            <input type="number" class="form-control" style="text-align:right;" @if($useDecimal) step='0.01' @else step="1" @endif wire:model="quantity">
                         </div>
                         @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
                     </td>
