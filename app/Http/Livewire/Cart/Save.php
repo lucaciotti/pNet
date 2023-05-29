@@ -18,6 +18,7 @@ class Save extends Component
     public $destination;
     public $sendEmail=false;
     public $email;
+    public $agreement=false;
 
     public $errorMessage;
 
@@ -51,6 +52,10 @@ class Save extends Component
         }
         if(empty($codCli)){
             $this->errorMessage = 'Attenzione! Selezionare il Cliente di riferimento per l\'ordine!';
+            return;
+        }
+        if(!$this->agreement) {
+            $this->errorMessage = 'Attenzione! Occorre accettare i "Termini e condizioni"!';
             return;
         }
         try {
