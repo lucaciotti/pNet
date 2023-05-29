@@ -10,6 +10,7 @@
     <th>{{ trans('doc.client') }}</th>
     {{-- <th>{{ trans('doc.referenceDoc_condensed') }}</th> --}}
     <th>CSV</th>
+    <th>PDF</th>
   </thead>
     {{-- <tfoot>
       <tr>
@@ -32,6 +33,11 @@
         <td>
           <a class="btn-sm btn-default" href="{{ route('cart::exportCsv', $doc->id ) }}" target="_blank">
             <i class="fa fa-file-text-o fa-lg text-warning"></i>
+          </a>
+        </td>
+        <td>
+          <a class="btn-sm btn-default" href="{{ route('cart::downloadPDF', $doc->id ) }}" target="_blank">
+            <i class="fa fa-file-pdf-o fa-lg text-danger"></i>
           </a>
         </td>
       </tr>

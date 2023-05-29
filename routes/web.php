@@ -103,6 +103,7 @@ Route::name('cart::')->middleware(['auth', 'privacy'])->group(function () {
     Route::post('/ordweb/list/filtered', [CartController::class, 'fltList'])->name('fltList');
     Route::get('/ordweb/{id}', [CartController::class, 'showDetail'])->name('docdetail');
     Route::get('/ordweb/csv/{id_doc}', [CartController::class, 'exportCsv'])->name('exportCsv');
+    Route::get('/docPDF/{id}', [CartController::class, 'downloadPDF'])->name('downloadPDF');
 });
 
 // Routes PriceManager

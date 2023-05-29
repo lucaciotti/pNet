@@ -49,6 +49,11 @@ class wDocHead extends Model
         }
     }
 
+    public function getDescrTipodocAttribute()
+    {
+        return 'Ordine-Web';
+    }
+
     public static function getNextID() 
     {
         $statement = DB::select("SELECT * FROM pNet_DATA.w_doc_head ORDER BY id DESC LIMIT 0, 1");

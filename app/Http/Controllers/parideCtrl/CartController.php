@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\parideCtrl;
 
+use App\Helpers\PdfReport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Jackiedo\Cart\Facades\Cart;
 use Carbon\Carbon;
 
 use App\Models\parideModels\Docs\wDocHead;
+use App\Models\parideModels\Docs\wDocNotes;
 use App\Models\parideModels\Docs\wDocRow;
 
 class CartController extends Controller
@@ -193,5 +195,46 @@ class CartController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function downloadPDF(Request $req, $id)
+    {
+
+        $doc = wDocHead::with([
+            'client' => function ($query) {
+                $query->withoutGlobalScope('agent')
+                ->withoutGlobalScope('superAgent')
+                ->withoutGlobalScope('client');
+            },
+            'rows' => function ($query) {
+                $query->orderBy('id', 'asc');
+            },
+            'destinazioni',
+        ])->findOrFail($id);
+        
+
+        $listNoteDoc = wDocNotes::where('start_date', '<=', $doc->data)
+            ->where('end_date', '>', $doc->data)
+            ->where('tipo_doc', 'XW')
+            ->orderBy('start_date')
+            ->get();
+
+        $noteDoc = '';
+        foreach ($listNoteDoc as $note) {
+            $noteDoc .= nl2br($note->note) . '<br/>';
+        }
+        // dd($noteDoc);
+
+        $title = "Doc Detail";
+        $subTitle = $doc->descr_tipodoc . "_" . $doc->num . "/" . $doc->data->year;
+        $view = 'parideViews._exports.pdf.xwDetailPdf';
+        $data = [
+            'head' => $doc,
+            'tipodoc' => 'XW',
+            'noteDoc' => $noteDoc,
+        ];
+        $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
+
+        return $pdf->inline($title . '-' . $subTitle . '.pdf');
     }
 }
