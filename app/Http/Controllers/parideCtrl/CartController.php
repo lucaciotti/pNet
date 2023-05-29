@@ -174,17 +174,19 @@ class CartController extends Controller
             fputcsv($file, $columns, ';');
 
             foreach ($doc->rows as $row) {
-                $row['id_art']  = $row->id_art;
-                $row['qta']  = $row->quantity;
+                if($row->id_art!=0){
+                    $row['id_art']  = $row->id_art;
+                    $row['qta']  = $row->quantity;
 
-                fputcsv(
-                    $file, 
-                    array(
-                        $row['id_art'],
-                        $row['qta'],
-                    ),
-                    ';'
-                );
+                    fputcsv(
+                        $file, 
+                        array(
+                            $row['id_art'],
+                            $row['qta'],
+                        ),
+                        ';'
+                    );
+                }
             }
 
             fclose($file);
