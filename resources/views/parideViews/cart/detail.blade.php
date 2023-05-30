@@ -26,19 +26,35 @@
         </div>
       </div>
       <div class="card-body">
-        {{-- <a type="button" class="btn btn-default btn-block" target="_blank" href="{{ route('doc::downloadXML', $head->id) }}">
-          <strong> XML File</strong>
-        </a>
-        <hr>
-        {{-- <a type="button" class="btn bg-lightblue btn-block" target="_blank" href="{{ route('doc::downloadPDF', [$head->tipodoc, $head->id_doc]) }}">
+        <a type="button" class="btn bg-lightblue btn-block" target="_blank" href="{{ route('cart::downloadPDF', [$head->id]) }}">
           <i class="fa fa-download"></i><strong> PDF File</strong>
-        </a> --}}
+        </a>
         <a type="button" class="btn btn-default btn-block" target="_blank" href="{{ route('cart::exportCsv', $head->id) }}">
           <strong> CSV File</strong>
         </a>
       </div>
       <!-- /.card -->
     </div>
+
+    @if (!in_array(RedisUser::get('role'), ['client', 'agent']))
+    <div class="card card-outline">
+      <div class="card-header">
+        <h3 class="card-title">Send By Email</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <a type="button" class="btn bg-warning btn-block" target="_blank"
+          href="{{ route('cart::sendXW', [$head->id]) }}">
+          <i class="fa fa-paper-plane"></i><strong>Invia email con allegati</strong>
+        </a>
+      </div>
+      <!-- /.card -->
+    </div>
+    @endif
 
   </div>
 
@@ -56,6 +72,23 @@
         @include('parideViews.cart.partials.tblDetail', [$head])   
       </div>
     </div>
+    
+    @if (!empty($head->note))
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" data-card-widget="collapse">Note</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>{!! $head->note !!}</p>
+      </div>
+    </div>  
+    @endif
+    
   </div>
 
 </div>

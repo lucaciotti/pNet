@@ -11,6 +11,20 @@
         </dd>
     </dl>
     @endif
+    @if($head->tipo_sped)
+    <span class="contentSubTitle">Tipologia Spedizione</span>
+    <dl class="dl-horizontal">
+        <dd>{{$head->tipo_sped}}</dd>
+    </dl>
+    @endif
+    <span class="contentSubTitle">Data Richiesta Consegna</span>
+    <dd>{{$head->data_eva->format('d/m/Y')}}</dd>
+    @if($head->payType)
+    <span class="contentSubTitle">Metodo Pagamento</span>
+    <dl class="dl-horizontal">
+        <dd>{{$head->payType->descr}}</dd>
+    </dl>
+    @endif
 </span>
 
 

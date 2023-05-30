@@ -209,7 +209,7 @@ class CartController extends Controller
             'rows' => function ($query) {
                 $query->orderBy('id', 'asc');
             },
-            'destinazioni',
+            'destinazioni', 'payType'
         ])->findOrFail($id);
         
 
@@ -236,5 +236,12 @@ class CartController extends Controller
         $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
 
         return $pdf->inline($title . '-' . $subTitle . '.pdf');
+    }
+
+    public function sendXW(Request $req, $id)
+    {
+        SendXwByEmail::dispatch($id)->onQueue('emails');
+
+        return redirect()->back();
     }
 }

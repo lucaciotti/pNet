@@ -24,9 +24,6 @@
         <dt>{{ trans('doc.dateDoc') }}</dt>
         <dd>{{$head->data->format('d/m/Y')}}</dd>
 
-        <dt>Data Consegna</dt>
-        <dd>{{$head->data_eva->format('d/m/Y')}}</dd>
-
         @if ($head->rif_num)
         <dt>{{ trans('doc.referenceDoc') }}</dt>
         <dd>{{$head->rif_num}}</dd>

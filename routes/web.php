@@ -104,6 +104,7 @@ Route::name('cart::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/ordweb/{id}', [CartController::class, 'showDetail'])->name('docdetail');
     Route::get('/ordweb/csv/{id_doc}', [CartController::class, 'exportCsv'])->name('exportCsv');
     Route::get('/docPDF/{id}', [CartController::class, 'downloadPDF'])->name('downloadPDF');
+    Route::get('/sendXW/{id}', [CartController::class, 'sendXW'])->name('sendXW');
 });
 
 // Routes PriceManager

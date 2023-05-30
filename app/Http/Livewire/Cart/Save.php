@@ -109,6 +109,7 @@ class Save extends Component
                         }
                     }
                 }
+                SendXwByEmail::dispatch($head->id)->onQueue('emails');
             });
         } catch (\Throwable $th) {
             $this->errorMessage = $th->getMessage();
