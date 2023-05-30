@@ -15,6 +15,7 @@ class PriceManager
         if($id_art==0){
             return 0;
         }
+        $price = -1;
         $client = Client::find($id_cli_for);
         $art = Product::find($id_art);
         if($date==null){
@@ -57,22 +58,28 @@ class PriceManager
         $listino = max($dfl_listino_cli, $dfl_listino_prd);
         switch ($listino) {
             case 1:
-                return $art->prezzo_1 * (1 - ($dfl_sconto/100));
+                $price = $art->prezzo_1;
                 break;
             case 2:
-                return $art->prezzo_2 * (1 - ($dfl_sconto/100));
+                $price = $art->prezzo_2;
+                if($price==0) $price = $art->prezzo_1;
                 break;
             case 3:
-                return $art->prezzo_3 * (1 - ($dfl_sconto/100));
+                $price = $art->prezzo_3;
+                if ($price == 0) $price = $art->prezzo_2;
+                if ($price == 0) $price = $art->prezzo_1;
                 break;
             case 4:
-                return $art->prezzo_4 * (1 - ($dfl_sconto/100));
+                $price = $art->prezzo_4;
+                if ($price == 0) $price = $art->prezzo_2;
+                if ($price == 0) $price = $art->prezzo_1;
                 break;
             default:
                 break;
         }
+        $price = $price  * (1 - ($dfl_sconto / 100));
 
-        return -1;
+        return $price;
     }
 
 }
