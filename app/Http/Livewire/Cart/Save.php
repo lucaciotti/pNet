@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Cart;
 
+use App\Jobs\emails\SendXwByEmail;
 use DB;
 use Livewire\Component;
 use Jackiedo\Cart\Facades\Cart;

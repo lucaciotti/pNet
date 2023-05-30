@@ -18,7 +18,9 @@
     </dl>
     @endif
     <span class="contentSubTitle">Data Richiesta Consegna</span>
-    <dd>{{$head->data_eva->format('d/m/Y')}}</dd>
+    <dl class="dl-horizontal">
+        <dd>{{$head->data_eva->format('d/m/Y')}}</dd>
+    </dl>
     @if($head->payType)
     <span class="contentSubTitle">Metodo Pagamento</span>
     <dl class="dl-horizontal">

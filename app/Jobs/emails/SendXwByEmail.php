@@ -3,6 +3,7 @@
 namespace App\Jobs\emails;
 
 use App\Helpers\PdfReport;
+use App\Mail\Docs\XwToSend;
 use App\Models\parideModels\Docs\wDocHead;
 use App\Models\parideModels\Docs\wDocNotes;
 use Illuminate\Bus\Queueable;

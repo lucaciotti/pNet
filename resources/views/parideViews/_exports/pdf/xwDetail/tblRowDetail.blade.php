@@ -42,7 +42,7 @@
                 </td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
-                <td style="text-align: right;">@if ($row->iva) % @endif</td>
+                <td style="text-align: right;">@if ($row->iva) {{ $row->iva }} % @endif</td>
                 @php
                     $totMerce=$totMerce+$row->val_riga;
                 @endphp
