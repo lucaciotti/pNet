@@ -84,7 +84,7 @@ class SendXwByEmail implements ShouldQueue
         // dd($noteDoc);
 
         $title = "Doc Detail";
-        $filename = $doc->descr_tipodoc . "_" . $doc->num . "_" . $doc->data->year;
+        $filename = $doc->descr_tipodoc . "_" . $doc->id . "_" . $doc->data->year;
         $view = 'parideViews._exports.pdf.xwDetailPdf';
         $data = [
             'head' => $doc,
@@ -132,7 +132,7 @@ class SendXwByEmail implements ShouldQueue
         if (Storage::exists('XWToSend/' . $fileName)) {
             Storage::delete('XWToSend/' . $fileName);
         }
-        Storage::putFileAs('app/XWToSend', $csvPath, $fileName);
+        Storage::putFileAs('XWToSend', $csvPath, $fileName);
         return storage_path('app') . '/' . 'XWToSend/' . $fileName;
     }
 }

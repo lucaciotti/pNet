@@ -227,7 +227,7 @@ class CartController extends Controller
         // dd($noteDoc);
 
         $title = "Doc Detail";
-        $subTitle = $doc->descr_tipodoc . "_" . $doc->num . "/" . $doc->data->year;
+        $subTitle = $doc->descr_tipodoc . "_" . $doc->id . "/" . $doc->data->year;
         $view = 'parideViews._exports.pdf.xwDetailPdf';
         $data = [
             'head' => $doc,
