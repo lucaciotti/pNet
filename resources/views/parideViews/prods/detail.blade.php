@@ -260,6 +260,7 @@
 
 <div class="row">
 
+  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">
@@ -325,6 +326,10 @@
       </div>
     </div>
   </div>
+  @else
+  <livewire:cart.dynamic-price-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
+  @endif
+
 
   @if (!in_array(RedisUser::get('role'), ['client', 'user']))
   <div class="col-lg-6">
