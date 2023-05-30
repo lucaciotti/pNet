@@ -108,7 +108,14 @@ class AddCart extends Component
     }
     public function searchListArt()
     {
-        $this->listArts = Product::select('id_art', 'descr')->where('id_art', 'like', $this->idArt . '%')->get()->toArray();
+        $this->listArts = Product::select('id_art', 'descr')
+                                ->where('id_art', 'like', $this->idArt . '%')
+                                ->orWhere('id_cod_bar', 'like', $this->idArt . '%')
+                                ->orWhere('id_cod_for', 'like', $this->idArt . '%')
+                                ->orWhereHas('barcodes', function ($query) {
+                                    $query->where('id_cod_bar', 'like', $this->idArt . '%');
+                                })
+                                ->get()->toArray();
     }
 
     public function updatedSkuCustom(){
