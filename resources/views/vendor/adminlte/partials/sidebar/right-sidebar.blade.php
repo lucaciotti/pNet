@@ -50,7 +50,7 @@
                                 <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;Note su Documenti
                             </button>
                         </a>
-                        <a href='{{ url(' infoVettori') }}' class="pb-10">
+                        <a href='{{ url('infoVettori') }}' class="pb-10">
                             <button type="submit" class="btn btn-block btn-outline-light">
                                 <i class="fas fa-truck"></i>&nbsp;&nbsp;Gestione Vettori
                             </button>
