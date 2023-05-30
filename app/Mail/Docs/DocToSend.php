@@ -27,6 +27,7 @@ class DocToSend extends Mailable
     public $url;
     public $urlInvito;
     public $descrTipoDoc;
+    public $urlTracking='';
     /**
      * Create a new message instance.
      *
@@ -52,7 +53,7 @@ class DocToSend extends Mailable
         $docListed = wDocSent::findOrFail($this->idDocListed);
         $docListed->inviato = true;
         $docListed->save();
-        $nameDoc = $this->getNameDoc($docListed->tipo_doc, $docListed->id_doc);
+        $nameDoc = $this->getNameDocAndTracking($docListed->tipo_doc, $docListed->id_doc);
         $from = 'amministrazione@ferramentaparide.it';
         Log::info('Invio '.$nameDoc. ' - '.$this->user->name);
         if($this->user->isActive){
@@ -68,34 +69,41 @@ class DocToSend extends Mailable
         }
     }
 
-    protected function getNameDoc($tipodoc, $id_doc)
+    protected function getNameDocAndTracking($tipodoc, $id_doc)
     {
         switch ($tipodoc) {
             case 'XC':
-                $doc = QuoteCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = QuoteCli::findOrFail($id_doc);
                 break;
             case 'OC':
-                $doc = OrdCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = OrdCli::findOrFail($id_doc);
                 break;
             case 'BO':
-                $doc = DDTCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = DDTCli::findOrFail($id_doc);
                 break;
             case 'FT':
-                $doc = FTCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = FTCli::findOrFail($id_doc);
                 break;
             case 'FP':
-                $doc = FPCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = FPCli::findOrFail($id_doc);
                 break;
             case 'FD':
-                $doc = FDCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = FDCli::findOrFail($id_doc);
                 break;
             case 'NC':
-                $doc = NCCli::select('num', 'data')->findOrFail($id_doc);
+                $doc = NCCli::findOrFail($id_doc);
                 break;
             default:
                 break;
         }
         $this->descrTipoDoc = $doc->descr_tipodoc;
+        if($doc->vettore){
+            if($doc->tracking){
+                if($doc->vettore->info){
+                    $this->urlTracking= str_replace('<-id_tracking->', $doc->tracking, $doc->vettore->info->url);
+                }
+            }
+        }
         $nameDoc = $doc->descr_tipodoc . " n." . $doc->num . "/" . $doc->data->year;
         return $nameDoc;
     }

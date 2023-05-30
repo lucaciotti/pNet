@@ -113,11 +113,11 @@ class QuoteCli extends Model
 
     public function vettore()
     {
-        return ;
+        return $this->hasOne('App\Models\parideModels\Vettori', 'id_vet', 0);
     }
 
-    public function colli()
+    public function colliDetailed()
     {
-        return ;
+        return $this->hasMany('App\Models\parideModels\Colli', 'id_doc_tes', 0);
     }
 }

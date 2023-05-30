@@ -24,6 +24,7 @@ use App\Models\parideModels\Docs\wDocNotes;
 use App\Models\parideModels\Product;
 use Arr;
 use Jackiedo\Cart\Facades\Cart;
+use RedisUser;
 
 class DocCliController extends Controller
 {
@@ -457,6 +458,13 @@ class DocCliController extends Controller
         $pdf = PdfReport::A4Portrait($view, $data, $title, $subTitle);
 
         return $pdf->inline($title . '-' . $subTitle . '.pdf');
+    }
+
+    public function infoVettori(Request $req){
+        if (in_array(RedisUser::get('role'), ['client'])) {
+            return redirect()->to('/');
+        }
+        return view('parideViews.infoVettori.index');
     }
 
     // // DOC 2 Cart

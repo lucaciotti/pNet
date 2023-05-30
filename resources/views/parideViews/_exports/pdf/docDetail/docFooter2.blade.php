@@ -1,58 +1,87 @@
 <span class="floatleft">
     @if(!$head->destinazioni)
-    @if(!empty($head->des_dive1) || !empty($head->des_dive2))
-    <span class="contentSubTitle">Destinazione Merce</span>
-    @if(empty($head->des_dive3) && empty($head->des_dive4))
-    <dl class="dl-horizontal">
-        <dt>Indirizzo</dt>
-        <dd>{{$head->des_dive1}}</dd>
-    </dl>
-    @else
-    <dl class="dl-horizontal">
-        <dt>Ragione Sociale</dt>
-        @if(!empty($head->des_dive1))
-        <dd>{{$head->des_dive1}}</dd>
-        @else
-        <dd>{{$head->des_dive2}}</dd>
-        @endif
-        <dt>Indirizzo</dt>
-        <dd>
-            @if(!empty($head->des_dive4))
-            {{$head->des_dive4}} <br>
+        @if(!empty($head->des_dive1) || !empty($head->des_dive2))
+            <span class="contentSubTitle">Destinazione Merce</span>
+            @if(empty($head->des_dive3) && empty($head->des_dive4))
+                <dl class="dl-horizontal">
+                    <dt>Indirizzo</dt>
+                    <dd>{{$head->des_dive1}}</dd>
+                </dl>
+            @else
+                <dl class="dl-horizontal">
+                    <dt>Ragione Sociale</dt>
+                    @if(!empty($head->des_dive1))
+                        <dd>{{$head->des_dive1}}</dd>
+                    @else
+                        <dd>{{$head->des_dive2}}</dd>
+                    @endif
+                    <dt>Indirizzo</dt>
+                    <dd>
+                        @if(!empty($head->des_dive4))
+                            {{$head->des_dive4}} <br>
+                        @endif
+                        {{$head->des_dive3}}
+                    </dd>
+                </dl>
             @endif
-            {{$head->des_dive3}}
-        </dd>
-    </dl>
-    @endif
-    @endif
+        @endif
     @else
-    <span class="contentSubTitle">Destinazione Merce</span>
-    <dl class="dl-horizontal">
-        <dt>Ragione Sociale</dt>
-        <dd>{{$head->destinazioni->rag_soc}}</dd>
-        <dt>Indirizzo</dt>
-        <dd>
-            {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}), {{$head->destinazioni->cap}} <br>
-            {{$head->destinazioni->indirizzo}}
-        </dd>
-    </dl>
+        <span class="contentSubTitle">Destinazione Merce</span>
+        <dl class="dl-horizontal">
+            <dt>Ragione Sociale</dt>
+            <dd>{{$head->destinazioni->rag_soc}}</dd>
+            <dt>Indirizzo</dt>
+            <dd>
+                {{$head->destinazioni->citta}} ({{$head->destinazioni->provincia}}), {{$head->destinazioni->cap}} <br>
+                {{$head->destinazioni->indirizzo}}
+            </dd>
+        </dl>
     @endif
     
-    @if($head->colli > 0)
+    @if($head->vettore)
     <span class="contentSubTitle">{{ trans('doc.dataSped') }}</span>
     <dl class="dl-horizontal">
-        <dt>{{ trans('doc.nColli') }}</dt>
-        <dd>{{$head->colli}}</dd>
-    
-        <dt>{{ trans('doc.goodsAspect') }}</dt>
-        <dd>{{ $head->descr_aeb }}</dd>
-    
-        @if($head->peso>0)
-        <dt>{{ trans('doc.weightGross') }}</dt>
-        <dd>{{$head->peso}} Kg</dd>
-        @endif
-    
+        <dt>Vettore</dt>
+        <dd>{{$head->vettore->rag_soc1}}</dd>    
+        @if($head->tracking)
+            <dt>Tracking</dt>
+            @php
+                $url = ($head->vettore->info) ? str_replace('<-id_tracking->', $head->tracking, $head->vettore->info->url) : '#';
+            @endphp
+            <dd><a href="{{ $url }}" class="text-bold text-blue" target="_blank"> {{$head->tracking}} </a></dd>
+        @endif          
     </dl>
+    @endif
+
+    @if ($head->colliDetailed)
+        @foreach ($head->colliDetailed as $colli)
+            <dl class="dl-horizontal">
+                <dt>Collo n°{{ $colli->num }}</dt>
+                <dd>
+                    {{$colli->lung}}x{{$colli->larg}}@if($colli->alte>0)x{{$colli->alte}}@endif mm
+                    @if($colli->peso>0)
+                    <br>{{ trans('doc.weightGross') }}: {{$colli->peso}} Kg
+                    @endif
+                </dd>
+            </dl>
+        @endforeach
+    @else
+        @if($head->colli > 0)
+        {{-- <hr> --}}
+        <dl class="dl-horizontal">
+            <dt>{{ trans('doc.nColli') }}</dt>
+            <dd>{{$head->colli}}</dd>
+        
+            <dt>{{ trans('doc.goodsAspect') }}</dt>
+            <dd>{{ $head->descr_aeb }}</dd>
+        
+            @if($head->peso>0)
+            <dt>{{ trans('doc.weightGross') }}</dt>
+            <dd>{{$head->peso}} Kg</dd>
+            @endif
+        
+        </dl>
+        @endif
     @endif
 </span>
 

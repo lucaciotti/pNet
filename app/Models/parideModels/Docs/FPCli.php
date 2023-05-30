@@ -112,14 +112,14 @@ class FPCli extends Model
     {
         return $this->hasOne('App\Models\parideModels\Destinazioni', ['id_dest_pro', 'id_cli_for'], ['id_dest', 'id_cli_for']);
     }
-    
+
     public function vettore()
     {
-        return ;
+        return $this->hasOne('App\Models\parideModels\Vettori', 'id_vet', 0);
     }
 
-    public function colli()
+    public function colliDetailed()
     {
-        return ;
+        return $this->hasMany('App\Models\parideModels\Colli', 'id_doc_tes', 0);
     }
 }

@@ -11,10 +11,10 @@
                             aria-selected="false"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Admin Settings</a>
                         <a class="nav-link" id="priceTab" data-toggle="pill" 
                             href="#docs" role="tab" aria-controls="docs"
-                            aria-selected="false"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Docs Settings</a>
+                            aria-selected="false"><i class="fa fa-file-signature"></i>&nbsp;&nbsp;Docs Settings</a>
                         <a class="nav-link" id="priceTab" data-toggle="pill" 
                             href="#price" role="tab" aria-controls="price"
-                            aria-selected="false"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Price Manager</a>
+                            aria-selected="false"><i class="fa fa-hand-holding-usd"></i>&nbsp;&nbsp;Price Manager</a>
                     </li>
                 </ul>
 
@@ -45,12 +45,17 @@
                     </div>
 
                     <div class="tab-pane fade show" id="docs" role="tabpanel" aria-labelledby="docs-tab">
-                        <hr class="mb-2 bg-white">
                         <a href='{{ url('docNotes') }}' class="pb-10">
                             <button type="submit" class="btn btn-block btn-outline-light">
-                                <i class="far fa-pencil"></i>&nbsp;&nbsp;Note su Documenti
+                                <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;Note su Documenti
                             </button>
                         </a>
+                        <a href='{{ url(' infoVettori') }}' class="pb-10">
+                            <button type="submit" class="btn btn-block btn-outline-light">
+                                <i class="fas fa-truck"></i>&nbsp;&nbsp;Gestione Vettori
+                            </button>
+                        </a>
+                        <hr class="mb-2 bg-white">
                         <a href='{{ url('ddtToSend') }}' class="pb-10">
                             <button type="submit" class="btn btn-block btn-outline-warning">
                                 <i class="fas fa-at"></i>&nbsp;&nbsp;Ddt da Inviare
@@ -61,7 +66,7 @@
                     <div class="tab-pane fade show" id="price" role="tabpanel" aria-labelledby="price-tab">
                         <a href='{{ url('manage-prices') }}'>
                             <button type="submit" class="btn btn-block btn-outline-light">
-                                <i class="far fa-pencil"></i>&nbsp;&nbsp;Price Manager
+                                <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Price Manager
                             </button>
                         </a>
                     </div>

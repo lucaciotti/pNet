@@ -98,22 +98,50 @@
                         </dd>
                     </dl>
                 @endif
-
-                @if($head->colli > 0)
-                <hr>
+                
+                @if($head->vettore)
                 <dl class="dl-horizontal">
-                    <dt>{{ trans('doc.nColli') }}</dt>
-                    <dd>{{$head->colli}}</dd>
-                
-                    <dt>{{ trans('doc.goodsAspect') }}</dt>
-                    <dd>{{ $head->descr_aeb }}</dd>
-                
-                    @if($head->peso>0)
-                    <dt>{{ trans('doc.weightGross') }}</dt>
-                    <dd>{{$head->peso}} Kg</dd>
-                    @endif
-                
+                    <dt>Vettore</dt>
+                    <dd>{{$head->vettore->rag_soc1}}</dd>    
+                    @if($head->tracking)
+                        <dt>Tracking</dt>
+                        @php
+                            $url = ($head->vettore->info) ? str_replace('<-id_tracking->', $head->tracking, $head->vettore->info->url) : '#';
+                        @endphp
+                        <dd><a href="{{ $url }}" class="text-bold text-blue" target="_blank"> {{$head->tracking}} </a></dd>
+                    @endif            
                 </dl>
+                @endif
+
+                @if ($head->colliDetailed)
+                    @foreach ($head->colliDetailed as $colli)
+                        <dl class="dl-horizontal">
+                            <dt>Collo n°{{ $colli->num }}</dt>
+                            <dd>
+                                {{$colli->lung}}x{{$colli->larg}}@if($colli->alte>0)x{{$colli->alte}}@endif mm
+                                @if($colli->peso>0)
+                                <br>{{ trans('doc.weightGross') }}: {{$colli->peso}} Kg
+                                @endif
+                            </dd>
+                        </dl>
+                    @endforeach
+                @else
+                    @if($head->colli > 0)
+                    {{-- <hr> --}}
+                    <dl class="dl-horizontal">
+                        <dt>{{ trans('doc.nColli') }}</dt>
+                        <dd>{{$head->colli}}</dd>
+                    
+                        <dt>{{ trans('doc.goodsAspect') }}</dt>
+                        <dd>{{ $head->descr_aeb }}</dd>
+                    
+                        @if($head->peso>0)
+                        <dt>{{ trans('doc.weightGross') }}</dt>
+                        <dd>{{$head->peso}} Kg</dd>
+                        @endif
+                    
+                    </dl>
+                    @endif
                 @endif
             </div>
             <div class="tab-pane fade" id="Tot" role="tabpanel" aria-labelledby="Tot-tab">

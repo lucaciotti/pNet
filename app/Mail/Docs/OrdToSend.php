@@ -27,6 +27,7 @@ class OrdToSend extends Mailable
     public $url;
     public $urlInvito;
     public $descrTipoDoc;
+    public $urlTracking = '';
     /**
      * Create a new message instance.
      *

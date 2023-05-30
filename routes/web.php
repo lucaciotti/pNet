@@ -86,6 +86,7 @@ Route::name('doc::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/doc2cart/{tipodoc}/{id_doc}', [DocCliController::class, 'doc2cart'])->name('doc2cart');
 
     Route::get('/docNotes', [DocNotesController::class, 'index'])->name('docNotes');
+    Route::get('/infoVettori', [DocCliController::class, 'infoVettori'])->name('infoVettori');
 });
 
 // Routes AbcProds

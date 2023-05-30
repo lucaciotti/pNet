@@ -3,6 +3,13 @@
 
 con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
 
+@if (!empty($urlTracking))
+Il materiale è stato spedito e può tracciarne la consegna:
+@component('mail::button', ['url' => $urlTracking])
+Traccia Spedizione
+@endcomponent
+@endif
+
 Le ricordiamo che tutti i documenti della sua azienda sono consultabili sul nostro portale.  
 Se ha perso l'invito per registrarsi, può richiederlo cliccando qui sotto.  
 
