@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class="contentTitle">{{ trans('doc.listRows') }}</div>
-        @include('parideViews._exports.pdf.xwDetail.tblRowDetail', [$head, $stampaPrezzi] )
+        @include('parideViews._exports.pdf.xwDetail.tblRowDetail', [$head] )
     </div>
     <div>
         <hr class="dividerPage">
@@ -22,7 +22,7 @@
     <div class="row">
         <br>
         {{-- <br> --}}
-        @include('parideViews._exports.pdf.xwDetail.docFooter2', [$head, $stampaPrezzi] )
+        @include('parideViews._exports.pdf.xwDetail.docFooter2', [$head] )
     </div>
 
     
