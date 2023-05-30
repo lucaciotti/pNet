@@ -57,7 +57,7 @@ class SendXwByEmail implements ShouldQueue
             $toEmail = 'pnet@lucaciotti.space';
             // if ($user) {
                 // $toEmail = $this->setEmailTo($ordToSend->tipo_doc, $client);
-                $filePDFToAttach = $this->createCsvDoc($doc);
+                $filePDFToAttach = $this->createPdfDoc($doc);
                 $fileCSVToAttach = $this->createCsvDoc($doc);
                 $mail = (new XwToSend($filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
