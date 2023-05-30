@@ -7,6 +7,7 @@
     {{-- <th>{{ trans('user.codAg') }}</th>
     <th>{{ trans('user.codCli') }}</th> --}}
     <th>isActive?</th>
+    <th>Ordine Web</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
@@ -38,6 +39,13 @@
           @endif</td> --}}
           <td>
             @if ($user->isActive)
+              Si
+            @else
+              No
+            @endif
+          </td>
+          <td>
+            @if ($user->enable_ordweb)
               Si
             @else
               No
