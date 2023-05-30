@@ -31,7 +31,7 @@ class User extends Authenticatable implements PortableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'nickname', 'email', 'password', 'ditta', 'codag', 'codcli', 'codfor', 'avatar', 'lang', 'invitato_email'
+        'name', 'nickname', 'email', 'password', 'ditta', 'codag', 'codcli', 'codfor', 'avatar', 'lang', 'invitato_email', 'enable_ordweb'
     ];
 
     /**

@@ -260,116 +260,118 @@
 
 <div class="row">
 
-  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title" data-card-widget="collapse">Vendita</h3>
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <label>Aggiungi al carrello:</label>
-        <livewire:cart.add-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
-        <hr>
-  
-        <label>Listino 1 (IVA escl.):</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }}"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€ / {{ $prod->um }}</span>
-          </div>
-        </div>
-        @if (!in_array(RedisUser::get('role'), ['client', 'user']))
-          <label>Listino 2 (IVA escl.):</label>
-          <div class="input-group">
-            <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_2,3), 2, ',', '') }}"
-              style="text-align:right;">
-            <div class="input-group-append">
-              <span class="input-group-text">€ / {{ $prod->um }}</span>
-            </div>
-          </div>
-
-          <label>Listino 3 (IVA escl.):</label>
-          <div class="input-group">
-            <input type="text" class="form-control" readonly name="prezzVend" value="{{ number_format((float)round($prod->prezzo_3,3), 2, ',', '') }}"
-              style="text-align:right;">
-            <div class="input-group-append">
-              <span class="input-group-text">€ / {{ $prod->um }}</span>
-            </div>
-          </div>     
-
-          <label>Listino 4 (IVA escl.):</label>
-          <div class="input-group">
-            <input type="text" class="form-control" readonly name="prezzVend"
-              value="{{ number_format((float)round($prod->prezzo_4,3), 2, ',', '') }}" style="text-align:right;">
-            <div class="input-group-append">
-              <span class="input-group-text">€ / {{ $prod->um }}</span>
-            </div>
-          </div>
-        @endif
-        <hr>
-        <label>IVA:</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzVend" value="@if ($prod->tva) {{ $prod->tva->perc }} @endif"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">%</span>
-          </div>
-        </div>
-  
-      </div>
-    </div>
-  </div>
+  @if (RedisUser::get('enable_ordweb') && in_array(RedisUser::get('role'), ['client']))
+    <livewire:cart.dynamic-price-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
   @else
-  <livewire:cart.dynamic-price-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
-  @endif
-
-
-  @if (!in_array(RedisUser::get('role'), ['client', 'user']))
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
-        <label>Prezzo di Acquisto:</label>
-        <div class="input-group">
-          <input type="text" class="form-control" readonly name="prezzAcq" value="{{ number_format((float)round($prod->prezzo_a,3), 2, ',', '') }}"
-            style="text-align:right;">
-          <div class="input-group-append">
-            <span class="input-group-text">€</span>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title" data-card-widget="collapse">Vendita</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
           </div>
         </div>
-        @endif
-
-        <label>Fornitore:</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
-          </div>
-          @if ($prod->supplier)
-          <input type="text" class="form-control" readonly name="supplier"
-            value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
-          @else
-          <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}">
-          @endif
+        <div class="card-body">
+    
+          @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
+          <label>Aggiungi al carrello:</label>
+          <livewire:cart.add-element :product="$prod" :productPage='true' :wire:key="time().$prod->id_art">
+            <hr>
+            @endif
+    
+            <label>Listino 1 (IVA escl.):</label>
+            <div class="input-group">
+              <input type="text" class="form-control" readonly name="prezzVend"
+                value="{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }}" style="text-align:right;">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $prod->um }}</span>
+              </div>
+            </div>
+            @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+            <label>Listino 2 (IVA escl.):</label>
+            <div class="input-group">
+              <input type="text" class="form-control" readonly name="prezzVend"
+                value="{{ number_format((float)round($prod->prezzo_2,3), 2, ',', '') }}" style="text-align:right;">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $prod->um }}</span>
+              </div>
+            </div>
+    
+            <label>Listino 3 (IVA escl.):</label>
+            <div class="input-group">
+              <input type="text" class="form-control" readonly name="prezzVend"
+                value="{{ number_format((float)round($prod->prezzo_3,3), 2, ',', '') }}" style="text-align:right;">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $prod->um }}</span>
+              </div>
+            </div>
+    
+            <label>Listino 4 (IVA escl.):</label>
+            <div class="input-group">
+              <input type="text" class="form-control" readonly name="prezzVend"
+                value="{{ number_format((float)round($prod->prezzo_4,3), 2, ',', '') }}" style="text-align:right;">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $prod->um }}</span>
+              </div>
+            </div>
+            @endif
+            <hr>
+            <label>IVA:</label>
+            <div class="input-group">
+              <input type="text" class="form-control" readonly name="prezzVend"
+                value="@if ($prod->tva) {{ $prod->tva->perc }} @endif" style="text-align:right;">
+              <div class="input-group-append">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+    
         </div>
-  
       </div>
     </div>
-  </div>
+    @endif
+
+
+    @if (!in_array(RedisUser::get('role'), ['client', 'user']))
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title" data-card-widget="collapse">Acquisto</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          @if (!in_array(RedisUser::get('role'), ['agent', 'superAgent']))
+          <label>Prezzo di Acquisto:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" readonly name="prezzAcq" value="{{ number_format((float)round($prod->prezzo_a,3), 2, ',', '') }}"
+              style="text-align:right;">
+            <div class="input-group-append">
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+          @endif
+
+          <label>Fornitore:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-truck-loading"></i></span>
+            </div>
+            @if ($prod->supplier)
+            <input type="text" class="form-control" readonly name="supplier"
+              value="{{ $prod->id_cli_for }} - {{ $prod->supplier->rag_soc }}">
+            @else
+            <input type="text" class="form-control" readonly name="supplier" value="{{ $prod->id_cli_for }}">
+            @endif
+          </div>
+    
+        </div>
+      </div>
+    </div>
   @endif
 
 </div>

@@ -116,6 +116,20 @@
                 </label>
               </div>
             </div>
+
+            <hr>
+            
+            <div class="form-group">
+              <label>Abilita Modulo Ordini Web</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="enable_ordweb" id="opt1" value="0" @if(!$user->enable_ordweb) checked @endif>&nbsp;&nbsp;No
+                </label>
+                <label>
+                  <input type="radio" name="enable_ordweb" id="opt2" value="1" @if($user->enable_ordweb) checked @endif>&nbsp;&nbsp;Si
+                </label>
+              </div>
+            </div>
             @endif
 
             <div>

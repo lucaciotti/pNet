@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\parideModels\Docs\wDocHead;
 use App\Models\parideModels\Docs\wDocNotes;
 use App\Models\parideModels\Docs\wDocRow;
+use RedisUser;
 
 class CartController extends Controller
 {
@@ -21,6 +22,9 @@ class CartController extends Controller
     }
 
     public function index(Request $req){
+        if (!RedisUser::get('enable_ordweb') && !in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent'])) {
+            return redirect('/home');
+        }
         return view('parideViews.cart.index');
     }
 
@@ -43,6 +47,9 @@ class CartController extends Controller
     }
 
     public function list(Request $req) {
+        if (!RedisUser::get('enable_ordweb') && !in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent'])) {
+            return redirect('/home');
+        }
         $startDate = (now()->subMonths(2))->toDateString();
         $docs = wDocHead::where('created_at', '>=', $startDate)->with(['client'])->get();
                 

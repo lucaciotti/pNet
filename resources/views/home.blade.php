@@ -46,6 +46,7 @@
             </div>
         </div>
         <div class="row">
+            @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
             <div class="col-lg-6 col-6 ml-auto">
                 <!-- small box -->
                 <div class="small-box bg-success">
@@ -61,6 +62,23 @@
                     <a href="{{ route('cart::index') }}" class="small-box-footer">Nuovo Ordine <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+            @else
+            <div class="col-lg-6 col-6 ml-auto">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{ $nNewProds }}<small><small><small><i> Nuovi prodotti</i></small></small></small></h3>
+            
+                        <p>Catalogo</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-barcode"></i>
+                    </div>
+                    <a href="{{ route('product::list') }}" class="small-box-footer">Visualizza <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            @endif
             <div class="col-lg-6 col-6 ml-auto">
                 <!-- small box -->
                 <div class="small-box bg-danger">

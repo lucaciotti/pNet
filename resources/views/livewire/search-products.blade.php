@@ -82,7 +82,9 @@
                         <th>Prezzo</th>
                         <th>Disponibilità</th>
                         <th>UM</th>
+                        @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
                         <th width='100'></th>
+                        @endif
                         {{-- <th>Barcode</th>
                         <th>Forn.</th> --}}
                     </thead>
@@ -121,7 +123,9 @@
                                 @endif
                             </td>
                             <td>{{ $prod->um }}</td>
+                            @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
                             <td><livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art"></td>
+                            @endif
                             {{-- <td>{{ $loop->index }}</td> --}}
                         </tr>
                         @endforeach

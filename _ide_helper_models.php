@@ -110,6 +110,7 @@ namespace App\Models{
  * @property bool|null $isActive User is Active?
  * @property bool $auto_email Utente può disabilitare ricezione email automatiche
  * @property bool $invitato_email
+ * @property bool|null $enable_ordweb
  * @property-read \App\Models\parideModels\Agent|null $agent
  * @property-read \App\Models\parideModels\Client|null $client
  * @property-read mixed $role_name
@@ -137,6 +138,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDoesntHaveRole()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEnableOrdweb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereInvitatoEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereIsActive($value)
@@ -467,6 +469,29 @@ namespace App\Models\parideModels{
 
 namespace App\Models\parideModels{
 /**
+ * App\Models\parideModels\Colli
+ *
+ * @property int $id_doc_tes
+ * @property int $num
+ * @property string $peso
+ * @property string $lung
+ * @property string $larg
+ * @property string $alte
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli whereAlte($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli whereIdDocTes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli whereLarg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli whereLung($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli whereNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colli wherePeso($value)
+ */
+	class Colli extends \Eloquent {}
+}
+
+namespace App\Models\parideModels{
+/**
  * App\Models\parideModels\Destinazioni
  *
  * @property string $id_dest
@@ -529,7 +554,7 @@ namespace App\Models\parideModels\Docs{
  * @property string $sconto
  * @property string $id_porto
  * @property bool $id_asp
- * @property int $colli
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Colli[] $colli
  * @property string|null $data_ora_par
  * @property bool $id_cau_doc
  * @property bool $stampato
@@ -565,7 +590,9 @@ namespace App\Models\parideModels\Docs{
  * @property bool $split
  * @property bool $leggisco
  * @property string|null $ddt_rif
+ * @property string $tracking
  * @property-read \App\Models\parideModels\Client|null $client
+ * @property-read int|null $colli_count
  * @property-read \App\Models\parideModels\Destinazioni|null $destinazioni
  * @property-read \App\Models\parideModels\Docs\wDocSent|null $docSent
  * @property-read mixed $descr_tipodoc
@@ -574,6 +601,7 @@ namespace App\Models\parideModels\Docs{
  * @property-read \App\Models\parideModels\PaymentType|null $payType
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Docs\RowDoc[] $rows
  * @property-read int|null $rows_count
+ * @property-read \App\Models\parideModels\Vettori|null $vettore
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli query()
@@ -632,6 +660,7 @@ namespace App\Models\parideModels\Docs{
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli whereTotImp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli whereTotIva($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DDTCli whereTotRit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DDTCli whereTracking($value)
  */
 	class DDTCli extends \Eloquent {}
 }
@@ -659,7 +688,7 @@ namespace App\Models\parideModels\Docs{
  * @property string $sconto
  * @property string $id_porto
  * @property bool $id_asp
- * @property int $colli
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Colli[] $colli
  * @property string|null $data_ora_par
  * @property bool $id_cau_doc
  * @property bool $stampato
@@ -695,7 +724,9 @@ namespace App\Models\parideModels\Docs{
  * @property bool $split
  * @property bool $leggisco
  * @property string|null $ddt_rif
+ * @property string $tracking
  * @property-read \App\Models\parideModels\Client|null $client
+ * @property-read int|null $colli_count
  * @property-read \App\Models\parideModels\Destinazioni|null $destinazioni
  * @property-read \App\Models\parideModels\Docs\wDocSent|null $docSent
  * @property-read mixed $descr_tipodoc
@@ -704,6 +735,7 @@ namespace App\Models\parideModels\Docs{
  * @property-read \App\Models\parideModels\PaymentType|null $payType
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Docs\RowDoc[] $rows
  * @property-read int|null $rows_count
+ * @property-read \App\Models\parideModels\Vettori|null $vettore
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli query()
@@ -762,6 +794,7 @@ namespace App\Models\parideModels\Docs{
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli whereTotImp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli whereTotIva($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FDCli whereTotRit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FDCli whereTracking($value)
  */
 	class FDCli extends \Eloquent {}
 }
@@ -880,7 +913,7 @@ namespace App\Models\parideModels\Docs{
  * @property string $sconto
  * @property string $id_porto
  * @property bool $id_asp
- * @property int $colli
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Colli[] $colli
  * @property string|null $data_ora_par
  * @property bool $id_cau_doc
  * @property bool $stampato
@@ -916,7 +949,9 @@ namespace App\Models\parideModels\Docs{
  * @property bool $split
  * @property bool $leggisco
  * @property string|null $ddt_rif
+ * @property string $tracking
  * @property-read \App\Models\parideModels\Client|null $client
+ * @property-read int|null $colli_count
  * @property-read \App\Models\parideModels\Destinazioni|null $destinazioni
  * @property-read \App\Models\parideModels\Docs\wDocSent|null $docSent
  * @property-read mixed $descr_tipodoc
@@ -925,6 +960,7 @@ namespace App\Models\parideModels\Docs{
  * @property-read \App\Models\parideModels\PaymentType|null $payType
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Docs\RowDoc[] $rows
  * @property-read int|null $rows_count
+ * @property-read \App\Models\parideModels\Vettori|null $vettore
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli query()
@@ -983,6 +1019,7 @@ namespace App\Models\parideModels\Docs{
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli whereTotImp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli whereTotIva($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FTCli whereTotRit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FTCli whereTracking($value)
  */
 	class FTCli extends \Eloquent {}
 }
@@ -1046,6 +1083,7 @@ namespace App\Models\parideModels\Docs{
  * @property bool $split
  * @property bool $leggisco
  * @property string|null $ddt_rif
+ * @property string $tracking
  * @property-read \App\Models\parideModels\Client|null $client
  * @property-read \App\Models\parideModels\Destinazioni|null $destinazioni
  * @property-read \App\Models\parideModels\Docs\wDocSent|null $docSent
@@ -1113,6 +1151,7 @@ namespace App\Models\parideModels\Docs{
  * @method static \Illuminate\Database\Eloquent\Builder|NCCli whereTotImp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NCCli whereTotIva($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NCCli whereTotRit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|NCCli whereTracking($value)
  */
 	class NCCli extends \Eloquent {}
 }
@@ -1330,6 +1369,13 @@ namespace App\Models\parideModels\Docs{
  * @property string $tot_ivar
  * @property string $ddt_num
  * @property \Illuminate\Support\Carbon|null $ddt_data
+ * @property-read \App\Models\parideModels\Docs\DDTCli|null $DDTHead
+ * @property-read \App\Models\parideModels\Docs\FDCli|null $FDHead
+ * @property-read \App\Models\parideModels\Docs\FPCli|null $FPHead
+ * @property-read \App\Models\parideModels\Docs\FTCli|null $FTHead
+ * @property-read \App\Models\parideModels\Docs\NCCli|null $NCHead
+ * @property-read \App\Models\parideModels\Docs\OrdCli|null $OrdHead
+ * @property-read \App\Models\parideModels\Docs\QuoteCli|null $QuoteHead
  * @property-read mixed $qtares
  * @property-read mixed $qtarow
  * @property-read \App\Models\parideModels\Product|null $product
@@ -1397,6 +1443,13 @@ namespace App\Models\parideModels\Docs{
  * @property string $prz_a2v
  * @property bool $omaggiot
  * @property string $descr2
+ * @property-read \App\Models\parideModels\Docs\DDTCli|null $DDTHead
+ * @property-read \App\Models\parideModels\Docs\FDCli|null $FDHead
+ * @property-read \App\Models\parideModels\Docs\FPCli|null $FPHead
+ * @property-read \App\Models\parideModels\Docs\FTCli|null $FTHead
+ * @property-read \App\Models\parideModels\Docs\NCCli|null $NCHead
+ * @property-read \App\Models\parideModels\Docs\OrdCli|null $OrdHead
+ * @property-read \App\Models\parideModels\Docs\QuoteCli|null $QuoteHead
  * @property-read mixed $qtares
  * @property-read mixed $qtarow
  * @property-read \App\Models\parideModels\Product|null $product
@@ -1435,6 +1488,57 @@ namespace App\Models\parideModels\Docs{
 
 namespace App\Models\parideModels\Docs{
 /**
+ * App\Models\parideModels\Docs\wDocHead
+ *
+ * @property int $id
+ * @property string $tipo_doc
+ * @property string $rif_num
+ * @property \Illuminate\Support\Carbon|null $data
+ * @property \Illuminate\Support\Carbon|null $data_eva
+ * @property string $id_cli_for
+ * @property string $id_pag
+ * @property string $tipo_sped
+ * @property string|null $note
+ * @property string $tot_imp
+ * @property string $tot_iva
+ * @property string $totale
+ * @property bool $id_dest_pro
+ * @property bool $processed
+ * @property int $id_ord_tes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\parideModels\Client|null $client
+ * @property-read \App\Models\parideModels\Destinazioni|null $destinazioni
+ * @property-read mixed $descr_tipodoc
+ * @property-read \App\Models\parideModels\PaymentType|null $payType
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Docs\wDocRow[] $rows
+ * @property-read int|null $rows_count
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead query()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereDataEva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereIdCliFor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereIdDestPro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereIdOrdTes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereIdPag($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereProcessed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereRifNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereTipoDoc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereTipoSped($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereTotImp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereTotIva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereTotale($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocHead whereUpdatedAt($value)
+ */
+	class wDocHead extends \Eloquent {}
+}
+
+namespace App\Models\parideModels\Docs{
+/**
  * App\Models\parideModels\Docs\wDocNotes
  *
  * @property int $id
@@ -1457,6 +1561,39 @@ namespace App\Models\parideModels\Docs{
  * @method static \Illuminate\Database\Eloquent\Builder|wDocNotes whereUpdatedAt($value)
  */
 	class wDocNotes extends \Eloquent {}
+}
+
+namespace App\Models\parideModels\Docs{
+/**
+ * App\Models\parideModels\Docs\wDocRow
+ *
+ * @property int $id
+ * @property int $doc_head_id
+ * @property int $id_art
+ * @property string $descr
+ * @property float $quantity
+ * @property string $prezzo
+ * @property string $iva
+ * @property string $val_riga
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\parideModels\Docs\wDocHead|null $head
+ * @property-read \App\Models\parideModels\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow query()
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereDescr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereDocHeadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereIdArt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereIva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow wherePrezzo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wDocRow whereValRiga($value)
+ */
+	class wDocRow extends \Eloquent {}
 }
 
 namespace App\Models\parideModels\Docs{
@@ -1835,7 +1972,7 @@ namespace App\Models\parideModels{
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUm($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUrl($value)
  */
-	class Product extends \Eloquent {}
+	class Product extends \Eloquent implements \Jackiedo\Cart\Contracts\UseCartable {}
 }
 
 namespace App\Models\parideModels{
@@ -1966,6 +2103,8 @@ namespace App\Models\parideModels{
  * @property string $e_mail_ddt
  * @property string $e_mail_fatture
  * @property string|null $paese
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\parideModels\Product[] $products
+ * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier query()
@@ -2080,6 +2219,83 @@ namespace App\Models\parideModels{
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier whereWww($value)
  */
 	class Supplier extends \Eloquent {}
+}
+
+namespace App\Models\parideModels{
+/**
+ * App\Models\parideModels\Vettori
+ *
+ * @property bool $id_vet
+ * @property string $rag_soc1
+ * @property string $rag_soc2
+ * @property string $pivav
+ * @property-read \App\Models\parideModels\wInfoVettori|null $info
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori whereIdVet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori wherePivav($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori whereRagSoc1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vettori whereRagSoc2($value)
+ */
+	class Vettori extends \Eloquent {}
+}
+
+namespace App\Models\parideModels{
+/**
+ * App\Models\parideModels\wInfoVettori
+ *
+ * @property int $id
+ * @property int $id_vet
+ * @property string $url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\parideModels\Vettori|null $vettore
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori query()
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori whereIdVet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wInfoVettori whereUrl($value)
+ */
+	class wInfoVettori extends \Eloquent {}
+}
+
+namespace App\Models\parideModels{
+/**
+ * App\Models\parideModels\wPriceManager
+ *
+ * @property int $id
+ * @property string|null $id_cli_for
+ * @property bool|null $id_tipo_cl
+ * @property string $id_fam
+ * @property int $listino
+ * @property float $extrasconto
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property \Illuminate\Support\Carbon $end_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\parideModels\Client|null $cliente
+ * @property-read \App\Models\parideModels\SubGrpProd|null $grpProd
+ * @property-read \App\Models\parideModels\GrpProd|null $masterGrpProd
+ * @property-read \App\Models\parideModels\ClientType|null $typeCli
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager query()
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereExtrasconto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereIdCliFor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereIdFam($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereIdTipoCl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereListino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|wPriceManager whereUpdatedAt($value)
+ */
+	class wPriceManager extends \Eloquent {}
 }
 
 namespace App\Models\parideModels{

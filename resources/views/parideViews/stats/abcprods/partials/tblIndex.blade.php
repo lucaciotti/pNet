@@ -10,7 +10,9 @@
         @if (!in_array(RedisUser::get('role'), ['client']))
         <th>Valore</th>
         @endif
+        @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
         <th width='100'></th>
+        @endif
         {{-- <th>Barcode</th>
                 <th>Forn.</th> --}}
     </thead>
@@ -52,9 +54,11 @@
             @if (!in_array(RedisUser::get('role'), ['client']))
             <td>{{ currency($prod->val) }}</td>
             @endif
-            <td>
-                <livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art">
-            </td>
+            @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
+                <td>
+                    <livewire:cart.add-element :product="$prod" :wire:key="time().$prod->id_art">
+                </td>
+            @endif
         </tr>
         @endforeach
     </tbody>

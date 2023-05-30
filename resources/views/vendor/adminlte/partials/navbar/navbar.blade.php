@@ -21,7 +21,9 @@
 
         {{-- Configured right links --}}
         @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-right'), 'item')
+        @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
         @livewire('cart.nav-item')
+        @endif
 
         {{-- User menu link --}}
         @if(Auth::user())

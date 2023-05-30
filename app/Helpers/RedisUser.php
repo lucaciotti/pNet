@@ -25,6 +25,7 @@ class RedisUser
             'codforn' => (string)$user->codfor,
             'lang' => (string)$user->lang,
             'isActive' => $user->isActive,
+            'enable_ordweb' => $user->enable_ordweb,
         ];
         
         Redis::hmset(static::$prefix.$user->id, $settings);

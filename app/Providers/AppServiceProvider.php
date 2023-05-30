@@ -60,6 +60,27 @@ class AppServiceProvider extends ServiceProvider
                 'route'  => 'abcProds::list',
                 'icon' => 'fa fa-sort-alpha-down',
             ]);
+
+            if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent'])){
+                // MENU' ORDINI WEB
+                $event->menu->addAfter('AbcArt', [
+                    'key' => 'cart_header',
+                    'header' => 'cart_header',
+                    'classes'  => 'text-bold text-center',
+                ]);
+                $event->menu->addAfter('cart_header', [
+                    'key' => 'listOrder',
+                    'text' => 'listOrder',
+                    'route'  => 'cart::list',
+                    'icon' => 'fa fa-clipboard',
+                ]);
+                $event->menu->addAfter('listOrder', [
+                    'key' => 'insOrder',
+                    'text' => 'insOrder',
+                    'route'  => 'cart::index',
+                    'icon' => 'fa fa-cart-plus',
+                ]);
+            }
         });
     }
 }

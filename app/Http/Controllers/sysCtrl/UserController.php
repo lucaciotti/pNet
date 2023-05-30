@@ -169,6 +169,7 @@ class UserController extends Controller
         $user->codag = $req->input('codag');
         $user->codcli = $req->input('codcli');
         $user->isActive = $req->input('isActive');
+        $user->enable_ordweb = $req->input('enable_ordweb');
         $user->auto_email = $req->input('auto_email') ? $req->input('auto_email') : true;
         $user->save();
         RedisUser::store();

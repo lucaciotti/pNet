@@ -58,10 +58,10 @@ $leftSidebar = [
     ],
 
     
-    [
-        'header' => 'cart_header',
-        'classes'  => 'text-bold text-center',
-    ],
+    // [
+    //     'header' => 'cart_header',
+    //     'classes'  => 'text-bold text-center',
+    // ],
     // [
     //     'key'     => 'carts',
     //     'text'    => 'carts',
@@ -81,20 +81,20 @@ $leftSidebar = [
     //         ]
     //     ],
     // ],
-    [
-        'key' => 'listOrder',
-        'text' => 'listOrder',
-        // 'url'  => '#',
-        'icon' => 'fa fa-clipboard',
-        'route' => 'cart::list',
-    ],
-    [
-        'key' => 'insOrder',
-        'text' => 'insOrder',
-        // 'url'  => '#',
-        'icon' => 'fa fa-cart-plus',
-        'route' => 'cart::index',
-    ],
+    // [
+    //     'key' => 'listOrder',
+    //     'text' => 'listOrder',
+    //     // 'url'  => '#',
+    //     'icon' => 'fa fa-clipboard',
+    //     'route' => 'cart::list',
+    // ],
+    // [
+    //     'key' => 'insOrder',
+    //     'text' => 'insOrder',
+    //     // 'url'  => '#',
+    //     'icon' => 'fa fa-cart-plus',
+    //     'route' => 'cart::index',
+    // ],
 
     // [
     //     'header' => 'stats_header',
