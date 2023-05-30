@@ -46,15 +46,15 @@ class XwToSend extends Mailable
      */
     public function build()
     {
-        $doc = wDocHead::select('id', 'rif_num', 'data')->findOrFail($this->idOrdListed);
-        $this->client = Client::find($doc->id_cli);
+        $doc = wDocHead::select('id', 'id_cli_for', 'rif_num', 'data')->findOrFail($this->idOrdListed);
+        $this->client = Client::find($doc->id_cli_for);
         // $from = 'ordini@ferramentaparide.it';
         $from = 'pnet@lucaciotti.space';
         $nameDoc = $this->getNameDoc($doc);
-        Log::info('Invio ' . $nameDoc . ' - ' . $this->user->name);
+        Log::info('Invio ' . $nameDoc . '');
         return $this->from($from, 'pNet - Ferramenta Paride')
                     ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
-                    ->markdown('parideViews._emails.docs.xcToSend')
+                    ->markdown('parideViews._emails.docs.xwToSend')
                     ->attach($this->filePDFToAttach)
                     ->attach($this->fileCSVToAttach);
         // return $this->view('view.name');

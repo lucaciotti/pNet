@@ -1,6 +1,6 @@
 @component('mail::message')
 # Ciao, 
-il cliente {{ $client->rag_soc }} [{{ $client->id_cod_cli }]  
+il cliente {{ $client->rag_soc }} [{{ $client->id_cod_cli }}]  
 
 ha emesso un nuovo documento {{ $descrTipoDoc }} creato attraverso la piattaforma pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
 Qui in allegato sono inclusi i file PDF e CSV.

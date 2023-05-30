@@ -2,6 +2,7 @@
 
 namespace App\Jobs\emails;
 
+use App;
 use App\Helpers\PdfReport;
 use App\Mail\Docs\XwToSend;
 use App\Models\parideModels\Docs\wDocHead;
@@ -13,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Log;
+use Mail;
 use Storage;
 
 class SendXwByEmail implements ShouldQueue
@@ -55,7 +57,7 @@ class SendXwByEmail implements ShouldQueue
             $toEmail = 'pnet@lucaciotti.space';
             // if ($user) {
                 // $toEmail = $this->setEmailTo($ordToSend->tipo_doc, $client);
-                $filePDFToAttach = $this->createPdfDoc($doc);
+                $filePDFToAttach = $this->createCsvDoc($doc);
                 $fileCSVToAttach = $this->createCsvDoc($doc);
                 $mail = (new XwToSend($filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
@@ -130,6 +132,7 @@ class SendXwByEmail implements ShouldQueue
         if (Storage::exists('XWToSend/' . $fileName)) {
             Storage::delete('XWToSend/' . $fileName);
         }
-        return Storage::putFileAs('app/XWToSend', $csvPath, $fileName);
+        Storage::putFileAs('app/XWToSend', $csvPath, $fileName);
+        return storage_path('app') . '/' . 'XWToSend/' . $fileName;
     }
 }

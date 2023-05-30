@@ -47,8 +47,7 @@
         </div>
       </div>
       <div class="card-body">
-        <a type="button" class="btn bg-warning btn-block" target="_blank"
-          href="{{ route('cart::sendXW', [$head->id]) }}">
+        <a type="button" class="btn bg-warning btn-block" href="{{ route('cart::sendXW', [$head->id]) }}">
           <i class="fa fa-paper-plane"></i><strong>Invia email con allegati</strong>
         </a>
       </div>
