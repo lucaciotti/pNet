@@ -2,11 +2,13 @@
 
 namespace App\Mail\Docs;
 
+use App\Models\parideModels\Client;
 use App\Models\parideModels\Docs\wDocHead;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Log;
 
 class XwToSend extends Mailable
 {
