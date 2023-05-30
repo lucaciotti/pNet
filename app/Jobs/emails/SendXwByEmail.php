@@ -52,20 +52,15 @@ class SendXwByEmail implements ShouldQueue
                 },
                 'destinazioni', 'payType'
             ])->findOrFail($this->id);
-            // $user = User::where('codcli', $ordToSend->id_cli)->first();
-            // $client = Client::find($doc->id_cli);
-            $toEmail = 'pnet@lucaciotti.space';
-            // if ($user) {
-                // $toEmail = $this->setEmailTo($ordToSend->tipo_doc, $client);
-                $filePDFToAttach = $this->createPdfDoc($doc);
-                $fileCSVToAttach = $this->createCsvDoc($doc);
-                $mail = (new XwToSend($filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
-                if (App::environment(['local', 'staging'])) {
-                    Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
-                } else {
-                    Mail::to($toEmail)->bcc(['luca.ciotti@gmail.com'])->queue($mail);
-                }
-            // }
+            $toEmail = 'ordini@ferramentaparide.it';
+            $filePDFToAttach = $this->createPdfDoc($doc);
+            $fileCSVToAttach = $this->createCsvDoc($doc);
+            $mail = (new XwToSend($filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
+            if (App::environment(['local', 'staging'])) {
+                Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+            } else {
+                Mail::to($toEmail)->cc('amministrazione@ferramentaparide.it')->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+            }
         }
     }
 

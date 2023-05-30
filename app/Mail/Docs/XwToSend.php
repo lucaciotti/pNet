@@ -49,7 +49,7 @@ class XwToSend extends Mailable
         $doc = wDocHead::select('id', 'id_cli_for', 'rif_num', 'data')->findOrFail($this->idOrdListed);
         $this->client = Client::find($doc->id_cli_for);
         // $from = 'ordini@ferramentaparide.it';
-        $from = 'pnet@lucaciotti.space';
+        $from = 'ordini@ferramentaparide.it';
         $nameDoc = $this->getNameDoc($doc);
         Log::info('Invio ' . $nameDoc . '');
         return $this->from($from, 'pNet - Ferramenta Paride')
