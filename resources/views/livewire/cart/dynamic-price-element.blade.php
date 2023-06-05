@@ -40,6 +40,28 @@
           </div>
         </div>
         <hr>
+        @if ($quantity2>0)
+            <label>Prezzo per quantità (IVA escl.):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text text-primary text-bold">{{ $quantity2 }} o più {{ $product->um }}</span>
+              </div>
+              <input type="text" class="form-control" readonly name="prezzVend2" style="text-align:right;" wire:model="price2">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $product->um }}</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text text-primary text-bold">{{ $quantity3 }} o più {{ $product->um }}</span>
+              </div>
+              <input type="text" class="form-control" readonly name="prezzVend3" style="text-align:right;" wire:model="price3">
+              <div class="input-group-append">
+                <span class="input-group-text">€ / {{ $product->um }}</span>
+              </div>
+            </div>
+        @endif
+        <hr>
         <label>IVA:</label>
         <div class="input-group">
           <input type="text" class="form-control" readonly name="ivaVend" style="text-align:right;" wire:model="iva"> 

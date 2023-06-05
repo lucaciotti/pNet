@@ -74,7 +74,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="7" style="text-align:right">Total:</th>
+            <th colspan="7" style="text-align:right">Totale:</th>
             <th style="text-align: right;">{{ currency($totMerce) }}</th>
             <th></th>
         </tr>

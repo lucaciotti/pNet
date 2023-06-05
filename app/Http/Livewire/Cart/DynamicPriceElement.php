@@ -21,6 +21,10 @@ class DynamicPriceElement extends Component
     public $product;
     public $quantity = 0;
     public $price = 0;
+    public $quantity2 = 0;
+    public $price2 = 0;
+    public $quantity3 = 0;
+    public $price3 = 0;
     public $iva = 0;
     public $iconRefresh = false;
     public $useDecimal = false;
@@ -46,12 +50,23 @@ class DynamicPriceElement extends Component
         $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : $this->quantity;
         $this->iconRefresh = $cartItem != null ? true : false;
         if ($this->productPage && $this->quantity == 0) {
-            $this->quantity = $this->product->pz_x_conf;
+            $this->quantity = 1;
         }
         $this->iva =  ($this->product->tva) ? $this->product->tva->perc : 0;
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity);
             $this->price = number_format((float)($price), 3, ',', '\'');
+        }
+        #Gestione Prezzo per Quantità
+        if ($this->productPage && $this->product->pz_x_conf > 1) {
+            $this->quantity2 = $this->product->pz_x_conf/2;
+            $this->quantity3 = $this->product->pz_x_conf;
+            if (!empty($this->codCli)) {
+                $price2 = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity2);
+                $this->price2 = number_format((float)($price2), 3, ',', '\'');
+                $price3 = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity3);
+                $this->price3 = number_format((float)($price3), 3, ',', '\'');
+            }
         }
     }
 
