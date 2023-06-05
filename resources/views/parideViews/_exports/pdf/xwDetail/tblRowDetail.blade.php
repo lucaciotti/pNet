@@ -43,8 +43,9 @@
                 </td>
                 <td>
                     @php
-                    $giac = $row->product->maggiac->esistenza;
+                    $giac = ($row->product) ? $row->product->maggiac->esistenza : 0;
                     @endphp
+                    @if ($row->product)
                     <svg height="20" width="20">
                         @if ($row->quantity <= $giac) <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8">
                             <title>{{ $giac }} in Stock</title>
@@ -59,6 +60,7 @@
                             </circle>
                             @endif
                     </svg>
+                    @endif
                 </td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>
