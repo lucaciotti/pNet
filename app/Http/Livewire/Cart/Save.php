@@ -55,6 +55,10 @@ class Save extends Component
             $this->errorMessage = 'Attenzione! Selezionare il Cliente di riferimento per l\'ordine!';
             return;
         }
+        if (empty($tipo_sped)) {
+            $this->errorMessage = 'Attenzione! E\' obbligatorio selezionare una tipologia di spedizione nella schermata precederente!';
+            return;
+        }
         if(!$this->agreement) {
             $this->errorMessage = 'Attenzione! Occorre accettare i "Termini e condizioni"!';
             return;

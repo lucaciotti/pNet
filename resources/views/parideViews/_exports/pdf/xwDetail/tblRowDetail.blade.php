@@ -13,6 +13,7 @@
         <th>Vs.Cod.Interno</th>
         <th>{{ trans('doc.descArt') }}</th>
         <th>{{ trans('doc.quantity_condensed') }}</th>
+        <th>Stock</th>
         <th>{{ trans('doc.unitPrice') }}</th>
         <th>{{ trans('doc.totPrice') }}</th>
         <th>Iva</th>
@@ -38,7 +39,26 @@
                     {{ Illuminate\Support\Str::ucfirst(Illuminate\Support\Str::lower($row->descr)) }}
                 </td>
                 <td style="text-align: center;">
-                    @if ($row->um!='') {{ $row->qtarow }} {{ $row->um }} @endif
+                    @if ($row->product->um!='') {{ $row->quantity }} {{ $row->product->um ?? '' }} @endif
+                </td>
+                <td>
+                    @php
+                    $giac = $row->product->maggiac->esistenza;
+                    @endphp
+                    <svg height="20" width="20">
+                        @if ($row->quantity <= $giac) <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8">
+                            <title>{{ $giac }} in Stock</title>
+                            </circle>
+                            @elseif ($row->quantity > $giac && $giac>0)
+                            <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8">
+                                <title>{{ $giac }} in Stock</title>
+                            </circle>
+                            @else
+                            <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8">
+                                <title>{{ $giac }} in Stock</title>
+                            </circle>
+                            @endif
+                    </svg>
                 </td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ number_format((float)round($row->prezzo,3), 3, ',', '') }} €@endif</td>
                 <td style="text-align: right;">@if ($row->prezzo!=0){{ currency($row->val_riga) }}@endif</td>

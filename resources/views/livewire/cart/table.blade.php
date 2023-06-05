@@ -49,18 +49,21 @@
                             @php
                             $giac = $item->model->maggiac->esistenza;
                             @endphp
-                            @if ($item->quantity < $giac) <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8" />
-                                </svg>
-                                @elseif ($item->quantity > $giac && $giac>0)
-                                <svg height="20" width="20">
-                                    <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8" />
-                                </svg>
-                                @else
-                                <svg height="20" width="20">
-                                    <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8" />
-                                </svg>
-                                @endif
+                            <svg height="20" width="20">
+                            @if ($item->quantity <= $giac) 
+                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
+                            @elseif ($item->quantity > $giac && $giac>0)
+                                <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
+                            @else
+                                <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
+                            @endif
+                            </svg>
                         </td>
                         <td>{{ number_format((float)($item->price), 3, ',', '\'') }} €</td>
                         <td>{{ currency($item->total_price) }}</td>

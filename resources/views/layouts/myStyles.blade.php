@@ -74,3 +74,14 @@
         display: none !important;
     }
 </style>
+
+<style>
+    #btnCartFooter {
+        background-color: #0d91d7;
+        color: white;
+    }
+
+    #btnCartFooter:hover {
+        background-color: #14628c;
+    }
+</style>

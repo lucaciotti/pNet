@@ -10,7 +10,7 @@
         <dt>{{ trans('doc.document') }}</dt>
         <dd>
             <strong>{{$head->descr_tipodoc}}</strong> n°
-            <a href="{{ route('doc::detail', [$tipodoc, $head->id]) }}">
+            <a href="{{ route('cart::docdetail', [$head->id]) }}">
                 <strong>{{$head->id}}</strong>
             </a>
         </dd>

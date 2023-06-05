@@ -15,4 +15,9 @@ class ClientType extends Model
     public $incrementing = false;
     protected $connection = 'pNet_DATA';
 
+    public function getDescrAttribute($value)
+    {
+        return str_replace('30','',$value);
+    }
+
 }

@@ -66,7 +66,7 @@ class Client extends Model
 
     public function typeCli()
     {
-        return $this->hasOne('App\Models\parideModels\ClientType', 'id_tipo_cl', 'id_tipo_cl');
+        return $this->hasOne('App\Models\parideModels\ClientType', 'id_tipo_cl', 'id_tipo_cli');
     }
 
     public function destinazioni()

@@ -5,6 +5,7 @@
         <select class="form-control select2 livewireSelect2" id="tipo_doc" style="width: 100%;" placeholder="Codice Cliente" wire:model.lazy="tipo_doc">
             <option value=""></option>
             <option value="XC">Preventivo / Offerta</option>
+            <option value="XW">Ordine WEB</option>
             <option value="OC">Ordine</option>
             <option value="BO">DDT</option>
             <option value="FT">Fattura Accompagnatoria</option>

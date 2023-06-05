@@ -44,14 +44,23 @@ class AddElement extends Component
     public function render()
     {
         $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
+        if($this->product->non_attivo) $this->importfromDoc = true; 
         return view('livewire.cart.add-element');
     }
 
-    // public function hydrate(){
-    //     return;
-    // }
+    public function updatedQuantity(){
+        if ($this->quantity<0){
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+        }
+    }
 
     public function addToCart(){
+        if ($this->quantity <= 0) {
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+            return;
+        }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
         $shipdate = Cart::getExtraInfo('order.dhipdate', Carbon::now());
         if (!empty($this->codCli)) {

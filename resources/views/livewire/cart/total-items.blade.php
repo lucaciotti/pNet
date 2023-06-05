@@ -7,7 +7,7 @@
         @endphp
         <tr>
             <th colspan="2" class="text-center bg-primary">
-                Manca un valore di {{ currency($value) }} a porto franco
+                Manca un valore di {{ currency($value) }} a minimo d'ordine
             </th>
         </tr>
     @endif

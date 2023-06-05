@@ -13,7 +13,7 @@
         <label>Aggiungi al carrello:</label>
         <div class="d-md-flex justify-content-between" wire:ignore>
             <div class="input-group input-group-sm">
-                <input type="number" class="form-control" style="text-align:right;" wire:model="quantity" @if($useDecimal)
+                <input type="number" class="form-control" style="text-align:right;" wire:model="quantity" min="0" @if($useDecimal)
                     step='0.01' @else step="1" @endif @if($importfromDoc) disabled @endif wire:keydown.enter="addToCart"
                     wire:keydown.tab="addToCart">
                 

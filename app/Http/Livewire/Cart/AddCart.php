@@ -110,6 +110,7 @@ class AddCart extends Component
     {
         $this->listArts = Product::select('id_art', 'descr')
                                 ->where('id_art', 'like', $this->idArt . '%')
+                                ->where('non_attivo', 0)
                                 ->orWhere('id_cod_bar', 'like', $this->idArt . '%')
                                 ->orWhere('id_cod_for', 'like', $this->idArt . '%')
                                 ->orWhereHas('barcodes', function ($query) {
@@ -124,7 +125,9 @@ class AddCart extends Component
             return;
         }
         $searchStr = $this->skuCustom;
-        $this->listCustomCodes = Product::select('id_art', 'descr')->whereHas('skuCustomCode', function ($query) use ($searchStr) {
+        $this->listCustomCodes = Product::select('id_art', 'descr')
+                                ->where('non_attivo', 0)
+                                ->whereHas('skuCustomCode', function ($query) use ($searchStr) {
                                     $query->where('sku_code', 'like', $searchStr . '%');
                                 })->get()->toArray();
     }
@@ -134,7 +137,9 @@ class AddCart extends Component
             $this->reset(['listArts', 'listCustomCodes', 'listDescrArts', 'listProducts']);
             return;
         }
-        $this->listDescrArts = Product::select('id_art', 'descr')->whereRaw('upper(descr) like (?)',["%{$this->descrArt}%"])->get()->toArray();
+        $this->listDescrArts = Product::select('id_art', 'descr')
+                                        ->where('non_attivo', 0)
+                                        ->whereRaw('upper(descr) like (?)',["%{$this->descrArt}%"])->get()->toArray();
     }
 
     public function toogleSearch(){
@@ -163,6 +168,11 @@ class AddCart extends Component
     }
 
     public function updatedQuantity(){
+        if ($this->quantity < 0) {
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+            return;
+        }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
         $this->shipdate = Cart::getExtraInfo('order.dhipdate');
         if (!empty($this->codCli)) {
@@ -173,6 +183,11 @@ class AddCart extends Component
     }
 
     public function addToCart(){
+        if ($this->quantity <= 0) {
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+            return;
+        }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
         Cart::setExtraInfo('price.customer', $this->codCli);
         $product = $this->art;

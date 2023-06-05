@@ -40,8 +40,8 @@
                         @foreach ($price_lists as $price)
                         <tr>
                             <td>{{ $price->typeCli->descr ?? '' }}</td>
-                            <td>{{ $price->cliente->rag_soc ?? '' }}</td>
-                            <td>{{ $price->grpProd->descr }}</td>
+                            <td>{{ $price->id_cli_for ?? '' }} - {{ $price->cliente->rag_soc ?? '' }}</td>
+                            <td>{{ $price->id_fam}} - {{ $price->grpProd->descr }}</td>
                             <td>L-{{ $price->listino }}</td>
                             <td>{{ $price->extrasconto }}</td>
                             <td>{{ $price->start_date->format('d/m/Y') }}</td>

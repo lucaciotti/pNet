@@ -40,6 +40,6 @@
             @endif
         @endforeach
         
-        <a href="{{ route('cart::index') }}" class="dropdown-item dropdown-footer">Emetti Ordine</a>
+        <a href="{{ route('cart::index') }}" id="btnCartFooter" class="dropdown-item dropdown-footer ">Emetti Ordine</a>
     </div>
 </li>

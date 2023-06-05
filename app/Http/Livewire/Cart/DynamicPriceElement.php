@@ -58,10 +58,16 @@ class DynamicPriceElement extends Component
     public function render()
     {
         $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
+        if ($this->product->non_attivo) $this->importfromDoc = true;         
         return view('livewire.cart.dynamic-price-element');
     }
 
-    public function updatedQuantity(){
+    public function updatedQuantity() {
+        if ($this->quantity < 0) {
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+        }
+    
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity);
             $this->price = number_format((float)($price), 3, ',', '\'');
@@ -70,6 +76,11 @@ class DynamicPriceElement extends Component
 
     public function addToCart()
     {
+        if ($this->quantity <= 0) {
+            $this->quantity = 0;
+            $this->emit('quantityGtThan0');
+            return;
+        }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
         $shipdate = Cart::getExtraInfo('order.dhipdate', Carbon::now());
         if (!empty($this->codCli)) {

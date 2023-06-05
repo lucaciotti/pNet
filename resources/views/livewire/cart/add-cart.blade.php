@@ -179,32 +179,35 @@
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input type="number" class="form-control" style="text-align:right;" @if($useDecimal) step='0.01' @else step="1" @endif wire:model="quantity">
+                            <input type="number" class="form-control" style="text-align:right;" min="0" @if($useDecimal) step='0.01' @else step="1" @endif wire:model="quantity">
                         </div>
                         @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
                     </td>
                     <td>
                         @if ($art)
-                        @php
-                        $giac = $art->maggiac->esistenza;
-                        @endphp
-                        @if ($quantity < $giac) <svg height="20" width="20">
-                            <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8" />
-                            </svg>
+                            @php
+                            $giac = $art->maggiac->esistenza;
+                            @endphp
+                            <svg height="20" width="20">
+                            @if ($quantity <= $giac) 
+                                <circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
                             @elseif ($quantity > $giac && $giac>0)
-                            <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8" />
-                            </svg>
+                                <circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
                             @else
-                            <svg height="20" width="20">
-                                <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8" />
+                                <circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8">
+                                    <title>{{ $giac }} in Stock</title>
+                                </circle>
+                            @endif
                             </svg>
-                            @endif
-                            @endif
+                        @endif
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input type="etx" class="form-control" style="text-align:right;" readonly wire:model.lazy="price">
+                            <input type="text" class="form-control" style="text-align:right;" readonly wire:model.lazy="price">
                         </div>
                     </td>
                     <td>

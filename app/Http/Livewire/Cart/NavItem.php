@@ -18,7 +18,8 @@ class NavItem extends Component
     // protected $listeners = ['cart.item.added' => 'render'];
     protected $listeners = [
         'cart_updated' => 'updated',
-        'cart_saved' => 'saved'
+        'cart_saved' => 'saved',
+        'quantityGtThan0' => 'quantityGtThan0'
     ];
     
 
@@ -35,7 +36,7 @@ class NavItem extends Component
 
     public function updated(){
         $this->alert('info', 'Carrello Aggiornato!', [
-            'position' =>  'top-end',
+            'position' =>  'bottom-end',
             // 'padding' => '10px',
             'timer' =>  3000,
             'toast' =>  true,
@@ -48,7 +49,21 @@ class NavItem extends Component
 
     public function saved(){
         $this->alert('info', 'Ordine Salvato con Successo!', [
-            'position' =>  'top-end',
+            'position' =>  'bottom-end',
+            // 'padding' => '10px',
+            'timer' =>  3000,
+            'toast' =>  true,
+            'cancelButtonText' =>  'Cancel',
+            'showCancelButton' =>  false,
+            'showConfirmButton' =>  false,
+        ]);
+        $this->render();
+    }
+
+    public function quantityGtThan0()
+    {
+        $this->alert('error', 'La quantità deve essere maggiore di 0!', [
+            'position' =>  'bottom-end',
             // 'padding' => '10px',
             'timer' =>  3000,
             'toast' =>  true,
