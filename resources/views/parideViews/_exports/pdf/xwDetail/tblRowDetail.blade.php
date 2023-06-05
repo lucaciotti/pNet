@@ -39,7 +39,7 @@
                     {{ Illuminate\Support\Str::ucfirst(Illuminate\Support\Str::lower($row->descr)) }}
                 </td>
                 <td style="text-align: center;">
-                    @if ($row->product->um!='') {{ $row->quantity }} {{ $row->product->um ?? '' }} @endif
+                    @if ($row->product) {{ $row->quantity }} {{ $row->product->um ?? '' }} @endif
                 </td>
                 <td>
                     @php
