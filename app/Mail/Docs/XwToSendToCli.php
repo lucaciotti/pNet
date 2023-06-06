@@ -30,9 +30,10 @@ class XwToSend extends Mailable
      *
      * @return void
      */
-    public function __construct($filePDFToAttach, $fileCSVToAttach, $idOrdListed)
+    public function __construct($idUser, $filePDFToAttach, $fileCSVToAttach, $idOrdListed)
     {
         $this->idOrdListed = $idOrdListed;
+        $this->user = User::findOrFail($idUser);
         Log::info('Email file PDF Attached: ' . $filePDFToAttach);
         Log::info('Email file CSV Attached: ' . $fileCSVToAttach);
         $this->filePDFToAttach = $filePDFToAttach;
@@ -55,10 +56,10 @@ class XwToSend extends Mailable
         // $from = 'ordini@ferramentaparide.it';
         $from = 'ordini@ferramentaparide.it';
         $nameDoc = $this->getNameDoc($this->doc);
-        Log::info('Invio ' . $nameDoc . '- Mail interna');
+        Log::info('Invio ' . $nameDoc . ' - ' . $this->user->name);
         return $this->from($from, 'pNet - Ferramenta Paride')
-                    ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
-                    ->markdown('parideViews._emails.docs.xwToSend')
+                    ->subject('Invio Pre ' . $nameDoc . ' - Ferramenta Paride')
+                    ->markdown('parideViews._emails.docs.xwToSendToCli')
                     ->attach($this->filePDFToAttach)
                     ->attach($this->fileCSVToAttach);
         // return $this->view('view.name');

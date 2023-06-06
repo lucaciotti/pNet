@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Cart;
 
 use App\Jobs\emails\SendXwByEmail;
+use App\Jobs\emails\SendXwByEmailToCli;
 use DB;
 use Livewire\Component;
 use Jackiedo\Cart\Facades\Cart;
@@ -115,6 +116,7 @@ class Save extends Component
                     }
                 }
                 SendXwByEmail::dispatch($head->id)->onQueue('emails');
+                SendXwByEmailToCli::dispatch($head->id)->onQueue('emails');
             });
         } catch (\Throwable $th) {
             $this->errorMessage = $th->getMessage();

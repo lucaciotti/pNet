@@ -252,4 +252,11 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function sendXWToClient(Request $req, $id)
+    {
+        SendXwByEmailToCli::dispatch($id)->onQueue('emails');
+
+        return redirect()->back();
+    }
 }
