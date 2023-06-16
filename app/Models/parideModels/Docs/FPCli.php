@@ -76,6 +76,8 @@ class FPCli extends Model
     public function getEvaso(){
         $n_rows = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->count();
         $n_rows_eva = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->whereColumn('qta_eva', 'qta_ord')->count();
+        $n_rows_eva_error = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->whereColumn('qta_eva', '>', 'qta_ord')->count();
+        $n_rows_eva = $n_rows_eva + $n_rows_eva_error;
         $n_rows_part_eva = $this->rows()->where('id_art', '!=', '')->where('id_art', '!=', 0)->where('qta_eva', '>', '0')->whereColumn('qta_eva', '<', 'qta_ord')->count();
         if ($n_rows==$n_rows_eva){
             #evaso
