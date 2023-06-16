@@ -60,6 +60,7 @@ class DynamicPriceElement extends Component
         #Gestione Prezzo per Quantità
         if ($this->productPage && $this->product->pz_x_conf > 1) {
             $this->quantity2 = $this->product->pz_x_conf/2;
+            if(!$this->useDecimal && is_float($this->quantity2)) $this->quantity2 = ceil($this->quantity2);
             $this->quantity3 = $this->product->pz_x_conf;
             if (!empty($this->codCli)) {
                 $price2 = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity2);
