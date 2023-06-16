@@ -55,9 +55,11 @@ class SendXwByEmail implements ShouldQueue
             $toEmail = 'ordini@ferramentaparide.it';
             $filePDFToAttach = $this->createPdfDoc($doc);
             $fileCSVToAttach = $this->createCsvDoc($doc);
+            // $filePDFToAttach = $fileCSVToAttach;
             $mail = (new XwToSend($filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
             if (App::environment(['local', 'staging'])) {
                 Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                // Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
             } else {
                 Mail::to($toEmail)->cc('amministrazione@ferramentaparide.it')->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
             }

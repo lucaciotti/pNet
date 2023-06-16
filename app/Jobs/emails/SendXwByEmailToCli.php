@@ -19,7 +19,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use App\Mail\Docs\XwToSendToCli;
 use App\Models\parideModels\Docs\wDocHead;
 
-class SendOneDocListedByEmail implements ShouldQueue
+class SendXwByEmailToCli implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -59,11 +59,13 @@ class SendOneDocListedByEmail implements ShouldQueue
             $toEmail = 'pnet@lucaciotti.space';
             $filePDFToAttach = $this->createPdfDoc($doc);
             $fileCSVToAttach = $this->createCsvDoc($doc);
+            // $filePDFToAttach = $fileCSVToAttach;
             if ($user) {
                 $toEmail = $client->e_mail;
                 $mail = (new XwToSendToCli($user->id, $filePDFToAttach, $fileCSVToAttach, $doc->id))->onQueue('emails');
                 if (App::environment(['local', 'staging'])) {
                     Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                    // Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
                 } else {
                     Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 }

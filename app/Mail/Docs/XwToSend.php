@@ -2,6 +2,7 @@
 
 namespace App\Mail\Docs;
 
+use App;
 use App\Models\parideModels\Client;
 use App\Models\parideModels\Docs\wDocHead;
 use Illuminate\Bus\Queueable;
@@ -53,7 +54,11 @@ class XwToSend extends Mailable
         $this->client = Client::find($this->doc->id_cli_for);
         $this->urlClient = route("client::detail", $this->doc->id_cli_for);
         // $from = 'ordini@ferramentaparide.it';
-        $from = 'ordini@ferramentaparide.it';
+        if (App::environment(['local', 'staging'])) {
+            $from = 'pnet@lucaciotti.space';
+        } else {
+            $from = 'ordini@ferramentaparide.it';
+        }
         $nameDoc = $this->getNameDoc($this->doc);
         Log::info('Invio ' . $nameDoc . '- Mail interna');
         return $this->from($from, 'pNet - Ferramenta Paride')

@@ -2,15 +2,17 @@
 
 namespace App\Mail\Docs;
 
+use App;
 use App\Models\parideModels\Client;
 use App\Models\parideModels\Docs\wDocHead;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Log;
 
-class XwToSend extends Mailable
+class XwToSendToCli extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -54,7 +56,11 @@ class XwToSend extends Mailable
         $this->client = Client::find($this->doc->id_cli_for);
         $this->urlClient = route("client::detail", $this->doc->id_cli_for);
         // $from = 'ordini@ferramentaparide.it';
-        $from = 'ordini@ferramentaparide.it';
+        if (App::environment(['local', 'staging'])) {
+            $from = 'pnet@lucaciotti.space';
+        } else {
+            $from = 'ordini@ferramentaparide.it';
+        }
         $nameDoc = $this->getNameDoc($this->doc);
         Log::info('Invio ' . $nameDoc . ' - ' . $this->user->name);
         return $this->from($from, 'pNet - Ferramenta Paride')

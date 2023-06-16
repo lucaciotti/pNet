@@ -5,6 +5,7 @@ namespace App\Http\Controllers\parideCtrl;
 use App\Helpers\PdfReport;
 use App\Http\Controllers\Controller;
 use App\Jobs\emails\SendXwByEmail;
+use App\Jobs\emails\SendXwByEmailToCli;
 use Illuminate\Http\Request;
 use Jackiedo\Cart\Facades\Cart;
 use Carbon\Carbon;
