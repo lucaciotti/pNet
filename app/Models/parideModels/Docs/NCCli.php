@@ -106,6 +106,11 @@ class NCCli extends Model
     
     public function vettore()
     {
-        return ;
+        return $this->hasOne('App\Models\parideModels\Vettori', 'id_vet', 'id_vet');
+    }
+
+    public function colliDetailed()
+    {
+        return $this->hasMany('App\Models\parideModels\Colli', 'id_doc_tes', 'id_doc_tes');
     }
 }
