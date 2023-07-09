@@ -1,5 +1,5 @@
 
-  <table class="table table-hover table-condensed dtTbls_total">
+  <table class="table table-hover table-condensed dtTbls_ordWeb">
     <thead>
       <th>{{ trans('doc.#Row') }}</th>
       <th>{{ trans('doc.codeArt') }}</th>
@@ -34,6 +34,12 @@
         </tr>
       @endforeach
     </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5" style="text-align:right">{{ trans('doc.totMerce') }}:</th>
+        <th></th>
+      </tr>
+    </tfoot>
     
   </table>
 

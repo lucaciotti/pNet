@@ -303,7 +303,7 @@
 @endpush
 
 @push('js')
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#addCart').DataTable({
             "paging": false,
@@ -408,5 +408,5 @@
         return;
         }
     });
-</script>
+</script> --}}
 @endpush

@@ -335,6 +335,87 @@
         }
       }
     });
+    
+    $('.dtTbls_ordWeb').DataTable({
+      "iDisplayLength": 15,
+      "paging": true,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "aaSorting": [],
+      "footerCallback": function ( row, data, start, end, display ) {
+          var api = this.api(), data;
+
+          // Remove the formatting to get integer data for summation
+          var intVal = function ( i ) {
+              return typeof i === 'string' ?
+                  (i.includes("€") ? i.replace(",", ".").replace(" €", "").replace(/[\$,]/g, '')*1 : i.replace(/[\$,]/g, '')*1) :
+                  typeof i === 'number' ?
+                      i : 0;
+          };
+
+          // Total over all pages
+          total = api
+              .column( 5 )
+              .data()
+              .reduce( function (a, b) {
+                  return intVal(a) + intVal(b);
+              }, 0 );
+
+          // Total over this page
+          pageTotal = api
+              .column( 5, { page: 'current'} )
+              .data()
+              .reduce( function (a, b) {
+                  return intVal(a) + intVal(b);
+              }, 0 );
+
+          // Update footer
+          console.log(pageTotal);
+          if(api.page.info().page == api.page.info().pages-1){
+            $( api.column( 5 ).footer() ).html(
+                total.toFixed(2) +' €'//+' ['+ total +' € Tot.Doc.]'
+            );
+          } else {
+            $( api.column( 5 ).footer() ).html(
+                "<i class='fa fa-arrow-right'> Ultima Pagina</i> "
+            );
+          }
+      },
+      "responsive": true,
+        "columnDefs": [
+        { "responsivePriority": 1, "targets": 0 },
+        { "responsivePriority": 2, "targets": 1 },
+        { "responsivePriority": 3, "targets": -1 }
+        ],
+      "language": {
+        "lengthMenu": "Mostra _MENU_ righe per pagina",
+        "zeroRecords": "Nessuna corrispondenza trovata",
+        "info": "Pagina _PAGE_ di _PAGES_",
+        "infoEmpty": "Nessuna riga trovata",
+        "infoFiltered": "(filtrato da _MAX_ righe totali)",
+        "decimal":        "",
+        "emptyTable":     "Nessun dato disponibile nella tabella",
+        "infoPostFix":    "",
+        "thousands":      ".",
+        "loadingRecords": "Caricamento...",
+        "processing":     "Processamento...",
+        "search":         "Ricerca:",
+        "paginate": {
+            "first":      "Primo",
+            "last":       "Ultimo",
+            "next":       "Prossima",
+            "previous":   "Precedente"
+        },
+        "aria": {
+            "sortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+            "sortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+        }
+      }
+    });
+    
     $('.dtTbls_statAbc').DataTable({
         "iDisplayLength": 25,
         "paging": true,

@@ -50,45 +50,6 @@
     </div>
 </div>
 
-
-<style>
-
-    .myListGroup {
-      max-height: 400px;
-      margin-bottom: 10px;
-      overflow-y:scroll;
-      -webkit-overflow-scrolling: touch;
-    }
-    .mySearchResults {
-        position: absolute;
-        width: 500px;
-        overflow-y: auto;
-        /* background: white; */
-        /* border-bottom-left-radius: 10px; */
-        /* border-bottom-right-radius: 10px; */
-        /* max-height: 200px; */
-        /* border: 1px solid gray; */
-        /*This is relative to the navbar now*/
-        /* left: 0;
-        right: 0;
-        top: 40px; */
-    }
-    @media screen and (max-width: 500px) {
-      .mySearchResults {
-      width: auto;
-      }
-    }
-    .mySearchResults a:link,a:visited,a:hover,a:active {
-        color:#000;
-    }
-    .mySearchResults a:hover,a:active {
-        background-color: lightblue;
-    }
-    .mySearchHighlight {
-        background-color: lightblue;
-    }
-</style>
-
 @push('js')
 <script>
     document.addEventListener("click", function(evt) {

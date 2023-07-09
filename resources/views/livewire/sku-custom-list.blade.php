@@ -33,6 +33,6 @@
     <span class="text-warning" wire:loading wire:target="delete">
         Cancellazione Valore...
     </span>
+    
+    @include('parideViews.prods.modals.skuCliForm')
 </div>
-
-@include('parideViews.prods.modals.skuCliForm')
