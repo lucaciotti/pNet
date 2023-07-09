@@ -22,9 +22,11 @@ class AddClientinfo extends Component
     public $listCli = [];
     
     protected $rules = [
+        'idOrd' => 'max:16',
         'codCli' => 'required',
     ];
     protected $messages = [
+        'idOrd.max' => 'Riferimento Ordine deve essere massimo di 16 caratteri!',
         'codCli.required' => 'E\' obbligatorio selezionare il cliente prima di continuare!',
     ];
 
@@ -60,6 +62,7 @@ class AddClientinfo extends Component
 
     public function updatedIdOrd()
     {
+        $this->validate();
         Cart::setExtraInfo('order.id', $this->idOrd);
     }
 
