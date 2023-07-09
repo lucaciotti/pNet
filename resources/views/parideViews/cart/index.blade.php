@@ -88,39 +88,43 @@
                             <div class="col-md-4">
                                 @include('parideViews.cart.partials.modalCsv')
                                 <br>
-                                <table border=1 frame=void rules=rows width='100%'>
-                                    <col width='10%'>
-                                    <col>
-                                    <tr>
-                                        <th colspan="2" class="text-center bg-primary">
-                                            Legenda colonna Stock
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8"/></svg>                                                
-                                        </th>
-                                        <td>
-                                            Articolo <u>disponibile</u> a magazzino nella quantità richiesta
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8"/></svg>                                                
-                                        </th>
-                                        <td>
-                                            Articolo <u>parzialmente disponibile</u> a magazzino
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8"/></svg>                                                
-                                        </th>
-                                        <td>
-                                            Articolo <u>non disponibile</u> a magazzino o con giacenza <u>da verificare</u>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="card card-default">
+                                    <div class="card-body ">
+                                        <table border=1 frame=void rules=rows width='100%'>
+                                            <col width='10%'>
+                                            <col>
+                                            <tr>
+                                                <th colspan="2" class="text-center bg-primary">
+                                                    Legenda colonna Stock
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="green" style="opacity:0.8"/></svg>                                                
+                                                </th>
+                                                <td>
+                                                    Articolo <u>disponibile</u> a magazzino nella quantità richiesta
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="orange" style="opacity:0.8"/></svg>                                                
+                                                </th>
+                                                <td>
+                                                    Articolo <u>parzialmente disponibile</u> a magazzino
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <svg height="20" width="20"><circle cx="10" cy="10" r="8" fill="red" style="opacity:0.8"/></svg>                                                
+                                                </th>
+                                                <td>
+                                                    Articolo <u>non disponibile</u> a magazzino o con giacenza <u>da verificare</u>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                                 <br>
                             </div>
                             <div class="col-md-4">

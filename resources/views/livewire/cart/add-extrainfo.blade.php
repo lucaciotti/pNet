@@ -31,7 +31,7 @@
             <textarea class="form-control" rows="5" placeholder="Inserisci qui commenti sul tuo ordine, Destinazioni diverse, Istruzioni sulla consegna, ..." id="note" wire:model.lazy="note"></textarea>
             @error('note') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        @if (!empty($destSelected))
+        {{-- @if (!empty($destSelected)) --}}
         <div class="row col-md-6 d-flex justify-content-center pt-10 pl-0">
             <div class="form-group col-md-12 pl-0" style="margin-bottom:5px;" @disabled(empty($codCli))>
                 <label for="idDest">Destinazione Finale Merce</label>
@@ -50,18 +50,18 @@
                     {{-- <h5 class="card-title">Destinazione finale</h5> --}}
                     <p class="card-text">
                         <dl class="dl-horizontal">
-                            <dt>{{ $destSelected->rag_soc }}</dt>
+                            <dt>{{ $destSelected->rag_soc ?? '' }}</dt>
                             <dd>
-                                {{ $destSelected->indirizzo }}
+                                {{ $destSelected->indirizzo ?? '' }}
                                 <br>
-                                {{ $destSelected->cap }}, {{ $destSelected->citta }} [{{ $destSelected->provincia }}]
+                                {{ $destSelected->cap ?? '' }}, {{ $destSelected->citta ?? '' }} [{{ $destSelected->provincia ?? '' }}]
                             </dd>
                         </dl>
                     </p>
                 </div>
             </div>
         </div>
-        @endif
+        {{-- @endif --}}
 
     </div>
 </div>
