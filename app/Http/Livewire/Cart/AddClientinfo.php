@@ -22,7 +22,7 @@ class AddClientinfo extends Component
     public $listCli = [];
     
     protected $rules = [
-        'idOrd' => 'max:16',
+        // 'idOrd' => 'max:16',
         'codCli' => 'required',
     ];
     protected $messages = [
