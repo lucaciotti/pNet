@@ -62,7 +62,6 @@ class AddClientinfo extends Component
 
     public function updatedIdOrd()
     {
-        $this->validate();
         Cart::setExtraInfo('order.id', $this->idOrd);
     }
 
