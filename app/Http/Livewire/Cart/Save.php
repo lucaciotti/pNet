@@ -74,7 +74,7 @@ class Save extends Component
                     'data_eva' => $shipdate,
                     'id_pag' => $id_pag,
                     'tipo_sped' => $tipo_sped,
-                    'id_dest_pro' => $idDest,
+                    'id_dest_pro' => ($idDest!='' ? $idDest : 0),
                     'note' => $note,
                     'tot_imp' => $cartDetails->get('taxable_amount'),
                     'tot_iva' => $cartDetails->get('tax_amount'),
