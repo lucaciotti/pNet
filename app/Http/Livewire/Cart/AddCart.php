@@ -150,7 +150,7 @@ class AddCart extends Component
     public function selectedArt($id_art){
         $this->reset();
         $this->codCli = Cart::getExtraInfo('customer.code', '');
-        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        $this->shipdate = Cart::getExtraInfo('order.shipdate');
         $this->art =  Product::where('id_art', $id_art)->first();
         $this->idArt = $this->art->id_art;
         $this->descrArt = $this->art->descr;
@@ -174,7 +174,7 @@ class AddCart extends Component
             return;
         }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
-        $this->shipdate = Cart::getExtraInfo('order.dhipdate');
+        $this->shipdate = Cart::getExtraInfo('order.shipdate');
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
             $this->price = number_format((float)($price), 3, ',', '\'');

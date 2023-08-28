@@ -59,7 +59,7 @@ class ImportCsv extends Component
         $this->validate();
         $this->path = $this->file->store('csv_import');
         $codCli = Cart::getExtraInfo('customer.code', '');
-        $shipdate = Cart::getExtraInfo('order.dhipdate', Carbon::now());
+        $shipdate = Cart::getExtraInfo('order.shipdate', Carbon::now());
         $row = 0;
         if (($handle = fopen(storage_path('app/' . $this->path), "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {

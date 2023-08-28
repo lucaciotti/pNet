@@ -98,7 +98,7 @@ class DynamicPriceElement extends Component
             return;
         }
         $this->codCli = Cart::getExtraInfo('customer.code', '');
-        $shipdate = Cart::getExtraInfo('order.dhipdate', Carbon::now());
+        $shipdate = Cart::getExtraInfo('order.shipdate', Carbon::now());
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->product->id_art, $this->quantity, $shipdate);
         } else {
