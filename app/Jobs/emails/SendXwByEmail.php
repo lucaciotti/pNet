@@ -61,7 +61,9 @@ class SendXwByEmail implements ShouldQueue
                 Mail::to('pnet@lucaciotti.space')->cc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
                 // Mail::to('pnet@lucaciotti.space')->cc(['luca.ciotti@gmail.com'])->queue($mail);
             } else {
-                Mail::to($toEmail)->cc('amministrazione@ferramentaparide.it')->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                // Mail::to($toEmail)->cc('amministrazione@ferramentaparide.it')->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
+                //  28/08 Togliamo mail amministrazione da invio
+                Mail::to($toEmail)->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])->queue($mail);
             }
         }
     }
