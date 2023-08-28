@@ -58,7 +58,7 @@
             <dl class="dl-horizontal">
                 <dt>Collo n°{{ $colli->num }}</dt>
                 <dd>
-                    {{$colli->lung}}x{{$colli->larg}}@if($colli->alte>0)x{{$colli->alte}}@endif mm
+                    {{$colli->lung}}x{{$colli->larg}}@if($colli->alte>0)x{{$colli->alte}}@endif cm
                     @if($colli->peso>0)
                     <br>{{ trans('doc.weightGross') }}: {{$colli->peso}} Kg
                     @endif
