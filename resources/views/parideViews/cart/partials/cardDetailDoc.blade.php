@@ -55,7 +55,7 @@
                     <dd>{{$head->data_eva->format('d/m/Y') }}</dd>
                 </dl>
 
-                @if($head->destinazioni)
+                @if($head->id_dest_pro!=0 && $head->destinazioni)
                 <hr>
                 <dl class="dl-horizontal">
                     <dt>Ragione Sociale - Destinazione Merce</dt>

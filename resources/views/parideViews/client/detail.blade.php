@@ -43,7 +43,7 @@
               <dd>{{$client->id_cli_for}}</dd>
 
               <dt>Tipo Cliente</dt>
-              @if ($client->typeCli)
+              @if ($client->id_tipo_cli!=0 && $client->typeCli)
               <dd>{{$client->typeCli->descr}}</dd>
               @else
               <dd> - </dd>

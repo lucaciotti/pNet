@@ -1,5 +1,5 @@
 <span class="floatleft">
-    @if($head->destinazioni)
+    @if($head->id_dest_pro!=0 && $head->destinazioni)
     <span class="contentSubTitle">Destinazione Merce</span>
     <dl class="dl-horizontal">
         <dt>Ragione Sociale</dt>
