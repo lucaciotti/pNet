@@ -151,7 +151,7 @@ class PrivacyPolicyController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('user_id', 'user_name', 'id_cli_for', 'rag_soc', 'email_principale', 'name', 'surname', 'privacy_agreement', 'marketing_agreement', 'date_agreement');
+        $columns = array('user_id', 'user_name', 'id_cli_for', 'rag_soc', 'email_principale', 'tipo_cliente', 'name', 'surname', 'privacy_agreement', 'marketing_agreement', 'date_agreement');
 
         $callback = function () use ($privacyAgree, $columns) {
             $file = fopen('php://output', 'w');
@@ -164,6 +164,7 @@ class PrivacyPolicyController extends Controller
                 $row['rag_soc'] = ($userAgree->user->client ? $userAgree->user->client->rag_soc : '' );
                 $row['email_principale'] = ($userAgree->user->client ? $userAgree->user->client->e_mail : '');
 
+                $row['tipo_cliente'] = ($userAgree->user->client ? ($userAgree->user->client->typeCli? $userAgree->user->client->typeCli->descr : '') : '');
                 $row['name']  = $userAgree->name;
                 $row['surname']  = $userAgree->surname;
                 $row['privacy_agreement']  = $userAgree->privacy_agreement;
@@ -178,6 +179,7 @@ class PrivacyPolicyController extends Controller
                         $row['id_cli_for'],
                         $row['rag_soc'],
                         $row['email_principale'],
+                        $row['tipo_cliente'],
                         $row['name'],
                         $row['surname'],
                         $row['privacy_agreement'],
