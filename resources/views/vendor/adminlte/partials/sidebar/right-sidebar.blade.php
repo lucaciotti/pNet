@@ -69,6 +69,12 @@
                                 <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Price Manager
                             </button>
                         </a>
+                        <hr class="mb-2 bg-white">
+                        <a href='{{ url('matriceprezzi') }}'>
+                            <button type="submit" class="btn btn-block btn-outline-light">
+                                <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Matrice Prezzi
+                            </button>
+                        </a>
                     </div>
 
                 </div>

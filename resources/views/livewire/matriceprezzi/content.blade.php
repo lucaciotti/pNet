@@ -1,20 +1,10 @@
 <div class="row d-flex justify-content-start" wire:init="readyToLoad">
-    <div class="col-lg-8">
-        <div class="card" wire:ignore>
-            <div class="card-body">
-                <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-priceMngr_0" onclick="Livewire.emit('openModalPriceMngrForm', 0)">
-                    Inserisci Nuova Regola Prezzo
-                </button>
-                @include('parideViews.priceManager.modalForm', ['idPrice' => 0])
-            </div>
-        </div>
-    </div>
     
     <div class="col-lg-8">
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Lista Regole di Prezzo</h3>
+                <h3 class="card-title">Matrice Prezzi</h3>
         
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -30,25 +20,24 @@
                         <th>Tipo Cliente</th>
                         <th>Cliente</th>
                         <th>Famiglia Prd.</th>
+                        <th>Cod.Prd.</th>
                         <th>Listino Rif.</th>
                         <th>Sconto %</th>
                         <th>Data Inizio</th>
                         <th>Data Fine</th>
-                        <th></th>
                     </thead>
                     <tbody>
                         @foreach ($price_lists as $price)
                         <tr>
                             <td>{{ $price->typeCli->descr ?? '' }}</td>
                             <td>{{ $price->id_cli_for ?? '' }} - {{ $price->cliente->rag_soc ?? '' }}</td>
-                            <td>{{ $price->id_fam}} - {{ $price->grpProd->descr ?? 'ATTENZIONE - FAMIGLIA CANCELLATA' }}</td>
-                            <td>L-{{ $price->listino }}</td>
-                            <td>{{ $price->extrasconto }}</td>
-                            <td>{{ $price->start_date->format('d/m/Y') }}</td>
-                            <td>{{ $price->end_date->format('d/m/Y') }}</td>
+                            <td>{{ $price->id_fam }} - {{ $price->grpProd->descr ?? 'ATTENZIONE - FAMIGLIA CANCELLATA' }}</td>
+                            <td>@if ($price->id_art>0){{ $price->id_art }}@else - @endif</td>
+                            <td>L-{{ $price->id_lis }}</td>
+                            <td>{{ $price->sconto }}</td>
+                            <td>{{ $price->da_data->format('d/m/Y') }}</td>
+                            <td>{{ $price->a_data->format('d/m/Y') }}</td>
                             {{-- <td>@include('parideViews.docNotes.modalForm', ['idNote' => $note->id])</td> --}}
-                            <td><button class="btn btn-sm btn-default" wire:click="delete('{{ $price->id }}')"
-                                    wire:loading.attr="disabled"><i class="fa fa-trash fa-lg text-danger"></i></button></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -181,7 +170,7 @@
     document.addEventListener("livewire:load", () => {
         Livewire.hook('message.sent', (message, component) => {
             console.log(message.component.fingerprint.name);
-            if(message.component.fingerprint.name=='pricemanager.content'){
+            if(message.component.fingerprint.name=='matriceprezzi.content'){
                 if ( $.fn.dataTable.isDataTable( '#listPriceMngr' ) ) {
                     table = $('#listPriceMngr').DataTable();
                     table.clear().destroy();
@@ -190,7 +179,7 @@
         });
         Livewire.hook('message.processed', (message, component) => {
             console.log(message.component.fingerprint.name);
-            if(message.component.fingerprint.name=='pricemanager.content'){
+            if(message.component.fingerprint.name=='matriceprezzi.content'){
                 $('.select2').select2();
                 $('#listPriceMngr').DataTable({
                     "iDisplayLength": 25,

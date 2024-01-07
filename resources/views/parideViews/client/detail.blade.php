@@ -44,7 +44,7 @@
 
               <dt>Tipo Cliente</dt>
               @if ($client->id_tipo_cli!=0 && $client->typeCli)
-              <dd>{{$client->typeCli->descr}}</dd>
+              <dd>{{$client->typeCli->descr ?? ''}}</dd>
               @else
               <dd> - </dd>
               @endif
@@ -54,11 +54,11 @@
             
               @if($client->c_f != $client->partiva)
               <dt>{{ trans('client.taxCode') }}</dt>
-              <dd>{{$client->c_f}}</dd>
+              <dd>{{$client->c_f ?? ' - '}}</dd>
               @endif
               
               <dt>Tipologia Pagamento Predefinita</dt>
-              <dd>{{$client->payType->descr}}</dd>
+              <dd>{{$client->payType->descr ?? ' - '}}</dd>
               {{-- <dt>{{ trans('client.sector_full') }}</dt>
               <dd>{{$client->settore}} - @if($client->detSect) {{$client->detSect->descrizion}} @endif</dd> --}}
             </dl>

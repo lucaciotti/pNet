@@ -2,6 +2,7 @@
 namespace App\Helpers;
 
 use App\Models\parideModels\Client;
+use App\Models\parideModels\MatricePrezzi;
 use App\Models\parideModels\Product;
 use App\Models\parideModels\wPriceManager;
 use Carbon\Carbon;
@@ -27,17 +28,33 @@ class PriceManager
         $dfl_listino_prd = 1;
         $dfl_sconto = 0;
         
-        #Check 1 - PriceManager
-        $priceRule = wPriceManager::where('id_fam', $id_fam)
-            ->where('start_date', '<=', $date)->where('end_date', '>=', $date)
+        #Check 0 - MatricePrezzi
+        $matricePrezzi = MatricePrezzi::where('da_data', '<=', $date)->where('a_data', '>=', $date)
             ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
                 $query->where('id_cli_for', $id_cli_for);
                 $query->orWhere('id_tipo_cl', $id_tipo_cl);
             })
-            ->orderBy('listino', 'DESC')->get();
-        if(count($priceRule)>0){
-            $dfl_listino_cli = $priceRule->first()->listino;
-            $dfl_sconto = $priceRule->first()->extrasconto;
+            ->where(function ($query) use ($id_art, $id_fam) {
+                $query->where('id_art', $id_art);
+                $query->orWhere('id_fam', $id_fam);
+            })
+            ->orderBy('id_lis', 'DESC')->get();
+        if(count($matricePrezzi)>0){
+            $dfl_listino_cli = $matricePrezzi->first()->listino;
+            $dfl_sconto = $matricePrezzi->first()->extrasconto;
+        } else {
+            #Check 1 - PriceManager
+            $priceRule = wPriceManager::where('id_fam', $id_fam)
+                ->where('start_date', '<=', $date)->where('end_date', '>=', $date)
+                ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
+                    $query->where('id_cli_for', $id_cli_for);
+                    $query->orWhere('id_tipo_cl', $id_tipo_cl);
+                })
+                ->orderBy('listino', 'DESC')->get();
+            if (count($priceRule) > 0) {
+                $dfl_listino_cli = $priceRule->first()->listino;
+                $dfl_sconto = $priceRule->first()->extrasconto;
+            }
         }
         #Check2 - qtaConf
         $qta_conf = $art->pz_x_conf;
@@ -100,17 +117,33 @@ class PriceManager
         $dfl_listino_prd = 1;
         $dfl_sconto = 0;
 
-        #Check 1 - PriceManager
-        $priceRule = wPriceManager::where('id_fam', $id_fam)
-            ->where('start_date', '<=', $date)->where('end_date', '>=', $date)
-            ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
-                $query->where('id_cli_for', $id_cli_for);
-                $query->orWhere('id_tipo_cl', $id_tipo_cl);
+        #Check 0 - MatricePrezzi
+        $matricePrezzi = MatricePrezzi::where('da_data', '<=', $date)->where('a_data', '>=', $date)
+        ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
+            $query->where('id_cli_for', $id_cli_for);
+            $query->orWhere('id_tipo_cl', $id_tipo_cl);
+        })
+            ->where(function ($query) use ($id_art, $id_fam) {
+                $query->where('id_art', $id_art);
+                $query->orWhere('id_fam', $id_fam);
             })
-            ->orderBy('listino', 'DESC')->get();
-        if (count($priceRule) > 0) {
-            $dfl_listino_cli = $priceRule->first()->listino;
-            $dfl_sconto = $priceRule->first()->extrasconto;
+            ->orderBy('id_lis', 'DESC')->get();
+        if (count($matricePrezzi) > 0) {
+            $dfl_listino_cli = $matricePrezzi->first()->id_lis;
+            $dfl_sconto = $matricePrezzi->first()->sconto;
+        } else {
+            #Check 1 - PriceManager
+            $priceRule = wPriceManager::where('id_fam', $id_fam)
+                ->where('start_date', '<=', $date)->where('end_date', '>=', $date)
+                ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
+                    $query->where('id_cli_for', $id_cli_for);
+                    $query->orWhere('id_tipo_cl', $id_tipo_cl);
+                })
+                ->orderBy('listino', 'DESC')->get();
+            if (count($priceRule) > 0) {
+                $dfl_listino_cli = $priceRule->first()->listino;
+                $dfl_sconto = $priceRule->first()->extrasconto;
+            }
         }
         #Check2 - qtaConf
         $qta_conf = $art->pz_x_conf;

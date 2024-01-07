@@ -112,6 +112,7 @@ Route::name('cart::')->middleware(['auth', 'privacy'])->group(function () {
 // Routes PriceManager
 Route::name('price::')->middleware(['auth', 'privacy'])->group(function () {
     Route::get('/manage-prices', [PriceManagerController::class, 'index'])->name('index');
+    Route::get('/matriceprezzi', [PriceManagerController::class, 'indexMatrice'])->name('indexMatrice');
 });
 
 

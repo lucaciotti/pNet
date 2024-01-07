@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Pricemanager;
+namespace App\Http\Livewire\Matriceprezzi;
 
 use App\Models\parideModels\Client;
 use App\Models\parideModels\ClientType;
+use App\Models\parideModels\MatricePrezzi;
 use App\Models\parideModels\SubGrpProd;
-use App\Models\parideModels\wPriceManager;
 use Livewire\Component;
 
 class Content extends Component
@@ -45,11 +45,11 @@ class Content extends Component
     public function render()
     {
         $this->loadPriceManager();
-        return view('livewire.pricemanager.content');
+        return view('livewire.matriceprezzi.content');
     }
 
     public function loadPriceManager(){
-        $price_lists = wPriceManager::with(['cliente', 'typeCli', 'grpProd']);
+        $price_lists = MatricePrezzi::with(['cliente', 'typeCli', 'grpProd', 'product']);
         if (!empty($this->grp_selected)) {
             $price_lists->whereIn('id_fam', $this->grp_selected);
         }
