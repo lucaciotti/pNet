@@ -142,14 +142,23 @@ class DynamicPriceElement extends Component
             }
         }
         # AGGIUNGO SCONTO DI 2% ORDINE WEB
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
+        $isOrdDiscountEnabled = False;
+        if (!empty($this->codCli)) {
+            $isOrdDiscountEnabled = Client::find($this->codCli)->user->enable_ordweb_discount;
+        }
         $actionsDiscount = Cart::getActions(['id' => 101]);
-        if (count($actionsDiscount) == 0) {
+        dd($actionsDiscount);
+        if (count($actionsDiscount) == 0 && $isOrdDiscountEnabled) {
             Cart::applyAction([
                 'group' => 'Discount',
                 'id'    => 101,
                 'title' => 'Sconto 2% ordine web',
                 'value' => '-2%'
             ]);
+        }
+        if (count($actionsDiscount) > 0 && !$isOrdDiscountEnabled) {
+            Cart::removeAction(Arr::first($actionsDiscount)->getHash());
         }
     }
 }

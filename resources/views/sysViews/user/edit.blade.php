@@ -130,6 +130,20 @@
                 </label>
               </div>
             </div>
+
+            <div class="form-group">
+              <label>Abilita Sconto 2% Ordini Web</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="enable_ordweb_discount" id="opt1" value="0" @if(!$user->enable_ordweb_discount) checked
+                  @endif>&nbsp;&nbsp;No
+                </label>
+                <label>
+                  <input type="radio" name="enable_ordweb_discount" id="opt2" value="1" @if($user->enable_ordweb_discount) checked
+                  @endif>&nbsp;&nbsp;Si
+                </label>
+              </div>
+            </div>
             @endif
 
             <div>
