@@ -60,6 +60,7 @@ class CreateClientUser implements ShouldQueue
                     $user->attachRole(Role::where('name', 'client')->first()->id);
                     $user->ditta = 'it';
                     $user->isActive = false;
+                    $user->enable_ordweb = true;
                     $user->save();                              
                 }
 
