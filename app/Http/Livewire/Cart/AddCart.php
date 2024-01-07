@@ -161,6 +161,7 @@ class AddCart extends Component
         if($this->umArt=='%' || $this->umArt == 'KG') $this->useDecimal=true;
         $cartItem = ($this->art->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->idArt])) : null;
         $this->quantity = $cartItem!=null ? $cartItem->getDetails()->quantity : $dfl_qta;
+        if($this->umArt=='%') $this->quantity= $this->quantity/100;
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
             $this->price = number_format((float)($price), 3, ',', '\'');
@@ -264,7 +265,6 @@ class AddCart extends Component
             $isOrdDiscountEnabled = Client::find($this->codCli)->user->enable_ordweb_discount;
         }
         $actionsDiscount = Cart::getActions(['id' => 101]);
-        dd($actionsDiscount);
         if (count($actionsDiscount) == 0 && $isOrdDiscountEnabled) {
             Cart::applyAction([
                 'group' => 'Discount',

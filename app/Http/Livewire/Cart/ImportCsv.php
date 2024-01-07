@@ -135,7 +135,6 @@ class ImportCsv extends Component
             $isOrdDiscountEnabled = Client::find($codCli)->user->enable_ordweb_discount;
         }
         $actionsDiscount = Cart::getActions(['id' => 101]);
-        dd($actionsDiscount);
         if (count($actionsDiscount) == 0 && $isOrdDiscountEnabled) {
             Cart::applyAction([
                 'group' => 'Discount',
