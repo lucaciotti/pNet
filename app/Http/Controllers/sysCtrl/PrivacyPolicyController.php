@@ -139,7 +139,7 @@ class PrivacyPolicyController extends Controller
         $privacyAgree = PrivacyUserAgree::whereHas('user', function ($query) { $query->where('codcli', '!=', ''); })
                         ->with(['user' => function ($query) {
                             $query->with(['client' => function ($q) {
-                                return $q->select('id_cli_for', 'rag_soc', 'e_mail');
+                                return $q->select('id_cli_for', 'rag_soc', 'e_mail', 'id_tipo_cli')->with('typeCli');
                             }]);
                         }])->get();
 
@@ -164,7 +164,7 @@ class PrivacyPolicyController extends Controller
                 $row['rag_soc'] = ($userAgree->user->client ? $userAgree->user->client->rag_soc : '' );
                 $row['email_principale'] = ($userAgree->user->client ? $userAgree->user->client->e_mail : '');
 
-                $row['tipo_cliente'] = ($userAgree->user->client ? ($userAgree->user->client->typeCli? $userAgree->user->client->typeCli->descr : '') : '');
+                $row['tipo_cliente'] = ($userAgree->user->client ? ($userAgree->user->client->typeCli ? $userAgree->user->client->typeCli->descr : '') : '');
                 $row['name']  = $userAgree->name;
                 $row['surname']  = $userAgree->surname;
                 $row['privacy_agreement']  = $userAgree->privacy_agreement;
