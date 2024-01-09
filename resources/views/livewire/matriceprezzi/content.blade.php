@@ -20,6 +20,7 @@
                         <th>Tipo Cliente</th>
                         <th>Cliente</th>
                         <th>Famiglia Prd.</th>
+                        <th>Marca Prd.</th>
                         <th>Cod.Prd.</th>
                         <th>Listino Rif.</th>
                         <th>Sconto %</th>
@@ -31,7 +32,8 @@
                         <tr>
                             <td>{{ $price->typeCli->descr ?? '' }}</td>
                             <td>{{ $price->id_cli_for ?? '' }} - {{ $price->cliente->rag_soc ?? '' }}</td>
-                            <td>{{ $price->id_fam }} - {{ $price->grpProd->descr ?? 'ATTENZIONE - FAMIGLIA CANCELLATA' }}</td>
+                            <td>@if ($price->id_fam!=""){{ $price->id_fam }} - {{ $price->grpProd->descr ?? 'ATTENZIONE - FAMIGLIA CANCELLATA' }}@endif</td>
+                            <td>@if ($price->id_mar>0){{ $price->id_mar }} - {{ $price->marca->descr ?? 'ATTENZIONE - MARCA CANCELLATA' }}@endif</td>
                             <td>@if ($price->id_art>0){{ $price->id_art }}@else - @endif</td>
                             <td>L-{{ $price->id_lis }}</td>
                             <td>{{ $price->sconto }}</td>
@@ -73,6 +75,14 @@
                     <select class="form-control select2 livewireSelect2" id="tipocli_selected" style="width: 100%;" multiple placeholder="Tipo Cliente" wire:model.lazy="tipocli_selected">
                         @foreach ($tipiCli as $cli)
                         <option value="{{ $cli->id_tipo_cl }}">[{{ $cli->id_tipo_cl }}] {{ $cli->descr ?? '' }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="marca_selected">Marca Prodotto</label>
+                    <select class="form-control select2 livewireSelect2" id="marca_selected" style="width: 100%;" multiple placeholder="Marca Prodotto" wire:model.lazy="marca_selected">
+                        @foreach ($marche as $marca)
+                        <option value="{{ $marca->id_mar }}">[{{ $marca->id_mar }}] {{ $marca->descr ?? '' }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -164,6 +174,10 @@
         $('#grp_selected').on('change', function(e) {
             var data = $('#grp_selected').select2("val");
             @this.set('grp_selected', data);
+        });
+        $('#marca_selected').on('change', function(e) {
+            var data = $('#marca_selected').select2("val");
+            @this.set('marca_selected', data);
         });
     
     });

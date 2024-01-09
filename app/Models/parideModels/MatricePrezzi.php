@@ -40,4 +40,9 @@ class MatricePrezzi extends Model
     {
         return $this->hasOne('App\Models\parideModels\Product', 'id_art', 'id_art');
     }
+
+    public function marca()
+    {
+        return $this->hasOne('App\Models\parideModels\Marche', 'id_mar', 'id_mar');
+    }
 }

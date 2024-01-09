@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Matriceprezzi;
 
 use App\Models\parideModels\Client;
 use App\Models\parideModels\ClientType;
+use App\Models\parideModels\Marche;
 use App\Models\parideModels\MatricePrezzi;
 use App\Models\parideModels\SubGrpProd;
 use Livewire\Component;
@@ -17,6 +18,10 @@ class Content extends Component
     public $grp_selected;
     public $clients = [];
     public $client_selected;
+    // public $products = [];
+    // public $product_selected;
+    public $marche = [];
+    public $marca_selected;
     public $codcli;
     public $ragsoc;
     public $tipiCli = [];
@@ -32,7 +37,7 @@ class Content extends Component
 
     public function mount()
     {
-        $this->tipocli_selected = [0];
+        $this->tipocli_selected = [10];
         $this->loadFilters();
     }
 
@@ -62,13 +67,16 @@ class Content extends Component
         if (!empty($this->ragsoc)) {
             $price_lists->whereHas('cliente', function ($query) {
                 $query->where('rag_soc', 'like', '%' . $this->ragsoc . '%')
-                    ->withoutGlobalScope('agent')
-                    ->withoutGlobalScope('superAgent')
-                    ->withoutGlobalScope('client');
+                ->withoutGlobalScope('agent')
+                ->withoutGlobalScope('superAgent')
+                ->withoutGlobalScope('client');
             });;
         }
         if (!empty($this->tipocli_selected)) {
             $price_lists->whereIn('id_tipo_cl', $this->tipocli_selected);
+        }
+        if (!empty($this->marca_selected)) {
+            $price_lists->whereIn('id_mar', $this->marca_selected);
         }
         $this->price_lists = $price_lists->get();
     }
@@ -76,6 +84,7 @@ class Content extends Component
     public function loadFilters(){
         if (empty($this->gruppi)) $this->gruppi = SubGrpProd::where('id_fam', '!=', '')->orderBy('id_fam')->get();
         if (empty($this->tipiCli)) $this->tipiCli = ClientType::all();
+        if (empty($this->marche)) $this->marche = Marche::all();
         // if (empty($this->clients)) $this->clients = Client::select('id_cli_for', 'rag_soc')->get();
     }
 

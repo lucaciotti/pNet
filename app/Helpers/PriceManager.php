@@ -24,6 +24,7 @@ class PriceManager
         }
         $id_tipo_cl = $client->id_tipo_cli;
         $id_fam = $art->id_fam;
+        $id_mar = $art->id_mar;
         $dfl_listino_cli = 1;
         $dfl_listino_prd = 1;
         $dfl_sconto = 0;
@@ -34,9 +35,10 @@ class PriceManager
                 $query->where('id_cli_for', $id_cli_for);
                 $query->orWhere('id_tipo_cl', $id_tipo_cl);
             })
-            ->where(function ($query) use ($id_art, $id_fam) {
+            ->where(function ($query) use ($id_art, $id_fam, $id_mar) {
                 $query->where('id_art', $id_art);
                 $query->orWhere('id_fam', $id_fam);
+                $query->orWhere('id_mar', $id_mar);
             })
             ->orderBy('id_lis', 'DESC')->get();
         if(count($matricePrezzi)>0){
@@ -113,6 +115,7 @@ class PriceManager
         }
         $id_tipo_cl = $client->id_tipo_cli;
         $id_fam = $art->id_fam;
+        $id_mar = $art->id_mar;
         $dfl_listino_cli = 1;
         $dfl_listino_prd = 1;
         $dfl_sconto = 0;
@@ -123,9 +126,10 @@ class PriceManager
             $query->where('id_cli_for', $id_cli_for);
             $query->orWhere('id_tipo_cl', $id_tipo_cl);
         })
-            ->where(function ($query) use ($id_art, $id_fam) {
+            ->where(function ($query) use ($id_art, $id_fam, $id_mar) {
                 $query->where('id_art', $id_art);
                 $query->orWhere('id_fam', $id_fam);
+                $query->orWhere('id_mar', $id_mar);
             })
             ->orderBy('id_lis', 'DESC')->get();
         if (count($matricePrezzi) > 0) {
