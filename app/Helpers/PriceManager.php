@@ -28,7 +28,7 @@ class PriceManager
         $dfl_listino_cli = 1;
         $dfl_listino_prd = 1;
         $dfl_sconto = 0;
-        
+
         #Check 0 - MatricePrezzi
         $matricePrezzi = MatricePrezzi::where('da_data', '<=', $date)->where('a_data', '>=', $date)
             ->where(function ($query) use ($id_tipo_cl, $id_cli_for) {
@@ -41,9 +41,9 @@ class PriceManager
                 $query->orWhere('id_mar', $id_mar);
             })
             ->orderBy('id_lis', 'DESC')->get();
-        if(count($matricePrezzi)>0){
-            $dfl_listino_cli = $matricePrezzi->first()->listino;
-            $dfl_sconto = $matricePrezzi->first()->extrasconto;
+        if (count($matricePrezzi) > 0) {
+            $dfl_listino_cli = $matricePrezzi->first()->id_lis;
+            $dfl_sconto = $matricePrezzi->first()->sconto;
         } else {
             #Check 1 - PriceManager
             $priceRule = wPriceManager::where('id_fam', $id_fam)
