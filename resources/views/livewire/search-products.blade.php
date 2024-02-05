@@ -79,7 +79,13 @@
                         <th>{{ trans('prod.codeArt') }}</th>
                         <th>{{ trans('prod.descArt') }}</th>
                         <th>Famiglia Prodotto</th>
-                        <th>Prezzo</th>
+                        <th>
+                            @if (in_array(RedisUser::get('role'), ['client']) && RedisUser::get('enable_ordweb'))
+                                Prezzo Riservato
+                            @else
+                                Prezzo
+                            @endif
+                        </th>
                         <th>Disponibilità</th>
                         <th>UM</th>
                         @if (RedisUser::get('enable_ordweb') || in_array(RedisUser::get('role'), ['agent', 'admin', 'superAgent']))
@@ -113,7 +119,14 @@
                                 - {{ $prod->grpProd->descr }}
                                 @endif
                             </td>
-                            <td style="text-align: right">{{ number_format((float)round($prod->prezzo_1,3), 2, ',', '') }} €
+                            @php
+                            if (in_array(RedisUser::get('role'), ['client']) && RedisUser::get('enable_ordweb')){
+                                $price = App\Helpers\PriceManager::getPrice(RedisUser::get('codcli'), $prod->id_art, 1);
+                            } else {
+                                $price = $prod->prezzo_1;
+                            }
+                            @endphp
+                            <td style="text-align: right" title="Qta per Conf: {{ $prod->pz_x_conf }} {{ $prod->um }}">{{ number_format((float)round($price,3), 2, ',', '') }} €
                             </td>
                             <td style="text-align:right;">
                                 @if($prod->magGiac)

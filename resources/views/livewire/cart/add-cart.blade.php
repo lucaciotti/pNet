@@ -207,7 +207,8 @@
                     </td>
                     <td>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" style="text-align:right;" readonly wire:model.lazy="price">
+                            <input type="text" class="form-control" style="text-align:right;" readonly wire:model.lazy="price"
+                                @if (!in_array(RedisUser::get('role'), ['client'])) data-toggle="tooltip" data-placement="input" title="@if($infoPrice) L{{ $infoPrice['listino'] }} @if($infoPrice['extrasconto']>0)+{{ $infoPrice['extrasconto'] }}% @endif @endif" @endif>
                         </div>
                     </td>
                     <td>

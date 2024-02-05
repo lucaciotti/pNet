@@ -48,6 +48,7 @@
                         <td>
                             @php
                             $giac = $item->model->maggiac->esistenza;
+                            $infoPrice = App\Helpers\PriceManager::getInfo($codCli, $item->model->id_art, $item->quantity, $shipdate);
                             @endphp
                             <svg height="20" width="20">
                             @if ($item->quantity <= $giac) 
@@ -65,8 +66,12 @@
                             @endif
                             </svg>
                         </td>
-                        <td>{{ number_format((float)($item->price), 3, ',', '\'') }} €</td>
-                        <td>{{ currency($item->total_price) }}</td>
+                        <td 
+                            @if (!in_array(RedisUser::get('role'), ['client'])) title="@if($infoPrice) L{{ $infoPrice['listino'] }} @if($infoPrice['extrasconto']>0)+{{ $infoPrice['extrasconto'] }}% @endif @endif" @endif>
+                            {{ number_format((float)($item->price), 3, ',', '\'') }} €
+                        </td>
+                        <td>
+                            {{ currency($item->total_price) }}</td>
                         <td>
                             @if (!$isReadOnly)
                             <div class="input-group input-group-sm">

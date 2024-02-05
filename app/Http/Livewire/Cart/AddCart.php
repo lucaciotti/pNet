@@ -27,6 +27,7 @@ class AddCart extends Component
     public $umArt;
     public $quantity=0;
     public $price=0.00;
+    public $infoPrice;
     public $total=0.00;
 
     public $freeDescr;
@@ -164,6 +165,7 @@ class AddCart extends Component
         if($this->umArt=='%') $this->quantity= $this->quantity/100;
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
+            $this->infoPrice = PriceManager::getInfo($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
             $this->price = number_format((float)($price), 3, ',', '\'');
             $this->total = number_format((float)($this->quantity * $price), 2, ',', '\'');
         }
@@ -179,6 +181,7 @@ class AddCart extends Component
         $this->shipdate = Cart::getExtraInfo('order.shipdate');
         if (!empty($this->codCli)) {
             $price = PriceManager::getPrice($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
+            $this->infoPrice = PriceManager::getInfo($this->codCli, $this->idArt, $this->quantity, $this->shipdate);
             $this->price = number_format((float)($price), 3, ',', '\'');
             $this->total = number_format((float)($this->quantity * $price), 2, ',', '\'');
         }

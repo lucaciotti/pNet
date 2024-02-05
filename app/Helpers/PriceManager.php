@@ -206,6 +206,7 @@ class PriceManager
             default:
                 break;
         }
+        $list_price = $price;
         $price = $price  * (1 - ($dfl_sconto / 100));
         
         $data = [
@@ -217,6 +218,8 @@ class PriceManager
             'qta' => $qta,
             'price' => $price,
             'listino' => $listino,
+            'list_price' => $list_price,
+            'extrasconto' => $dfl_sconto,
             ];
 
         return $data;

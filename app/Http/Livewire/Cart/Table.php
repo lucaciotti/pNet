@@ -8,6 +8,8 @@ use Jackiedo\Cart\Facades\Cart;
 class Table extends Component
 {
     public $importfromDoc;
+    public $codCli;
+    public $shipdate;
     
     public $cartCount= 0;
     public $cartItems;
@@ -26,6 +28,8 @@ class Table extends Component
     {
         $this->cartItems=Cart::getDetails()->get('items');
         $this->cartCount=$this->cartItems->count();
+        $this->codCli = Cart::getExtraInfo('customer.code', '');
+        $this->shipdate = Cart::getExtraInfo('order.shipdate');
         $this->importfromDoc = Cart::getExtraInfo('order.fromDoc', false);
         return view('livewire.cart.table');
     }
