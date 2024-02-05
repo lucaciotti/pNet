@@ -44,7 +44,7 @@ class DynamicPriceElement extends Component
             $this->codCli = RedisUser::get('codcli');
         }
 
-        if ($this->product->um == '%' || $this->product->um == 'KG') $this->useDecimal = true;
+        if ($this->product->um == '%' || $this->product->um =='KG' || $this->umArt == 'MQ') $this->useDecimal = true;
 
         $cartItem = ($this->product->hasInCart('default')) ? Arr::first(Cart::getItems(['id' => $this->product->id_art])) : null;
         $this->quantity = $cartItem != null ? $cartItem->getDetails()->quantity : $this->quantity;
