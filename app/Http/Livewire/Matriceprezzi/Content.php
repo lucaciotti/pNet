@@ -22,6 +22,10 @@ class Content extends Component
     // public $product_selected;
     public $marche = [];
     public $marca_selected;
+
+    public $codeArtSwitch = false;
+    public $codArt;
+
     public $codcli;
     public $ragsoc;
     public $tipiCli = [];
@@ -63,6 +67,12 @@ class Content extends Component
         }
         if (!empty($this->codcli)) {
             $price_lists->where('id_cli_for', 'like', '%'.$this->codcli.'%');
+        }
+        if (!empty($this->codArt)) {
+            $price_lists->where('id_art', 'like', '%' . $this->codArt . '%');
+        }
+        if (!empty($this->codeArtSwitch)) {
+            $price_lists->where('id_art', '!=', '');
         }
         if (!empty($this->ragsoc)) {
             $price_lists->whereHas('cliente', function ($query) {

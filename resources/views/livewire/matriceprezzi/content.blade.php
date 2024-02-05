@@ -86,6 +86,27 @@
                         @endforeach
                     </select>
                 </div>
+                <hr>
+                <div class="form-group">
+                    <label>Codice Articolo</label>
+                    <div class="input-group input-group mb-3">
+                        <div class="input-group-prepend">
+                            <select type="button" class="btn btn-primary dropdown-toggle" name="codArtOp">
+                                {{-- <option value="eql">=</option>
+                                <option value="stw">[]...</option> --}}
+                                <option value="cnt" selected>...[]...</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" name="codArt" wire:model.lazy="codArt">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="codeArtSwitch" wire:model="codeArtSwitch" checked>
+                        <label class="custom-control-label" for="codeArtSwitch">Solo Codice Articolo</label>
+                    </div>
+                <div>
+                    <hr>
                 <div class="form-group">
                     <label>Codice Cliente</label>
                     <div class="input-group input-group mb-3">
