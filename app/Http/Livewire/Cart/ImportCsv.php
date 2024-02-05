@@ -112,7 +112,8 @@ class ImportCsv extends Component
     {
         # COTROLLO SUBTOTALE CARRELLO E AGGIUNGO ACTION SOVRAPPREZZO ORDINE MINIMO
         $totalCart = Cart::getItemsSubtotal();
-        if ($totalCart < 50) {
+        $paymentType = Cart::getExtraInfo('order.idPag', '');
+        if ($totalCart < 50 && in_array($paymentType, [2, 16, 54, 62])) {
             $actions = Cart::getActions(['id' => 1]);
             if (count($actions) == 0) {
                 Cart::applyAction([
@@ -132,7 +133,7 @@ class ImportCsv extends Component
         $codCli = Cart::getExtraInfo('customer.code', '');
         $isOrdDiscountEnabled = False;
         if (!empty($codCli)) {
-            $isOrdDiscountEnabled = Client::find($codCli)->user->enable_ordweb_discount;
+            $isOrdDiscountEnabled = Client::find($codCli)->user->enable_ordweb_discount ?? false;
         }
         $actionsDiscount = Cart::getActions(['id' => 101]);
         if (count($actionsDiscount) == 0 && $isOrdDiscountEnabled) {

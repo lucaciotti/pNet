@@ -26,7 +26,7 @@ class RedisUser
             'lang' => (string)$user->lang,
             'isActive' => $user->isActive,
             'enable_ordweb' => $user->enable_ordweb,
-            'enable_ordweb_discount' => $user->enable_ordweb_discount,
+            'enable_ordweb_discount' => $user->enable_ordweb_discount ?? false,
         ];
         
         Redis::hmset(static::$prefix.$user->id, $settings);
