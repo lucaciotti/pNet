@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 
 use App\Models\parideModels\Product;
+use LaravelMatomoTracker;
 use RedisUser;
 
 class AddCart extends Component
@@ -225,6 +226,12 @@ class AddCart extends Component
             ]);
         }
         $this->applyEstraPrices();
+        try {
+            //code...
+            LaravelMatomoTracker::addEcommerceItem($this->idArt, $this->descrArt, '', $price, $this->quantity);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $this->reset();
         $this->emit('cart_updated');
     }

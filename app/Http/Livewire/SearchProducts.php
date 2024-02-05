@@ -9,6 +9,7 @@ use App\Models\parideModels\Product;
 use App\Models\parideModels\Supplier;
 use App\Models\parideModels\SubGrpProd;
 use App\Models\parideModels\Marche;
+use LaravelMatomoTracker;
 
 class SearchProducts extends Component
 {
@@ -114,6 +115,12 @@ class SearchProducts extends Component
         }
         if($this->products->count()==0 && $this->isMultiWordsSearch){
             $this->isEmptyMultiSearch = true;
+        }
+        try {
+            //code...
+            LaravelMatomoTracker::doTrackSiteSearch($this->searchString, 'Prodotti', count($this->products));
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 

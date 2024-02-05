@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+    //code...
+    LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+    LaravelMatomoTracker::doTrackPageView('Ddt da Inviare');
+} catch (\Throwable $th) {
+    //throw $th;
+}
+@endphp
 @section('title_postfix', '- Ddt da Inviare')
 
 @section('content_header')

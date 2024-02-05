@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+    //code...
+    LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+    LaravelMatomoTracker::doTrackPageView('Gestione Vettori');
+} catch (\Throwable $th) {
+    //throw $th;
+}
+@endphp
 @section('title_postfix', '- Gestione Vettori')
 
 @section('content_header')

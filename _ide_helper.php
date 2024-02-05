@@ -17743,6 +17743,1422 @@
      
 }
 
+    namespace Chameleon\MatomoTracker\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class LaravelMatomoTracker {
+                    /**
+         * Sets the queue name
+         *
+         * @param string $queueName
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setQueue($queueName)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setQueue($queueName);
+        }
+                    /**
+         * Sets some custom dimensions
+         *
+         * @param array $customDimensions Is an array of objects with the fields 'id' and 'value'
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setCustomDimensions($customDimensions)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCustomDimensions($customDimensions);
+        }
+                    /**
+         * Sets some custom variables
+         *
+         * @param array $customVariables
+         * @static 
+         */ 
+        public static function setCustomVariables($customVariables)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCustomVariables($customVariables);
+        }
+                    /**
+         * Shorthand for doTrackAction($actionUrl, 'download')
+         *
+         * @param string $actionUrl
+         * @return mixed 
+         * @static 
+         */ 
+        public static function doTrackDownload($actionUrl)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackDownload($actionUrl);
+        }
+                    /**
+         * Shorthand for doTrackAction($actionUrl, 'link')
+         *
+         * @param string $actionUrl
+         * @return mixed 
+         * @static 
+         */ 
+        public static function doTrackOutlink($actionUrl)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackOutlink($actionUrl);
+        }
+                    /**
+         * Queues a pageview
+         *
+         * @param string $documentTitle
+         * @return void 
+         * @static 
+         */ 
+        public static function queuePageView($documentTitle)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queuePageView($documentTitle);
+        }
+                    /**
+         * Queues an event
+         *
+         * @param string $category
+         * @param string $action
+         * @param string|bool $name
+         * @param string|bool $value
+         * @return void 
+         * @static 
+         */ 
+        public static function queueEvent($category, $action, $name = false, $value = false)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueEvent($category, $action, $name, $value);
+        }
+                    /**
+         * Queues a content impression
+         *
+         * @param string $contentName
+         * @param string $contentPiece
+         * @param string|bool $contentTarget
+         * @return void 
+         * @static 
+         */ 
+        public static function queueContentImpression($contentName, $contentPiece = 'Unknown', $contentTarget = false)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueContentImpression($contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Queues a content interaction
+         *
+         * @param string $interaction Like 'click' or 'copy'
+         * @param string $contentName
+         * @param string $contentPiece
+         * @param string|bool $contentTarget
+         * @return void 
+         * @static 
+         */ 
+        public static function queueContentInteraction($interaction, $contentName, $contentPiece = 'Unknown', $contentTarget = false)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueContentInteraction($interaction, $contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Queues a site search
+         *
+         * @param string $keyword
+         * @param string $category
+         * @param int|bool $countResults
+         * @return void 
+         * @static 
+         */ 
+        public static function queueSiteSearch($keyword, $category = '', $countResults = false)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueSiteSearch($keyword, $category, $countResults);
+        }
+                    /**
+         * Queues a goal
+         *
+         * @param mixed $idGoal
+         * @param float $revencue
+         * @return void 
+         * @static 
+         */ 
+        public static function queueGoal($idGoal, $revencue = 0.0)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueGoal($idGoal, $revencue);
+        }
+                    /**
+         * Queues a download
+         *
+         * @param string $actionUrl
+         * @return void 
+         * @static 
+         */ 
+        public static function queueDownload($actionUrl)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueDownload($actionUrl);
+        }
+                    /**
+         * Queues a outlink
+         *
+         * @param string $actionUrl
+         * @return void 
+         * @static 
+         */ 
+        public static function queueOutlink($actionUrl)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueOutlink($actionUrl);
+        }
+                    /**
+         * Queues an ecommerce update
+         *
+         * @param float $grandTotal
+         * @return void 
+         * @static 
+         */ 
+        public static function queueEcommerceCartUpdate($grandTotal)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueEcommerceCartUpdate($grandTotal);
+        }
+                    /**
+         * Queues a ecommerce order
+         *
+         * @param float $orderId
+         * @param float $grandTotal
+         * @param float $subTotal
+         * @param float $tax
+         * @param float $shipping
+         * @param float $discount
+         * @return void 
+         * @static 
+         */ 
+        public static function queueEcommerceOrder($orderId, $grandTotal, $subTotal = 0.0, $tax = 0.0, $shipping = 0.0, $discount = 0.0)
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueEcommerceOrder($orderId, $grandTotal, $subTotal, $tax, $shipping, $discount);
+        }
+                    /**
+         * Queues a bulk track
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function queueBulkTrack()
+        {
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        $instance->queueBulkTrack();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setApiUrl($url)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setApiUrl($url);
+        }
+                    /**
+         * By default, Matomo expects utf-8 encoded values, for example
+         * for the page URL parameter values, Page Title, etc.
+         * 
+         * It is recommended to only send UTF-8 data to Matomo.
+         * If required though, you can also specify another charset using this function.
+         *
+         * @param string $charset
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setPageCharset($charset = '')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setPageCharset($charset);
+        }
+                    /**
+         * Sets the current URL being tracked
+         *
+         * @param string $url Raw URL (not URL encoded)
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setUrl($url)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setUrl($url);
+        }
+                    /**
+         * Sets the URL referrer used to track Referrers details for new visits.
+         *
+         * @param string $url Raw URL (not URL encoded)
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setUrlReferrer($url)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setUrlReferrer($url);
+        }
+                    /**
+         * This method is deprecated and does nothing. It used to set the time that it took to generate the document on the server side.
+         *
+         * @param int $timeMs Generation time in ms
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @deprecated this metric is deprecated please use performance timings instead
+         * @see setPerformanceTimings
+         * @static 
+         */ 
+        public static function setGenerationTime($timeMs)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setGenerationTime($timeMs);
+        }
+                    /**
+         * Sets timings for various browser performance metrics.
+         *
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/PerformanceTiming
+         * @param null|int $network Network time in ms (connectEnd – fetchStart)
+         * @param null|int $server Server time in ms (responseStart – requestStart)
+         * @param null|int $transfer Transfer time in ms (responseEnd – responseStart)
+         * @param null|int $domProcessing DOM Processing to Interactive time in ms (domInteractive – domLoading)
+         * @param null|int $domCompletion DOM Interactive to Complete time in ms (domComplete – domInteractive)
+         * @param null|int $onload Onload time in ms (loadEventEnd – loadEventStart)
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setPerformanceTimings($network = null, $server = null, $transfer = null, $domProcessing = null, $domCompletion = null, $onload = null)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setPerformanceTimings($network, $server, $transfer, $domProcessing, $domCompletion, $onload);
+        }
+                    /**
+         * Clear / reset all previously set performance metrics.
+         *
+         * @static 
+         */ 
+        public static function clearPerformanceTimings()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->clearPerformanceTimings();
+        }
+                    /**
+         * 
+         *
+         * @deprecated 
+         * @ignore 
+         * @static 
+         */ 
+        public static function setUrlReferer($url)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setUrlReferer($url);
+        }
+                    /**
+         * Sets the attribution information to the visit, so that subsequent Goal conversions are
+         * properly attributed to the right Referrer URL, timestamp, Campaign Name & Keyword.
+         * 
+         * This must be a JSON encoded string that would typically be fetched from the JS API:
+         * matomoTracker.getAttributionInfo() and that you have JSON encoded via JSON2.stringify()
+         * 
+         * If you call enableCookies() then these referral attribution values will be set
+         * to the 'ref' first party cookie storing referral information.
+         *
+         * @param string $jsonEncoded JSON encoded array containing Attribution info
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @see function getAttributionInfo() in https://github.com/matomo-org/matomo/blob/master/js/matomo.js
+         * @static 
+         */ 
+        public static function setAttributionInfo($jsonEncoded)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setAttributionInfo($jsonEncoded);
+        }
+                    /**
+         * Sets Visit Custom Variable.
+         * 
+         * See https://matomo.org/docs/custom-variables/
+         *
+         * @param int $id Custom variable slot ID from 1-5
+         * @param string $name Custom variable name
+         * @param string $value Custom variable value
+         * @param string $scope Custom variable scope. Possible values: visit, page, event
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setCustomVariable($id, $name, $value, $scope = 'visit')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCustomVariable($id, $name, $value, $scope);
+        }
+                    /**
+         * Returns the currently assigned Custom Variable.
+         * 
+         * If scope is 'visit', it will attempt to read the value set in the first party cookie created by Matomo Tracker
+         *  ($_COOKIE array).
+         *
+         * @param int $id Custom Variable integer index to fetch from cookie. Should be a value from 1 to 5
+         * @param string $scope Custom variable scope. Possible values: visit, page, event
+         * @throws Exception
+         * @return mixed An array with this format: array( 0 => CustomVariableName, 1 => CustomVariableValue ) or false
+         * @see matomo.js getCustomVariable()
+         * @static 
+         */ 
+        public static function getCustomVariable($id, $scope = 'visit')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getCustomVariable($id, $scope);
+        }
+                    /**
+         * Clears any Custom Variable that may be have been set.
+         * 
+         * This can be useful when you have enabled bulk requests,
+         * and you wish to clear Custom Variables of 'visit' scope.
+         *
+         * @static 
+         */ 
+        public static function clearCustomVariables()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->clearCustomVariables();
+        }
+                    /**
+         * Sets a specific custom dimension
+         *
+         * @param int $id id of custom dimension
+         * @param string $value value for custom dimension
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setCustomDimension($id, $value)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCustomDimension($id, $value);
+        }
+                    /**
+         * Clears all previously set custom dimensions
+         *
+         * @static 
+         */ 
+        public static function clearCustomDimensions()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->clearCustomDimensions();
+        }
+                    /**
+         * Returns the value of the custom dimension with the given id
+         *
+         * @param int $id id of custom dimension
+         * @return string|null 
+         * @static 
+         */ 
+        public static function getCustomDimension($id)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getCustomDimension($id);
+        }
+                    /**
+         * Sets a custom tracking parameter. This is useful if you need to send any tracking parameters for a 3rd party
+         * plugin that is not shipped with Matomo itself. Please note that custom parameters are cleared after each
+         * tracking request.
+         *
+         * @param string $trackingApiParameter The name of the tracking API parameter, eg 'bw_bytes'
+         * @param string $value Tracking parameter value that shall be sent for this tracking parameter.
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setCustomTrackingParameter($trackingApiParameter, $value)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCustomTrackingParameter($trackingApiParameter, $value);
+        }
+                    /**
+         * Clear / reset all previously set custom tracking parameters.
+         *
+         * @static 
+         */ 
+        public static function clearCustomTrackingParameters()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->clearCustomTrackingParameters();
+        }
+                    /**
+         * Sets the current visitor ID to a random new one.
+         *
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setNewVisitorId()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setNewVisitorId();
+        }
+                    /**
+         * Sets the current site ID.
+         *
+         * @param int $idSite
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setIdSite($idSite)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setIdSite($idSite);
+        }
+                    /**
+         * Sets the Browser language. Used to guess visitor countries when GeoIP is not enabled
+         *
+         * @param string $acceptLanguage For example "fr-fr"
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setBrowserLanguage($acceptLanguage)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setBrowserLanguage($acceptLanguage);
+        }
+                    /**
+         * Sets the user agent, used to detect OS and browser.
+         * 
+         * If this function is not called, the User Agent will default to the current user agent.
+         *
+         * @param string $userAgent
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setUserAgent($userAgent)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setUserAgent($userAgent);
+        }
+                    /**
+         * Sets the client hints, used to detect OS and browser.
+         * 
+         * If this function is not called, the client hints sent with the current request will be used.
+         * 
+         * Supported as of Matomo 4.12.0
+         *
+         * @param string $model Value of the header 'HTTP_SEC_CH_UA_MODEL'
+         * @param string $platform Value of the header 'HTTP_SEC_CH_UA_PLATFORM'
+         * @param string $platformVersion Value of the header 'HTTP_SEC_CH_UA_PLATFORM_VERSION'
+         * @param string|array $fullVersionList Value of header 'HTTP_SEC_CH_UA_FULL_VERSION_LIST' or an array containing
+         *                                      all brands with the structure
+         *                                      [['brand' => 'Chrome', 'version' => '10.0.2'], ['brand' => '...]
+         * @param string $uaFullVersion Value of the header 'HTTP_SEC_CH_UA_FULL_VERSION'
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setClientHints($model = '', $platform = '', $platformVersion = '', $fullVersionList = '', $uaFullVersion = '')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setClientHints($model, $platform, $platformVersion, $fullVersionList, $uaFullVersion);
+        }
+                    /**
+         * Sets the country of the visitor. If not used, Matomo will try to find the country
+         * using either the visitor's IP address or language.
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth().
+         *
+         * @param string $country
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setCountry($country)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCountry($country);
+        }
+                    /**
+         * Sets the region of the visitor. If not used, Matomo may try to find the region
+         * using the visitor's IP address (if configured to do so).
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth().
+         *
+         * @param string $region
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setRegion($region)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setRegion($region);
+        }
+                    /**
+         * Sets the city of the visitor. If not used, Matomo may try to find the city
+         * using the visitor's IP address (if configured to do so).
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth().
+         *
+         * @param string $city
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setCity($city)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setCity($city);
+        }
+                    /**
+         * Sets the latitude of the visitor. If not used, Matomo may try to find the visitor's
+         * latitude using the visitor's IP address (if configured to do so).
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth().
+         *
+         * @param float $lat
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setLatitude($lat)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setLatitude($lat);
+        }
+                    /**
+         * Sets the longitude of the visitor. If not used, Matomo may try to find the visitor's
+         * longitude using the visitor's IP address (if configured to do so).
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth().
+         *
+         * @param float $long
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setLongitude($long)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setLongitude($long);
+        }
+                    /**
+         * Enables the bulk request feature. When used, each tracking action is stored until the
+         * doBulkTrack method is called. This method will send all tracking data at once.
+         *
+         * @static 
+         */ 
+        public static function enableBulkTracking()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->enableBulkTracking();
+        }
+                    /**
+         * Disables the bulk request feature. Make sure to call `doBulkTrack()` before disabling it if you have stored
+         * tracking actions previously as this method won't be sending any previously stored actions before disabling it.
+         *
+         * @static 
+         */ 
+        public static function disableBulkTracking()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->disableBulkTracking();
+        }
+                    /**
+         * Enable Cookie Creation - this will cause a first party VisitorId cookie to be set when the VisitorId is set or reset
+         *
+         * @param string $domain (optional) Set first-party cookie domain.
+         *  Accepted values: example.com, *.example.com (same as .example.com) or subdomain.example.com
+         * @param string $path (optional) Set first-party cookie path
+         * @param bool $secure (optional) Set secure flag for cookies
+         * @param bool $httpOnly (optional) Set HTTPOnly flag for cookies
+         * @param string $sameSite (optional) Set SameSite flag for cookies
+         * @static 
+         */ 
+        public static function enableCookies($domain = '', $path = '/', $secure = false, $httpOnly = false, $sameSite = '')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->enableCookies($domain, $path, $secure, $httpOnly, $sameSite);
+        }
+                    /**
+         * If image response is disabled Matomo will respond with a HTTP 204 header instead of responding with a gif.
+         *
+         * @static 
+         */ 
+        public static function disableSendImageResponse()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->disableSendImageResponse();
+        }
+                    /**
+         * Tracks a page view
+         *
+         * @param string $documentTitle Page title as it will appear in the Actions > Page titles report
+         * @return mixed Response string or true if using bulk requests.
+         * @static 
+         */ 
+        public static function doTrackPageView($documentTitle)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackPageView($documentTitle);
+        }
+                    /**
+         * Tracks an event
+         *
+         * @param string $category The Event Category (Videos, Music, Games...)
+         * @param string $action The Event's Action (Play, Pause, Duration, Add Playlist, Downloaded, Clicked...)
+         * @param string|bool $name (optional) The Event's object Name (a particular Movie name, or Song name, or File name...)
+         * @param float|bool $value (optional) The Event's value
+         * @return mixed Response string or true if using bulk requests.
+         * @static 
+         */ 
+        public static function doTrackEvent($category, $action, $name = false, $value = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackEvent($category, $action, $name, $value);
+        }
+                    /**
+         * Tracks a content impression
+         *
+         * @param string $contentName The name of the content. For instance 'Ad Foo Bar'
+         * @param string $contentPiece The actual content. For instance the path to an image, video, audio, any text
+         * @param string|bool $contentTarget (optional) The target of the content. For instance the URL of a landing page.
+         * @return mixed Response string or true if using bulk requests.
+         * @static 
+         */ 
+        public static function doTrackContentImpression($contentName, $contentPiece = 'Unknown', $contentTarget = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackContentImpression($contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Tracks a content interaction. Make sure you have tracked a content impression using the same content name and
+         * content piece, otherwise it will not count. To do so you should call the method doTrackContentImpression();
+         *
+         * @param string $interaction The name of the interaction with the content. For instance a 'click'
+         * @param string $contentName The name of the content. For instance 'Ad Foo Bar'
+         * @param string $contentPiece The actual content. For instance the path to an image, video, audio, any text
+         * @param string|bool $contentTarget (optional) The target the content leading to when an interaction occurs. For instance the URL of a landing page.
+         * @return mixed Response string or true if using bulk requests.
+         * @static 
+         */ 
+        public static function doTrackContentInteraction($interaction, $contentName, $contentPiece = 'Unknown', $contentTarget = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackContentInteraction($interaction, $contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Tracks an internal Site Search query, and optionally tracks the Search Category, and Search results Count.
+         * 
+         * These are used to populate reports in Actions > Site Search.
+         *
+         * @param string $keyword Searched query on the site
+         * @param string $category (optional) Search engine category if applicable
+         * @param bool|int $countResults (optional) results displayed on the search result page. Used to track "zero result" keywords.
+         * @return mixed Response or true if using bulk requests.
+         * @static 
+         */ 
+        public static function doTrackSiteSearch($keyword, $category = '', $countResults = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackSiteSearch($keyword, $category, $countResults);
+        }
+                    /**
+         * Records a Goal conversion
+         *
+         * @param int $idGoal Id Goal to record a conversion
+         * @param float $revenue Revenue for this conversion
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackGoal($idGoal, $revenue = 0.0)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackGoal($idGoal, $revenue);
+        }
+                    /**
+         * Tracks a download or outlink
+         *
+         * @param string $actionUrl URL of the download or outlink
+         * @param string $actionType Type of the action: 'download' or 'link'
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackAction($actionUrl, $actionType)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackAction($actionUrl, $actionType);
+        }
+                    /**
+         * Adds an item in the Ecommerce order.
+         * 
+         * This should be called before doTrackEcommerceOrder(), or before doTrackEcommerceCartUpdate().
+         * This function can be called for all individual products in the cart (or order).
+         * SKU parameter is mandatory. Other parameters are optional (set to false if value not known).
+         * Ecommerce items added via this function are automatically cleared when doTrackEcommerceOrder() or getUrlTrackEcommerceOrder() is called.
+         *
+         * @param string $sku (required) SKU, Product identifier
+         * @param string $name (optional) Product name
+         * @param string|array $category (optional) Product category, or array of product categories (up to 5 categories can be specified for a given product)
+         * @param float|int $price (optional) Individual product price (supports integer and decimal prices)
+         * @param int $quantity (optional) Product quantity. If not specified, will default to 1 in the Reports
+         * @throws Exception
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function addEcommerceItem($sku, $name = '', $category = '', $price = 0.0, $quantity = 1)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->addEcommerceItem($sku, $name, $category, $price, $quantity);
+        }
+                    /**
+         * Tracks a Cart Update (add item, remove item, update item).
+         * 
+         * On every Cart update, you must call addEcommerceItem() for each item (product) in the cart,
+         * including the items that haven't been updated since the last cart update.
+         * Items which were in the previous cart and are not sent in later Cart updates will be deleted from the cart (in the database).
+         *
+         * @param float $grandTotal Cart grandTotal (typically the sum of all items' prices)
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackEcommerceCartUpdate($grandTotal)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackEcommerceCartUpdate($grandTotal);
+        }
+                    /**
+         * Sends all stored tracking actions at once. Only has an effect if bulk tracking is enabled.
+         * 
+         * To enable bulk tracking, call enableBulkTracking().
+         *
+         * @throws Exception
+         * @return string Response
+         * @static 
+         */ 
+        public static function doBulkTrack()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doBulkTrack();
+        }
+                    /**
+         * Tracks an Ecommerce order.
+         * 
+         * If the Ecommerce order contains items (products), you must call first the addEcommerceItem() for each item in the order.
+         * All revenues (grandTotal, subTotal, tax, shipping, discount) will be individually summed and reported in Matomo reports.
+         * Only the parameters $orderId and $grandTotal are required.
+         *
+         * @param string|int $orderId (required) Unique Order ID.
+         *                This will be used to count this order only once in the event the order page is reloaded several times.
+         *                orderId must be unique for each transaction, even on different days, or the transaction will not be recorded by Matomo.
+         * @param float $grandTotal (required) Grand Total revenue of the transaction (including tax, shipping, etc.)
+         * @param float $subTotal (optional) Sub total amount, typically the sum of items prices for all items in this order (before Tax and Shipping costs are applied)
+         * @param float $tax (optional) Tax amount for this order
+         * @param float $shipping (optional) Shipping amount for this order
+         * @param float $discount (optional) Discounted amount in this order
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackEcommerceOrder($orderId, $grandTotal, $subTotal = 0.0, $tax = 0.0, $shipping = 0.0, $discount = 0.0)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackEcommerceOrder($orderId, $grandTotal, $subTotal, $tax, $shipping, $discount);
+        }
+                    /**
+         * Tracks a PHP Throwable a crash (requires CrashAnalytics to be enabled in the target Matomo)
+         *
+         * @param \Throwable $ex (required) the throwable to track. The message, stack trace, file location and line number
+         *                      of the crash are deduced from this parameter. The crash type is set to the class name of
+         *                      the Throwable.
+         * @param string|null $category (optional) a category value for this crash. This can be any information you want
+         *                              to attach to the crash.
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackPhpThrowable($ex, $category = null)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackPhpThrowable($ex, $category);
+        }
+                    /**
+         * Track a crash (requires CrashAnalytics to be enabled in the target Matomo)
+         *
+         * @param string $message (required) the error message.
+         * @param string|null $type (optional) the error type, such as the class name of an Exception.
+         * @param string|null $category (optional) a category value for this crash. This can be any information you want
+         *                              to attach to the crash.
+         * @param string|null $stack (optional) the stack trace of the crash.
+         * @param string|null $location (optional) the source file URI where the crash originated.
+         * @param int|null $line (optional) the source file line where the crash originated.
+         * @param int|null $column (optional) the source file column where the crash originated.
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doTrackCrash($message, $type = null, $category = null, $stack = null, $location = null, $line = null, $column = null)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doTrackCrash($message, $type, $category, $stack, $location, $line, $column);
+        }
+                    /**
+         * Sends a ping request.
+         * 
+         * Ping requests do not track new actions. If they are sent within the standard visit length (see global.ini.php),
+         * they will extend the existing visit and the current last action for the visit. If after the standard visit length,
+         * ping requests will create a new visit using the last action in the last known visit.
+         *
+         * @return mixed Response or true if using bulk request
+         * @static 
+         */ 
+        public static function doPing()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->doPing();
+        }
+                    /**
+         * Sets the current page view as an item (product) page view, or an Ecommerce Category page view.
+         * 
+         * This must be called before doTrackPageView() on this product/category page.
+         * 
+         * On a category page, you may set the parameter $category only and set the other parameters to false.
+         * 
+         * Tracking Product/Category page views will allow Matomo to report on Product & Categories
+         * conversion rates (Conversion rate = Ecommerce orders containing this product or category / Visits to the product or category)
+         *
+         * @param string $sku Product SKU being viewed
+         * @param string $name Product Name being viewed
+         * @param string|array $category Category being viewed. On a Product page, this is the product's category.
+         *                                You can also specify an array of up to 5 categories for a given page view.
+         * @param float $price Specify the price at which the item was displayed
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setEcommerceView($sku = '', $name = '', $category = '', $price = 0.0)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setEcommerceView($sku, $name, $category, $price);
+        }
+                    /**
+         * Returns URL used to track Ecommerce Cart updates
+         * Calling this function will reinitializes the property ecommerceItems to empty array
+         * so items will have to be added again via addEcommerceItem()
+         *
+         * @ignore 
+         * @static 
+         */ 
+        public static function getUrlTrackEcommerceCartUpdate($grandTotal)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackEcommerceCartUpdate($grandTotal);
+        }
+                    /**
+         * Returns URL used to track Ecommerce Orders
+         * Calling this function will reinitializes the property ecommerceItems to empty array
+         * so items will have to be added again via addEcommerceItem()
+         *
+         * @ignore 
+         * @static 
+         */ 
+        public static function getUrlTrackEcommerceOrder($orderId, $grandTotal, $subTotal = 0.0, $tax = 0.0, $shipping = 0.0, $discount = 0.0)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackEcommerceOrder($orderId, $grandTotal, $subTotal, $tax, $shipping, $discount);
+        }
+                    /**
+         * Builds URL to track a page view.
+         *
+         * @see doTrackPageView()
+         * @param string $documentTitle Page view name as it will appear in Matomo reports
+         * @return string URL to matomo.php with all parameters set to track the pageview
+         * @static 
+         */ 
+        public static function getUrlTrackPageView($documentTitle = '')
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackPageView($documentTitle);
+        }
+                    /**
+         * Builds URL to track a custom event.
+         *
+         * @see doTrackEvent()
+         * @param string $category The Event Category (Videos, Music, Games...)
+         * @param string $action The Event's Action (Play, Pause, Duration, Add Playlist, Downloaded, Clicked...)
+         * @param string|bool $name (optional) The Event's object Name (a particular Movie name, or Song name, or File name...)
+         * @param float|bool $value (optional) The Event's value
+         * @return string URL to matomo.php with all parameters set to track the pageview
+         * @throws 
+         * @static 
+         */ 
+        public static function getUrlTrackEvent($category, $action, $name = false, $value = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackEvent($category, $action, $name, $value);
+        }
+                    /**
+         * Builds URL to track a content impression.
+         *
+         * @see doTrackContentImpression()
+         * @param string $contentName The name of the content. For instance 'Ad Foo Bar'
+         * @param string $contentPiece The actual content. For instance the path to an image, video, audio, any text
+         * @param string|false $contentTarget (optional) The target of the content. For instance the URL of a landing page.
+         * @throws Exception In case $contentName is empty
+         * @return string URL to matomo.php with all parameters set to track the pageview
+         * @static 
+         */ 
+        public static function getUrlTrackContentImpression($contentName, $contentPiece, $contentTarget)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackContentImpression($contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Builds URL to track a content impression.
+         *
+         * @see doTrackContentInteraction()
+         * @param string $interaction The name of the interaction with the content. For instance a 'click'
+         * @param string $contentName The name of the content. For instance 'Ad Foo Bar'
+         * @param string $contentPiece The actual content. For instance the path to an image, video, audio, any text
+         * @param string|false $contentTarget (optional) The target the content leading to when an interaction occurs. For instance the URL of a landing page.
+         * @throws Exception In case $interaction or $contentName is empty
+         * @return string URL to matomo.php with all parameters set to track the pageview
+         * @static 
+         */ 
+        public static function getUrlTrackContentInteraction($interaction, $contentName, $contentPiece, $contentTarget)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackContentInteraction($interaction, $contentName, $contentPiece, $contentTarget);
+        }
+                    /**
+         * Builds URL to track a site search.
+         *
+         * @see doTrackSiteSearch()
+         * @param string $keyword
+         * @param string $category
+         * @param int $countResults
+         * @return string 
+         * @static 
+         */ 
+        public static function getUrlTrackSiteSearch($keyword, $category, $countResults)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackSiteSearch($keyword, $category, $countResults);
+        }
+                    /**
+         * Builds URL to track a goal with idGoal and revenue.
+         *
+         * @see doTrackGoal()
+         * @param int $idGoal Id Goal to record a conversion
+         * @param float $revenue Revenue for this conversion
+         * @return string URL to matomo.php with all parameters set to track the goal conversion
+         * @static 
+         */ 
+        public static function getUrlTrackGoal($idGoal, $revenue = 0.0)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackGoal($idGoal, $revenue);
+        }
+                    /**
+         * Builds URL to track a new action.
+         *
+         * @see doTrackAction()
+         * @param string $actionUrl URL of the download or outlink
+         * @param string $actionType Type of the action: 'download' or 'link'
+         * @return string URL to matomo.php with all parameters set to track an action
+         * @static 
+         */ 
+        public static function getUrlTrackAction($actionUrl, $actionType)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackAction($actionUrl, $actionType);
+        }
+                    /**
+         * Builds URL to track a crash.
+         *
+         * @see doTrackCrash()
+         * @param string $message (required) the error message.
+         * @param string|null $type (optional) the error type, such as the class name of an Exception.
+         * @param string|null $category (optional) a category value for this crash. This can be any information you want
+         *                              to attach to the crash.
+         * @param string|null $stack (optional) the stack trace of the crash.
+         * @param string|null $location (optional) the source file URI where the crash originated.
+         * @param int|null $line (optional) the source file line where the crash originated.
+         * @param int|null $column (optional) the source file column where the crash originated.
+         * @return string URL to matomo.php with all parameters set to track an action
+         * @static 
+         */ 
+        public static function getUrlTrackCrash($message, $type = null, $category = null, $stack = null, $location = null, $line = null, $column = null)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUrlTrackCrash($message, $type, $category, $stack, $location, $line, $column);
+        }
+                    /**
+         * Overrides server date and time for the tracking requests.
+         * 
+         * By default Matomo will track requests for the "current datetime" but this function allows you
+         * to track visits in the past. All times are in UTC.
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth()
+         *
+         * @see setTokenAuth()
+         * @param string $dateTime Date with the format 'Y-m-d H:i:s', or a UNIX timestamp.
+         *               If the datetime is older than one day (default value for tracking_requests_require_authentication_when_custom_timestamp_newer_than), then you must call setTokenAuth() with a valid Admin/Super user token.
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setForceVisitDateTime($dateTime)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setForceVisitDateTime($dateTime);
+        }
+                    /**
+         * Forces Matomo to create a new visit for the tracking request.
+         * 
+         * By default, Matomo will create a new visit if the last request by this user was more than 30 minutes ago.
+         * If you call setForceNewVisit() before calling doTrack*, then a new visit will be created for this request.
+         *
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setForceNewVisit()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setForceNewVisit();
+        }
+                    /**
+         * Overrides IP address
+         * 
+         * Allowed only for Admin/Super User, must be used along with setTokenAuth()
+         *
+         * @see setTokenAuth()
+         * @param string $ip IP string, eg. 130.54.2.1
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setIp($ip)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setIp($ip);
+        }
+                    /**
+         * Force the action to be recorded for a specific User. The User ID is a string representing a given user in your system.
+         * 
+         * A User ID can be a username, UUID or an email address, or any number or string that uniquely identifies a user or client.
+         *
+         * @param string $userId Any user ID string (eg. email address, ID, username). Must be non empty. Set to false to de-assign a user id previously set.
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setUserId($userId)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setUserId($userId);
+        }
+                    /**
+         * Hash function used internally by Matomo to hash a User ID into the Visitor ID.
+         * 
+         * Note: matches implementation of Tracker\Request->getUserIdHashed()
+         *
+         * @param $id
+         * @return string 
+         * @static 
+         */ 
+        public static function getUserIdHashed($id)
+        {            //Method inherited from \MatomoTracker         
+                        return \Chameleon\MatomoTracker\LaravelMatomoTracker::getUserIdHashed($id);
+        }
+                    /**
+         * Forces the requests to be recorded for the specified Visitor ID.
+         * 
+         * Rather than letting Matomo attribute the user with a heuristic based on IP and other user fingeprinting attributes,
+         * force the action to be recorded for a particular visitor.
+         * 
+         * If not set, the visitor ID will be fetched from the 1st party cookie, or will be set to a random UUID.
+         *
+         * @param string $visitorId 16 hexadecimal characters visitor ID, eg. "33c31e01394bdc63"
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setVisitorId($visitorId)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setVisitorId($visitorId);
+        }
+                    /**
+         * If the user initiating the request has the Matomo first party cookie,
+         * this function will try and return the ID parsed from this first party cookie (found in $_COOKIE).
+         * 
+         * If you call this function from a server, where the call is triggered by a cron or script
+         * not initiated by the actual visitor being tracked, then it will return
+         * the random Visitor ID that was assigned to this visit object.
+         * 
+         * This can be used if you wish to record more visits, actions or goals for this visitor ID later on.
+         *
+         * @return string 16 hex chars visitor ID string
+         * @static 
+         */ 
+        public static function getVisitorId()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getVisitorId();
+        }
+                    /**
+         * Returns the currently set user agent.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getUserAgent()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUserAgent();
+        }
+                    /**
+         * Returns the currently set IP address.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getIp()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getIp();
+        }
+                    /**
+         * Returns the User ID string, which may have been set via:
+         *     $v->setUserId('username@example.org');
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function getUserId()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getUserId();
+        }
+                    /**
+         * Deletes all first party cookies from the client
+         *
+         * @static 
+         */ 
+        public static function deleteCookies()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->deleteCookies();
+        }
+                    /**
+         * Returns the currently assigned Attribution Information stored in a first party cookie.
+         * 
+         * This function will only work if the user is initiating the current request, and his cookies
+         * can be read by PHP from the $_COOKIE array.
+         *
+         * @return string JSON Encoded string containing the Referrer information for Goal conversion attribution.
+         *                Will return false if the cookie could not be found
+         * @see matomo.js getAttributionInfo()
+         * @static 
+         */ 
+        public static function getAttributionInfo()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getAttributionInfo();
+        }
+                    /**
+         * Some Tracking API functionality requires express authentication, using either the
+         * Super User token_auth, or a user with 'admin' access to the website.
+         * 
+         * The following features require access:
+         * - force the visitor IP
+         * - force the date &  time of the tracking requests rather than track for the current datetime
+         *
+         * @param string $token_auth token_auth 32 chars token_auth string
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setTokenAuth($token_auth)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setTokenAuth($token_auth);
+        }
+                    /**
+         * Sets local visitor time
+         *
+         * @param string $time HH:MM:SS format
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setLocalTime($time)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setLocalTime($time);
+        }
+                    /**
+         * Sets user resolution width and height.
+         *
+         * @param int $width
+         * @param int $height
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setResolution($width, $height)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setResolution($width, $height);
+        }
+                    /**
+         * Sets if the browser supports cookies
+         * This is reported in "List of plugins" report in Matomo.
+         *
+         * @param bool $bool
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setBrowserHasCookies($bool)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setBrowserHasCookies($bool);
+        }
+                    /**
+         * Will append a custom string at the end of the Tracking request.
+         *
+         * @param string $string
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setDebugStringAppend($string)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setDebugStringAppend($string);
+        }
+                    /**
+         * Sets visitor browser supported plugins
+         *
+         * @param bool $flash
+         * @param bool $java
+         * @param bool $quickTime
+         * @param bool $realPlayer
+         * @param bool $pdf
+         * @param bool $windowsMedia
+         * @param bool $silverlight
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setPlugins($flash = false, $java = false, $quickTime = false, $realPlayer = false, $pdf = false, $windowsMedia = false, $silverlight = false)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setPlugins($flash, $java, $quickTime, $realPlayer, $pdf, $windowsMedia, $silverlight);
+        }
+                    /**
+         * By default, MatomoTracker will read first party cookies
+         * from the request and write updated cookies in the response (using setrawcookie).
+         * 
+         * This can be disabled by calling this function.
+         *
+         * @static 
+         */ 
+        public static function disableCookieSupport()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->disableCookieSupport();
+        }
+                    /**
+         * Returns the maximum number of seconds the tracker will spend waiting for a response
+         * from Matomo. Defaults to 600 seconds.
+         *
+         * @static 
+         */ 
+        public static function getRequestTimeout()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getRequestTimeout();
+        }
+                    /**
+         * Sets the maximum number of seconds that the tracker will spend waiting for a response
+         * from Matomo.
+         *
+         * @param int $timeout
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setRequestTimeout($timeout)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setRequestTimeout($timeout);
+        }
+                    /**
+         * Returns the maximum number of seconds the tracker will spend trying to connect to Matomo.
+         * 
+         * Defaults to 300 seconds.
+         *
+         * @static 
+         */ 
+        public static function getRequestConnectTimeout()
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getRequestConnectTimeout();
+        }
+                    /**
+         * Sets the maximum number of seconds that the tracker will spend tryint to connect to Matomo.
+         *
+         * @param int $timeout
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function setRequestConnectTimeout($timeout)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setRequestConnectTimeout($timeout);
+        }
+                    /**
+         * Sets the request method to POST, which is recommended when using setTokenAuth()
+         * to prevent the token from being recorded in server logs. Avoid using redirects
+         * when using POST to prevent the loss of POST values. When using Log Analytics,
+         * be aware that POST requests are not parseable/replayable.
+         *
+         * @param string $method Either 'POST' or 'GET'
+         * @return \Chameleon\MatomoTracker\LaravelMatomoTracker 
+         * @static 
+         */ 
+        public static function setRequestMethodNonBulk($method)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setRequestMethodNonBulk($method);
+        }
+                    /**
+         * If a proxy is needed to look up the address of the Matomo site, set it with this
+         *
+         * @param string $proxy IP as string, for example "173.234.92.107"
+         * @param int $proxyPort
+         * @static 
+         */ 
+        public static function setProxy($proxy, $proxyPort = 80)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setProxy($proxy, $proxyPort);
+        }
+                    /**
+         * Sets a cookie to be sent to the tracking server.
+         *
+         * @param $name
+         * @param $value
+         * @static 
+         */ 
+        public static function setOutgoingTrackerCookie($name, $value)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->setOutgoingTrackerCookie($name, $value);
+        }
+                    /**
+         * Gets a cookie which was set by the tracking server.
+         *
+         * @param $name
+         * @return bool|string 
+         * @static 
+         */ 
+        public static function getIncomingTrackerCookie($name)
+        {            //Method inherited from \MatomoTracker         
+                        /** @var \Chameleon\MatomoTracker\LaravelMatomoTracker $instance */
+                        return $instance->getIncomingTrackerCookie($name);
+        }
+         
+    }
+     
+}
+
     namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
@@ -23804,6 +25220,7 @@ namespace  {
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class PDF extends \Barryvdh\Snappy\Facades\SnappyPdf {}
             class SnappyImage extends \Barryvdh\Snappy\Facades\SnappyImage {}
+            class LaravelMatomoTracker extends \Chameleon\MatomoTracker\Facades\LaravelMatomoTracker {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Cart extends \Jackiedo\Cart\Facades\Cart {}

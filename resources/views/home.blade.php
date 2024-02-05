@@ -1,5 +1,17 @@
 @extends('adminlte::page')
 
+@php
+try {
+    //code...
+    LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+    LaravelMatomoTracker::doTrackPageView('Home Page');
+    LaravelMatomoTracker::setUrl(url()->current());
+    LaravelMatomoTracker::setUrlReferrer(url()->previous());
+} catch (\Throwable $th) {
+    //throw $th;
+}
+@endphp
+
 @section('title_postfix', '- Home')
 
 @section('content_header')

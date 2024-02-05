@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+    //code...
+    LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+    LaravelMatomoTracker::doTrackPageView('Abc Prodotti');
+} catch (\Throwable $th) {
+    //throw $th;
+}
+@endphp
 @section('title_postfix', '- AbcProds')
 
 @section('content_header')

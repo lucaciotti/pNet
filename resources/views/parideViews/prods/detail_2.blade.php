@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Dettagli Prodotto - '.$prod->id_art);
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- Product Detail')
 
 {{-- @section('content_header')

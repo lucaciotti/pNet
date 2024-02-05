@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Gestione Clienti');
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- '.trans('user.headTitle_idx'))
 
 @section('content_header')

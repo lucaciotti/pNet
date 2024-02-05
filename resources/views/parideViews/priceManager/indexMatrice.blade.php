@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+    //code...
+    LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+    LaravelMatomoTracker::doTrackPageView('Gestione Matrice Prezzi');
+} catch (\Throwable $th) {
+    //throw $th;
+}
+@endphp
 @section('title_postfix', '- Matrice Prezzi')
 
 @section('content_header')

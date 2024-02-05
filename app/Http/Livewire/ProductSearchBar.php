@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Models\parideModels\Product;
+use LaravelMatomoTracker;
 
 class ProductSearchBar extends Component
 {
@@ -60,12 +61,12 @@ class ProductSearchBar extends Component
         if(Str::of($searchStr)->explode(' ')->count()==1){
             $products_code = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Codice Prodotto" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
                 ->where('id_art', 'like', $searchStr . '%')->take(25)->get();
-            $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
                 ->whereRaw('upper(desc_ecom) like (?)',["%{$searchStr}%"])
                 ->orWhereRaw('upper(descr) like (?)',["%{$searchStr}%"])
                 ->take(25)->get();
             $products_barcode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Barcode" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
-                ->where('id_cod_bar', 'like', $this->searchStr . '%')
+            ->where('id_cod_bar', 'like', $this->searchStr . '%')
                 ->orWhereHas('barcodes', function ($query) use ($searchStr) {
                     $query->where('id_cod_bar', 'like', $searchStr . '%');
                 })->take(25)->get();
@@ -73,21 +74,21 @@ class ProductSearchBar extends Component
                 ->whereHas('supplierCodes', function ($query) use ($searchStr) {
                     $query->where('id_cod_for', 'like', $searchStr . '%');
                 })->take(25)->get();
-            $products_customCode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Cod. Personalizzato" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
+                $products_customCode = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Cod. Personalizzato" as type'), DB::raw('"'.$searchStr.'" as searchStr'))
                 ->orWhereHas('skuCustomCode', function ($query) use ($searchStr) {
                     $query->where('sku_code', 'like', $searchStr . '%');
                 })->take(25)->get();
 
-            $this->products = $products_code->merge($products_desc)->merge($products_barcode)->merge($products_supplierCode)->merge($products_customCode)->toArray();
+                $this->products = $products_code->merge($products_desc)->merge($products_barcode)->merge($products_supplierCode)->merge($products_customCode)->toArray();
         } else {
-                $aSearchStr = Str::of($searchStr)->explode(' ');
+            $aSearchStr = Str::of($searchStr)->explode(' ');
                 $products_desc = Product::select('id_art', 'descr', 'id_cli_for', DB::raw('"Descrizione" as type'), DB::raw('"'.$searchStr.'" as searchStr'));
                 // foreach ($aSearchStr as $key => $value) {
                 //     if($key==0){
                 //         $products_desc->whereRaw('upper(desc_ecom) like (?)',["%{$value}%"])
                 //                     ->orWhereRaw('upper(descr) like (?)',["%{$value}%"]);
                 //     } else {
-                //         $products_desc->orWhereRaw('upper(desc_ecom) like (?)',["%{$value}%"])
+                    //         $products_desc->orWhereRaw('upper(desc_ecom) like (?)',["%{$value}%"])
                 //                     ->orWhereRaw('upper(descr) like (?)',["%{$value}%"]);
                 //     }
                 // }
@@ -106,6 +107,12 @@ class ProductSearchBar extends Component
         }   
         
         // dd($this->products);
+        try {
+            //code...
+            LaravelMatomoTracker::doTrackSiteSearch($searchStr, 'Prodotti', count($this->products));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function render()

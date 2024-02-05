@@ -1,5 +1,13 @@
 @extends('adminlte::page')
-
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Lista Documenti');
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- DocList')
 
 @section('content_header')

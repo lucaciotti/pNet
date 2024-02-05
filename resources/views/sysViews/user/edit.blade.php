@@ -1,4 +1,13 @@
 @extends('adminlte::page')
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Modifica Utente - '.$user->name);
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- '.trans('user.headTitle_edt'))
 
 @section('content')

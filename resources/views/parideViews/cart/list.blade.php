@@ -1,5 +1,15 @@
 @extends('adminlte::page')
-
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Lista Ordini Web Emessi');
+  LaravelMatomoTracker::setUrl(url()->current());
+  LaravelMatomoTracker::setUrlReferrer(url()->previous());
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- OrdWeb List')
 
 @section('content_header')

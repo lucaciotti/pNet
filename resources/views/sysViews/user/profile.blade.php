@@ -1,4 +1,15 @@
 @extends('adminlte::page')
+@php
+try {
+  //code...
+  LaravelMatomoTracker::setUserId(RedisUser::get('name'));
+  LaravelMatomoTracker::doTrackPageView('Profilo Utente - '.$user->name);
+  LaravelMatomoTracker::setUrl(url()->current());
+  LaravelMatomoTracker::setUrlReferred(url()->previous());
+} catch (\Throwable $th) {
+  //throw $th;
+}
+@endphp
 @section('title_postfix', '- '.trans('user.headTitle_pfl'))
 
 @section('content')
