@@ -42,7 +42,7 @@ class PriceManager
                     $query->orWhere('id_mar', $id_mar);
                 }
             })
-            ->orderBy('id_lis', 'DESC')->get();
+            ->orderBy('id_lis', 'DESC')->orderBy('sconto', 'DESC')->get();
         if (count($matricePrezzi) > 0) {
             $dfl_listino_cli = $matricePrezzi->first()->id_lis;
             $dfl_sconto = $matricePrezzi->first()->sconto;
@@ -54,7 +54,7 @@ class PriceManager
                     $query->where('id_cli_for', $id_cli_for);
                     $query->orWhere('id_tipo_cl', $id_tipo_cl);
                 })
-                ->orderBy('listino', 'DESC')->get();
+                ->orderBy('listino', 'DESC')->orderBy('extrasconto', 'DESC')->get();
             if (count($priceRule) > 0) {
                 $dfl_listino_cli = $priceRule->first()->listino;
                 $dfl_sconto = $priceRule->first()->extrasconto;
@@ -135,7 +135,7 @@ class PriceManager
                     $query->orWhere('id_mar', $id_mar);
                 }
             })
-            ->orderBy('id_lis', 'DESC')->get();
+            ->orderBy('id_lis', 'DESC')->orderBy('sconto', 'DESC')->get();
         if (count($matricePrezzi) > 0) {
             $dfl_listino_cli = $matricePrezzi->first()->id_lis;
             $dfl_sconto = $matricePrezzi->first()->sconto;
@@ -147,7 +147,7 @@ class PriceManager
                     $query->where('id_cli_for', $id_cli_for);
                     $query->orWhere('id_tipo_cl', $id_tipo_cl);
                 })
-                ->orderBy('listino', 'DESC')->get();
+                ->orderBy('listino', 'DESC')->orderBy('extrasconto', 'DESC')->get();
             if (count($priceRule) > 0) {
                 $dfl_listino_cli = $priceRule->first()->listino;
                 $dfl_sconto = $priceRule->first()->extrasconto;
