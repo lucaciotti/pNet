@@ -38,7 +38,9 @@ class PriceManager
             ->where(function ($query) use ($id_art, $id_fam, $id_mar) {
                 $query->where('id_art', $id_art);
                 $query->orWhere('id_fam', $id_fam);
-                $query->orWhere('id_mar', $id_mar);
+                if(!empty($id_mar)) {
+                    $query->orWhere('id_mar', $id_mar);
+                }
             })
             ->orderBy('id_lis', 'DESC')->get();
         if (count($matricePrezzi) > 0) {
@@ -129,7 +131,9 @@ class PriceManager
             ->where(function ($query) use ($id_art, $id_fam, $id_mar) {
                 $query->where('id_art', $id_art);
                 $query->orWhere('id_fam', $id_fam);
-                $query->orWhere('id_mar', $id_mar);
+                if (!empty($id_mar)) {
+                    $query->orWhere('id_mar', $id_mar);
+                }
             })
             ->orderBy('id_lis', 'DESC')->get();
         if (count($matricePrezzi) > 0) {
