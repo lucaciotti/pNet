@@ -26,6 +26,7 @@ host('dev')
     ->set('stage', 'dev')
     ->set('remote_user', 'root')
     ->set('hostname', 'pnet.lucaciotti.space')
+    ->set('identity_file', '~/.ssh/id_ed25519_old')
     ->set('deploy_path', '/var/www/{{hostname}}');
 
 task('deploy', [
