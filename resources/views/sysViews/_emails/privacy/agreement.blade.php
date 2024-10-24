@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }}
 
-le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei concesso a [Ferramenta Paride](https://www.ferramentaparide.it/).     
+le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei concesso a [Ferramenta Paride Srl](https://www.ferramentaparide.it/).     
 Da questo momento potrà visualizzare lo stato dei sui Preventivi, Ordini, DDT e Fatture, unitamente al catalogo completo
 dei nostri prodotti, sui nostri sistemi informativi.
 
@@ -20,7 +20,7 @@ dell’Art.13 del Regolamento UE 2016/679, con la presente:</div>
 @endif
 
 <div style="text-align: justify">
-al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità strettamente connesse allo
+al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità strettamente connesse allo
 svolgimento delle attività amministrative indicate al punto 2.1</div>
 <br>
 <div style="text-align: justify">
@@ -36,7 +36,7 @@ Inoltre, date le premesse di cui al punto precedente:</div>
 
 <br>
 <div style="text-align: justify">
-al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità informative di marketing
+al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità informative di marketing
 indicate al punto 2.2.</div>
 <br>
 
@@ -67,7 +67,7 @@ Come sempre, rimaniamo a sua disposizione.
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.
 
-Staff pNet Ferramenta Paride
+Staff pNet Ferramenta Paride Srl
 
 {{-- @slot('subcopy')
 <small>
@@ -83,7 +83,7 @@ Staff pNet Ferramenta Paride
     Rif.D.L.196/2003.<br>
     -------------------------------------------------------------------------------------------------------<br>
     Titolare del trattamento:<br>
-    Schiavon Paride Ferramenta<br>
+    Ferramenta Paride Srl<br>
     Via Lovadina, 63/2 - 31050 Vascon di Carbonera (TV) - Italy<br>
     Tel-1 (0039) 0422-350065 - Tel-2 (0039) 0422-448300<br>
     P.I. 01932040262 Reg. Imprese Treviso n. 177409<br>

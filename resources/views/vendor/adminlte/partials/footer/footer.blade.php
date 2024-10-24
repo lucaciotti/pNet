@@ -18,7 +18,7 @@
     &nbsp;
     <div class="float-right d-sm-inline-block">
         <strong>
-            <a href="http://www.ferramentaparide.it">Schiavon Paride Ferramenta</a>
+            <a href="http://www.ferramentaparide.it">Ferramenta Paride Srl</a>
         </strong>
         <span class="d-none d-sm-inline-block">
             <small>

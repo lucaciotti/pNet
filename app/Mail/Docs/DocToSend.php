@@ -57,13 +57,13 @@ class DocToSend extends Mailable
         $from = 'amministrazione@ferramentaparide.it';
         Log::info('Invio '.$nameDoc. ' - '.$this->user->name);
         if($this->user->isActive){
-            return $this->from($from, 'pNet - Ferramenta Paride')
-                ->subject('Invio '.$nameDoc.' - Ferramenta Paride')
+            return $this->from($from, 'pNet - Ferramenta Paride Srl')
+                ->subject('Invio '.$nameDoc.' - Ferramenta Paride Srl')
                 ->markdown('parideViews._emails.docs.docToSend')
                 ->attach($this->fileToAttach);
         } else {
-            return $this->from($from, 'pNet - Ferramenta Paride')
-                ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride')
+            return $this->from($from, 'pNet - Ferramenta Paride Srl')
+                ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride Srl')
                 ->markdown('parideViews._emails.docs.docToSendWithInvite')
                 ->attach($this->fileToAttach);
         }

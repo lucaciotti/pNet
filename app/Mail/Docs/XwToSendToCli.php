@@ -63,8 +63,8 @@ class XwToSendToCli extends Mailable
         }
         $nameDoc = $this->getNameDoc($this->doc);
         Log::info('Invio ' . $nameDoc . ' - ' . $this->user->name);
-        return $this->from($from, 'pNet - Ferramenta Paride')
-                    ->subject('Invio Pre ' . $nameDoc . ' - Ferramenta Paride')
+        return $this->from($from, 'pNet - Ferramenta Paride Srl')
+                    ->subject('Invio Pre ' . $nameDoc . ' - Ferramenta Paride Srl')
                     ->markdown('parideViews._emails.docs.xwToSendToCli')
                     ->attach($this->filePDFToAttach)
                     ->attach($this->fileCSVToAttach);
