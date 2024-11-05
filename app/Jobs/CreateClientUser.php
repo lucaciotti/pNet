@@ -62,12 +62,16 @@ class CreateClientUser implements ShouldQueue
                         Log::error('Creazione Utente '.$client->rag_soc.' non riuscita!');
                     }
                     if($user) {
-                        $user->roles()->detach();
-                        $user->attachRole(Role::where('name', 'client')->first()->id);
-                        $user->ditta = 'it';
-                        $user->isActive = false;
-                        $user->enable_ordweb = true;
-                        $user->save();                              
+                        try {
+                            $user->roles()->detach();
+                            $user->attachRole(Role::where('name', 'client')->first()->id);
+                            $user->ditta = 'it';
+                            $user->isActive = false;
+                            $user->enable_ordweb = true;
+                            $user->save();
+                        } catch (\Throwable $th) {
+                            Log::error('Creazione Utente '.$client->rag_soc.' incompleta!');
+                        }
                     }
                 }
 
