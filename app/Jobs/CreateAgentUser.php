@@ -38,18 +38,22 @@ class CreateAgentUser implements ShouldQueue
         foreach ($agents as $agent) {
             if (filter_var($agent->emaila, FILTER_VALIDATE_EMAIL)) {
                 if (!User::where('codag', $agent->id_agente)->exists()) {
-                    $user = User::create([
-                        'name' => $agent->nome,
-                        'nickname' => $agent->emaila,
-                        'email' => $agent->emaila,
-                        'password' => Hash::make(Str::random(32)),
-                        'codag' => $agent->id_agente,
-                    ]);
-                    $user->roles()->detach();
-                    $user->attachRole(Role::where('name', 'agent')->first()->id);
-                    $user->ditta = 'it';
-                    $user->isActive = false;
-                    $user->save();
+                    try {
+                        $user = User::create([
+                            'name' => $agent->nome,
+                            'nickname' => $agent->emaila,
+                            'email' => $agent->emaila,
+                            'password' => Hash::make(Str::random(32)),
+                            'codag' => $agent->id_agente,
+                        ]);
+                        $user->roles()->detach();
+                        $user->attachRole(Role::where('name', 'agent')->first()->id);
+                        $user->ditta = 'it';
+                        $user->isActive = false;
+                        $user->save();
+                    } catch (\Throwable $th) {
+                        Log::error('Creazione Agente '.$agent->id_agente.' non riuscita!');
+                    }
                 }
             }
         }

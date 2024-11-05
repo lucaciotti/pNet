@@ -49,19 +49,25 @@ class CreateClientUser implements ShouldQueue
         foreach ($clients as $client) {
             if(filter_var($client->e_mail, FILTER_VALIDATE_EMAIL)){
                 if(!User::where('codcli', $client->id_cli_for)->exists()){
-                    $user = User::create([
-                        'name' => $client->rag_soc,
-                        'nickname' => $client->id_cli_for.'@pNet.it',
-                        'email' => $client->e_mail,
-                        'password' => Hash::make(Str::random(32)),
-                        'codcli' => $client->id_cli_for,
-                    ]);
-                    $user->roles()->detach();
-                    $user->attachRole(Role::where('name', 'client')->first()->id);
-                    $user->ditta = 'it';
-                    $user->isActive = false;
-                    $user->enable_ordweb = true;
-                    $user->save();                              
+                    try {
+                        $user = User::create([
+                            'name' => $client->rag_soc,
+                            'nickname' => $client->id_cli_for.'@pNet.it',
+                            'email' => $client->e_mail,
+                            'password' => Hash::make(Str::random(32)),
+                            'codcli' => $client->id_cli_for,
+                        ]);
+                    } catch (\Throwable $th) {
+                        Log::error('Creazione Utente '.$client->rag_soc.' non riuscita!');
+                    }
+                    if($user) {
+                        $user->roles()->detach();
+                        $user->attachRole(Role::where('name', 'client')->first()->id);
+                        $user->ditta = 'it';
+                        $user->isActive = false;
+                        $user->enable_ordweb = true;
+                        $user->save();                              
+                    }
                 }
 
                 //Procedura inivo invito Automatino && Creazione Privacy
@@ -111,6 +117,25 @@ class CreateClientUser implements ShouldQueue
                             Log::info('ClientUser sended auto invitation to:'. $client->id_cli_for.'-'. $client->rag_soc . '-' . $client->email);
                         }
                     }
+                }
+            } else {         
+                $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc'</b> con email non valida <b>"'.$client->email.'"</b>';
+                if (App::environment(['local', 'staging'])) {
+                    Mail::send([], [], function (Message $message) use ($html) {
+                        $message
+                        ->to('pnet@lucaciotti.space')
+                        ->bcc(['luca.ciotti@gmail.com'])
+                        ->subject('ClientUser creation Job')
+                        ->setBody($html, 'text/html');
+                    });
+                } else {
+                    Mail::send([], [], function (Message $message) use ($html) {
+                        $message
+                        ->to('amministrazione@ferramentaparide.it')
+                        ->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])
+                        ->subject('ClientUser creation Job')
+                        ->setBody($html, 'text/html');
+                    });
                 }
             }
         }
