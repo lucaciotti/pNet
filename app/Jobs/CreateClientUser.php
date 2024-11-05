@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Message;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Password;
@@ -61,12 +62,16 @@ class CreateClientUser implements ShouldQueue
                         Log::error('Creazione Utente '.$client->rag_soc.' non riuscita!');
                     }
                     if($user) {
-                        $user->roles()->detach();
-                        $user->attachRole(Role::where('name', 'client')->first()->id);
-                        $user->ditta = 'it';
-                        $user->isActive = false;
-                        $user->enable_ordweb = true;
-                        $user->save();                              
+                        try {
+                            $user->roles()->detach();
+                            $user->attachRole(Role::where('name', 'client')->first()->id);
+                            $user->ditta = 'it';
+                            $user->isActive = false;
+                            $user->enable_ordweb = true;
+                            $user->save();
+                        } catch (\Throwable $th) {
+                            Log::error('Creazione Utente '.$client->rag_soc.' incompleta!');
+                        }
                     }
                 }
 
@@ -118,24 +123,26 @@ class CreateClientUser implements ShouldQueue
                         }
                     }
                 }
-            } else {         
-                $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc'</b> con email non valida <b>"'.$client->email.'"</b>';
-                if (App::environment(['local', 'staging'])) {
-                    Mail::send([], [], function (Message $message) use ($html) {
-                        $message
-                        ->to('pnet@lucaciotti.space')
-                        ->bcc(['luca.ciotti@gmail.com'])
-                        ->subject('ClientUser creation Job')
-                        ->setBody($html, 'text/html');
-                    });
-                } else {
-                    Mail::send([], [], function (Message $message) use ($html) {
-                        $message
-                        ->to('amministrazione@ferramentaparide.it')
-                        ->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])
-                        ->subject('ClientUser creation Job')
-                        ->setBody($html, 'text/html');
-                    });
+            } else {     
+                if($client->fat_email && !empty($client->email)) {    
+                    $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc.'</b> con email non valida <b>"'.$client->email.'"</b>';
+                    if (App::environment(['local', 'staging'])) {
+                        Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
+                            $message
+                            ->to('pnet@lucaciotti.space')
+                            ->bcc(['luca.ciotti@gmail.com'])
+                            ->subject('ClientUser creation Job')
+                            ->setBody($html, 'text/html');
+                        });
+                    } else {
+                        Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
+                            $message
+                            ->to('amministrazione@ferramentaparide.it')
+                            ->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])
+                            ->subject('ClientUser creation Job')
+                            ->setBody($html, 'text/html');
+                        });
+                    }
                 }
             }
         }
