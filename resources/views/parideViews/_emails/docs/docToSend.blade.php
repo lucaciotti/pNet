@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }} [{{ $user->codcli }}@pnet.it]  
 
-con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Ferramenta Paride Srl](https://www.ferramentaparide.it/).  
+con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Ferramenta Paride](https://www.ferramentaparide.it/).  
 
 @if (!empty($urlTracking))
     Il materiale è stato spedito e può tracciarne la consegna:
@@ -20,7 +20,7 @@ Come sempre, rimaniamo a sua disposizione.
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.  
 
-Staff pNet Ferramenta Paride Srl
+Staff pNet Ferramenta Paride
 
 {{-- @slot('subcopy')
 <small>
@@ -36,7 +36,7 @@ Staff pNet Ferramenta Paride Srl
     Rif.D.L.196/2003.<br>
     -------------------------------------------------------------------------------------------------------<br>
     Titolare del trattamento:<br>
-    Ferramenta Paride Srl<br>
+    Schiavon Paride Ferramenta<br>
     Via Lovadina, 63/2 - 31050 Vascon di Carbonera (TV) - Italy<br>
     Tel-1 (0039) 0422-350065 - Tel-2 (0039) 0422-448300<br>
     P.I. 01932040262 Reg. Imprese Treviso n. 177409<br>

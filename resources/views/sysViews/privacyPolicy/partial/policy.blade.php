@@ -1,6 +1,6 @@
 <div class="card @if(!$showTerms) collapsed-card @endif">
     <div class="card-header border-transparent" data-card-widget="collapse">
-        <h3 class="card-title"><strong>Privacy Policy - Ferramenta Paride Srl</strong> @if(!$showTerms) <small>(clicca per aprire)</small> @endif</h3>
+        <h3 class="card-title"><strong>Privacy Policy - Ferramenta Paride</strong> @if(!$showTerms) <small>(clicca per aprire)</small> @endif</h3>
 
         <div class="card-tools">
             @if($showTerms)
@@ -32,7 +32,7 @@
                 <li><strong>SOGGETTI DEL TRATTAMENTO</strong></li>
                 <p class="card-text">
                     TITOLARE DEL TRATTAMENTO, ai sensi dell’art. 28 del D. Lgs. 196/03 nonché degli artt. 4 e 24
-                    del Regolamento (UE) 679/2016 è Ferramenta Paride Srl con sede legale in Vascon
+                    del Regolamento (UE) 679/2016 è SCHIAVON PARIDE FERRAMENTA con sede legale in Vascon
                     di Carbonera (TV), Via Lovadina 63/2, nella persona del legale rappresentante e titolare.
                     RESPONSABILE DEL TRATTAMENTO, ai sensi dell’art. 29 del D. Lgs. 196/03 e degli artt. 4 e 28
                     del Regolamento (UE) 679/2016 è SCHIAVON PARIDE, Vascon di Carbonera (TV), Via Lovadina
@@ -55,7 +55,7 @@
                             elettronica, telefax, messaggi del tipo MMS (Multimedia Messaging Service) o SMS (Short
                             Message Service) o di altro tipo, materiale informativo, per la rilevazione del grado di
                             soddisfazione, materiale promozionale, commerciale e pubblicitario o inerente eventi ed
-                            iniziative, da parte di Ferramenta Paride Srl.
+                            iniziative, da parte di SCHIAVON PARIDE FERRAMENTA.
                         </li>
                     </ul>
                     Il trattamento dati per tale finalità risponde all’art. 6 comma 1 lett. a della L. 2016/679.

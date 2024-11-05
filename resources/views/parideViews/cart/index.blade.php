@@ -185,7 +185,7 @@ try {
                         <div class="d-md-flex justify-content-between">
                             <div class="card card-default col-md-6">
                                 <div class="card-body ">
-                                    <p>Il presente documento verrà caricato e seguentemente processato da Ferramenta Paride Srl.
+                                    <p>Il presente documento verrà caricato e seguentemente processato da Ferramenta Paride.
                                         <br>
                                         Riceverà uan email con la conferma d'ordine.
                                     </p>

@@ -118,7 +118,7 @@ try {
           </button>
           @endif
           @if (!empty($prod->url))
-          <a type="button" class="btn btn-primary btn-block" href="{{ $prod->url }}" target="_blank"><strong class="text-white">Link a Ferramenta Paride Srl eShop</strong></a>
+          <a type="button" class="btn btn-primary btn-block" href="{{ $prod->url }}" target="_blank"><strong class="text-white">Link a Ferramenta Paride eShop</strong></a>
           @endif
         </div>
       </div>

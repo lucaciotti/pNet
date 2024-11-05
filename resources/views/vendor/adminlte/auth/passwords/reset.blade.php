@@ -114,7 +114,7 @@
                         È fatto espresso divieto al Cliente di cedere a terzi le proprie credenziali di accesso al portale pNet ai sensi
                         dell’art. 1.10, salvo il previo consenso scritto di Ferramenta Schiavon Paride.
                         Il Cliente si impegna a conservare la UserID e la password con la massima cura, a non comunicarla a terzi e a notificare
-                        immediatamente e per iscritto tramite posta certificata a Ferramenta Paride Srl l'eventuale furto, smarrimento o
+                        immediatamente e per iscritto tramite posta certificata a Schiavon Paride Ferramenta l'eventuale furto, smarrimento o
                         perdita della password.
                     </p>
 
