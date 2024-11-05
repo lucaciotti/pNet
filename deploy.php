@@ -24,6 +24,7 @@ host('prod')
 
 host('dev')
     ->set('stage', 'dev')
+    ->set('branch', 'develop')
     ->set('remote_user', 'root')
     ->set('hostname', 'pnet.lucaciotti.space')
     ->set('identity_file', '~/.ssh/id_ed25519_old')
