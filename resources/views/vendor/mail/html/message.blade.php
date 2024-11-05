@@ -3,7 +3,7 @@
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
 <img src="{{ asset(config('adminlte.logo_img_login')) }}" style="height: 30px;width: 30px;" data-auto-embed="attachment">
-    Ferramenta Paride - {{ config('app.name') }}
+    Ferramenta Paride Srl - {{ config('app.name') }}
 @endcomponent
 @endslot
 
@@ -37,7 +37,7 @@ a tutela del destinatario tutti i dati presenti verranno trattati in base alla n
 Rif.D.L.196/2003.<br>
 -------------------------------------------------------------------------------------------------------<br>
 Titolare del trattamento:<br>
-Schiavon Paride Ferramenta<br>
+Ferramenta Paride Srl<br>
 Via Lovadina, 63/2 - 31050 Vascon di Carbonera (TV) - Italy<br>
 Tel-1 (0039) 0422-350065 - Tel-2 (0039) 0422-448300<br>
 P.I. 01932040262 Reg. Imprese Treviso n. 177409<br>

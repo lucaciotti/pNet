@@ -28,7 +28,7 @@
             </div>
         </div>
         <p>
-            al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità strettamente connesse allo
+            al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità strettamente connesse allo
             svolgimento delle attività amministrative indicate al punto 2.1.
         </p>
 
@@ -58,7 +58,7 @@
             </div>
         </div>
         <p>
-            al trattamento dei dati personali da parte di Schiavon Paride Ferramenta per le finalità informative di marketing
+            al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità informative di marketing
             indicate al punto 2.2.
         </p>
         <hr>

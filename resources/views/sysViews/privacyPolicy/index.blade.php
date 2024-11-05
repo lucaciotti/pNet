@@ -5,7 +5,7 @@
 @section('content_header')
 <br>
 <h1 class="m-0 text-dark">
-  {{-- Privacy Policy - Ferramenta Paride --}}
+  {{-- Privacy Policy - Ferramenta Paride Srl --}}
 </h1>
 <br>
 @stop
