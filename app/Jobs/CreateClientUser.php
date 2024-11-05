@@ -119,24 +119,26 @@ class CreateClientUser implements ShouldQueue
                         }
                     }
                 }
-            } else {         
-                $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc.'</b> con email non valida <b>"'.$client->email.'"</b>';
-                if (App::environment(['local', 'staging'])) {
-                    Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
-                        $message
-                        ->to('pnet@lucaciotti.space')
-                        ->bcc(['luca.ciotti@gmail.com'])
-                        ->subject('ClientUser creation Job')
-                        ->setBody($html, 'text/html');
-                    });
-                } else {
-                    Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
-                        $message
-                        ->to('amministrazione@ferramentaparide.it')
-                        ->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])
-                        ->subject('ClientUser creation Job')
-                        ->setBody($html, 'text/html');
-                    });
+            } else {     
+                if($client->fat_email && !empty($client->email)) {    
+                    $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc.'</b> con email non valida <b>"'.$client->email.'"</b>';
+                    if (App::environment(['local', 'staging'])) {
+                        Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
+                            $message
+                            ->to('pnet@lucaciotti.space')
+                            ->bcc(['luca.ciotti@gmail.com'])
+                            ->subject('ClientUser creation Job')
+                            ->setBody($html, 'text/html');
+                        });
+                    } else {
+                        Mail::send([], [], function (\Illuminate\Mail\Message $message) use ($html) {
+                            $message
+                            ->to('amministrazione@ferramentaparide.it')
+                            ->bcc(['alexschiavon90@gmail.com', 'luca.ciotti@gmail.com'])
+                            ->subject('ClientUser creation Job')
+                            ->setBody($html, 'text/html');
+                        });
+                    }
                 }
             }
         }
