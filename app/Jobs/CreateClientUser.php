@@ -119,7 +119,7 @@ class CreateClientUser implements ShouldQueue
                     }
                 }
             } else {         
-                $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc'</b> con email non valida <b>"'.$client->email.'"</b>';
+                $html = '<h1>Attenzione</h1><br>Cliente --> <b>'.$client->id_cli_for.' - '.$client->rag_soc.'</b> con email non valida <b>"'.$client->email.'"</b>';
                 if (App::environment(['local', 'staging'])) {
                     Mail::send([], [], function (Message $message) use ($html) {
                         $message
