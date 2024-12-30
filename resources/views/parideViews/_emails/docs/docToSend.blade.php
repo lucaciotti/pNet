@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }} [{{ $user->codcli }}@pnet.it]  
 
-con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Ferramenta Paride Srl](https://www.ferramentaparide.it/).  
+con questa email automatica le inviamo in allegato il documento {{ $descrTipoDoc }} emesso da pNet, il portale extranet di [Paride Srl](https://www.ferramentaparide.it/).  
 
 @if (!empty($urlTracking))
     Il materiale è stato spedito e può tracciarne la consegna:
@@ -20,7 +20,7 @@ Come sempre, rimaniamo a sua disposizione.
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.  
 
-Staff pNet Ferramenta Paride Srl
+Staff pNet Paride Srl
 
 {{-- @slot('subcopy')
 <small>

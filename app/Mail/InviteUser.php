@@ -48,8 +48,8 @@ class InviteUser extends Mailable
         $this->user->save();
         Log::info('Invio Invito a ' . $this->user->name);
         $from = 'amministrazione@ferramentaparide.it';
-        return $this->from($from, 'pNet - Ferramenta Paride Srl')
-                    ->subject('Invito alla registrazione Ferramenta Paride Srl')
+        return $this->from($from, 'pNet - Paride Srl')
+                    ->subject('Invito alla registrazione Paride Srl')
                     ->markdown('sysViews._emails.users.invite');
     }
 }

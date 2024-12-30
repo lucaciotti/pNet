@@ -101,10 +101,10 @@
                         <strong>1. DATI PERSONALI</strong><br>
                         Il Cliente autorizza il trattamento dei suoi dati personali esclusivamente per le finalità di cui al punto a), con le
                         modalità e nei limiti ai sensi dell'art. 13 del D.lgs. 196/03 del codice civile italiano.
-                        Il Cliente autorizza il trattamento dei suoi dati personali forniti a Ferramenta Schiavon Paride esclusivamente per le
+                        Il Cliente autorizza il trattamento dei suoi dati personali forniti a Paride Srl esclusivamente per le
                         finalità di cui ai punti b) e c), con le modalità e nei limiti, ai sensi dell'art. 13 del D.lgs. 196/03 del codice
                         civile italiano.
-                        Il Cliente autorizza, inoltre, Ferramenta Schiavon Paride, per mezzo del piattaforma pNet, a inviargli email contenenti
+                        Il Cliente autorizza, inoltre, Paride Srl, per mezzo del piattaforma pNet, a inviargli email contenenti
                         informazioni relative ai suoi acquisti ed ai suoi documenti.
                         [E' importante sottolineare come questa configurazione possa essere disattivata dall'utente in qualsiasi momento.]
                     </p>
@@ -112,18 +112,18 @@
                     <p>
                         <strong>2. DIVIETO DI CESSIONE</strong><br>
                         È fatto espresso divieto al Cliente di cedere a terzi le proprie credenziali di accesso al portale pNet ai sensi
-                        dell’art. 1.10, salvo il previo consenso scritto di Ferramenta Schiavon Paride.
+                        dell’art. 1.10, salvo il previo consenso scritto di Paride Srl.
                         Il Cliente si impegna a conservare la UserID e la password con la massima cura, a non comunicarla a terzi e a notificare
-                        immediatamente e per iscritto tramite posta certificata a Ferramenta Paride Srl l'eventuale furto, smarrimento o
+                        immediatamente e per iscritto tramite posta certificata a Paride Srl l'eventuale furto, smarrimento o
                         perdita della password.
                     </p>
 
                     <p>
                         <strong>3. PREZZI ESPOSTI E DIPONIBILITA' DEI PRODOTTI</strong><br>                        
                         Tutti i prezzi dei prodotti esposti ed indicati nel catalogo di pNet sono espressi IVA esclusa.
-                        Nonostante ogni sforzo di Ferramenta Schiavon Paride, non è possibile escludere che per una parte degli articoli
+                        Nonostante ogni sforzo di Paride Srl, non è possibile escludere che per una parte degli articoli
                         presenti sul catalogo sia indicato per errore un prezzo diverso da quello effettivo.
-                        In tal caso Ferramenta Schiavon Paride si impegna ad informare il Cliente e a comunicare l'informazione corretta, previa
+                        In tal caso Paride Srl si impegna ad informare il Cliente e a comunicare l'informazione corretta, previa
                         verifica.
                         Quanto sopra è valido anche per la disponibilità dei prodotti.
                         Inoltre, il prezzo indicato è un prezzo base e potrebbe variare a seconda delle scontistiche del Cliente e/o famiglia di
@@ -139,14 +139,14 @@
                     <p>
                         <strong>5. CANCELLAZIONE DELL'ACCOUNT CLIENTE</strong><br>                       
                         Il Cliente che voglia cancellare il proprio account può farlo inviando la richiesta attraverso posta certificata.
-                        Ferramenta Schiavon Paride si riserva 3 giorni lavorativi per il completamento dell'operazione.
+                        Paride Srl si riserva 3 giorni lavorativi per il completamento dell'operazione.
                         Ad avvenuta cancellazione, una mail di conferma viene inviata a Cliente.
                     </p>
 
                     <p>
                         <strong>6. CONDIZIONI GENERALI</strong><br>
-                        Le presenti Condizioni possono subire modifiche o aggiornamenti in qualsiasi momento da parte di Ferramenta Schiavon
-                        Paride; in tal caso Ferramenta Schiavon Paride provvederà a darne comunicazione al Cliente attraverso gli appositi
+                        Le presenti Condizioni possono subire modifiche o aggiornamenti in qualsiasi momento da parte di Paride Srl; 
+                        in tal caso Paride Srl provvederà a darne comunicazione al Cliente attraverso gli appositi
                         canali.
                         Il Cliente dichiara di aver letto, compreso e accettato quanto indicato nella presente.
                     </p>

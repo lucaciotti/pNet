@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }}
 
-con questa email automatica la invitiamo ad accedere a "pNet", il portale extranet di [Ferramenta Paride Srl](https://www.ferramentaparide.it/).  
+con questa email automatica la invitiamo ad accedere a "pNet", il portale extranet di [Paride Srl](https://www.ferramentaparide.it/).  
 In questo modo potrà visualizzare lo stato dei sui Preventivi, Ordini, DDT e Fatture, unitamente al catalogo completo dei nostri prodotti.  
 
 Il *nickname* a lei associato è:  
@@ -43,7 +43,7 @@ Come sempre, rimaniamo a sua disposizione.
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.  
 
-Staff pNet Ferramenta Paride Srl  
+Staff pNet Paride Srl  
 
 {{-- @slot('subcopy')
 <small>

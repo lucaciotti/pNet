@@ -82,7 +82,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="container">
                 <div class="row centered">
                     <div class="col-lg-12">
-                        <h1>Ferramenta Paride Srl on the Net
+                        <h1>Paride Srl on the Net
                             <br>
                             <b><a href="{{ url('/login') }}">pNet</a></b>
                         </h1>
@@ -144,7 +144,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         <div id="footerwrap">
             <div class="container">
                 <div class="col-lg-5">
-                    <h3>Ferramenta Paride Srl</h3>
+                    <h3>Paride Srl</h3>
                     {{-- <p>
                         via Piane 90,<br />
                         Coriano, Rimini<br />

@@ -61,8 +61,8 @@ class XwToSend extends Mailable
         }
         $nameDoc = $this->getNameDoc($this->doc);
         Log::info('Invio ' . $nameDoc . '- Mail interna');
-        return $this->from($from, 'pNet - Ferramenta Paride Srl')
-                    ->subject('Invio ' . $nameDoc . ' - Ferramenta Paride Srl')
+        return $this->from($from, 'pNet - Paride Srl')
+                    ->subject('Invio ' . $nameDoc . ' - Paride Srl')
                     ->markdown('parideViews._emails.docs.xwToSend')
                     ->attach($this->filePDFToAttach)
                     ->attach($this->fileCSVToAttach);

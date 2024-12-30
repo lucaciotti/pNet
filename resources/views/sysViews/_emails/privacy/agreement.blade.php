@@ -1,7 +1,7 @@
 @component('mail::message')
 # Buongiorno, {{ $user->name }}
 
-le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei concesso a [Ferramenta Paride Srl](https://www.ferramentaparide.it/).     
+le riepiloghiamo qui di seguito il "Consenso alla Privacy" da lei concesso a [Paride Srl](https://www.ferramentaparide.it/).     
 Da questo momento potrà visualizzare lo stato dei sui Preventivi, Ordini, DDT e Fatture, unitamente al catalogo completo
 dei nostri prodotti, sui nostri sistemi informativi.
 
@@ -20,7 +20,7 @@ dell’Art.13 del Regolamento UE 2016/679, con la presente:</div>
 @endif
 
 <div style="text-align: justify">
-al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità strettamente connesse allo
+al trattamento dei dati personali da parte di Paride Srl per le finalità strettamente connesse allo
 svolgimento delle attività amministrative indicate al punto 2.1</div>
 <br>
 <div style="text-align: justify">
@@ -36,14 +36,14 @@ Inoltre, date le premesse di cui al punto precedente:</div>
 
 <br>
 <div style="text-align: justify">
-al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità informative di marketing
+al trattamento dei dati personali da parte di Paride Srl per le finalità informative di marketing
 indicate al punto 2.2.</div>
 <br>
 
 <div style="text-align: justify">
 Sono consapevole e sono stato informato del fatto di potere revocare il consenso in qualunque momento inviando una
 richiesta per posta elettronica
-certificata all’indirizzo amministrazioneparide@pec.it o tramite posta raccomandata all’indirizzo Via Lovadina 63/2 -
+certificata all’indirizzo paride.pec@pec.it o tramite posta raccomandata all’indirizzo Via Lovadina 63/2 -
 31050 – Vascon di Carbonera (TV).</div>
 
 <br>
@@ -67,7 +67,7 @@ Come sempre, rimaniamo a sua disposizione.
 
 Ringraziando per l'attenzione, auguriamo un buon lavoro.
 
-Staff pNet Ferramenta Paride Srl
+Staff pNet Paride Srl
 
 {{-- @slot('subcopy')
 <small>

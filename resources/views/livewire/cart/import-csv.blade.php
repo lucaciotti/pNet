@@ -13,7 +13,7 @@
     <hr>
     <div class="text-sm text-center">
         <h6>Crea un ordine a partire da un file CSV</h6>
-        <p>Il file CSV deve contenere una prima colonna con il codice del prodotto di Ferramenta Paride Srl e una seconda colonna
+        <p>Il file CSV deve contenere una prima colonna con il codice del prodotto di Paride Srl e una seconda colonna
             con la quantità del prodotto.</p>
         <a href="{{ url('/download/cart_example.csv') }}" download class="text-primary"><i
                 class="fa fa-download"></i>Scarica file di esempio</a>

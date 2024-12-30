@@ -35,8 +35,8 @@ class PrivacyUserAgreement extends Mailable
     {
         Log::info('Privacy Agreement a ' . $this->user->name);
         $from = 'amministrazione@ferramentaparide.it';
-        return $this->from($from, 'pNet - Ferramenta Paride Srl')
-        ->subject('Invito alla registrazione Ferramenta Paride Srl')
+        return $this->from($from, 'pNet - Paride Srl')
+        ->subject('Invito alla registrazione Paride Srl')
         ->markdown('sysViews._emails.privacy.agreement');
     }
 }

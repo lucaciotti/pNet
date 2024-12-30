@@ -48,7 +48,7 @@ Se non ha richiesto un password reset, non è richiesta alcuna azione.
 
 Auguriamo un buon lavoro.
 
-Staff pNet Ferramenta Paride Srl
+Staff pNet Paride Srl
 
 {{-- Salutation --}}
 {{-- @if (! empty($salutation))

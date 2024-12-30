@@ -28,7 +28,7 @@
             </div>
         </div>
         <p>
-            al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità strettamente connesse allo
+            al trattamento dei dati personali da parte di Paride Srl per le finalità strettamente connesse allo
             svolgimento delle attività amministrative indicate al punto 2.1.
         </p>
 
@@ -58,14 +58,14 @@
             </div>
         </div>
         <p>
-            al trattamento dei dati personali da parte di Ferramenta Paride Srl per le finalità informative di marketing
+            al trattamento dei dati personali da parte di Paride Srl per le finalità informative di marketing
             indicate al punto 2.2.
         </p>
         <hr>
         <p>
             Sono consapevole e sono stato informato del fatto di potere revocare il consenso in qualunque momento inviando una
             richiesta per posta
-            elettronica certificata all’indirizzo amministrazioneparide@pec.it o tramite posta raccomandata all’indirizzo Via
+            elettronica certificata all’indirizzo paride.pec@pec.it o tramite posta raccomandata all’indirizzo Via
             Lovadina 63/2 - 31050 – Vascon di Carbonera (TV).
         </p>
 
