@@ -8,6 +8,7 @@
                 <option value="Ritiro in Sede">Ritiro in Sede</option>
                 <option value="Porto Franco">Porto Franco</option>
                 <option value="Porto Assegnato">Porto Assegnato</option>
+                <option value="Ritiro in Locker Esterno">Ritiro in Locker Esterno</option>
             </select>
             @error('tipo_sped') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
