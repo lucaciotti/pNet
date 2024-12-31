@@ -34,9 +34,9 @@
                     TITOLARE DEL TRATTAMENTO, ai sensi dell’art. 28 del D. Lgs. 196/03 nonché degli artt. 4 e 24
                     del Regolamento (UE) 679/2016 è Paride Srl con sede legale in Vascon
                     di Carbonera (TV), Via Lovadina 63/2, nella persona del legale rappresentante e titolare.
-                    RESPONSABILE DEL TRATTAMENTO, ai sensi dell’art. 29 del D. Lgs. 196/03 e degli artt. 4 e 28
+                    {{-- RESPONSABILE DEL TRATTAMENTO, ai sensi dell’art. 29 del D. Lgs. 196/03 e degli artt. 4 e 28
                     del Regolamento (UE) 679/2016 è SCHIAVON PARIDE, Vascon di Carbonera (TV), Via Lovadina
-                    63/2.
+                    63/2. --}}
                 </p>
                 <li><strong>FINALITÀ E LICEITÀ DEL TRATTAMENTO</strong></li>
                 <p class="card-text">
