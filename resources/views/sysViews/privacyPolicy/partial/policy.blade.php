@@ -101,8 +101,8 @@
                 <p class="card-text">
                     Lei potrà far valere i propri diritti come espressi dagli art. 7 e ss. del D. Lgs. 196/03 e come
                     espressi dagli artt. 15, 16, 17, 18, 19, 20, 21, 22 del Regolamento UE 679/2016, rivolgendosi al
-                    titolare, oppure al responsabile del trattamento, inviando una mail
-                    all’indirizzo info@ferramentaparide.it. Lei ha il diritto, in qualunque momento, di chiedere al titolare
+                    titolare, inviando una mail
+                    all’indirizzo privacy@ferramentaparide.it. Lei ha il diritto, in qualunque momento, di chiedere al titolare
                     del trattamento l’accesso ai Suoi dati personali, la rettifica, la cancellazione degli stessi, la
                     limitazione del trattamento che lo riguardano o di opporsi al loro trattamento nonché di esercitare il
                     diritto alla portabilità di tali dati. Qualora il trattamento sia basato sull’articolo 6, paragrafo 1, lettera
