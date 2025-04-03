@@ -45,7 +45,8 @@
             <span class="contentSubTitle">Estremi Pagamento</span>
             <dl class="dl-horizontal">
                 <dd>INTESA SAN PAOLO AG. MASERADA SUL PIAVE (TV)</dd>
-                <dd>IBAN: IT61 R030 6961 7881 0000 0001 249</dd>
+                {{-- <dd>IBAN: IT61 R030 6961 7881 0000 0001 249</dd> --}}
+                <dd>IBAN: IT73 Q030 6961 5051 0000 0006 575</dd>
                 <dd>SWIFT: BCITITMM</dd>
             </dl>
             @endif
