@@ -39,9 +39,9 @@ class Product extends Model implements UseCartable
 
         if (Auth::check()) {
             if (in_array(RedisUser::get('role'), ['client', 'agent'])) {
-                static::addGlobalScope('Attivo', function (Builder $builder) {
-                    $builder->where('non_attivo', '0');
-                });
+                // static::addGlobalScope('Attivo', function (Builder $builder) {
+                //     $builder->where('non_attivo', '0');
+                // });
             }
         }
     }
